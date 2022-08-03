@@ -10,58 +10,53 @@ final class MainCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
-    //TabBarController 생성 후 보여주기
     func start() {
-        
+
+        createChildrenCoordinators()
+
         let tabBarController = UITabBarController()
-        let first = ViewController()
-        let firstTabBarItem = TabBarItems(first)
-        first.tabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage(named: firstTabBarItem.imageName),
-            tag: firstTabBarItem.rawValue
-        )
-        first.tabBarItem.imageInsets = UIEdgeInsets(top: 22, left: 0, bottom: -22, right: 0)
-        
-        let second = ViewController()
-        let secondTabBarItem = TabBarItems(second)
-        second.tabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage(named: secondTabBarItem.imageName),
-            tag: secondTabBarItem.rawValue
-        )
-        second.tabBarItem.imageInsets = UIEdgeInsets(top: 22, left: 0, bottom: -22, right: 0)
-        
-        tabBarController.viewControllers = [first,second]
+        tabBarController.viewControllers = children.compactMap {
+            $0.navigationController
+        }
+
         navigationController.pushViewController(tabBarController, animated: false)
+    }
+
+    private func createChildrenCoordinators() {
+        ChildType.allCases.forEach {
+            let coordinator = $0.coordinator
+            coordinator.parentCoordiantor = self
+            coordinator.navigationController.tabBarItem = $0.tabBarItem
+            children.append(coordinator)
+            coordinator.start()
+        }
     }
 }
 
-extension MainCoordinator {
-    
-    enum TabBarItems: Int {
-        case mainViewController = 0
-        case albumViewController = 1
-        case none = 2
-        
-        var imageName: String {
+// MARK: - Child Coordinator 타입
+private extension MainCoordinator {
+
+    enum ChildType: Int, CaseIterable {
+
+        case goalCoordinator = 0
+        case albumCoordinator = 1
+
+        var coordinator: Coordinator {
             switch self {
-            case .mainViewController:
-                return "mainTabIcon"
-            case .albumViewController:
-                return "albumTabIcon"
-            case .none:
-                return ""
+            case .goalCoordinator:
+                return GoalCoordinator()
+            case .albumCoordinator:
+                return AlbumCoordinator()
             }
         }
-        
-        init(_ viewController: UIViewController) {
-            let map = [
-                ObjectIdentifier(ViewController.self):
-                    TabBarItems.mainViewController,
-            ]
-            self = map[ObjectIdentifier(type(of:viewController))] ?? .none
+
+        var tabBarItem: UITabBarItem {
+            switch self {
+            case .goalCoordinator:
+                return UITabBarItem(title: nil, image: UIImage(systemName: "pencil"), tag: 0)
+            case .albumCoordinator:
+                return UITabBarItem(title: nil, image: UIImage(systemName: "pencil"), tag: 1)
+            }
         }
     }
-    
 }
