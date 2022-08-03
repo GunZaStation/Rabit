@@ -18,6 +18,8 @@
 		B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CD289A04F200EE1833 /* Coordinator.swift */; };
 		B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CF289A065200EE1833 /* AppCoordinator.swift */; };
 		B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D1289A087000EE1833 /* MainCoordinator.swift */; };
+		B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */; };
+		B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		B5D131CD289A04F200EE1833 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B5D131CF289A065200EE1833 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D1289A087000EE1833 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCoordinator.swift; sourceTree = "<group>"; };
+		B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 		B569E9F02898D4A8006FFFB9 /* rabit */ = {
 			isa = PBXGroup;
 			children = (
+				B5D131D4289A0CF100EE1833 /* Goal */,
+				B5D131D3289A0CE900EE1833 /* Album */,
 				B5D131CF289A065200EE1833 /* AppCoordinator.swift */,
 				B5D131D1289A087000EE1833 /* MainCoordinator.swift */,
 				B5D131CC289A04E600EE1833 /* Coordinator */,
@@ -139,6 +145,22 @@
 				B5D131CD289A04F200EE1833 /* Coordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		B5D131D3289A0CE900EE1833 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		B5D131D4289A0CF100EE1833 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */,
+			);
+			path = Goal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +299,8 @@
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
 				B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */,
+				B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */,
+				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
