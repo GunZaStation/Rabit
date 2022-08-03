@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02B7FD26289A1E3400EBA86D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD25289A1E3400EBA86D /* SnapKit */; };
+		02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD28289A1EC300EBA86D /* RealmSwift */; };
+		02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2B289A1EEC00EBA86D /* RxCocoa */; };
+		02B7FD2E289A1EEC00EBA86D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2D289A1EEC00EBA86D /* RxSwift */; };
 		B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */; };
 		B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */; };
 		B569E9F62898D4A8006FFFB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F52898D4A8006FFFB9 /* ViewController.swift */; };
@@ -64,6 +68,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */,
+				02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */,
+				02B7FD2E289A1EEC00EBA86D /* RxSwift in Frameworks */,
+				02B7FD26289A1E3400EBA86D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +187,12 @@
 			dependencies = (
 			);
 			name = rabit;
+			packageProductDependencies = (
+				02B7FD25289A1E3400EBA86D /* SnapKit */,
+				02B7FD28289A1EC300EBA86D /* RealmSwift */,
+				02B7FD2B289A1EEC00EBA86D /* RxCocoa */,
+				02B7FD2D289A1EEC00EBA86D /* RxSwift */,
+			);
 			productName = rabit;
 			productReference = B569E9EE2898D4A8006FFFB9 /* rabit.app */;
 			productType = "com.apple.product-type.application";
@@ -251,6 +265,11 @@
 				Base,
 			);
 			mainGroup = B569E9E52898D4A8006FFFB9;
+			packageReferences = (
+				02B7FD24289A1E3400EBA86D /* XCRemoteSwiftPackageReference "SnapKit" */,
+				02B7FD27289A1EC300EBA86D /* XCRemoteSwiftPackageReference "realm-swift" */,
+				02B7FD2A289A1EEC00EBA86D /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = B569E9EF2898D4A8006FFFB9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -634,6 +653,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		02B7FD24289A1E3400EBA86D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		02B7FD27289A1EC300EBA86D /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		02B7FD2A289A1EEC00EBA86D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		02B7FD25289A1E3400EBA86D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B7FD24289A1E3400EBA86D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		02B7FD28289A1EC300EBA86D /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B7FD27289A1EC300EBA86D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		02B7FD2B289A1EEC00EBA86D /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B7FD2A289A1EEC00EBA86D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		02B7FD2D289A1EEC00EBA86D /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B7FD2A289A1EEC00EBA86D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B569E9E62898D4A8006FFFB9 /* Project object */;
 }
