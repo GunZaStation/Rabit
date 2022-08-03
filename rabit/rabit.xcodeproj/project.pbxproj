@@ -10,6 +10,7 @@
 		02520989289A5C1D00E7E604 /* ThumbnailPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520988289A5C1D00E7E604 /* ThumbnailPictureCell.swift */; };
 		0252098B289A5DA900E7E604 /* ThumbnailPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */; };
 		0252098D289A607500E7E604 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098C289A607500E7E604 /* AlbumCell.swift */; };
+		0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098E289A661E00E7E604 /* AlbumHeaderView.swift */; };
 		02B7FD26289A1E3400EBA86D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD25289A1E3400EBA86D /* SnapKit */; };
 		02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD28289A1EC300EBA86D /* RealmSwift */; };
 		02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2B289A1EEC00EBA86D /* RxCocoa */; };
@@ -50,6 +51,7 @@
 		02520988289A5C1D00E7E604 /* ThumbnailPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailPictureCell.swift; sourceTree = "<group>"; };
 		0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailPictureViewController.swift; sourceTree = "<group>"; };
 		0252098C289A607500E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
+		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
 		B569E9EE2898D4A8006FFFB9 /* rabit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rabit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			children = (
 				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
 				0252098C289A607500E7E604 /* AlbumCell.swift */,
+				0252098E289A661E00E7E604 /* AlbumHeaderView.swift */,
 				0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */,
 				02520988289A5C1D00E7E604 /* ThumbnailPictureCell.swift */,
 			);
@@ -324,6 +327,7 @@
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B569E9F62898D4A8006FFFB9 /* ViewController.swift in Sources */,
+				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				02520989289A5C1D00E7E604 /* ThumbnailPictureCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
