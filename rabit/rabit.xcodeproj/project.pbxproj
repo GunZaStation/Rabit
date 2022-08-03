@@ -17,6 +17,7 @@
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
 		B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CD289A04F200EE1833 /* Coordinator.swift */; };
 		B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CF289A065200EE1833 /* AppCoordinator.swift */; };
+		B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D1289A087000EE1833 /* MainCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B5D131CD289A04F200EE1833 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B5D131CF289A065200EE1833 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		B5D131D1289A087000EE1833 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				B5D131CF289A065200EE1833 /* AppCoordinator.swift */,
+				B5D131D1289A087000EE1833 /* MainCoordinator.swift */,
 				B5D131CC289A04E600EE1833 /* Coordinator */,
 				B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */,
 				B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
+				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B569E9F62898D4A8006FFFB9 /* ViewController.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,

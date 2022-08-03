@@ -1,6 +1,6 @@
 import UIKit
 
-final class AppCoordinator: Coordinator {
+final class MainCoordinator: Coordinator {
     
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
@@ -10,11 +10,10 @@ final class AppCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
+    //TabBarController 생성 후 보여주기
     func start() {
         
-        let mainCoordinator = MainCoordinator(navigationController: navigationController)
-        mainCoordinator.parentCoordiantor = self
-        children.append(mainCoordinator)
-        mainCoordinator.start()
+        let tabbarController = UITabBarController()
+        tabbarController.viewControllers = [ViewController()]
     }
 }
