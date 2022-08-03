@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520986289A5A2400E7E604 /* AlbumViewController.swift */; };
 		02520989289A5C1D00E7E604 /* ThumbnailPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520988289A5C1D00E7E604 /* ThumbnailPictureCell.swift */; };
 		0252098B289A5DA900E7E604 /* ThumbnailPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */; };
 		0252098D289A607500E7E604 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098C289A607500E7E604 /* AlbumCell.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02520986289A5A2400E7E604 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		02520988289A5C1D00E7E604 /* ThumbnailPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailPictureCell.swift; sourceTree = "<group>"; };
 		0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailPictureViewController.swift; sourceTree = "<group>"; };
 		0252098C289A607500E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
+				02520986289A5A2400E7E604 /* AlbumViewController.swift */,
 				0252098C289A607500E7E604 /* AlbumCell.swift */,
 				0252098E289A661E00E7E604 /* AlbumHeaderView.swift */,
 				0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */,
@@ -328,6 +331,7 @@
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B569E9F62898D4A8006FFFB9 /* ViewController.swift in Sources */,
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
+				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				02520989289A5C1D00E7E604 /* ThumbnailPictureCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,

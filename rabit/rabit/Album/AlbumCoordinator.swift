@@ -11,7 +11,7 @@ final class AlbumCoordinator: Coordinator {
     }
 
     func start() {
-        let viewController = ViewController()
-        navigationController.pushViewController(viewController, animated: true)
+        let viewController = AlbumViewController()
+        navigationController.pushViewController(viewController, animated: false)
     }
 }
