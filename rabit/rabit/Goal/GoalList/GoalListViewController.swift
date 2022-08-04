@@ -41,8 +41,11 @@ final class GoalListViewController: UIViewController {
     private func bind() {
         
         viewModel?.categories
-            .bind(to: goalListCollectionView.rx.items(cellIdentifier: GoalListCollectionViewCell.identifier, cellType: GoalListCollectionViewCell.self)) { _, model, cell in
-                print("셀 초기화 확인")
+            .bind(to: goalListCollectionView.rx.items(cellIdentifier: GoalListCollectionViewCell.identifier, cellType: GoalListCollectionViewCell.self)) { row, model, cell in
+                let target = 100
+                let progress = [35,45,50,70,80,90].shuffled().randomElement() ?? 40
+                
+                cell.updateProgress(progress: progress, target: target)
             }
             .disposed(by: disposeBag)
     }

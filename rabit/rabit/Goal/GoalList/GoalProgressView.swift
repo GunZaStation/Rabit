@@ -35,8 +35,7 @@ final class GoalProgressView: UIView {
     
     var progress: CGFloat? {
         didSet {
-            progressViewWidthConstraint?.constant = progress ?? 0.1
-            progressView.layoutIfNeeded()
+            updateProgress(progress: progress ?? 0.11)
         }
     }
     

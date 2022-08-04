@@ -39,6 +39,12 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func updateProgress(progress: Int, target: Int) {
+        
+        let ratio = CGFloat(progress) /  CGFloat(target)
+        goalProgressView.progress = ratio
+    }
+    
     private func setAttributes() {
         
         contentView.layer.borderWidth = 1.0
