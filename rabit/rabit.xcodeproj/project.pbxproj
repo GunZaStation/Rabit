@@ -102,6 +102,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		022B7835289B7A0D009003EA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0252098C289A607500E7E604 /* AlbumCell.swift */,
+				0252098E289A661E00E7E604 /* AlbumHeaderView.swift */,
+				0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */,
+				02520988289A5C1D00E7E604 /* ThumbnailPictureCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B569E9E52898D4A8006FFFB9 = {
 			isa = PBXGroup;
 			children = (
@@ -170,10 +181,7 @@
 			children = (
 				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
 				02520986289A5A2400E7E604 /* AlbumViewController.swift */,
-				0252098C289A607500E7E604 /* AlbumCell.swift */,
-				0252098E289A661E00E7E604 /* AlbumHeaderView.swift */,
-				0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */,
-				02520988289A5C1D00E7E604 /* ThumbnailPictureCell.swift */,
+				022B7835289B7A0D009003EA /* Views */,
 			);
 			path = Album;
 			sourceTree = "<group>";
