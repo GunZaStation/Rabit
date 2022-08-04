@@ -23,6 +23,7 @@
 		B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D1289A087000EE1833 /* MainCoordinator.swift */; };
 		B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */; };
 		B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */; };
+		B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */; };
 		B5D131DD289C14E000EE1833 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DC289C14E000EE1833 /* ViewController.swift */; };
 		B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */; };
 		B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */; };
@@ -65,6 +66,7 @@
 		B5D131D1289A087000EE1833 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoordinator.swift; sourceTree = "<group>"; };
+		B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewController.swift; sourceTree = "<group>"; };
 		B5D131DC289C14E000EE1833 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewCell.swift; sourceTree = "<group>"; };
 		B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressView.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		B5D131D9289C0E7D00EE1833 /* GoalList */ = {
 			isa = PBXGroup;
 			children = (
+				B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */,
 				B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */,
 				B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */,
 				B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */,
@@ -347,6 +350,7 @@
 				B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */,
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
+				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
 				B5D131DD289C14E000EE1833 /* ViewController.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
