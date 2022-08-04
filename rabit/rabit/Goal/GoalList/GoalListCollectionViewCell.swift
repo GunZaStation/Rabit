@@ -7,7 +7,6 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         label.textColor = .black
         label.text = "title"
@@ -16,7 +15,6 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
     
     private let subTitleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.textColor = .systemGray
         label.text = "subtitle"
@@ -25,7 +23,6 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
     
     private let goalProgressView: GoalProgressView = {
         let view = GoalProgressView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         view.layer.cornerRadius = 5
         return view

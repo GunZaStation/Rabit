@@ -7,7 +7,6 @@ final class GoalProgressView: UIView {
         let image = UIImage(named: "carrot")
         imageView.image = image
         imageView.contentMode = .scaleToFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
         return imageView
     }()
@@ -17,24 +16,20 @@ final class GoalProgressView: UIView {
         let image = UIImage(named: "rabbit")
         imageView.image = image
         imageView.backgroundColor = .clear
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let targetView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray4
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         view.layer.cornerRadius = 5
         return view
     }()
     
-    private var progressViewWidthConstraint: NSLayoutConstraint?
     private let progressView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemOrange
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -49,6 +44,14 @@ final class GoalProgressView: UIView {
         super.init(frame: frame)
         setAttributes()
         setupViews()
+    }
+    
+    private func updateProgress(progress: CGFloat) {
+        
+        progressView.snp.remakeConstraints {
+            $0.top.leading.bottom.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(progress)
+        }
     }
     
     required init?(coder: NSCoder) {
