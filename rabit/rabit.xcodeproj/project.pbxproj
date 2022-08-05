@@ -247,21 +247,21 @@
 			isa = PBXGroup;
 			children = (
 				B5D131E0289C29EE00EE1833 /* Models */,
-				B5D131D9289C0E7D00EE1833 /* GoalList */,
+				B5D131D9289C0E7D00EE1833 /* Views */,
 				B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */,
+				B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */,
+				B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
 		};
-		B5D131D9289C0E7D00EE1833 /* GoalList */ = {
+		B5D131D9289C0E7D00EE1833 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */,
 				B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */,
 				B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */,
-				B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */,
 			);
-			path = GoalList;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		B5D131E0289C29EE00EE1833 /* Models */ = {
