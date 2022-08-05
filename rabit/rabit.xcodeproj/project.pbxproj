@@ -20,7 +20,6 @@
 		02F37251289CE21400F361C7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37250289CE21400F361C7 /* Album.swift */; };
 		B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */; };
 		B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */; };
-		B569E9F62898D4A8006FFFB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F52898D4A8006FFFB9 /* ViewController.swift */; };
 		B569E9FB2898D4AA006FFFB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */; };
 		B569E9FE2898D4AA006FFFB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B569E9FC2898D4AA006FFFB9 /* LaunchScreen.storyboard */; };
 		B569EA092898D4AB006FFFB9 /* rabitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA082898D4AB006FFFB9 /* rabitTests.swift */; };
@@ -31,6 +30,13 @@
 		B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D1289A087000EE1833 /* MainCoordinator.swift */; };
 		B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */; };
 		B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */; };
+		B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */; };
+		B5D131DD289C14E000EE1833 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DC289C14E000EE1833 /* ViewController.swift */; };
+		B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */; };
+		B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */; };
+		B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */; };
+		B5D131E6289C2CFB00EE1833 /* GoalDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E5289C2CFB00EE1833 /* GoalDetail.swift */; };
+		B5D131E8289C2D1100EE1833 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E7289C2D1100EE1833 /* Goal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +66,6 @@
 		B569E9EE2898D4A8006FFFB9 /* rabit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rabit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B569E9F52898D4A8006FFFB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B569E9FD2898D4AA006FFFB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B569E9FF2898D4AA006FFFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -74,6 +79,13 @@
 		B5D131D1289A087000EE1833 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoordinator.swift; sourceTree = "<group>"; };
+		B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewController.swift; sourceTree = "<group>"; };
+		B5D131DC289C14E000EE1833 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewCell.swift; sourceTree = "<group>"; };
+		B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressView.swift; sourceTree = "<group>"; };
+		B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewModel.swift; sourceTree = "<group>"; };
+		B5D131E5289C2CFB00EE1833 /* GoalDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetail.swift; sourceTree = "<group>"; };
+		B5D131E7289C2D1100EE1833 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +135,33 @@
 				02F37250289CE21400F361C7 /* Album.swift */,
 			);
 			path = Models;
+      sourceTree = "<group>";
+		};
+		02F3724D289CB23F00F361C7 /* Supportings */ = {
+			isa = PBXGroup;
+			children = (
+				B5D131CF289A065200EE1833 /* AppCoordinator.swift */,
+				B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */,
+				B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */,
+			);
+			path = Supportings;
+			sourceTree = "<group>";
+		};
+		02F3724E289CB28300F361C7 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				B569E9FF2898D4AA006FFFB9 /* Info.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		02F3724F289CB28B00F361C7 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */,
+				B569E9FC2898D4AA006FFFB9 /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		B569E9E52898D4A8006FFFB9 = {
@@ -148,17 +187,14 @@
 		B569E9F02898D4A8006FFFB9 /* rabit */ = {
 			isa = PBXGroup;
 			children = (
+				B5D131D1289A087000EE1833 /* MainCoordinator.swift */,
+				02F3724D289CB23F00F361C7 /* Supportings */,
 				B5D131D4289A0CF100EE1833 /* Goal */,
 				B5D131D3289A0CE900EE1833 /* Album */,
-				B5D131CF289A065200EE1833 /* AppCoordinator.swift */,
-				B5D131D1289A087000EE1833 /* MainCoordinator.swift */,
 				B5D131CC289A04E600EE1833 /* Coordinator */,
-				B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */,
-				B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */,
-				B569E9F52898D4A8006FFFB9 /* ViewController.swift */,
-				B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */,
-				B569E9FC2898D4AA006FFFB9 /* LaunchScreen.storyboard */,
-				B569E9FF2898D4AA006FFFB9 /* Info.plist */,
+				B5D131DC289C14E000EE1833 /* ViewController.swift */,
+				02F3724F289CB28B00F361C7 /* Resource */,
+				02F3724E289CB28300F361C7 /* Configuration */,
 			);
 			path = rabit;
 			sourceTree = "<group>";
@@ -202,9 +238,31 @@
 		B5D131D4289A0CF100EE1833 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				B5D131E0289C29EE00EE1833 /* Models */,
+				B5D131D9289C0E7D00EE1833 /* GoalList */,
 				B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */,
 			);
 			path = Goal;
+			sourceTree = "<group>";
+		};
+		B5D131D9289C0E7D00EE1833 /* GoalList */ = {
+			isa = PBXGroup;
+			children = (
+				B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */,
+				B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */,
+				B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */,
+				B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */,
+			);
+			path = GoalList;
+			sourceTree = "<group>";
+		};
+		B5D131E0289C29EE00EE1833 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B5D131E5289C2CFB00EE1833 /* GoalDetail.swift */,
+				B5D131E7289C2D1100EE1833 /* Goal.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,19 +409,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
+				B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */,
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
-				B569E9F62898D4A8006FFFB9 /* ViewController.swift in Sources */,
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
+				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
+				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				02520989289A5C1D00E7E604 /* ThumbnailPictureCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
+				B5D131E6289C2CFB00EE1833 /* GoalDetail.swift in Sources */,
 				B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */,
 				B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */,
+				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
 				0252098B289A5DA900E7E604 /* ThumbnailPictureViewController.swift in Sources */,
 				0252098D289A607500E7E604 /* AlbumCell.swift in Sources */,
+				B5D131E8289C2D1100EE1833 /* Goal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,7 +597,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = rabit/Info.plist;
+				INFOPLIST_FILE = rabit/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = rabit;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -562,7 +625,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = rabit/Info.plist;
+				INFOPLIST_FILE = rabit/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = rabit;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
