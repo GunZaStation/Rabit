@@ -104,6 +104,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02F3724D289CB23F00F361C7 /* Supportings */ = {
+			isa = PBXGroup;
+			children = (
+				B5D131CF289A065200EE1833 /* AppCoordinator.swift */,
+				B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */,
+				B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */,
+			);
+			path = Supportings;
+			sourceTree = "<group>";
+		};
+		02F3724E289CB28300F361C7 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				B569E9FF2898D4AA006FFFB9 /* Info.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		02F3724F289CB28B00F361C7 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */,
+				B569E9FC2898D4AA006FFFB9 /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		B569E9E52898D4A8006FFFB9 = {
 			isa = PBXGroup;
 			children = (
@@ -127,17 +154,14 @@
 		B569E9F02898D4A8006FFFB9 /* rabit */ = {
 			isa = PBXGroup;
 			children = (
+				B5D131D1289A087000EE1833 /* MainCoordinator.swift */,
+				02F3724D289CB23F00F361C7 /* Supportings */,
 				B5D131D4289A0CF100EE1833 /* Goal */,
 				B5D131D3289A0CE900EE1833 /* Album */,
-				B5D131CF289A065200EE1833 /* AppCoordinator.swift */,
-				B5D131D1289A087000EE1833 /* MainCoordinator.swift */,
 				B5D131CC289A04E600EE1833 /* Coordinator */,
-				B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */,
-				B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */,
 				B5D131DC289C14E000EE1833 /* ViewController.swift */,
-				B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */,
-				B569E9FC2898D4AA006FFFB9 /* LaunchScreen.storyboard */,
-				B569E9FF2898D4AA006FFFB9 /* Info.plist */,
+				02F3724F289CB28B00F361C7 /* Resource */,
+				02F3724E289CB28300F361C7 /* Configuration */,
 			);
 			path = rabit;
 			sourceTree = "<group>";
@@ -530,7 +554,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = rabit/Info.plist;
+				INFOPLIST_FILE = rabit/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = rabit;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -558,7 +582,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = rabit/Info.plist;
+				INFOPLIST_FILE = rabit/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = rabit;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
