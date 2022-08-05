@@ -40,6 +40,7 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
     }
     
     func updateProgress(progress: Int, target: Int) {
+        guard target != 0 else { return }
         
         let ratio = CGFloat(progress) /  CGFloat(target)
         goalProgressView.progress = ratio

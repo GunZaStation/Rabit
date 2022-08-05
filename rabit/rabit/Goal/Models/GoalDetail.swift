@@ -4,6 +4,6 @@ struct GoalDetail {
     
     let title: String
     let subtitle: String
-    let progress: Int
+    var progress: Int
     let target: Int
 }
