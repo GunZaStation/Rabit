@@ -1,5 +1,7 @@
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class ThumbnailPictureViewController: UIViewController {
     private let thumbnailPictureCollectionView: UICollectionView = {
@@ -10,39 +12,24 @@ final class ThumbnailPictureViewController: UIViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
-
-    private var imgData: [UIImage?] = []
-
+    
+    private var imgData = BehaviorRelay(value: [UIImage?]())
+    private var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupThumbnailPictureCollectionView()
         setupViews()
+        imgData.accept([])
+        bind()
     }
 
     func update(with images: [UIImage?]) {
-        imgData = images
+        imgData.accept(images)
         DispatchQueue.main.async { [weak self] in
             self?.thumbnailPictureCollectionView.reloadSections([0])
         }
-    }
-}
-
-// MARK: - CollectionView datasource methods
-extension ThumbnailPictureViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imgData.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ThumbnailPictureCell.identifier,
-            for: indexPath
-        ) as? ThumbnailPictureCell else { return UICollectionViewCell() }
-
-        cell.configure(with: imgData[indexPath.item])
-
-        return cell
     }
 }
 
@@ -65,11 +52,21 @@ private extension ThumbnailPictureViewController {
         layout.scrollDirection = .horizontal
 
         thumbnailPictureCollectionView.collectionViewLayout = layout
-        thumbnailPictureCollectionView.dataSource = self
 
         thumbnailPictureCollectionView.register(
             ThumbnailPictureCell.self,
             forCellWithReuseIdentifier: ThumbnailPictureCell.identifier
         )
+    }
+    
+    func bind() {
+        imgData.asObservable()
+            .bind(to: thumbnailPictureCollectionView.rx.items(
+                    cellIdentifier: ThumbnailPictureCell.identifier,
+                    cellType: ThumbnailPictureCell.self
+            )) { _, item, cell in
+                cell.configure(with: item)
+            }
+            .disposed(by: disposeBag)
     }
 }
