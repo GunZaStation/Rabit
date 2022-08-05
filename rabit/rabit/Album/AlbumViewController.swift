@@ -1,5 +1,10 @@
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import RxDataSources
+
+typealias DataSource = CollectionViewSectionedDataSource<Album>
 
 final class AlbumViewController: UIViewController {
     private let albumCollectionView: UICollectionView = {
@@ -12,59 +17,29 @@ final class AlbumViewController: UIViewController {
     }()
 
     // Mock Data
-    private let data: [[UIImage?]] = [
-        [UIImage(systemName: "pencil"), UIImage(systemName: "pencil"), UIImage(systemName: "pencil")],
-        [UIImage(systemName: "pencil"), UIImage(systemName: "pencil"), UIImage(systemName: "pencil"), UIImage(systemName: "pencil")],
-        [UIImage(systemName: "pencil")]
+    private let data: [Album] = [
+        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData()]]),
+        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData()]]),
+        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData()]])
     ]
 
+    private var disposeBag = DisposeBag()
+    private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<Album> = {
+        return initializeDataSource()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupAlbumCollectionView()
         setupViews()
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.isHidden = true
-    }
-}
-
-extension AlbumViewController: UICollectionViewDataSource {
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return data.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: AlbumCell.identifier,
-            for: indexPath) as? AlbumCell else { return UICollectionViewCell() }
-
-        cell.configure(with: data[indexPath.item])
-
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader,
-              let header = collectionView.dequeueReusableSupplementaryView(
-                  ofKind: kind,
-                  withReuseIdentifier: AlbumHeaderView.identifier,
-                  for: indexPath
-              ) as? AlbumHeaderView else {
-            return UICollectionReusableView()
-        }
-
-        header.configure(with: "2022년 3월 21일")
-
-        return header
     }
 }
 
@@ -89,7 +64,6 @@ private extension AlbumViewController {
         layout.scrollDirection = .vertical
 
         albumCollectionView.collectionViewLayout = layout
-        albumCollectionView.dataSource = self
 
         albumCollectionView.register(
             AlbumCell.self,
@@ -100,5 +74,59 @@ private extension AlbumViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: AlbumHeaderView.identifier
         )
+    }
+
+    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Album> {
+        let configureCell: (DataSource, UICollectionView, IndexPath, Album.Item) -> UICollectionViewCell = { dataSource, collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: AlbumCell.identifier,
+                for: indexPath) as? AlbumCell else { return UICollectionViewCell(
+            ) }
+
+            let dataArr = dataSource.sectionModels[indexPath.section].items[0]
+
+            let imageArr = dataArr.compactMap { (data: Data?) -> UIImage? in
+                if let data = data {
+                    return UIImage(data: data)
+                }
+                return nil
+            }
+
+            cell.configure(with: imageArr)
+            return cell
+        }
+
+        let configureHeaderView: (DataSource, UICollectionView, String, IndexPath) -> UICollectionReusableView = { (dataSource, collectionView, kind, indexPath) in
+            guard kind == UICollectionView.elementKindSectionHeader,
+                  let header = collectionView.dequeueReusableSupplementaryView(
+                      ofKind: kind,
+                      withReuseIdentifier: AlbumHeaderView.identifier,
+                      for: indexPath
+                  ) as? AlbumHeaderView else {
+                return UICollectionReusableView()
+            }
+
+            let formatter = DateFormatter()
+            formatter.timeZone = .current
+            formatter.dateFormat = "yyyy년 MM월 dd일"
+            let targetDate = dataSource.sectionModels[indexPath.section].header
+            header.configure(with: formatter.string(from: targetDate))
+
+            return header
+        }
+
+        let dataSource = RxCollectionViewSectionedReloadDataSource<Album>(
+            configureCell: configureCell,
+            configureSupplementaryView: configureHeaderView
+        )
+
+        return dataSource
+    }
+
+    func bind() {
+        Observable.just(self.data)
+            .observe(on: MainScheduler.instance)
+            .bind(to: albumCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
     }
 }
