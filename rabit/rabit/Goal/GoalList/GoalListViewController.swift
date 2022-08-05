@@ -6,8 +6,16 @@ import RxSwift
 
 final class GoalListViewController: UIViewController {
     
-    private var viewModel: GoalListViewModel?
-    private let disposeBag = DisposeBag()
+    typealias DataSource = RxCollectionViewSectionedReloadDataSource
+    private let goalListDataSource = DataSource<Goal> { _, collectionView, indexPath, goalDetail in
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalListCollectionViewCell.identifier, for: indexPath) as? GoalListCollectionViewCell else { return UICollectionViewCell() }
+        
+        
+        cell.configure(title: goalDetail.title, subtitle: goalDetail.subtitle, progress: goalDetail.progress, target: goalDetail.target)
+        
+        return cell
+    }
     
     private lazy var goalListCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -24,6 +32,9 @@ final class GoalListViewController: UIViewController {
         return collectionView
     }()
     
+    private var viewModel: GoalListViewModel?
+    private let disposeBag = DisposeBag()
+
     convenience init(viewModel: GoalListViewModel = GoalListViewModel()) {
         
         self.init()
@@ -40,14 +51,9 @@ final class GoalListViewController: UIViewController {
     }
     
     private func bind() {
-        
+  
         viewModel?.categories
-            .bind(to: goalListCollectionView.rx.items(cellIdentifier: GoalListCollectionViewCell.identifier, cellType: GoalListCollectionViewCell.self)) { row, model, cell in
-                let target = 100
-                let progress = [35,45,50,70,80,90].shuffled().randomElement() ?? 40
-                
-                cell.updateProgress(progress: progress, target: target)
-            }
+            .bind(to: goalListCollectionView.rx.items(dataSource: goalListDataSource))
             .disposed(by: disposeBag)
     }
     
