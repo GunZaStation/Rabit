@@ -36,7 +36,7 @@ final class GoalProgressView: UIView {
     
     var progress: CGFloat? {
         didSet {
-            updateProgress(progress: progress ?? 0.11)
+            updateProgress(progress: progress ?? 0.0)
         }
     }
     
