@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
 		02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520986289A5A2400E7E604 /* AlbumViewController.swift */; };
 		02520989289A5C1D00E7E604 /* ThumbnailPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520988289A5C1D00E7E604 /* ThumbnailPictureCell.swift */; };
 		0252098B289A5DA900E7E604 /* ThumbnailPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */; };
@@ -81,6 +82,7 @@
 				02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */,
 				02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */,
 				02B7FD2E289A1EEC00EBA86D /* RxSwift in Frameworks */,
+				022B7838289C05C2009003EA /* RxDataSources in Frameworks */,
 				02B7FD26289A1E3400EBA86D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +217,7 @@
 				02B7FD28289A1EC300EBA86D /* RealmSwift */,
 				02B7FD2B289A1EEC00EBA86D /* RxCocoa */,
 				02B7FD2D289A1EEC00EBA86D /* RxSwift */,
+				022B7837289C05C2009003EA /* RxDataSources */,
 			);
 			productName = rabit;
 			productReference = B569E9EE2898D4A8006FFFB9 /* rabit.app */;
@@ -292,6 +295,7 @@
 				02B7FD24289A1E3400EBA86D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				02B7FD27289A1EC300EBA86D /* XCRemoteSwiftPackageReference "realm-swift" */,
 				02B7FD2A289A1EEC00EBA86D /* XCRemoteSwiftPackageReference "RxSwift" */,
+				022B7836289C05C2009003EA /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = B569E9EF2898D4A8006FFFB9 /* Products */;
 			projectDirPath = "";
@@ -683,6 +687,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		022B7836289C05C2009003EA /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		02B7FD24289A1E3400EBA86D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -710,6 +722,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		022B7837289C05C2009003EA /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 022B7836289C05C2009003EA /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
 		02B7FD25289A1E3400EBA86D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 02B7FD24289A1E3400EBA86D /* XCRemoteSwiftPackageReference "SnapKit" */;
