@@ -31,7 +31,6 @@
 		B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */; };
 		B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */; };
 		B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */; };
-		B5D131DD289C14E000EE1833 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DC289C14E000EE1833 /* ViewController.swift */; };
 		B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */; };
 		B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */; };
 		B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */; };
@@ -80,7 +79,6 @@
 		B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoordinator.swift; sourceTree = "<group>"; };
 		B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewController.swift; sourceTree = "<group>"; };
-		B5D131DC289C14E000EE1833 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewCell.swift; sourceTree = "<group>"; };
 		B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressView.swift; sourceTree = "<group>"; };
 		B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewModel.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				B5D131D4289A0CF100EE1833 /* Goal */,
 				B5D131D3289A0CE900EE1833 /* Album */,
 				B5D131CC289A04E600EE1833 /* Coordinator */,
-				B5D131DC289C14E000EE1833 /* ViewController.swift */,
 				02F3724F289CB28B00F361C7 /* Resource */,
 				02F3724E289CB28300F361C7 /* Configuration */,
 			);
