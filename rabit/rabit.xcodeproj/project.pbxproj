@@ -18,6 +18,7 @@
 		02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2B289A1EEC00EBA86D /* RxCocoa */; };
 		02B7FD2E289A1EEC00EBA86D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2D289A1EEC00EBA86D /* RxSwift */; };
 		02F37251289CE21400F361C7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37250289CE21400F361C7 /* Album.swift */; };
+		02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37253289E1EA200F361C7 /* PaddingLabel.swift */; };
 		B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */; };
 		B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */; };
 		B569E9FB2898D4AA006FFFB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		0252098C289A607500E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
 		02F37250289CE21400F361C7 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		02F37253289E1EA200F361C7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		B569E9EE2898D4A8006FFFB9 /* rabit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rabit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,14 +129,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		02F37252289CE21800F361C7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				02F37250289CE21400F361C7 /* Album.swift */,
-			);
-			path = Models;
-      sourceTree = "<group>";
-		};
 		02F3724D289CB23F00F361C7 /* Supportings */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +154,22 @@
 				B569E9FC2898D4AA006FFFB9 /* LaunchScreen.storyboard */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		02F37252289CE21800F361C7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				02F37250289CE21400F361C7 /* Album.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		02F37255289E1EA700F361C7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				02F37253289E1EA200F361C7 /* PaddingLabel.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		B569E9E52898D4A8006FFFB9 = {
@@ -192,6 +202,7 @@
 				B5D131CC289A04E600EE1833 /* Coordinator */,
 				02F3724F289CB28B00F361C7 /* Resource */,
 				02F3724E289CB28300F361C7 /* Configuration */,
+				02F37255289E1EA700F361C7 /* Utilities */,
 			);
 			path = rabit;
 			sourceTree = "<group>";
@@ -421,6 +432,7 @@
 				B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */,
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
+				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				0252098B289A5DA900E7E604 /* ThumbnailPictureViewController.swift in Sources */,
 				0252098D289A607500E7E604 /* AlbumCell.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Goal.swift in Sources */,
