@@ -13,7 +13,7 @@ final class ThumbnailPictureViewController: UIViewController {
         return collectionView
     }()
     
-    private var imgData = BehaviorRelay(value: [UIImage?]())
+    private var imgData = BehaviorRelay(value: [Data]())
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -25,8 +25,8 @@ final class ThumbnailPictureViewController: UIViewController {
         bind()
     }
 
-    func update(with images: [UIImage?]) {
-        imgData.accept(images)
+    func update(with imageData: [Data]) {
+        imgData.accept(imageData)
         DispatchQueue.main.async { [weak self] in
             self?.thumbnailPictureCollectionView.reloadSections([0])
         }
