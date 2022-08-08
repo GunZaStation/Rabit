@@ -18,9 +18,9 @@ final class AlbumViewController: UIViewController {
 
     // Mock Data
     private let data: [Album] = [
-        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData()]]),
-        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData(), UIImage(systemName: "pencil")!.pngData()]]),
-        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData()]])
+        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!]]),
+        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!]]),
+        Album(header: Date(), items: [[UIImage(systemName: "pencil")!.pngData()!]])
     ]
 
     private var disposeBag = DisposeBag()
@@ -85,14 +85,7 @@ private extension AlbumViewController {
 
             let dataArr = dataSource.sectionModels[indexPath.section].items[0]
 
-            let imageArr = dataArr.compactMap { (data: Data?) -> UIImage? in
-                if let data = data {
-                    return UIImage(data: data)
-                }
-                return nil
-            }
-
-            cell.configure(with: imageArr)
+            cell.configure(with: dataArr)
             return cell
         }
 

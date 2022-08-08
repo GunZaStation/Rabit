@@ -18,8 +18,8 @@ final class AlbumCell: UICollectionViewCell {
         setupViews()
     }
 
-    func configure(with images: [UIImage?]) {
-        thumbNailViewController.update(with: images)
+    func configure(with imageData: [Data]) {
+        thumbNailViewController.update(with: imageData)
     }
 }
 

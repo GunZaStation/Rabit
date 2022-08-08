@@ -26,13 +26,9 @@ final class ThumbnailPictureCell:  UICollectionViewCell {
         setupViews()
     }
 
-    // 현재 MockData를 사용할 목적으로 image를 이용한 configure 메소드 구현. 추후에는 Data 타입을 받지 않을까 생각됨.
-    func configure(with image: UIImage?) {
-        thumbnailPictureView.image = image
+    func configure(with imgData: Data) {
+        thumbnailPictureView.image = UIImage(data: imgData)
     }
-//    func configure(with imgData: Data) {
-//        ThumbnailPictureView.image = UIImage(data: imgData)
-//    }
 }
 
 private extension ThumbnailPictureCell {
