@@ -37,6 +37,7 @@
 		B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */; };
 		B5D131E6289C2CFB00EE1833 /* GoalDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E5289C2CFB00EE1833 /* GoalDetail.swift */; };
 		B5D131E8289C2D1100EE1833 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E7289C2D1100EE1833 /* Goal.swift */; };
+		B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewModel.swift; sourceTree = "<group>"; };
 		B5D131E5289C2CFB00EE1833 /* GoalDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetail.swift; sourceTree = "<group>"; };
 		B5D131E7289C2D1100EE1833 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 			children = (
 				B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */,
 				B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */,
+				B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
 				B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */,
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
+				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
