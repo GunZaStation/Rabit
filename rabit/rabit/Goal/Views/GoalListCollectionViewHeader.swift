@@ -42,7 +42,7 @@ final class GoalListCollectionViewHeader: UICollectionReusableView {
         
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
+            $0.center.equalToSuperview()
         }
         
         addSubview(addButton)
