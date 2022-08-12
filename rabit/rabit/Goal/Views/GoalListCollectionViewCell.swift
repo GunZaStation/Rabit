@@ -39,16 +39,16 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String, subtitle: String, progress: Int, target: Int) {
+    func configure(goalDetail: GoalDetail) {
+
+        titleLabel.text = goalDetail.title
+        subTitleLabel.text = goalDetail.subtitle
         
-        titleLabel.text = title
-        subTitleLabel.text = subtitle
-        
-        guard target != 0 else { return }
-        let ratio = CGFloat(progress) /  CGFloat(target)
+        guard goalDetail.target != 0 else { return }
+        let ratio = CGFloat(goalDetail.progress) /  CGFloat(goalDetail.target)
         goalProgressView.progress = ratio
     }
-        
+            
     private func setAttributes() {
         
         contentView.layer.borderWidth = 1.0
