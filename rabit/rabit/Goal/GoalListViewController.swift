@@ -14,7 +14,7 @@ final class GoalListViewController: UIViewController {
                 return UICollectionViewCell()
             }
             
-            cell.configure(title: goalDetail.title, subtitle: goalDetail.subtitle, progress: goalDetail.progress, target: goalDetail.target)
+            cell.configure(goalDetail: goalDetail)
             
             return cell
         },
