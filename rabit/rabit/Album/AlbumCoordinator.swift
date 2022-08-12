@@ -11,7 +11,9 @@ final class AlbumCoordinator: Coordinator {
     }
 
     func start() {
-        let viewController = AlbumViewController()
+        let repository = AlbumRepository()
+        let viewModel = AlbumViewModel(repository: repository)
+        let viewController = AlbumViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: false)
     }
 }

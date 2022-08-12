@@ -16,17 +16,17 @@ final class AlbumViewController: UIViewController {
         return collectionView
     }()
 
-    // Mock Data
-    private let data: [Album] = [
-        Album(date: Date(), items: [[UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!]]),
-        Album(date: Date(), items: [[UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!]]),
-        Album(date: Date(), items: [[UIImage(systemName: "pencil")!.pngData()!]])
-    ]
-
     private var disposeBag = DisposeBag()
     private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<Album> = {
         return initializeDataSource()
     }()
+
+    private var viewModel: AlbumViewModelProtocol?
+
+    convenience init(viewModel: AlbumViewModelProtocol) {
+        self.init()
+        self.viewModel = viewModel
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,8 +117,7 @@ private extension AlbumViewController {
     }
 
     func bind() {
-        Observable.just(self.data)
-            .observe(on: MainScheduler.instance)
+        viewModel?.albumData
             .bind(to: albumCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
