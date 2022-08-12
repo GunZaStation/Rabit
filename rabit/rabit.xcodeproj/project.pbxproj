@@ -13,6 +13,7 @@
 		0252098B289A5DA900E7E604 /* ThumbnailPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */; };
 		0252098D289A607500E7E604 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098C289A607500E7E604 /* AlbumCell.swift */; };
 		0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098E289A661E00E7E604 /* AlbumHeaderView.swift */; };
+		025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025CA12528A631C0007AAADE /* AlbumRepository.swift */; };
 		02B7FD26289A1E3400EBA86D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD25289A1E3400EBA86D /* SnapKit */; };
 		02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD28289A1EC300EBA86D /* RealmSwift */; };
 		02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2B289A1EEC00EBA86D /* RxCocoa */; };
@@ -63,6 +64,7 @@
 		0252098A289A5DA900E7E604 /* ThumbnailPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailPictureViewController.swift; sourceTree = "<group>"; };
 		0252098C289A607500E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
+		025CA12528A631C0007AAADE /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
 		02F37250289CE21400F361C7 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		02F37253289E1EA200F361C7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		B569E9EE2898D4A8006FFFB9 /* rabit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rabit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +122,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0229C50128A7AF020093990E /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				025CA12528A631C0007AAADE /* AlbumRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		022B7835289B7A0D009003EA /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +251,7 @@
 				02520986289A5A2400E7E604 /* AlbumViewController.swift */,
 				02F37252289CE21800F361C7 /* Models */,
 				022B7835289B7A0D009003EA /* Views */,
+				0229C50128A7AF020093990E /* Repository */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -428,6 +439,7 @@
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
 				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
+				025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				02520989289A5C1D00E7E604 /* ThumbnailPictureCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
