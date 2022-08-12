@@ -102,7 +102,7 @@ private extension AlbumViewController {
             let formatter = DateFormatter()
             formatter.timeZone = .current
             formatter.dateFormat = "yyyy년 MM월 dd일"
-            let targetDate = dataSource.sectionModels[indexPath.section].header
+            let targetDate = dataSource.sectionModels[indexPath.section].date
             header.configure(with: formatter.string(from: targetDate))
 
             return header
