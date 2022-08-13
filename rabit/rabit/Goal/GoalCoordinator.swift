@@ -1,5 +1,10 @@
 import UIKit
 
+protocol GoalNavigation: AnyObject {
+    
+    func showCategoryAddView()
+}
+
 final class GoalCoordinator: Coordinator {
 
     weak var parentCoordiantor: Coordinator?
@@ -18,7 +23,15 @@ final class GoalCoordinator: Coordinator {
     
     private func pushGoalListViewController() {
         let viewModel = GoalListViewModel()
+        viewModel.navigation = self
         let viewController = GoalListViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension GoalCoordinator: GoalNavigation {
+    
+    func showCategoryAddView() {
+        print("category add")
     }
 }
