@@ -32,6 +32,9 @@ final class GoalCoordinator: Coordinator {
 extension GoalCoordinator: GoalNavigation {
     
     func showCategoryAddView() {
-        print("category add")
+        
+        let viewController = CategoryAddViewController()
+        viewController.modalPresentationStyle = .overCurrentContext
+        navigationController.present(viewController, animated: false)
     }
 }
