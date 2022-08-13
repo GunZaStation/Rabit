@@ -18,7 +18,9 @@ final class GoalListViewModel {
         bind()
     }
     
-    func bind() {
+    private func bind() {
+    func getMockData() {
+        
         categories.accept(sections)
     }
 }

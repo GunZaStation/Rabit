@@ -73,7 +73,7 @@ final class GoalListViewController: UIViewController {
         setAttributes()
         bind()
         
-        viewModel?.bind()
+        viewModel?.getMockData()
     }
     
     private func bind() {
