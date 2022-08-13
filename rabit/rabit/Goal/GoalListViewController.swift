@@ -77,9 +77,14 @@ final class GoalListViewController: UIViewController {
     }
     
     private func bind() {
+        guard let viewModel = viewModel else { return }
         
-        viewModel?.categories
+        viewModel.categories
             .bind(to: goalListCollectionView.rx.items(dataSource: goalListDataSource))
+            .disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem?.rx.tap
+            .bind(to: viewModel.categoryAddButtonTouched)
             .disposed(by: disposeBag)
     }
     
@@ -94,10 +99,6 @@ final class GoalListViewController: UIViewController {
     }
     
     private func setAttributes() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "카테고리 생성", style: .plain, target: self, action: #selector(buttonPressed(_:)))
-    }
-    
-    @objc private func buttonPressed(_ sender: Any) {
-        print("")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "카테고리 생성", style: .plain, target: self, action: nil)
     }
 }

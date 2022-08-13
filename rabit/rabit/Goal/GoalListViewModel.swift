@@ -4,6 +4,7 @@ import RxCocoa
 
 final class GoalListViewModel {
     
+    let categoryAddButtonTouched = PublishRelay<Void>()
     let categories = PublishRelay<[Goal]>()
     
     private var sections: [Goal] = [
