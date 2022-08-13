@@ -70,6 +70,7 @@ final class GoalListViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        setAttributes()
         bind()
         
         viewModel?.bind()
@@ -92,4 +93,11 @@ final class GoalListViewController: UIViewController {
         }
     }
     
+    private func setAttributes() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "카테고리 생성", style: .plain, target: self, action: #selector(buttonPressed(_:)))
+    }
+    
+    @objc private func buttonPressed(_ sender: Any) {
+        print("")
+    }
 }
