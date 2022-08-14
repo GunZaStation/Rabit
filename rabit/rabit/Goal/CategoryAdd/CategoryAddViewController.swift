@@ -51,7 +51,14 @@ final class CategoryAddViewController: UIViewController {
         return button
     }()
     
+    private var viewModel: CategoryAddViewModel?
     private let disposeBag = DisposeBag()
+    
+    convenience init(viewModel: CategoryAddViewModel = CategoryAddViewModel()) {
+
+        self.init()
+        self.viewModel = viewModel
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +69,18 @@ final class CategoryAddViewController: UIViewController {
     }
     
     private func bind() {
+        guard let viewModel = viewModel else { return }
+        
+        textField.rx.text
+            .compactMap { $0 }
+            .bind(to: viewModel.input.categoryTitle)
+            .disposed(by: disposeBag)
         
         closeButton.rx.tap
+            .bind(to: viewModel.input.closeButtonTouched)
+            .disposed(by: disposeBag)
+        
+        viewModel.input.closeButtonTouched
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.dismiss(animated: false)
