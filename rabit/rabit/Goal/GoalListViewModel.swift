@@ -2,7 +2,18 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class GoalListViewModel {
+protocol GoalListViewModelInput {
+
+    var requestGoalList: PublishRelay<Void> { get }
+    var categoryAddButtonTouched: PublishRelay<Void> { get }
+}
+
+protocol GoalListViewModelOutput {
+    
+    var goalList: PublishRelay<[Goal]> { get }
+}
+
+final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
     
     let requestGoalList = PublishRelay<Void>()
     let categoryAddButtonTouched = PublishRelay<Void>()
