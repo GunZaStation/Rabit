@@ -73,13 +73,13 @@ final class GoalListViewController: UIViewController {
         setAttributes()
         bind()
         
-        viewModel?.getMockData()
+        viewModel?.requestGoalList.accept(())
     }
     
     private func bind() {
         guard let viewModel = viewModel else { return }
         
-        viewModel.categories
+        viewModel.goalList
             .bind(to: goalListCollectionView.rx.items(dataSource: goalListDataSource))
             .disposed(by: disposeBag)
         
