@@ -29,15 +29,14 @@ final class CategoryAddViewModel {
     
     let input = Input()
     let output = Output()
-    weak var navigation: GoalNavigation?
     
     private let disposeBag = DisposeBag()
     
-    init() {
-        bind()
+    init(coordinator: GoalCoordinator) {
+        bind(coordinator: coordinator)
     }
     
-    private func bind() {
+    private func bind(coordinator: GoalCoordinator) {
         
         input.categoryTitle
             .bind(to: output.categoryTitle)
@@ -47,6 +46,10 @@ final class CategoryAddViewModel {
             .bind(onNext: {
                 print($0)
             })
+            .disposed(by: disposeBag)
+        
+        input.closeButtonTouched
+            .bind(to: coordinator.closeCategoryAddView)
             .disposed(by: disposeBag)
     }
 }

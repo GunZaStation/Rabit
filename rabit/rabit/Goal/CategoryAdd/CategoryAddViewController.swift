@@ -54,7 +54,7 @@ final class CategoryAddViewController: UIViewController {
     private var viewModel: CategoryAddViewModel?
     private let disposeBag = DisposeBag()
     
-    convenience init(viewModel: CategoryAddViewModel = CategoryAddViewModel()) {
+    convenience init(viewModel: CategoryAddViewModel) {
 
         self.init()
         self.viewModel = viewModel
