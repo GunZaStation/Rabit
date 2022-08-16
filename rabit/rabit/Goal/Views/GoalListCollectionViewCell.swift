@@ -3,8 +3,6 @@ import SnapKit
 
 final class GoalListCollectionViewCell: UICollectionViewCell {
     
-    static var identifier: String { .init(describing: self) }
-        
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25, weight: .bold)

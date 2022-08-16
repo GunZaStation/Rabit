@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 
 final class AlbumCell: UICollectionViewCell {
-    static let identifier = String(describing: AlbumCell.self)
 
     private let thumbNailViewController = ThumbnailPictureViewController()
 

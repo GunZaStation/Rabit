@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 
 final class AlbumHeaderView: UICollectionReusableView {
-    static let identifier = String(describing: AlbumHeaderView.self)
 
     private let dateLabel: PaddingLabel = {
         let label = PaddingLabel(padding: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))

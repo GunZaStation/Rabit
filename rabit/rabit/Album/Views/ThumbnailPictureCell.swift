@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 
 final class ThumbnailPictureCell:  UICollectionViewCell {
-    static let identifier = String(describing: ThumbnailPictureCell.self)
 
     private let thumbnailPictureView: UIImageView = {
         let imageView = UIImageView()
