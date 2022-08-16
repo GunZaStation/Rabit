@@ -4,7 +4,10 @@ import RxCocoa
 
 final class GoalListViewModel {
     
+    let categoryAddButtonTouched = PublishRelay<Void>()
     let categories = PublishRelay<[Goal]>()
+    
+    weak var navigation: GoalNavigation?
     
     private var sections: [Goal] = [
         Goal(category: "운동", details: []),
@@ -13,12 +16,25 @@ final class GoalListViewModel {
         Goal(category: "독서", details: [])
     ]
     
+    private let disposeBag = DisposeBag()
+    
     init() {
         setMockData()
         bind()
     }
     
-    func bind() {
+    private func bind() {
+        
+        categoryAddButtonTouched
+            .withUnretained(self)
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.showCategoryAddView()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func getMockData() {
+        
         categories.accept(sections)
     }
 }
