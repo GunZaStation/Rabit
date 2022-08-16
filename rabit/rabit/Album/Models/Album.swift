@@ -1,18 +1,20 @@
 import Foundation
 import Differentiator
 
-struct Album: SectionModelType {
+struct Album {
     typealias Item = [Data]
     var items: [Item]
-    var header: Date
+    var date: Date
 
-    init(original: Album, items: [[Data]]) {
+    init(date: Date, items: [[Data]]) {
+        self.date = date
         self.items = items
-        self.header = Date()
     }
+}
 
-    init(header: Date, items: [[Data]]) {
-        self.header = header
+extension Album: SectionModelType {
+    init(original: Album, items: [[Data]]) {
+        self = original
         self.items = items
     }
 }
