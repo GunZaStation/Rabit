@@ -21,6 +21,7 @@
 		02F37251289CE21400F361C7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37250289CE21400F361C7 /* Album.swift */; };
 		02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37253289E1EA200F361C7 /* PaddingLabel.swift */; };
 		02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */; };
+		B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536FA0528A929D800178786 /* GoalListRepository.swift */; };
 		B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */; };
 		B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */; };
 		B569E9FB2898D4AA006FFFB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */; };
@@ -28,6 +29,8 @@
 		B569EA092898D4AB006FFFB9 /* rabitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA082898D4AB006FFFB9 /* rabitTests.swift */; };
 		B569EA132898D4AB006FFFB9 /* rabitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA122898D4AB006FFFB9 /* rabitUITests.swift */; };
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
+		B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */; };
+		B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */; };
 		B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CD289A04F200EE1833 /* Coordinator.swift */; };
 		B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CF289A065200EE1833 /* AppCoordinator.swift */; };
 		B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D1289A087000EE1833 /* MainCoordinator.swift */; };
@@ -69,6 +72,7 @@
 		02F37250289CE21400F361C7 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		02F37253289E1EA200F361C7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		B536FA0528A929D800178786 /* GoalListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListRepository.swift; sourceTree = "<group>"; };
 		B569E9EE2898D4A8006FFFB9 /* rabit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rabit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 		B569EA0E2898D4AB006FFFB9 /* rabitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rabitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569EA122898D4AB006FFFB9 /* rabitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITests.swift; sourceTree = "<group>"; };
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewController.swift; sourceTree = "<group>"; };
+		B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewModel.swift; sourceTree = "<group>"; };
 		B5D131CD289A04F200EE1833 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B5D131CF289A065200EE1833 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D1289A087000EE1833 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -238,6 +244,15 @@
 			path = rabitUITests;
 			sourceTree = "<group>";
 		};
+		B59BB3C528A82DFA007C5013 /* CategoryAdd */ = {
+			isa = PBXGroup;
+			children = (
+				B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */,
+				B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */,
+			);
+			path = CategoryAdd;
+			sourceTree = "<group>";
+		};
 		B5D131CC289A04E600EE1833 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,11 +277,13 @@
 		B5D131D4289A0CF100EE1833 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				B59BB3C528A82DFA007C5013 /* CategoryAdd */,
 				B5D131E0289C29EE00EE1833 /* Models */,
 				B5D131D9289C0E7D00EE1833 /* Views */,
 				B5D131D5289A0D6B00EE1833 /* GoalCoordinator.swift */,
 				B5D131DA289C0E8D00EE1833 /* GoalListViewController.swift */,
 				B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */,
+				B536FA0528A929D800178786 /* GoalListRepository.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -440,11 +457,14 @@
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
+				B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
 				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
 				025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */,
 				02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */,
+				B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
+				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
 				02520989289A5C1D00E7E604 /* ThumbnailPictureCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
 				B5D131E6289C2CFB00EE1833 /* GoalDetail.swift in Sources */,
