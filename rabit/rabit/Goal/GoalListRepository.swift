@@ -1,4 +1,5 @@
 import Foundation
+import RxSwift
 
 final class GoalListRepository {
     
@@ -9,9 +10,17 @@ final class GoalListRepository {
         Goal(category: "독서", details: [])
     ]
     
-    func fetchGoalListData() -> [Goal] {
+    init() {
         setMockData()
-        return goalList
+    }
+    
+    func fetchGoalListData() -> Single<[Goal]> {
+        let goalList = goalList
+        
+        return .create { single in
+            single(.success(goalList))
+            return Disposables.create()
+        }
     }
 }
 

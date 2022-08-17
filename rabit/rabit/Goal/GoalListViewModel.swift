@@ -37,10 +37,10 @@ final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
         
         requestGoalList
             .withUnretained(self)
-            .compactMap { viewModel, _ in
+            .flatMapLatest { viewModel, _ in
                 viewModel.repository.fetchGoalListData()
             }
             .bind(to: goalList)
-            .disposed(by: disposeBag)
+            .disposed(by: disposeBag)        
     }
 }
