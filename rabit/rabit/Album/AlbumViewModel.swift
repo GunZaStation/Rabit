@@ -16,8 +16,8 @@ protocol AlbumViewModelProtocol: AlbumViewModelInput, AlbumViewModelOutput { }
 final class AlbumViewModel: AlbumViewModelProtocol {
     private let albumRepository: AlbumRepositoryProtocol
 
-    let photoSelected: PublishRelay<Data> = PublishRelay()
-    let albumData: BehaviorSubject<[Album]> = BehaviorSubject(value: [])
+    let photoSelected = PublishRelay<Data>()
+    let albumData = BehaviorSubject<[Album]>(value: [])
 
     private var disposeBag = DisposeBag()
 
