@@ -33,12 +33,16 @@ final class GoalListViewController: UIViewController {
     )
     
     private lazy var goalListCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = .init(top: .zero, left: .zero, bottom: 15, right: .zero)
-        layout.itemSize = CGSize(width: view.frame.width*0.85, height: view.frame.height*0.15)
-        layout.headerReferenceSize = CGSize(width: view.frame.width*0.85, height: view.frame.height*0.07)
-
+        
+        let layout = AlbumCollectionCompositionalLayoutFactory.shared.create(
+            widthFraction: 1.0,
+            heightFraction: 0.21,
+            bottomSpacing: 15,
+            requireHeader: true,
+            headerWidth: view.frame.width*0.85,
+            headerHeight: view.frame.height*0.07
+        )
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.register(
