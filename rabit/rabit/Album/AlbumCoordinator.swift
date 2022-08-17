@@ -2,19 +2,23 @@ import UIKit
 import RxSwift
 import RxRelay
 
-final class AlbumCoordinator: Coordinator {
+protocol AlbumNavigation {
+    var showPhotoEditView: PublishRelay<Album.Item> { get }
+}
+
 protocol PhotoEditNavigation {
     var showColorPickerView: PublishRelay<Void> { get }
     var showStylePickerView: PublishRelay<Void> { get }
     var closePhotoEditView: PublishRelay<Void> { get }
 }
 
-final class AlbumCoordinator: Coordinator, PhotoEditNavigation {
+final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation {
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
 
+    let showPhotoEditView = PublishRelay<Album.Item>()
     let showColorPickerView = PublishRelay<Void>()
     let showStylePickerView = PublishRelay<Void>()
     let closePhotoEditView = PublishRelay<Void>()
@@ -28,7 +32,10 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation {
 
     func start() {
         let repository = AlbumRepository()
-        let viewModel = AlbumViewModel(repository: repository)
+        let viewModel = AlbumViewModel(
+            repository: repository,
+            navigation: self
+        )
         let viewController = AlbumViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: false)
     }
@@ -36,6 +43,10 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation {
 
 private extension AlbumCoordinator {
     func bind() {
+        showPhotoEditView
+            .bind(onNext: presentPhotoEditView(_:))
+            .disposed(by: disposeBag)
+
         closePhotoEditView
             .bind(onNext: dismissPhotoEditView)
             .disposed(by: disposeBag)
