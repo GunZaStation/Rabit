@@ -21,7 +21,7 @@ final class GoalCoordinator: Coordinator {
     private func bind() {
         
         showCategoryAddView
-            .bind(onNext: presentCategoryAddViewControllr)
+            .bind(onNext: presentCategoryAddViewController)
             .disposed(by: disposeBag)
         
         closeCategoryAddView
@@ -41,7 +41,7 @@ final class GoalCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    private func presentCategoryAddViewControllr() {
+    private func presentCategoryAddViewController() {
 
         let viewModel = CategoryAddViewModel(coordinator: self)
         let viewController = CategoryAddViewController(viewModel: viewModel)
