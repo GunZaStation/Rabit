@@ -2,7 +2,13 @@ import UIKit
 import RxSwift
 import RxRelay
 
-final class GoalCoordinator: Coordinator {
+protocol GoalNavigation {
+    
+    var showCategoryAddView: PublishRelay<Void> { get }
+    var closeCategoryAddView: PublishRelay<Void> { get }
+}
+
+final class GoalCoordinator: Coordinator, GoalNavigation {
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
@@ -36,14 +42,14 @@ final class GoalCoordinator: Coordinator {
     }
     
     private func pushGoalListViewController() {
-        let viewModel = GoalListViewModel(coordinator: self)
+        let viewModel = GoalListViewModel(navigation: self)
         let viewController = GoalListViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
     private func presentCategoryAddViewController() {
 
-        let viewModel = CategoryAddViewModel(coordinator: self)
+        let viewModel = CategoryAddViewModel(navigation: self)
         let viewController = CategoryAddViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overCurrentContext
         navigationController.present(viewController, animated: false)

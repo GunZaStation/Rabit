@@ -23,16 +23,16 @@ final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
     private let disposeBag = DisposeBag()
     
     init(repository: GoalListRepository = GoalListRepository(),
-         coordinator: GoalCoordinator) {
+         navigation: GoalNavigation) {
         self.repository = repository
         
-        bind(coordinator: coordinator)
+        bind(navigation: navigation)
     }
     
-    private func bind(coordinator: GoalCoordinator) {
+    private func bind(navigation: GoalNavigation) {
         
         categoryAddButtonTouched
-            .bind(to: coordinator.showCategoryAddView)
+            .bind(to: navigation.showCategoryAddView)
             .disposed(by: disposeBag)
         
         requestGoalList

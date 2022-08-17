@@ -26,17 +26,16 @@ final class CategoryAddViewModel {
         let categoryTitle = PublishRelay<String>()
     }
     
-    
     let input = Input()
     let output = Output()
     
     private let disposeBag = DisposeBag()
     
-    init(coordinator: GoalCoordinator) {
-        bind(coordinator: coordinator)
+    init(navigation: GoalNavigation) {
+        bind(navigation: navigation)
     }
     
-    private func bind(coordinator: GoalCoordinator) {
+    private func bind(navigation: GoalNavigation) {
         
         input.categoryTitle
             .bind(to: output.categoryTitle)
@@ -49,7 +48,7 @@ final class CategoryAddViewModel {
             .disposed(by: disposeBag)
         
         input.closeButtonTouched
-            .bind(to: coordinator.closeCategoryAddView)
+            .bind(to: navigation.closeCategoryAddView)
             .disposed(by: disposeBag)
     }
 }
