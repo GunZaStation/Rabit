@@ -7,9 +7,7 @@ final class AlbumHeaderView: UICollectionReusableView {
         let label = PaddingLabel(padding: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.clipsToBounds = true
-        label.layer.cornerCurve = .continuous
-        label.layer.cornerRadius = 10
+        label.roundCorners()
         label.backgroundColor = .blue
         return label
     }()

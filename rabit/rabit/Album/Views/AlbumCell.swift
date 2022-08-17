@@ -6,9 +6,7 @@ final class AlbumCell: UICollectionViewCell {
     private let thumbnailPictureView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.clipsToBounds = true
-        imageView.layer.cornerCurve = .continuous
-        imageView.layer.cornerRadius = 10
+        imageView.roundCorners()
         return imageView
     }()
 
