@@ -117,8 +117,14 @@ private extension AlbumViewController {
     }
 
     func bind() {
-        viewModel?.albumData
+        guard let viewModel = viewModel else { return }
+
+        viewModel.albumData
             .bind(to: albumCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+
+        albumCollectionView.rx.modelSelected(Album.Item.self)
+            .bind(to: viewModel.photoSelected)
             .disposed(by: disposeBag)
     }
 }
