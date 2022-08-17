@@ -4,49 +4,43 @@ import RxCocoa
 
 protocol CategoryAddViewModelInput {
     
-    var categoryTitle: PublishRelay<String> { get }
+    var categoryTitleInput: PublishRelay<String> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
     var closeButtonTouched: PublishRelay<Void> { get }
 }
 
 protocol CategoryAddViewModelOutput {
-
-    var categoryTitle: PublishRelay<String> { get }
+    
+    var categoryTitleOutput: PublishRelay<String> { get }
 }
 
-final class CategoryAddViewModel {
+final class CategoryAddViewModel: CategoryAddViewModelInput, CategoryAddViewModelOutput {
     
-    struct Input: CategoryAddViewModelInput {
-        let saveButtonTouched = PublishRelay<Void>()
-        let closeButtonTouched = PublishRelay<Void>()
-        let categoryTitle = PublishRelay<String>()
-    }
-    
-    struct Output: CategoryAddViewModelOutput {
-        let categoryTitle = PublishRelay<String>()
-    }
-    
-    
-    let input = Input()
-    let output = Output()
-    weak var navigation: GoalNavigation?
+    let saveButtonTouched = PublishRelay<Void>()
+    let closeButtonTouched = PublishRelay<Void>()
+    let categoryTitleInput = PublishRelay<String>()
+    let categoryTitleOutput = PublishRelay<String>()
     
     private let disposeBag = DisposeBag()
     
-    init() {
-        bind()
+    init(navigation: GoalNavigation) {
+        bind(navigation: navigation)
     }
     
-    private func bind() {
+    private func bind(navigation: GoalNavigation) {
         
-        input.categoryTitle
-            .bind(to: output.categoryTitle)
+        categoryTitleInput
+            .bind(to: categoryTitleOutput)
             .disposed(by: disposeBag)
         
-        output.categoryTitle
+        categoryTitleOutput
             .bind(onNext: {
                 print($0)
             })
+            .disposed(by: disposeBag)
+        
+        closeButtonTouched
+            .bind(to: navigation.closeCategoryAddView)
             .disposed(by: disposeBag)
     }
 }

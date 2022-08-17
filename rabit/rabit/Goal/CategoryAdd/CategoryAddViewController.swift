@@ -54,7 +54,7 @@ final class CategoryAddViewController: UIViewController {
     private var viewModel: CategoryAddViewModel?
     private let disposeBag = DisposeBag()
     
-    convenience init(viewModel: CategoryAddViewModel = CategoryAddViewModel()) {
+    convenience init(viewModel: CategoryAddViewModel) {
 
         self.init()
         self.viewModel = viewModel
@@ -73,14 +73,14 @@ final class CategoryAddViewController: UIViewController {
         
         textField.rx.text
             .compactMap { $0 }
-            .bind(to: viewModel.input.categoryTitle)
+            .bind(to: viewModel.categoryTitleInput)
             .disposed(by: disposeBag)
         
         closeButton.rx.tap
-            .bind(to: viewModel.input.closeButtonTouched)
+            .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
         
-        viewModel.input.closeButtonTouched
+        viewModel.closeButtonTouched
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.dismiss(animated: false)

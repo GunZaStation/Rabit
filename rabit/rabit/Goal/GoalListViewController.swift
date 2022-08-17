@@ -60,7 +60,7 @@ final class GoalListViewController: UIViewController {
     private var viewModel: GoalListViewModel?
     private let disposeBag = DisposeBag()
     
-    convenience init(viewModel: GoalListViewModel = GoalListViewModel()) {
+    convenience init(viewModel: GoalListViewModel) {
         
         self.init()
         self.viewModel = viewModel

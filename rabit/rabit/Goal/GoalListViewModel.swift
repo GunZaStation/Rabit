@@ -19,24 +19,20 @@ final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
     let categoryAddButtonTouched = PublishRelay<Void>()
     let goalList = PublishRelay<[Goal]>()
     
-    weak var navigation: GoalNavigation?
-    
     private let repository: GoalListRepository
     private let disposeBag = DisposeBag()
     
-    init(repository: GoalListRepository = GoalListRepository()) {
+    init(repository: GoalListRepository = GoalListRepository(),
+         navigation: GoalNavigation) {
         self.repository = repository
         
-        bind()
+        bind(navigation: navigation)
     }
     
-    private func bind() {
+    private func bind(navigation: GoalNavigation) {
         
         categoryAddButtonTouched
-            .withUnretained(self)
-            .bind(onNext: { viewModel, _ in
-                viewModel.navigation?.showCategoryAddView()
-            })
+            .bind(to: navigation.showCategoryAddView)
             .disposed(by: disposeBag)
         
         requestGoalList
