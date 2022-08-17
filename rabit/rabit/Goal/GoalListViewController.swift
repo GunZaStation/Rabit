@@ -6,59 +6,12 @@ import RxSwift
 
 final class GoalListViewController: UIViewController {
     
-    typealias DataSource = RxCollectionViewSectionedReloadDataSource
-    private let goalListDataSource = DataSource<Goal>(
-        configureCell: { dataSource, collectionView, indexPath, goalDetail in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalListCollectionViewCell.identifier,
-                                                                for: indexPath) as? GoalListCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            cell.configure(goalDetail: goalDetail)
-            
-            return cell
-        },
-        configureSupplementaryView: {(dataSource, collectionView, kind, indexPath) -> UICollectionReusableView in
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                               withReuseIdentifier: GoalListCollectionViewHeader.identifier,
-                                                                               for: indexPath) as? GoalListCollectionViewHeader else {
-                return UICollectionReusableView()
-            }
-            
-            let goal = dataSource.sectionModels[indexPath.section]
-            header.configure(title: goal.category)
-            
-            return header
-        }
-    )
+    private lazy var goalListDataSource: RxCollectionViewSectionedReloadDataSource<Goal> = {
+        initializeDataSource()
+    }()
     
     private lazy var goalListCollectionView: UICollectionView = {
-        
-        let layout = AlbumCollectionCompositionalLayoutFactory.shared.create(
-            widthFraction: 1.0,
-            heightFraction: 0.21,
-            bottomSpacing: 15,
-            requireHeader: true,
-            headerWidth: view.frame.width*0.85,
-            headerHeight: view.frame.height*0.07
-        )
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        collectionView.register(
-            GoalListCollectionViewCell.self,
-            forCellWithReuseIdentifier: GoalListCollectionViewCell.identifier
-        )
-        
-        collectionView.register(
-            GoalListCollectionViewHeader.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: GoalListCollectionViewHeader.identifier
-        )
-        
-        collectionView.showsVerticalScrollIndicator = false
-        
-        return collectionView
+        initializeCollectionView()
     }()
     
     private var viewModel: GoalListViewModel?
@@ -104,5 +57,68 @@ final class GoalListViewController: UIViewController {
     
     private func setAttributes() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "카테고리 생성", style: .plain, target: self, action: nil)
+    }
+}
+
+extension GoalListViewController {
+    
+    private func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Goal> {
+        return .init(
+            configureCell: { dataSource, collectionView, indexPath, goalDetail in
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: GoalListCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? GoalListCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.configure(goalDetail: goalDetail)
+                
+                return cell
+            },
+            configureSupplementaryView: {(dataSource, collectionView, kind, indexPath) -> UICollectionReusableView in
+                guard let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: GoalListCollectionViewHeader.identifier,
+                    for: indexPath
+                ) as? GoalListCollectionViewHeader else {
+                    return UICollectionReusableView()
+                }
+                
+                let goal = dataSource.sectionModels[indexPath.section]
+                header.configure(title: goal.category)
+                
+                return header
+            }
+        )
+    }
+    
+    private func initializeCollectionView() -> UICollectionView {
+        
+        let layout = AlbumCollectionCompositionalLayoutFactory.shared.create(
+            widthFraction: 1.0,
+            heightFraction: 0.21,
+            bottomSpacing: 15,
+            requireHeader: true,
+            headerWidth: view.frame.width*0.85,
+            headerHeight: view.frame.height*0.07
+        )
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.register(
+            GoalListCollectionViewCell.self,
+            forCellWithReuseIdentifier: GoalListCollectionViewCell.identifier
+        )
+        
+        collectionView.register(
+            GoalListCollectionViewHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: GoalListCollectionViewHeader.identifier
+        )
+        
+        collectionView.showsVerticalScrollIndicator = false
+        
+        return collectionView
     }
 }
