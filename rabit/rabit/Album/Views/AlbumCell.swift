@@ -3,7 +3,14 @@ import SnapKit
 
 final class AlbumCell: UICollectionViewCell {
 
-    private let thumbNailViewController = ThumbnailPictureViewController()
+    private let thumbnailPictureView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        imageView.layer.cornerCurve = .continuous
+        imageView.layer.cornerRadius = 10
+        return imageView
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -17,19 +24,19 @@ final class AlbumCell: UICollectionViewCell {
         setupViews()
     }
 
-    func configure(with imageData: [Data]) {
-        thumbNailViewController.update(with: imageData)
+    func configure(with imgData: Data) {
+        thumbnailPictureView.image = UIImage(data: imgData)
     }
 }
 
 private extension AlbumCell {
     // MARK: - Setup UI
     func setupViews() {
-        clipsToBounds = true
-        addSubview(thumbNailViewController.view)
+        addSubview(thumbnailPictureView)
 
-        thumbNailViewController.view.snp.makeConstraints { make in
-            make.edges.equalTo(self)
+        thumbnailPictureView.snp.makeConstraints { make in
+            make.top.leading.equalTo(self).offset(10)
+            make.bottom.trailing.equalTo(self).inset(10)
         }
     }
 }
