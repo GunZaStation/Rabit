@@ -55,13 +55,7 @@ private extension AlbumViewController {
     }
 
     func setupAlbumCollectionView() {
-        let screenSize = UIScreen.main.bounds.size
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: screenSize.width, height: screenSize.width)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 15
-        layout.headerReferenceSize = CGSize(width: screenSize.width, height: 50)
-        layout.scrollDirection = .vertical
+        let layout = getCollectionViewLayout()
 
         albumCollectionView.collectionViewLayout = layout
 
@@ -116,9 +110,21 @@ private extension AlbumViewController {
         return dataSource
     }
 
+    func getCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
+            AlbumCollectionCompositionalLayoutFactory.shared.create()
+        }
+    }
+
     func bind() {
-        viewModel?.albumData
+        guard let viewModel = viewModel else { return }
+
+        viewModel.albumData
             .bind(to: albumCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+
+        albumCollectionView.rx.modelSelected(Album.Item.self)
+            .bind(to: viewModel.photoSelected)
             .disposed(by: disposeBag)
     }
 }
