@@ -12,7 +12,11 @@ protocol PhotoEditNavigation {
     var closePhotoEditView: PublishRelay<Void> { get }
 }
 
-final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation {
+protocol ColorPickerNavigation {
+    var closeColorPickerView: PublishRelay<Void> { get }
+}
+
+final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation, ColorPickerNavigation {
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
@@ -22,6 +26,7 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation 
     let showColorPickerView = PublishRelay<Void>()
     let showStylePickerView = PublishRelay<Void>()
     let closePhotoEditView = PublishRelay<Void>()
+    let closeColorPickerView = PublishRelay<Void>()
 
     private var disposeBag = DisposeBag()
     init() {
@@ -58,6 +63,10 @@ private extension AlbumCoordinator {
         showStylePickerView
             .bind(onNext: pushStylePickerView)
             .disposed(by: disposeBag)
+
+        closeColorPickerView
+            .bind(onNext: dismissColorPickerView)
+            .disposed(by: disposeBag)
     }
 
     func presentPhotoEditView(_ selectedImageData: Data) {
@@ -79,8 +88,11 @@ private extension AlbumCoordinator {
     func pushColorPickerView() {
         guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
 
-        // TODO: ColorPickerView 완성 후 추가
-//        navigationController.pushViewController(colorPickerViewController(), animated: true)
+        if #available(iOS 14.0, *) {
+            let viewModel = ColorPickerViewModel(navigation: self)
+            let viewController = ColorPickerViewController(viewModel: viewModel)
+            navigationController.pushViewController(viewController, animated: true)
+        }
     }
 
     func pushStylePickerView() {
@@ -88,5 +100,11 @@ private extension AlbumCoordinator {
 
         // TODO: StylePickerView 완성 후 추가
 //        navigationController.pushViewController(stylePickerViewController(), animated: true)
+    }
+
+    func dismissColorPickerView() {
+        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
+
+        navigationController.popViewController(animated: true)
     }
 }
