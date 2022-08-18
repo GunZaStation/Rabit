@@ -42,25 +42,8 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation 
     }
 }
 
+// MARK: - Navigation methods
 private extension AlbumCoordinator {
-    func bind() {
-        showPhotoEditView
-            .bind(onNext: presentPhotoEditView(_:))
-            .disposed(by: disposeBag)
-
-        closePhotoEditView
-            .bind(onNext: dismissPhotoEditView)
-            .disposed(by: disposeBag)
-
-        showColorPickerView
-            .bind(onNext: pushColorPickerView)
-            .disposed(by: disposeBag)
-
-        showStylePickerView
-            .bind(onNext: pushStylePickerView)
-            .disposed(by: disposeBag)
-    }
-
     func presentPhotoEditView(_ selectedImageData: Data) {
         let viewModel = PhotoEditViewModel(
             selectedData: selectedImageData,
@@ -92,6 +75,27 @@ private extension AlbumCoordinator {
 
         // TODO: StylePickerView 완성 후 추가
 //        navigationController.pushViewController(stylePickerViewController(), animated: true)
+    }
+}
+
+// MARK: - Private methods
+private extension AlbumCoordinator {
+    func bind() {
+        showPhotoEditView
+            .bind(onNext: presentPhotoEditView(_:))
+            .disposed(by: disposeBag)
+
+        closePhotoEditView
+            .bind(onNext: dismissPhotoEditView)
+            .disposed(by: disposeBag)
+
+        showColorPickerView
+            .bind(onNext: pushColorPickerView)
+            .disposed(by: disposeBag)
+
+        showStylePickerView
+            .bind(onNext: pushStylePickerView)
+            .disposed(by: disposeBag)
     }
 
     func createColorPickerViewModel() -> ColorPickerViewModelProtocol {
