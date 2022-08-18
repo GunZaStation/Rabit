@@ -6,6 +6,7 @@ protocol PhotoEditViewModelInput {
     var colorPickerButtonTouched: PublishRelay<Void> { get }
     var stylePickerButtonTouched: PublishRelay<Void> { get }
     var backButtonTouched: PublishRelay<Void> { get }
+    var hexPhotoColor: PublishSubject<String> { get }
 }
 
 protocol PhotoEditViewModelOutput {
@@ -18,6 +19,7 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
     let colorPickerButtonTouched = PublishRelay<Void>()
     let stylePickerButtonTouched = PublishRelay<Void>()
     let backButtonTouched = PublishRelay<Void>()
+    let hexPhotoColor = PublishSubject<String>()
 
     let imageData = BehaviorSubject<Data>(value: Data())
     private var disposeBag = DisposeBag()
