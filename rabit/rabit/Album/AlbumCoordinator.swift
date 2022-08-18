@@ -50,6 +50,14 @@ private extension AlbumCoordinator {
         closePhotoEditView
             .bind(onNext: dismissPhotoEditView)
             .disposed(by: disposeBag)
+
+        showColorPickerView
+            .bind(onNext: pushColorPickerView)
+            .disposed(by: disposeBag)
+
+        showStylePickerView
+            .bind(onNext: pushStylePickerView)
+            .disposed(by: disposeBag)
     }
 
     func presentPhotoEditView(_ selectedImageData: Data) {
@@ -66,5 +74,19 @@ private extension AlbumCoordinator {
 
     func dismissPhotoEditView() {
         navigationController.presentedViewController?.dismiss(animated: true)
+    }
+
+    func pushColorPickerView() {
+        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
+
+        // TODO: ColorPickerView 완성 후 추가
+//        navigationController.pushViewController(colorPickerViewController(), animated: true)
+    }
+
+    func pushStylePickerView() {
+        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
+
+        // TODO: StylePickerView 완성 후 추가
+//        navigationController.pushViewController(stylePickerViewController(), animated: true)
     }
 }

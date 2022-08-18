@@ -35,15 +35,11 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
 private extension PhotoEditViewModel {
     func bind(to navigation: PhotoEditNavigation) {
         colorPickerButtonTouched
-            .bind(onNext: {
-                print("colorPicker")
-            })
+            .bind(to: navigation.showColorPickerView)
             .disposed(by: disposeBag)
 
         stylePickerButtonTouched
-            .bind(onNext: {
-                print("stylePicker")
-            })
+            .bind(to: navigation.showStylePickerView)
             .disposed(by: disposeBag)
 
         backButtonTouched
