@@ -12,11 +12,7 @@ protocol PhotoEditNavigation {
     var closePhotoEditView: PublishRelay<Void> { get }
 }
 
-protocol ColorPickerNavigation {
-    var closeColorPickerView: PublishRelay<Void> { get }
-}
-
-final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation, ColorPickerNavigation {
+final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation {
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
@@ -63,10 +59,6 @@ private extension AlbumCoordinator {
         showStylePickerView
             .bind(onNext: pushStylePickerView)
             .disposed(by: disposeBag)
-
-        closeColorPickerView
-            .bind(onNext: dismissColorPickerView)
-            .disposed(by: disposeBag)
     }
 
     func presentPhotoEditView(_ selectedImageData: Data) {
@@ -89,7 +81,7 @@ private extension AlbumCoordinator {
         guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
 
         if #available(iOS 14.0, *) {
-            let viewModel = ColorPickerViewModel(navigation: self)
+            let viewModel = createColorPickerViewModel()
             let viewController = ColorPickerViewController(viewModel: viewModel)
             navigationController.pushViewController(viewController, animated: true)
         }
@@ -102,9 +94,18 @@ private extension AlbumCoordinator {
 //        navigationController.pushViewController(stylePickerViewController(), animated: true)
     }
 
-    func dismissColorPickerView() {
-        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
+    func createColorPickerViewModel() -> ColorPickerViewModelProtocol {
+        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController,
+              let photoEditViewController = navigationController.viewControllers.first as? PhotoEdtiViewController else {
+            return ColorPickerViewModel()
+        }
 
-        navigationController.popViewController(animated: true)
+        let viewModel = ColorPickerViewModel()
+        viewModel.selectedColor
+            .map { $0.toHexString() }
+            .bind(to: photoEditViewController.hexPhotoColor)
+            .disposed(by: disposeBag)
+
+        return viewModel
     }
 }

@@ -18,28 +18,7 @@ final class ColorPickerViewController: UIColorPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupViews()
-        bind()
-    }
-}
-
-@available(iOS 14.0, *)
-private extension ColorPickerViewController {
-    func setupViews() {
         view.backgroundColor = UIColor(named: "first")
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: nil, action: nil
-        )
-    }
-
-    func bind() {
-        guard let viewModel = viewModel else { return }
-
-        navigationItem.rightBarButtonItem?.rx.tap
-            .bind(to: viewModel.doneButtonTouched)
-            .disposed(by: disposeBag)
     }
 }
 
