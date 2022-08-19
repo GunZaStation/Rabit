@@ -14,10 +14,13 @@ final class GoalAddViewModel: GoalAddViewModelInput {
     private let disposeBag = DisposeBag()
     
     init(navigation: GoalNavigation) {
-        bind(navigation: navigation)
+        bind(to: navigation)
     }
+}
+
+private extension GoalAddViewModel {
     
-    private func bind(navigation: GoalNavigation) {
+    func bind(to navigation: GoalNavigation) {
         
         saveButtonTouched
             .bind(to: navigation.closeGoalAddView)

@@ -24,10 +24,14 @@ final class CategoryAddViewModel: CategoryAddViewModelInput, CategoryAddViewMode
     private let disposeBag = DisposeBag()
     
     init(navigation: GoalNavigation) {
-        bind(navigation: navigation)
+        bind(to: navigation)
     }
     
-    private func bind(navigation: GoalNavigation) {
+}
+
+private extension CategoryAddViewModel {
+    
+    func bind(to navigation: GoalNavigation) {
         
         categoryTitleInput
             .bind(to: categoryTitleOutput)

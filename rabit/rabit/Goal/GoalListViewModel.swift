@@ -28,10 +28,13 @@ final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
          navigation: GoalNavigation) {
         self.repository = repository
         
-        bind(navigation: navigation)
+        bind(to: navigation)
     }
+}
+
+private extension GoalListViewModel {
     
-    private func bind(navigation: GoalNavigation) {
+    func bind(to navigation: GoalNavigation) {
         
         categoryAddButtonTouched
             .bind(to: navigation.showCategoryAddView)
