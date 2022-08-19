@@ -44,9 +44,9 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation 
 
 // MARK: - Navigation methods
 private extension AlbumCoordinator {
-    func presentPhotoEditView(_ selectedImageData: Data) {
+    func presentPhotoEditView(_ selectedPhoto: Album.Item) {
         let viewModel = PhotoEditViewModel(
-            selectedData: selectedImageData,
+            selectedData: selectedPhoto,
             navigation: self
         )
         let viewController = PhotoEdtiViewController(viewModel: viewModel)

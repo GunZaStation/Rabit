@@ -3,7 +3,7 @@ import RxSwift
 import RxRelay
 
 protocol AlbumViewModelInput {
-    var photoSelected: PublishRelay<Data> { get }
+    var photoSelected: PublishRelay<Album.Item> { get }
 }
 
 protocol AlbumViewModelOutput {
@@ -15,7 +15,7 @@ protocol AlbumViewModelProtocol: AlbumViewModelInput, AlbumViewModelOutput { }
 final class AlbumViewModel: AlbumViewModelProtocol {
     private let albumRepository: AlbumRepositoryProtocol
 
-    let photoSelected = PublishRelay<Data>()
+    let photoSelected = PublishRelay<Album.Item>()
     let albumData = BehaviorSubject<[Album]>(value: [])
 
     private var disposeBag = DisposeBag()

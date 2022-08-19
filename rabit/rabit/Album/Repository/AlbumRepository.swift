@@ -17,9 +17,19 @@ final class AlbumRepository: AlbumRepositoryProtocol {
 
                 // 통신 여부와 상관없이 MockData 반환
                 let fetchedMockData = [
-                    Album(date: Date(), items: [UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!]),
-                    Album(date: Date(), items: [UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!, UIImage(systemName: "pencil")!.pngData()!]),
-                    Album(date: Date(), items: [UIImage(systemName: "pencil")!.pngData()!])
+                    Album(date: Date(), items: [
+                        Photo(imageData: UIImage(systemName: "pencil")!.pngData()!, date: Date(), color: "#FFFFFF"),
+                        Photo(imageData: UIImage(systemName: "pencil")!.pngData()!, date: Date(), color: "#FFFFFF"),
+                        Photo(imageData: UIImage(systemName: "pencil")!.pngData()!, date: Date(), color: "#FFFFFF")
+                    ]),
+                    Album(date: Date(), items: [
+                        Photo(imageData: UIImage(systemName: "pencil")!.pngData()!, date: Date(), color: "#FFFFFF"),
+                        Photo(imageData: UIImage(systemName: "pencil")!.pngData()!, date: Date(), color: "#FFFFFF"),
+                        Photo(imageData: UIImage(systemName: "pencil")!.pngData()!, date: Date(), color: "#FFFFFF")
+                    ]),
+                    Album(date: Date(), items: [
+                        Photo(imageData: UIImage(systemName: "pencil")!.pngData()!, date: Date(), color: "#FFFFFF"),
+                    ])
                 ]
                
                 observer.onNext(fetchedMockData)

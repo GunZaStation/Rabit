@@ -89,9 +89,9 @@ private extension PhotoEdtiViewController {
     func bind() {
         guard let viewModel = viewModel else { return }
 
-        viewModel.imageData
+        viewModel.selectedPhotoData
             .compactMap {
-                UIImage(data: $0)
+                UIImage(data: $0.imageData)
             }
             .bind(to: photoImageView.rx.image)
             .disposed(by: disposeBag)

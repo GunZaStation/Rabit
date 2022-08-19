@@ -10,7 +10,7 @@ protocol PhotoEditViewModelInput {
 }
 
 protocol PhotoEditViewModelOutput {
-    var imageData: BehaviorSubject<Data> { get }
+    var selectedPhotoData: BehaviorSubject<Album.Item> { get }
 }
 
 protocol PhotoEditViewModelProtocol: PhotoEditViewModelInput, PhotoEditViewModelOutput { }
@@ -21,14 +21,14 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
     let backButtonTouched = PublishRelay<Void>()
     let hexPhotoColor = PublishSubject<String>()
 
-    let imageData = BehaviorSubject<Data>(value: Data())
+    let selectedPhotoData = BehaviorSubject<Album.Item>(value: Album.Item(imageData: Data(), date: Date(), color: ""))
     private var disposeBag = DisposeBag()
 
     init(
-        selectedData: Data,
+        selectedData: Album.Item,
         navigation: PhotoEditNavigation
     ) {
-        imageData.onNext(selectedData)
+        selectedPhotoData.onNext(selectedData)
 
         bind(to: navigation)
     }
