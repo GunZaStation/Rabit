@@ -6,6 +6,8 @@ protocol GoalNavigation {
     
     var showCategoryAddView: PublishRelay<Void> { get }
     var closeCategoryAddView: PublishRelay<Void> { get }
+    var showGoalAddView: PublishRelay<Void> { get }
+    var closeGoalAddView: PublishRelay<Void> { get }
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation {
@@ -16,6 +18,8 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     
     let showCategoryAddView = PublishRelay<Void>()
     let closeCategoryAddView = PublishRelay<Void>()
+    let showGoalAddView = PublishRelay<Void>()
+    let closeGoalAddView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
 
@@ -31,7 +35,15 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .disposed(by: disposeBag)
         
         closeCategoryAddView
-            .bind(onNext: dismissCategoryAddViewController)
+            .bind(onNext: dismissCurrentView)
+            .disposed(by: disposeBag)
+        
+        showGoalAddView
+            .bind(onNext: presentGoalAddViewController)
+            .disposed(by: disposeBag)
+        
+        closeGoalAddView
+            .bind(onNext: dismissCurrentView)
             .disposed(by: disposeBag)
     }
 
@@ -55,8 +67,14 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
         navigationController.present(viewController, animated: false)
     }
     
-    private func dismissCategoryAddViewController() {
+    private func dismissCurrentView() {
         
         navigationController.presentedViewController?.dismiss(animated: false)
+    }
+    
+    private func presentGoalAddViewController() {
+        
+        let viewController = GoalAddViewController()
+        navigationController.present(viewController, animated: true)
     }
 }

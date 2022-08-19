@@ -63,6 +63,7 @@ final class GoalListViewController: UIViewController {
 extension GoalListViewController {
     
     private func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Goal> {
+        let viewModel = viewModel
         return .init(
             configureCell: { dataSource, collectionView, indexPath, goalDetail in
                 guard let cell = collectionView.dequeueReusableCell(
@@ -87,6 +88,7 @@ extension GoalListViewController {
                 
                 let goal = dataSource.sectionModels[indexPath.section]
                 header.configure(title: goal.category)
+                header.bind(viewModel: viewModel)
                 
                 return header
             }
