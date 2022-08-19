@@ -31,6 +31,8 @@
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
 		B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */; };
 		B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */; };
+		B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */; };
+		B5B9413F28AF6F280098022F /* InsertField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413E28AF6F280098022F /* InsertField.swift */; };
 		B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CD289A04F200EE1833 /* Coordinator.swift */; };
 		B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CF289A065200EE1833 /* AppCoordinator.swift */; };
 		B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D1289A087000EE1833 /* MainCoordinator.swift */; };
@@ -86,6 +88,8 @@
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewController.swift; sourceTree = "<group>"; };
 		B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewModel.swift; sourceTree = "<group>"; };
+		B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewController.swift; sourceTree = "<group>"; };
+		B5B9413E28AF6F280098022F /* InsertField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertField.swift; sourceTree = "<group>"; };
 		B5D131CD289A04F200EE1833 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B5D131CF289A065200EE1833 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D1289A087000EE1833 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -260,6 +264,23 @@
 			path = CategoryAdd;
 			sourceTree = "<group>";
 		};
+		B5B9413A28AF6D3F0098022F /* GoalAdd */ = {
+			isa = PBXGroup;
+			children = (
+				B5B9413D28AF6F1D0098022F /* Views */,
+				B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */,
+			);
+			path = GoalAdd;
+			sourceTree = "<group>";
+		};
+		B5B9413D28AF6F1D0098022F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B5B9413E28AF6F280098022F /* InsertField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B5D131CC289A04E600EE1833 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +306,7 @@
 		B5D131D4289A0CF100EE1833 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				B5B9413A28AF6D3F0098022F /* GoalAdd */,
 				B59BB3C528A82DFA007C5013 /* CategoryAdd */,
 				B5D131E0289C29EE00EE1833 /* Models */,
 				B5D131D9289C0E7D00EE1833 /* Views */,
@@ -462,6 +484,7 @@
 				B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */,
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
+				B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */,
 				0229C50728AB9A100093990E /* AlbumCollectionCompositionalLayoutFactory.swift in Sources */,
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
@@ -470,6 +493,7 @@
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
 				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
 				025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */,
+				B5B9413F28AF6F280098022F /* InsertField.swift in Sources */,
 				02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */,
 				B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
