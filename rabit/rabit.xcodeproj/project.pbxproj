@@ -33,6 +33,7 @@
 		B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */; };
 		B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */; };
 		B5B9413F28AF6F280098022F /* InsertField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413E28AF6F280098022F /* InsertField.swift */; };
+		B5B9414128AF7D5C0098022F /* GoalAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9414028AF7D5C0098022F /* GoalAddViewModel.swift */; };
 		B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CD289A04F200EE1833 /* Coordinator.swift */; };
 		B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CF289A065200EE1833 /* AppCoordinator.swift */; };
 		B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D1289A087000EE1833 /* MainCoordinator.swift */; };
@@ -90,6 +91,7 @@
 		B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewModel.swift; sourceTree = "<group>"; };
 		B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewController.swift; sourceTree = "<group>"; };
 		B5B9413E28AF6F280098022F /* InsertField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertField.swift; sourceTree = "<group>"; };
+		B5B9414028AF7D5C0098022F /* GoalAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewModel.swift; sourceTree = "<group>"; };
 		B5D131CD289A04F200EE1833 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B5D131CF289A065200EE1833 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D1289A087000EE1833 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			children = (
 				B5B9413D28AF6F1D0098022F /* Views */,
 				B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */,
+				B5B9414028AF7D5C0098022F /* GoalAddViewModel.swift */,
 			);
 			path = GoalAdd;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
 				B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
+				B5B9414128AF7D5C0098022F /* GoalAddViewModel.swift in Sources */,
 				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
 				025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */,
 				B5B9413F28AF6F280098022F /* InsertField.swift in Sources */,
