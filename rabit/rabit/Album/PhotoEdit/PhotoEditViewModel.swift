@@ -47,5 +47,12 @@ private extension PhotoEditViewModel {
         backButtonTouched
             .bind(to: navigation.closePhotoEditView)
             .disposed(by: disposeBag)
+
+        Observable.combineLatest(selectedPhotoData, hexPhotoColor).map {
+            Album.Item(imageData: $0.imageData, date: $0.date, color: $1)
+        }
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(to: selectedPhotoData)
+            .disposed(by: disposeBag)
     }
 }
