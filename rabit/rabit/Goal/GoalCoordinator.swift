@@ -35,7 +35,10 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .disposed(by: disposeBag)
         
         closeCategoryAddView
-            .bind(onNext: dismissCurrentView)
+            .withUnretained(self)
+            .bind(onNext: { coordinator, _ in
+                coordinator.dismissCurrentView(animated: false)
+            })
             .disposed(by: disposeBag)
         
         showGoalAddView
@@ -43,7 +46,10 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .disposed(by: disposeBag)
         
         closeGoalAddView
-            .bind(onNext: dismissCurrentView)
+            .withUnretained(self)
+            .bind(onNext: { coordinator, _ in
+                coordinator.dismissCurrentView(animated: true)
+            })
             .disposed(by: disposeBag)
     }
 
@@ -67,14 +73,15 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
         navigationController.present(viewController, animated: false)
     }
     
-    private func dismissCurrentView() {
+    private func dismissCurrentView(animated: Bool) {
         
-        navigationController.presentedViewController?.dismiss(animated: false)
+        navigationController.presentedViewController?.dismiss(animated: animated)
     }
     
     private func presentGoalAddViewController() {
-        
-        let viewController = GoalAddViewController()
+
+        let viewModel = GoalAddViewModel(navigation: self)
+        let viewController = GoalAddViewController(viewModel: viewModel)
         navigationController.present(viewController, animated: true)
     }
 }

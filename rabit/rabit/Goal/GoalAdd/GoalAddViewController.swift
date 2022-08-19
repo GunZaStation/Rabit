@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import RxSwift
 
 final class GoalAddViewController: UIViewController {
     
@@ -54,6 +55,14 @@ final class GoalAddViewController: UIViewController {
         return button
     }()
     
+    private let disposeBag = DisposeBag()
+    private var viewModel: GoalAddViewModel?
+    
+    convenience init(viewModel: GoalAddViewModel) {
+        self.init()
+        self.viewModel = viewModel
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,7 +71,13 @@ final class GoalAddViewController: UIViewController {
         bind()
     }
     
-    private func bind() {}
+    private func bind() {
+        guard let viewModel = viewModel else { return }
+
+        saveButton.rx.tap
+            .bind(to: viewModel.saveButtonTouched)
+            .disposed(by: disposeBag)
+    }
     
     private func setAttributes() {
         
