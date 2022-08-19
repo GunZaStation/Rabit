@@ -69,8 +69,8 @@ private extension PhotoEdtiViewController {
 
         photoImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(100)
-            make.leading.equalToSuperview().offset(15)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(0)
+            make.width.equalToSuperview()
         }
 
         colorPickerButton.snp.makeConstraints { make in
@@ -93,7 +93,17 @@ private extension PhotoEdtiViewController {
             .compactMap {
                 UIImage(data: $0.imageData)
             }
-            .bind(to: photoImageView.rx.image)
+            .withUnretained(self)
+            .bind(onNext: { viewController, image in
+                let newImageView = UIImageView(image: image)
+                let ratio = newImageView.frame.height / newImageView.frame.width
+                let currentWidth = viewController.view.frame.width
+
+                viewController.photoImageView.image = image
+                viewController.photoImageView.snp.makeConstraints { make in
+                    make.height.equalTo(ratio * currentWidth)
+                }
+            })
             .disposed(by: disposeBag)
 
         colorPickerButton.rx.tap
