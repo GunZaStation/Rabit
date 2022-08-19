@@ -33,22 +33,14 @@ final class InsertField: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setAttributes()
-        addViews()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setAttributes() {
-//        clipsToBounds = true
-//        layer.borderColor = UIColor.systemGray4.cgColor
-//        layer.borderWidth = 1.0
-//        layer.cornerRadius = 10
-    }
-    
-    private func addViews() {
+    private func setupViews() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.leading.centerY.equalToSuperview()
