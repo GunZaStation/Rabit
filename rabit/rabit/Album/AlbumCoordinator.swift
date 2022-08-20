@@ -61,10 +61,13 @@ private extension AlbumCoordinator {
     }
 
     func pushColorPickerView() {
-        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
+        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController,
+              let photoEditViewController = navigationController.viewControllers.first as? PhotoEdtiViewController else {
+                  return
+              }
 
         if #available(iOS 14.0, *) {
-            let viewModel = createColorPickerViewModel()
+            let viewModel = ColorPickerViewModel(colorStream: photoEditViewController.hexPhotoColor)
             let viewController = ColorPickerViewController(viewModel: viewModel)
             navigationController.pushViewController(viewController, animated: true)
         }
@@ -96,20 +99,5 @@ private extension AlbumCoordinator {
         showStylePickerView
             .bind(onNext: pushStylePickerView)
             .disposed(by: disposeBag)
-    }
-
-    func createColorPickerViewModel() -> ColorPickerViewModelProtocol {
-        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController,
-              let photoEditViewController = navigationController.viewControllers.first as? PhotoEdtiViewController else {
-            return ColorPickerViewModel()
-        }
-
-        let viewModel = ColorPickerViewModel()
-        viewModel.selectedColor
-            .map { $0.toHexString() }
-            .bind(to: photoEditViewController.hexPhotoColor)
-            .disposed(by: disposeBag)
-
-        return viewModel
     }
 }
