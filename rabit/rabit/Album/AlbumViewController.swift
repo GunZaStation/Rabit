@@ -45,12 +45,16 @@ final class AlbumViewController: UIViewController {
 private extension AlbumViewController {
     // MARK: - Setup UI
     func setupViews() {
-        view.backgroundColor = .white
+        setAttributes()
         view.addSubview(albumCollectionView)
 
         albumCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
+    }
+
+    func setAttributes() {
+        view.backgroundColor = .white
     }
 
     func setupAlbumCollectionView() {

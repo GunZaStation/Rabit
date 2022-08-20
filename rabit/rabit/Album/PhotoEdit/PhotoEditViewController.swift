@@ -57,12 +57,11 @@ final class PhotoEdtiViewController: UIViewController {
 
 private extension PhotoEdtiViewController {
     func setupViews() {
-        view.backgroundColor = UIColor(named: "first")
+        setAttributes()
         view.addSubview(photoImageView)
         view.addSubview(colorPickerButton)
         view.addSubview(stylePickerButton)
 
-        setNavigationBarButton()
 
         photoImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(100)
@@ -81,6 +80,11 @@ private extension PhotoEdtiViewController {
             make.top.equalTo(colorPickerButton.snp.bottom).offset(30)
             make.leading.trailing.height.equalTo(colorPickerButton)
         }
+    }
+
+    func setAttributes() {
+        view.backgroundColor = UIColor(named: "first")
+        setNavigationBarButton()
     }
 
     func bind() {
