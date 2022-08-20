@@ -6,6 +6,7 @@ protocol GoalListViewModelInput {
 
     var requestGoalList: PublishRelay<Void> { get }
     var categoryAddButtonTouched: PublishRelay<Void> { get }
+    var goalAddButtonTouched: PublishRelay<Void> { get }
 }
 
 protocol GoalListViewModelOutput {
@@ -17,6 +18,7 @@ final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
     
     let requestGoalList = PublishRelay<Void>()
     let categoryAddButtonTouched = PublishRelay<Void>()
+    let goalAddButtonTouched = PublishRelay<Void>()
     let goalList = PublishRelay<[Goal]>()
     
     private let repository: GoalListRepository
@@ -26,18 +28,25 @@ final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
          navigation: GoalNavigation) {
         self.repository = repository
         
-        bind(navigation: navigation)
+        bind(to: navigation)
     }
+}
+
+private extension GoalListViewModel {
     
-    private func bind(navigation: GoalNavigation) {
+    func bind(to navigation: GoalNavigation) {
         
         categoryAddButtonTouched
             .bind(to: navigation.showCategoryAddView)
             .disposed(by: disposeBag)
         
+        goalAddButtonTouched
+            .bind(to: navigation.showGoalAddView)
+            .disposed(by: disposeBag)
+        
         requestGoalList
             .withUnretained(self)
-            .compactMap { viewModel, _ in
+            .flatMapLatest { viewModel, _ in
                 viewModel.repository.fetchGoalListData()
             }
             .bind(to: goalList)

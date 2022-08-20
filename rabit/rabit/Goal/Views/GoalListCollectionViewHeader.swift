@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import RxSwift
 
 final class GoalListCollectionViewHeader: UICollectionReusableView {
     
@@ -7,13 +8,11 @@ final class GoalListCollectionViewHeader: UICollectionReusableView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let addButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGreen
         button.setTitle("+", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -22,6 +21,8 @@ final class GoalListCollectionViewHeader: UICollectionReusableView {
         button.layer.cornerRadius = 15
         return button
     }()
+    
+    private var disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +36,16 @@ final class GoalListCollectionViewHeader: UICollectionReusableView {
     func configure(title: String) {
         titleLabel.text = title
     }
+    
+    func bind(viewModel: GoalListViewModel?) {
+        guard let viewModel = viewModel else { return }
+        disposeBag = DisposeBag()
         
+        addButton.rx.tap
+            .bind(to: viewModel.goalAddButtonTouched)
+            .disposed(by: disposeBag)
+    }
+    
     private func setupViews() {
         
         addSubview(titleLabel)
