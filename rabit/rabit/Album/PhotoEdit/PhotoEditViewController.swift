@@ -6,13 +6,11 @@ import RxCocoa
 final class PhotoEdtiViewController: UIViewController {
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
     private let colorPickerButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("글씨 색깔 변경", for: .normal)
         button.setImage(UIImage(systemName: "paintpalette"), for: .normal)
         button.tintColor = UIColor.white
@@ -23,7 +21,6 @@ final class PhotoEdtiViewController: UIViewController {
 
     private let stylePickerButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("글씨 스타일 변경", for: .normal)
         button.setImage(UIImage(systemName: "scribble"), for: .normal)
         button.tintColor = UIColor.white

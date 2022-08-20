@@ -9,7 +9,6 @@ typealias DataSource = CollectionViewSectionedDataSource<Album>
 final class AlbumViewController: UIViewController {
     private let albumCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
