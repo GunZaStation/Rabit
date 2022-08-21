@@ -8,18 +8,17 @@ final class CategoryAddViewController: UIViewController {
     private let formView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 15
+        view.roundCorners(20)
         return view
     }()
     
     private let textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = " 카테고리 입력"
+        textField.leftView = UIView()
         textField.layer.borderColor = UIColor.systemGray4.cgColor
-        textField.layer.cornerRadius = 5
-        textField.clipsToBounds = true
         textField.layer.borderWidth = 1.0
+        textField.roundCorners(10)
         return textField
     }()
     
@@ -31,9 +30,7 @@ final class CategoryAddViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = .systemOrange
-        
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 10
+        button.roundCorners(10)
         return button
     }()
     
@@ -45,7 +42,6 @@ final class CategoryAddViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = .systemGreen
-        
         button.roundCorners(10)
         button.isEnabled = false
         return button
@@ -90,7 +86,7 @@ final class CategoryAddViewController: UIViewController {
         }
         
         UIView.animate(
-            withDuration: 0.15,
+            withDuration: 0.12,
             delay: 0,
             animations: self.view.layoutIfNeeded,
             completion: nil
@@ -112,7 +108,7 @@ final class CategoryAddViewController: UIViewController {
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
-        
+
         viewModel.closeButtonTouched
             .withUnretained(self)
             .bind(onNext: { viewController, _ in

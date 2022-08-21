@@ -12,10 +12,9 @@ final class InsertField: UIView {
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.clipsToBounds = true
         textField.layer.borderColor = UIColor.systemGray4.cgColor
         textField.layer.borderWidth = 1.0
-        textField.layer.cornerRadius = 9
+        textField.roundCorners(10)
         return textField
     }()
     
