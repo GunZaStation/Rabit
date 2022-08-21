@@ -77,6 +77,26 @@ final class CategoryAddViewController: UIViewController {
         bind()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        showFormView()
+    }
+    
+    private func showFormView() {
+        
+        formView.snp.remakeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.7)
+            $0.height.equalToSuperview().multipliedBy(0.18)
+        }
+        
+        UIView.animate(
+            withDuration: 0.15,
+            delay: 0,
+            animations: self.view.layoutIfNeeded,
+            completion: nil
+        )
+    }
+    
     private func bind() {
         guard let viewModel = viewModel else { return }
         
@@ -118,7 +138,8 @@ final class CategoryAddViewController: UIViewController {
         
         view.addSubview(formView)
         formView.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             $0.width.equalToSuperview().multipliedBy(0.7)
             $0.height.equalToSuperview().multipliedBy(0.18)
         }
@@ -137,8 +158,7 @@ final class CategoryAddViewController: UIViewController {
         
         formView.addSubview(textField)
         textField.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(35)
-            $0.trailing.equalToSuperview().inset(35)
+            $0.leading.trailing.equalToSuperview().inset(35)
             $0.height.equalToSuperview().multipliedBy(0.25)
             $0.bottom.equalTo(saveButton.snp.top).offset(-28)
         }
