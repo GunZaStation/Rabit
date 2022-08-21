@@ -6,9 +6,8 @@ final class AlbumCell: UICollectionViewCell {
     private let thumbnailPictureView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.clipsToBounds = true
-        imageView.layer.cornerCurve = .continuous
-        imageView.layer.cornerRadius = 10
+        imageView.roundCorners()
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
@@ -24,8 +23,8 @@ final class AlbumCell: UICollectionViewCell {
         setupViews()
     }
 
-    func configure(with imgData: Data) {
-        thumbnailPictureView.image = UIImage(data: imgData)
+    func configure(with photo: Album.Item) {
+        thumbnailPictureView.image = UIImage(data: photo.imageData)
     }
 }
 

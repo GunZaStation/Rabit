@@ -2,7 +2,7 @@ import Foundation
 import Differentiator
 
 struct Album {
-    typealias Item = Data
+    typealias Item = Photo
     var items: [Item]
     var date: Date
 

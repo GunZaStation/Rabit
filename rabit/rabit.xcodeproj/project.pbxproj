@@ -10,6 +10,11 @@
 		0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */; };
 		0229C50728AB9A100093990E /* AlbumCollectionCompositionalLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50628AB9A100093990E /* AlbumCollectionCompositionalLayoutFactory.swift */; };
 		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
+		0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */; };
+		0232BD9228AE1134009057F8 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9128AE1134009057F8 /* ColorPickerViewController.swift */; };
+		0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorPickerViewModel.swift */; };
+		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
+		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520986289A5A2400E7E604 /* AlbumViewController.swift */; };
 		02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520988289A5C1D00E7E604 /* AlbumCell.swift */; };
 		0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098E289A661E00E7E604 /* AlbumHeaderView.swift */; };
@@ -18,6 +23,8 @@
 		02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD28289A1EC300EBA86D /* RealmSwift */; };
 		02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2B289A1EEC00EBA86D /* RxCocoa */; };
 		02B7FD2E289A1EEC00EBA86D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2D289A1EEC00EBA86D /* RxSwift */; };
+		02DB2F8428AC8D7E005938CB /* PhotoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */; };
+		02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DB2F8628AC9115005938CB /* PhotoEditViewModel.swift */; };
 		02F37251289CE21400F361C7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37250289CE21400F361C7 /* Album.swift */; };
 		02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37253289E1EA200F361C7 /* PaddingLabel.swift */; };
 		02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */; };
@@ -68,10 +75,17 @@
 /* Begin PBXFileReference section */
 		0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + identifier.swift"; sourceTree = "<group>"; };
 		0229C50628AB9A100093990E /* AlbumCollectionCompositionalLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionCompositionalLayoutFactory.swift; sourceTree = "<group>"; };
+		0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + roundCorners.swift"; sourceTree = "<group>"; };
+		0232BD9128AE1134009057F8 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
+		0232BD9428AE11DD009057F8 /* ColorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewModel.swift; sourceTree = "<group>"; };
+		0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Initializer.swift"; sourceTree = "<group>"; };
+		0232BD9828AF6B25009057F8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		02520986289A5A2400E7E604 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		02520988289A5C1D00E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
 		025CA12528A631C0007AAADE /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
+		02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditViewController.swift; sourceTree = "<group>"; };
+		02DB2F8628AC9115005938CB /* PhotoEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditViewModel.swift; sourceTree = "<group>"; };
 		02F37250289CE21400F361C7 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		02F37253289E1EA200F361C7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
@@ -153,12 +167,30 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0232BD9328AE113D009057F8 /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				0232BD9128AE1134009057F8 /* ColorPickerViewController.swift */,
+				0232BD9428AE11DD009057F8 /* ColorPickerViewModel.swift */,
+			);
+			path = ColorPicker;
+			sourceTree = "<group>";
+		};
 		02DB2F8228AC7641005938CB /* CompositionalLayoutFactory */ = {
 			isa = PBXGroup;
 			children = (
 				0229C50628AB9A100093990E /* AlbumCollectionCompositionalLayoutFactory.swift */,
 			);
 			path = CompositionalLayoutFactory;
+			sourceTree = "<group>";
+		};
+		02DB2F8528AC8D82005938CB /* PhotoEdit */ = {
+			isa = PBXGroup;
+			children = (
+				02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */,
+				02DB2F8628AC9115005938CB /* PhotoEditViewModel.swift */,
+			);
+			path = PhotoEdit;
 			sourceTree = "<group>";
 		};
 		02F3724D289CB23F00F361C7 /* Supportings */ = {
@@ -192,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				02F37250289CE21400F361C7 /* Album.swift */,
+				0232BD9828AF6B25009057F8 /* Photo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,6 +234,8 @@
 			children = (
 				02F37253289E1EA200F361C7 /* PaddingLabel.swift */,
 				0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */,
+				0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */,
+				0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -295,6 +330,8 @@
 		B5D131D3289A0CE900EE1833 /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				02DB2F8528AC8D82005938CB /* PhotoEdit */,
+				0232BD9328AE113D009057F8 /* ColorPicker */,
 				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
 				02520986289A5A2400E7E604 /* AlbumViewController.swift */,
 				02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */,
@@ -483,7 +520,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
+				0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */,
+				0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */,
 				B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */,
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
@@ -497,12 +537,15 @@
 				B5B9414128AF7D5C0098022F /* GoalAddViewModel.swift in Sources */,
 				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
 				025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */,
+				02DB2F8428AC8D7E005938CB /* PhotoEditViewController.swift in Sources */,
 				B5B9413F28AF6F280098022F /* InsertField.swift in Sources */,
 				02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */,
 				B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */,
+				0232BD9928AF6B25009057F8 /* Photo.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
 				02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */,
+				0232BD9228AE1134009057F8 /* ColorPickerViewController.swift in Sources */,
 				0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
 				B5D131E6289C2CFB00EE1833 /* GoalDetail.swift in Sources */,
@@ -510,6 +553,7 @@
 				B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */,
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
+				0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Goal.swift in Sources */,
 			);

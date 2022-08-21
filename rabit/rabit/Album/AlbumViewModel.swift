@@ -3,8 +3,7 @@ import RxSwift
 import RxRelay
 
 protocol AlbumViewModelInput {
-    // 임시적으로 Data 타입을 받도록 설정 (추후 AlbumView에서 보여지는 Cell의 모델 변경 예정)
-    var photoSelected: PublishRelay<Data> { get }
+    var photoSelected: PublishRelay<Album.Item> { get }
 }
 
 protocol AlbumViewModelOutput {
@@ -16,20 +15,23 @@ protocol AlbumViewModelProtocol: AlbumViewModelInput, AlbumViewModelOutput { }
 final class AlbumViewModel: AlbumViewModelProtocol {
     private let albumRepository: AlbumRepositoryProtocol
 
-    let photoSelected = PublishRelay<Data>()
+    let photoSelected = PublishRelay<Album.Item>()
     let albumData = BehaviorSubject<[Album]>(value: [])
 
     private var disposeBag = DisposeBag()
 
-    init(repository: AlbumRepositoryProtocol) {
+    init(
+        repository: AlbumRepositoryProtocol,
+        navigation: AlbumNavigation
+    ) {
         albumRepository = repository
 
-        bind()
+        bind(to: navigation)
     }
 }
 
 private extension AlbumViewModel {
-    func bind() {
+    func bind(to navigation: AlbumNavigation) {
         let fetchedAlbum = albumRepository.fetchAlbumData()
 
         fetchedAlbum
@@ -37,10 +39,7 @@ private extension AlbumViewModel {
             .disposed(by: disposeBag)
 
         photoSelected
-            .bind(onNext: {
-                // Coordinator로부터 화면 이동 로직을 받아온 후 수정 예정
-                print($0)
-            })
+            .bind(to: navigation.showPhotoEditView)
             .disposed(by: disposeBag)
     }
 }
