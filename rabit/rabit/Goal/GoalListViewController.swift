@@ -60,9 +60,9 @@ final class GoalListViewController: UIViewController {
     }
 }
 
-extension GoalListViewController {
+private extension GoalListViewController {
     
-    private func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Category> {
+    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Goal> {
         let viewModel = viewModel
         return .init(
             configureCell: { dataSource, collectionView, indexPath, goal in
@@ -95,7 +95,7 @@ extension GoalListViewController {
         )
     }
     
-    private func initializeCollectionView() -> UICollectionView {
+    func initializeCollectionView() -> UICollectionView {
         
         let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1.0,

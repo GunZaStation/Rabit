@@ -69,7 +69,7 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
 
         let viewModel = CategoryAddViewModel(navigation: self)
         let viewController = CategoryAddViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .overFullScreen
         navigationController.present(viewController, animated: false)
     }
     
