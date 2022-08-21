@@ -74,6 +74,8 @@ final class CategoryAddViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         showFormView()
     }
     
