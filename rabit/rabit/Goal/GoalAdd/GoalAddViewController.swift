@@ -55,6 +55,11 @@ final class GoalAddViewController: UIViewController {
         return button
     }()
     
+    private lazy var closeButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "저장", style: .plain, target: self, action: nil)
+        return button
+    }()
+    
     private let disposeBag = DisposeBag()
     private var viewModel: GoalAddViewModel?
     
@@ -77,23 +82,26 @@ final class GoalAddViewController: UIViewController {
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
+        
+        navigationItem.leftBarButtonItem?.rx.tap
+            .bind(to: viewModel.closeButtonTouched)
+            .disposed(by: disposeBag)
     }
     
     private func setAttributes() {
         
         view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = rightButton
-        navigationItem.title = "새로운 목표 만들기"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
     }
     
     private func setupViews() {
         
         view.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.85)
-            $0.height.equalToSuperview().multipliedBy(0.5)
+            $0.height.equalToSuperview().multipliedBy(0.45)
         }
                 
         stackView.addArrangedSubview(titleField)

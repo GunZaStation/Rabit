@@ -82,6 +82,6 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
 
         let viewModel = GoalAddViewModel(navigation: self)
         let viewController = GoalAddViewController(viewModel: viewModel)
-        navigationController.present(viewController, animated: true)
+        navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
 }
