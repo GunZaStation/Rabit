@@ -8,7 +8,7 @@ final class AlbumHeaderView: UICollectionReusableView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.roundCorners()
-        label.backgroundColor = .blue
+        label.backgroundColor = UIColor(named: "second")
         return label
     }()
 
