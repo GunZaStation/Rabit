@@ -46,6 +46,7 @@
 		B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2228B5F9AF00D5783F /* RealmManager.swift */; };
 		B58A1C2528B74E1E00D5783F /* CategoryAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2428B74E1E00D5783F /* CategoryAddRepository.swift */; };
 		B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58EF87628B8BABC0075B295 /* BottomSheet.swift */; };
+		B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D75F328B3E76300C11405 /* UIView + shadow.swift */; };
 		B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */; };
 		B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */; };
 		B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */; };
@@ -121,6 +122,7 @@
 		B58A1C2228B5F9AF00D5783F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		B58A1C2428B74E1E00D5783F /* CategoryAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddRepository.swift; sourceTree = "<group>"; };
 		B58EF87628B8BABC0075B295 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		B57D75F328B3E76300C11405 /* UIView + shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + shadow.swift"; sourceTree = "<group>"; };
 		B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewController.swift; sourceTree = "<group>"; };
 		B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewModel.swift; sourceTree = "<group>"; };
 		B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */,
 				02C9713428AF82390087B8D2 /* UIImage + Utils.swift */,
 				02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */,
+				B57D75F328B3E76300C11405 /* UIView + shadow.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
+				B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */,
 				B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
 				02B916DB28B89ADF0086F29E /* RealmResults + toArray.swift in Sources */,
