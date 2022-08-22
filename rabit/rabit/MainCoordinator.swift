@@ -18,7 +18,11 @@ final class MainCoordinator: Coordinator {
         tabBarController.viewControllers = children.compactMap {
             $0.navigationController
         }
-
+        tabBarController.tabBar.tintColor = UIColor(named: "second")
+        tabBarController.tabBar.selectionIndicatorImage = UIImage.imageWithColor(
+            color: UIColor(named: "fourth"),
+            size: CGSize(width: 60, height: 60)
+        )
         navigationController.pushViewController(tabBarController, animated: false)
     }
 
@@ -27,6 +31,13 @@ final class MainCoordinator: Coordinator {
             let coordinator = $0.coordinator
             coordinator.parentCoordiantor = self
             coordinator.navigationController.tabBarItem = $0.tabBarItem
+            coordinator.navigationController.tabBarItem.imageInsets = UIEdgeInsets(
+                top: 22,
+                left: 0,
+                bottom: -22,
+                right: 0
+            )
+
             children.append(coordinator)
             coordinator.start()
         }
@@ -53,9 +64,17 @@ private extension MainCoordinator {
         var tabBarItem: UITabBarItem {
             switch self {
             case .goalCoordinator:
-                return UITabBarItem(title: nil, image: UIImage(systemName: "pencil"), tag: 0)
+                return UITabBarItem(
+                    title: nil,
+                    image: UIImage(named: "goal_tabIcon")?.resized(to: CGSize(width: 45, height: 45)),
+                    tag: 0
+                )
             case .albumCoordinator:
-                return UITabBarItem(title: nil, image: UIImage(systemName: "pencil"), tag: 1)
+                return UITabBarItem(
+                    title: nil,
+                    image: UIImage(named: "album_tabIcon")?.resized(to: CGSize(width: 45, height: 45)),
+                    tag: 1
+                )
             }
         }
     }
