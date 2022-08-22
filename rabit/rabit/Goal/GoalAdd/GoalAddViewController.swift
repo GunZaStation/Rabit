@@ -91,7 +91,8 @@ final class GoalAddViewController: UIViewController {
         view.addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
-            $0.leading.trailing.equalToSuperview().inset(25)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.85)
             $0.height.equalToSuperview().multipliedBy(0.5)
         }
                 

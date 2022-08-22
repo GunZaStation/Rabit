@@ -14,7 +14,9 @@ final class InsertField: UIView {
         let textField = UITextField()
         textField.layer.borderColor = UIColor.systemGray4.cgColor
         textField.layer.borderWidth = 1.0
+        textField.backgroundColor = .white
         textField.roundCorners(10)
+        textField.shadowApplied(opacity: 0.2)
         return textField
     }()
     
