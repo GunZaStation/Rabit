@@ -5,8 +5,8 @@ final class InsertField: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        label.textAlignment = .left
         return label
     }()
     
@@ -42,14 +42,13 @@ final class InsertField: UIView {
     private func setupViews() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.leading.centerY.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.2)
+            $0.top.leading.trailing.equalToSuperview()
         }
         
         addSubview(textField)
         textField.snp.makeConstraints {
-            $0.leading.equalTo(titleLabel.snp.trailing).offset(10)
-            $0.height.centerY.trailing.equalToSuperview()
+            $0.bottom.leading.trailing.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.5)
         }
     }
 }

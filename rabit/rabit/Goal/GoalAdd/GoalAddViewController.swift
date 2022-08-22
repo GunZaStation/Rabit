@@ -8,7 +8,7 @@ final class GoalAddViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 12.5
+        stackView.spacing = 14
         return stackView
     }()
     
@@ -90,9 +90,9 @@ final class GoalAddViewController: UIViewController {
         
         view.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalToSuperview().multipliedBy(0.3)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+            $0.leading.trailing.equalToSuperview().inset(25)
+            $0.height.equalToSuperview().multipliedBy(0.5)
         }
                 
         stackView.addArrangedSubview(titleField)
