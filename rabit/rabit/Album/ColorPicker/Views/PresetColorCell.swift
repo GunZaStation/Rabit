@@ -6,10 +6,12 @@ final class PresetColorCell: UICollectionViewCell {
         let view = UIView()
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.lightGray.cgColor
+        view.roundCorners()
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
         view.layer.shadowRadius = 2.5
         view.layer.shadowOffset = CGSize(width: 5, height: 5)
+        view.layer.masksToBounds = false
         return view
     }()
 
@@ -17,6 +19,7 @@ final class PresetColorCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.35)
         view.isHidden = true
+        view.roundCorners()
         return view
     }()
 
