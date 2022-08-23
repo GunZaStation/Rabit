@@ -58,7 +58,14 @@ private extension AlbumViewController {
     }
 
     func setupAlbumCollectionView() {
-        let layout = getCollectionViewLayout()
+        let layout = AlbumCollectionCompositionalLayoutFactory.shared.create(
+            widthFraction: 1.0,
+            heightFraction: 0.5,
+            requireHeader: true,
+            headerWidth: UIScreen.main.bounds.width,
+            headerHeight: 50.0,
+            enableScrolling: true
+        )
 
         albumCollectionView.collectionViewLayout = layout
 
@@ -111,12 +118,6 @@ private extension AlbumViewController {
         )
 
         return dataSource
-    }
-
-    func getCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
-            AlbumCollectionCompositionalLayoutFactory.shared.create()
-        }
     }
 
     func bind() {
