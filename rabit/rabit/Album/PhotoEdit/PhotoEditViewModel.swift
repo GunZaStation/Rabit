@@ -48,10 +48,15 @@ private extension PhotoEditViewModel {
             .bind(to: navigation.closePhotoEditView)
             .disposed(by: disposeBag)
 
-        Observable.combineLatest(selectedPhotoData, hexPhotoColor).map {
-            Album.Item(imageData: $0.imageData, date: $0.date, color: $1)
-        }
-            .observe(on: MainScheduler.asyncInstance)
+        hexPhotoColor.withLatestFrom(selectedPhotoData)
+            .withUnretained(self)
+            .map { viewModel, photoData in
+                Album.Item(
+                    imageData: photoData.imageData,
+                    date: photoData.date,
+                    color: viewModel.hexPhotoColor.value
+                )
+            }
             .bind(to: selectedPhotoData)
             .disposed(by: disposeBag)
     }
