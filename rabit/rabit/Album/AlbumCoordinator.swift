@@ -12,7 +12,11 @@ protocol PhotoEditNavigation {
     var closePhotoEditView: PublishRelay<Void> { get }
 }
 
-final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation {
+protocol ColorPickerNavigation {
+    var closeColorPickerView: PublishRelay<Void> { get }
+}
+
+final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation, ColorPickerNavigation {
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
@@ -66,11 +70,18 @@ private extension AlbumCoordinator {
                   return
               }
 
-        if #available(iOS 14.0, *) {
-            let viewModel = ColorPickerViewModel(colorStream: photoEditViewController.hexPhotoColor)
-            let viewController = ColorPickerViewController(viewModel: viewModel)
-            navigationController.pushViewController(viewController, animated: true)
-        }
+        let viewModel = ColorPickerViewModel(
+            colorStream: photoEditViewController.hexPhotoColor,
+            navigation: self
+        )
+        let viewController = ColorPickerViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    func dismissColorPickerView() {
+        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
+
+        navigationController.popViewController(animated: true)
     }
 
     func pushStylePickerView() {
@@ -98,6 +109,10 @@ private extension AlbumCoordinator {
 
         showStylePickerView
             .bind(onNext: pushStylePickerView)
+            .disposed(by: disposeBag)
+
+        closeColorPickerView
+            .bind(onNext: dismissColorPickerView)
             .disposed(by: disposeBag)
     }
 }
