@@ -3,8 +3,23 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-@available(iOS 14.0, *)
-final class ColorPickerViewController: UIColorPickerViewController {
+final class ColorPickerViewController: UIViewController {
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.text = "Colors"
+        return label
+    }()
+
+    private let presetColorCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
+
+
     private var viewModel: ColorPickerViewModelProtocol?
 
     private var disposeBag = DisposeBag()
@@ -12,20 +27,89 @@ final class ColorPickerViewController: UIColorPickerViewController {
     convenience init(viewModel: ColorPickerViewModelProtocol) {
         self.init()
         self.viewModel = viewModel
-        self.delegate = self
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(named: "first")
+        setupViews()
+        setAttributes()
+        setupPresetColorCollectionView()
+        bind()
     }
 }
 
-@available(iOS 14.0, *)
-extension ColorPickerViewController: UIColorPickerViewControllerDelegate {
-    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
-        // UIColorPickerViewController는 rxSwift에 구현되어있지않아, 부득이하게 이런 방식으로 바인딩처리..
-        viewModel?.selectedColor.onNext(color.toHexString())
+private extension ColorPickerViewController {
+    func setupViews() {
+        view.addSubview(titleLabel)
+        view.addSubview(presetColorCollectionView)
+
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(100)
+            make.leading.equalToSuperview().offset(20)
+        }
+
+        presetColorCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.bottom.equalToSuperview().inset(20)
+        }
+    }
+
+    func setAttributes() {
+        view.backgroundColor = UIColor(named: "first")
+        setupNavigationBarButton()
+    }
+
+    func bind() {
+        guard let viewModel = viewModel else { return }
+
+        Observable.of(viewModel.presetColors)
+            .bind(to: presetColorCollectionView.rx.items(
+                cellIdentifier: PresetColorCell.identifier,
+                cellType: PresetColorCell.self
+            )) { _, element, cell in
+                cell.configure(with: element)
+            }
+            .disposed(by: disposeBag)
+
+        presetColorCollectionView.rx.modelSelected(String.self)
+            .bind(to: viewModel.selectedColor)
+            .disposed(by: disposeBag)
+
+        navigationItem.leftBarButtonItem?.rx.tap
+            .bind(to: viewModel.backButtonTouched)
+            .disposed(by: disposeBag)
+    }
+
+    func setupPresetColorCollectionView() {
+        let layout = AlbumCollectionCompositionalLayoutFactory.shared.create(
+            widthFraction: 1/6,
+            heightFraction: 1/6,
+            topSpacing: 5,
+            bottomSpacing: 5,
+            leftSpacing: 5,
+            rightSpacing: 5
+        )
+
+        presetColorCollectionView.collectionViewLayout = layout
+
+        presetColorCollectionView.register(
+            PresetColorCell.self,
+            forCellWithReuseIdentifier: PresetColorCell.identifier
+        )
+    }
+
+    func setupNavigationBarButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(
+                systemName: "chevron.backward",
+                withConfiguration: UIImage.SymbolConfiguration(
+                    pointSize: 18,
+                    weight: .semibold)
+                ),
+            style: .plain,
+            target: nil, action: nil
+        )
     }
 }
