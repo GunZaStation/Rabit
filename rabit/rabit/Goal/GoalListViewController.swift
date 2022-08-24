@@ -97,7 +97,7 @@ extension GoalListViewController {
     
     private func initializeCollectionView() -> UICollectionView {
         
-        let layout = AlbumCollectionCompositionalLayoutFactory.shared.create(
+        let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1.0,
             heightFraction: 0.21,
             bottomSpacing: 15,

@@ -58,7 +58,7 @@ private extension AlbumViewController {
     }
 
     func setupAlbumCollectionView() {
-        let layout = AlbumCollectionCompositionalLayoutFactory.shared.create(
+        let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1.0,
             heightFraction: 0.5,
             requireHeader: true,

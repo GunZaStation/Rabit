@@ -83,7 +83,7 @@ private extension ColorPickerViewController {
     }
 
     func setupPresetColorCollectionView() {
-        let layout = AlbumCollectionCompositionalLayoutFactory.shared.create(
+        let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1/6,
             heightFraction: 1/6,
             topSpacing: 5,

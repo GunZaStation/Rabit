@@ -1,7 +1,7 @@
 import UIKit
 
-final class AlbumCollectionCompositionalLayoutFactory {
-    static let shared = AlbumCollectionCompositionalLayoutFactory()
+final class CompositionalLayoutFactory {
+    static let shared = CompositionalLayoutFactory()
     
     private init() { }
     
@@ -39,9 +39,9 @@ final class AlbumCollectionCompositionalLayoutFactory {
     }
 }
 
-extension AlbumCollectionCompositionalLayoutFactory {
+private extension CompositionalLayoutFactory {
     
-    private func section(widthFraction: CGFloat,
+    func section(widthFraction: CGFloat,
                          heightFraction: CGFloat,
                          topSpacing: CGFloat,
                          bottomSpacing: CGFloat,
