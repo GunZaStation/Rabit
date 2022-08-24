@@ -38,6 +38,7 @@
 		B569EA092898D4AB006FFFB9 /* rabitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA082898D4AB006FFFB9 /* rabitTests.swift */; };
 		B569EA132898D4AB006FFFB9 /* rabitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA122898D4AB006FFFB9 /* rabitUITests.swift */; };
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
+		B58A1C2328B5F9AF00D5783F /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2228B5F9AF00D5783F /* RealmRepository.swift */; };
 		B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */; };
 		B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */; };
 		B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */; };
@@ -105,6 +106,7 @@
 		B569EA0E2898D4AB006FFFB9 /* rabitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rabitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569EA122898D4AB006FFFB9 /* rabitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITests.swift; sourceTree = "<group>"; };
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B58A1C2228B5F9AF00D5783F /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
 		B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewController.swift; sourceTree = "<group>"; };
 		B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewModel.swift; sourceTree = "<group>"; };
 		B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				02972D5B28B5F84B008C097D /* Factory */,
+				B58A1C2228B5F9AF00D5783F /* RealmRepository.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
 				B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */,
+				B58A1C2328B5F9AF00D5783F /* RealmRepository.swift in Sources */,
 				0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */,
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
