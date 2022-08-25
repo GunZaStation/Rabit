@@ -87,9 +87,9 @@ private extension AlbumViewController {
                 for: indexPath) as? AlbumCell else { return UICollectionViewCell(
             ) }
 
-            let dataArr = dataSource.sectionModels[indexPath.section].items[0]
+            let itemData = dataSource.sectionModels[indexPath.section].items[indexPath.item]
 
-            cell.configure(with: dataArr)
+            cell.configure(with: itemData)
             return cell
         }
 
