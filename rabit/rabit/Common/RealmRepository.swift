@@ -3,11 +3,15 @@ import RealmSwift
 
 final class RealmRepository {
     
-    let realm: Realm
+    private let realm: Realm
     static var shared = RealmRepository()
     
     private init() {
         self.realm = try! Realm()
+    }
+    
+    func read<T: Object>(entity: T.Type) -> Results<T> {
+        return realm.objects(entity)
     }
  
     func write(entity: Object) {
