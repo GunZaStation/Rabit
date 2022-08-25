@@ -20,6 +20,7 @@
 		0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098E289A661E00E7E604 /* AlbumHeaderView.swift */; };
 		025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025CA12528A631C0007AAADE /* AlbumRepository.swift */; };
 		02972D5D28B61E76008C097D /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5C28B61E76008C097D /* Persistable.swift */; };
+		02972D5F28B74343008C097D /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5E28B74342008C097D /* PhotoEntity.swift */; };
 		02B7FD26289A1E3400EBA86D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD25289A1E3400EBA86D /* SnapKit */; };
 		02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD28289A1EC300EBA86D /* RealmSwift */; };
 		02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2B289A1EEC00EBA86D /* RxCocoa */; };
@@ -90,6 +91,7 @@
 		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
 		025CA12528A631C0007AAADE /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
 		02972D5C28B61E76008C097D /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
+		02972D5E28B74342008C097D /* PhotoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
 		02C9713428AF82390087B8D2 /* UIImage + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Utils.swift"; sourceTree = "<group>"; };
 		02C9713628B356200087B8D2 /* PresetColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetColorCell.swift; sourceTree = "<group>"; };
 		02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			children = (
 				02F37250289CE21400F361C7 /* Album.swift */,
 				0232BD9828AF6B25009057F8 /* Photo.swift */,
+				02972D5E28B74342008C097D /* PhotoEntity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Goal.swift in Sources */,
+				02972D5F28B74343008C097D /* PhotoEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
