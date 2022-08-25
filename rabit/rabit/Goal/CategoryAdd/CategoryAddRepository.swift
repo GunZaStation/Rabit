@@ -9,17 +9,21 @@ final class CategoryAddRepository {
       
         realmRepository.read(
             entity: GoalEntity.self,
-            filter: "category == '\(input)'"
+            filter: "category == '\(input.trimmingCharacters(in: .whitespaces))'"
         ).count >= 1
     }
     
     func addCategory(goal: Goal) -> Single<Bool> {
         
-        //없으면 realm에 쓰기 시도 -> 예외 발생시에는 Single(false)로 리턴
-        realmRepository.write(entity: goal.toEntity())
+        var result = true
+        do {
+            try realmRepository.write(entity: goal.toEntity())
+        } catch {
+            result = false
+        }
         
         return .create { single in
-            single(.success(true))
+            single(.success(result))
             return Disposables.create()
         }
     }
