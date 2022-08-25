@@ -46,9 +46,18 @@ final class CategoryAddViewController: UIViewController {
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = .systemGreen
         
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 10
+        button.roundCorners(10)
+        button.isEnabled = false
         return button
+    }()
+    
+    private let warningLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이미 존재하는 카테고리 입니다."
+        label.textColor = .red
+        label.font = .systemFont(ofSize: 15)
+        label.isHidden = true
+        return label
     }()
     
     private var viewModel: CategoryAddViewModel?
@@ -80,11 +89,28 @@ final class CategoryAddViewController: UIViewController {
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
         
+        saveButton.rx.tap
+            .bind(to: viewModel.saveButtonTouched)
+            .disposed(by: disposeBag)
+        
         viewModel.closeButtonTouched
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.dismiss(animated: false)
             })
+            .disposed(by: disposeBag)
+        
+        viewModel.saveButtonDisabled
+            .withUnretained(self)
+            .bind(onNext: { viewController, isDisabled in
+                viewController.saveButton.backgroundColor = isDisabled ? .lightGray : .systemGreen
+                viewController.saveButton.isEnabled = !isDisabled
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.titleInputDuplicated
+            .map { !$0 }
+            .bind(to: warningLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
     
@@ -114,7 +140,13 @@ final class CategoryAddViewController: UIViewController {
             $0.leading.equalToSuperview().offset(35)
             $0.trailing.equalToSuperview().inset(35)
             $0.height.equalToSuperview().multipliedBy(0.25)
-            $0.bottom.equalTo(saveButton.snp.top).offset(-22)
+            $0.bottom.equalTo(saveButton.snp.top).offset(-28)
+        }
+        
+        formView.addSubview(warningLabel)
+        warningLabel.snp.makeConstraints {
+            $0.top.equalTo(textField.snp.bottom)
+            $0.leading.trailing.equalToSuperview().inset(35)
         }
     }
     
