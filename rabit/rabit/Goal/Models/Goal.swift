@@ -23,7 +23,7 @@ struct Goal {
     let category: String
     var items: [GoalDetail]
     
-    init(category: String, details: [GoalDetail]) {
+    init(category: String, details: [GoalDetail] = []) {
         self.category = category
         self.items = details
     }
