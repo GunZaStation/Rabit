@@ -45,6 +45,7 @@
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
 		B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2228B5F9AF00D5783F /* RealmManager.swift */; };
 		B58A1C2528B74E1E00D5783F /* CategoryAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2428B74E1E00D5783F /* CategoryAddRepository.swift */; };
+		B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58EF87628B8BABC0075B295 /* BottomSheet.swift */; };
 		B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */; };
 		B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */; };
 		B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */; };
@@ -119,6 +120,7 @@
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B58A1C2228B5F9AF00D5783F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		B58A1C2428B74E1E00D5783F /* CategoryAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddRepository.swift; sourceTree = "<group>"; };
+		B58EF87628B8BABC0075B295 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		B59BB3C628A82E2D007C5013 /* CategoryAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewController.swift; sourceTree = "<group>"; };
 		B59BB3C828A8354B007C5013 /* CategoryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewModel.swift; sourceTree = "<group>"; };
 		B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		02972D5A28B5F83D008C097D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B58EF87528B8BAB50075B295 /* Views */,
 				02972D5B28B5F84B008C097D /* Factory */,
 				B5D131CC289A04E600EE1833 /* Coordinator */,
 				B58A1C2228B5F9AF00D5783F /* RealmManager.swift */,
@@ -331,6 +334,14 @@
 				B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */,
 			);
 			path = rabitUITests;
+			sourceTree = "<group>";
+		};
+		B58EF87528B8BAB50075B295 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B58EF87628B8BABC0075B295 /* BottomSheet.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		B59BB3C528A82DFA007C5013 /* CategoryAdd */ = {
@@ -565,6 +576,7 @@
 			files = (
 				02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
+				B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */,
 				02A093C828B8A52B00BDF69B /* CategoryEntity.swift in Sources */,
 				0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */,
 				0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */,
