@@ -86,10 +86,7 @@ private extension ColorPickerViewController {
         let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1/6,
             heightFraction: 1/6,
-            topSpacing: 5,
-            bottomSpacing: 5,
-            leftSpacing: 5,
-            rightSpacing: 5
+            spacing: Spacing(top: 5, bottom: 5, left: 5, right: 5)
         )
 
         presetColorCollectionView.collectionViewLayout = layout
