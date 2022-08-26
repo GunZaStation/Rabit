@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 
 protocol GoalListViewModelInput {
-
+    
     var requestGoalList: PublishRelay<Void> { get }
     var categoryAddButtonTouched: PublishRelay<Void> { get }
     var goalAddButtonTouched: PublishRelay<Void> { get }
@@ -50,6 +50,10 @@ private extension GoalListViewModel {
                 viewModel.repository.fetchGoalListData()
             }
             .bind(to: goalList)
+            .disposed(by: disposeBag)
+        
+        navigation.closeCategoryAddView
+            .bind(to: requestGoalList)
             .disposed(by: disposeBag)
     }
 }
