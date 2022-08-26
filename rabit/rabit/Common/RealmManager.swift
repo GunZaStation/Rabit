@@ -10,11 +10,11 @@ final class RealmManager {
         self.realm = try! Realm()
     }
     
-    func read<T: Object>(entity: T.Type, filter query: String = "") -> Results<T> {
-        if query.isEmpty {
-            return realm.objects(entity)
+    func read<T: Object>(entity: T.Type, filter query: String? = nil) -> [T] {
+        if let query = query {
+            return realm.objects(entity).filter(query).toArray(ofType: entity)
         } else {
-            return realm.objects(entity).filter(query)
+            return realm.objects(entity).toArray(ofType: entity)
         }
     }
  
