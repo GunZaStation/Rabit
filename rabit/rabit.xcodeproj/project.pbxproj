@@ -199,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				02972D5B28B5F84B008C097D /* Factory */,
+				B5D131CC289A04E600EE1833 /* Coordinator */,
 				B58A1C2228B5F9AF00D5783F /* RealmManager.swift */,
 				02972D5C28B61E76008C097D /* Persistable.swift */,
 			);
@@ -308,7 +309,6 @@
 				02972D5A28B5F83D008C097D /* Common */,
 				B5D131D4289A0CF100EE1833 /* Goal */,
 				B5D131D3289A0CE900EE1833 /* Album */,
-				B5D131CC289A04E600EE1833 /* Coordinator */,
 				02F3724F289CB28B00F361C7 /* Resource */,
 				02F3724E289CB28300F361C7 /* Configuration */,
 				02F37255289E1EA700F361C7 /* Utilities */,
