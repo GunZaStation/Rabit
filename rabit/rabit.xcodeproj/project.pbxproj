@@ -21,6 +21,8 @@
 		025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025CA12528A631C0007AAADE /* AlbumRepository.swift */; };
 		02972D5D28B61E76008C097D /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5C28B61E76008C097D /* Persistable.swift */; };
 		02972D5F28B74343008C097D /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5E28B74342008C097D /* PhotoEntity.swift */; };
+		02A093C828B8A52B00BDF69B /* CategoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A093C728B8A52B00BDF69B /* CategoryEntity.swift */; };
+		02A093CA28B8A67800BDF69B /* GoalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A093C928B8A67800BDF69B /* GoalEntity.swift */; };
 		02B7FD26289A1E3400EBA86D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD25289A1E3400EBA86D /* SnapKit */; };
 		02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD28289A1EC300EBA86D /* RealmSwift */; };
 		02B7FD2C289A1EEC00EBA86D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2B289A1EEC00EBA86D /* RxCocoa */; };
@@ -57,8 +59,8 @@
 		B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */; };
 		B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */; };
 		B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */; };
-		B5D131E6289C2CFB00EE1833 /* GoalDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E5289C2CFB00EE1833 /* GoalDetail.swift */; };
-		B5D131E8289C2D1100EE1833 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E7289C2D1100EE1833 /* Goal.swift */; };
+		B5D131E6289C2CFB00EE1833 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E5289C2CFB00EE1833 /* Goal.swift */; };
+		B5D131E8289C2D1100EE1833 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E7289C2D1100EE1833 /* Category.swift */; };
 		B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +95,8 @@
 		025CA12528A631C0007AAADE /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
 		02972D5C28B61E76008C097D /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		02972D5E28B74342008C097D /* PhotoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
+		02A093C728B8A52B00BDF69B /* CategoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEntity.swift; sourceTree = "<group>"; };
+		02A093C928B8A67800BDF69B /* GoalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalEntity.swift; sourceTree = "<group>"; };
 		02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmResults + toArray.swift"; sourceTree = "<group>"; };
 		02C9713428AF82390087B8D2 /* UIImage + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Utils.swift"; sourceTree = "<group>"; };
 		02C9713628B356200087B8D2 /* PresetColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetColorCell.swift; sourceTree = "<group>"; };
@@ -129,8 +133,8 @@
 		B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewCell.swift; sourceTree = "<group>"; };
 		B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressView.swift; sourceTree = "<group>"; };
 		B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewModel.swift; sourceTree = "<group>"; };
-		B5D131E5289C2CFB00EE1833 /* GoalDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetail.swift; sourceTree = "<group>"; };
-		B5D131E7289C2D1100EE1833 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		B5D131E5289C2CFB00EE1833 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		B5D131E7289C2D1100EE1833 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -408,8 +412,10 @@
 		B5D131E0289C29EE00EE1833 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B5D131E5289C2CFB00EE1833 /* GoalDetail.swift */,
-				B5D131E7289C2D1100EE1833 /* Goal.swift */,
+				B5D131E5289C2CFB00EE1833 /* Goal.swift */,
+				02A093C928B8A67800BDF69B /* GoalEntity.swift */,
+				B5D131E7289C2D1100EE1833 /* Category.swift */,
+				02A093C728B8A52B00BDF69B /* CategoryEntity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -559,6 +565,7 @@
 			files = (
 				02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
+				02A093C828B8A52B00BDF69B /* CategoryEntity.swift in Sources */,
 				0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */,
 				0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */,
 				B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */,
@@ -583,6 +590,7 @@
 				B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */,
 				0232BD9928AF6B25009057F8 /* Photo.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
+				02A093CA28B8A67800BDF69B /* GoalEntity.swift in Sources */,
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
 				02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */,
 				0232BD9228AE1134009057F8 /* ColorPickerViewController.swift in Sources */,
@@ -590,7 +598,7 @@
 				02C9713728B356200087B8D2 /* PresetColorCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
 				02C9713528AF82390087B8D2 /* UIImage + Utils.swift in Sources */,
-				B5D131E6289C2CFB00EE1833 /* GoalDetail.swift in Sources */,
+				B5D131E6289C2CFB00EE1833 /* Goal.swift in Sources */,
 				B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */,
 				B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */,
 				02972D5D28B61E76008C097D /* Persistable.swift in Sources */,
@@ -598,7 +606,7 @@
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
 				0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
-				B5D131E8289C2D1100EE1833 /* Goal.swift in Sources */,
+				B5D131E8289C2D1100EE1833 /* Category.swift in Sources */,
 				02972D5F28B74343008C097D /* PhotoEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

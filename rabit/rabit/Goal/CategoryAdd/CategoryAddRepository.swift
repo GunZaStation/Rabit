@@ -8,16 +8,16 @@ final class CategoryAddRepository {
     func checkTitleDuplicated(input: String) -> Bool {
       
         realmRepository.read(
-            entity: GoalEntity.self,
+            entity: CategoryEntity.self,
             filter: "category == '\(input.trimmingCharacters(in: .whitespaces))'"
         ).count >= 1
     }
     
-    func addCategory(goal: Goal) -> Single<Bool> {
+    func addCategory(_ category: Category) -> Single<Bool> {
         
         var result = true
         do {
-            try realmRepository.write(entity: goal.toEntity())
+            try realmRepository.write(entity: category.toEntity())
         } catch {
             result = false
         }

@@ -1,49 +1,31 @@
 import Foundation
-import Differentiator
-import RealmSwift
-
-class GoalEntity: Object {
-    
-    @Persisted var category: String = ""
-
-    convenience init(category: String) {
-        self.init()
-
-        self.category = category
-    }
-    
-    override static func primaryKey() -> String? {
-        return "category"
-    }
-}
 
 struct Goal {
     
+    let title: String
+    let subtitle: String
+    var progress: Int
+    let target: Int
     let category: String
-    var items: [GoalDetail]
-    
-    init(category: String, details: [GoalDetail] = []) {
-        self.category = category
-        self.items = details
-    }
-}
-
-extension Goal: SectionModelType {
-    
-    init(original: Goal, items: [GoalDetail]) {
-        self = original
-        self.items = items
-    }
 }
 
 extension Goal: Persistable {
     
     init(entity: GoalEntity) {
+        self.title = entity.title
+        self.subtitle = entity.subtitle
+        self.target = entity.target
+        self.progress = entity.progress
         self.category = entity.category
-        self.items = []
     }
     
-    func toEntity() -> GoalEntity {
-        .init(category: category)
+    func toEntity<T: GoalEntity>() -> T {
+        .init(
+            title: title,
+            subtitle: subtitle,
+            progress: progress,
+            target: target,
+            category: category
+        )
     }
 }

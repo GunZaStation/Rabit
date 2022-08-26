@@ -4,13 +4,13 @@ import RxSwift
 final class GoalListRepository {
     
     private let realmRepository = RealmRepository.shared
-    private var goalList: [Goal] = []
+    private var goalList: [Category] = []
     
     init() {
         setMockData()
     }
     
-    func fetchGoalListData() -> Single<[Goal]> {
+    func fetchGoalListData() -> Single<[Category]> {
         let goalList = goalList
         
         return .create { single in
@@ -23,18 +23,18 @@ final class GoalListRepository {
 extension GoalListRepository {
     
     private func setMockData() {
-        var goalMap: [String:Goal] = [:]
+        var goalMap: [String:Category] = [:]
 
-        let goalDetailEntities = realmRepository.read(entity: GoalDetailEntity.self)
         let goalEntities = realmRepository.read(entity: GoalEntity.self)
+        let categoryEntities = realmRepository.read(entity: CategoryEntity.self)
         
-        goalEntities.forEach {
-            goalMap[$0.category] = Goal(category: $0.category, details: [])
+        categoryEntities.forEach {
+            goalMap[$0.title] = Category(title: $0.title, details: [])
         }
         
-        goalDetailEntities.forEach {
-            let goalDetail = GoalDetail(entity: $0)
-            goalMap[$0.category]?.items.append(goalDetail)
+        goalEntities.forEach {
+            let goal = Goal(entity: $0)
+            goalMap[$0.category]?.items.append(goal)
         }
 
         goalList.append(contentsOf: goalMap.values)

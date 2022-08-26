@@ -70,7 +70,7 @@ private extension CategoryAddViewModel {
             .withLatestFrom(categoryTitleInput)
             .withUnretained(self)
             .flatMapLatest { viewModel, title in
-                viewModel.repository.addCategory(goal: Goal(category: title))
+                viewModel.repository.addCategory( Category(title: title))
             }
             .bind(to: categoryAddResult)
             .disposed(by: disposeBag)

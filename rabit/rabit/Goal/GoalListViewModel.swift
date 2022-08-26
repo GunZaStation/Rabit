@@ -11,7 +11,7 @@ protocol GoalListViewModelInput {
 
 protocol GoalListViewModelOutput {
     
-    var goalList: PublishRelay<[Goal]> { get }
+    var goalList: PublishRelay<[Category]> { get }
 }
 
 final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
@@ -19,7 +19,7 @@ final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
     let requestGoalList = PublishRelay<Void>()
     let categoryAddButtonTouched = PublishRelay<Void>()
     let goalAddButtonTouched = PublishRelay<Void>()
-    let goalList = PublishRelay<[Goal]>()
+    let goalList = PublishRelay<[Category]>()
     
     private let repository: GoalListRepository
     private let disposeBag = DisposeBag()

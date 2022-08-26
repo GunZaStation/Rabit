@@ -6,7 +6,7 @@ import RxSwift
 
 final class GoalListViewController: UIViewController {
     
-    private lazy var goalListDataSource: RxCollectionViewSectionedReloadDataSource<Goal> = {
+    private lazy var goalListDataSource: RxCollectionViewSectionedReloadDataSource<Category> = {
         initializeDataSource()
     }()
     
@@ -62,10 +62,10 @@ final class GoalListViewController: UIViewController {
 
 extension GoalListViewController {
     
-    private func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Goal> {
+    private func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Category> {
         let viewModel = viewModel
         return .init(
-            configureCell: { dataSource, collectionView, indexPath, goalDetail in
+            configureCell: { dataSource, collectionView, indexPath, goal in
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: GoalListCollectionViewCell.identifier,
                     for: indexPath
@@ -73,7 +73,7 @@ extension GoalListViewController {
                     return UICollectionViewCell()
                 }
                 
-                cell.configure(goalDetail: goalDetail)
+                cell.configure(goal: goal)
                 
                 return cell
             },
@@ -87,7 +87,7 @@ extension GoalListViewController {
                 }
                 
                 let goal = dataSource.sectionModels[indexPath.section]
-                header.configure(title: goal.category)
+                header.configure(title: goal.title)
                 header.bind(viewModel: viewModel)
                 
                 return header
