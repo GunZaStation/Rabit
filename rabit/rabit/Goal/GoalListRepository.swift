@@ -32,7 +32,6 @@ extension GoalListRepository {
             goalMap[$0.category]?.items.append(goal)
         }
 
-//        goalList.append(contentsOf: goalMap.values)
         return goalMap.values.map { $0 }
     }
 }
