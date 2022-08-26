@@ -3,6 +3,7 @@ import RxSwift
 import RxRelay
 
 protocol AlbumViewModelInput {
+    var requestAlbumData: PublishRelay<Void> { get }
     var photoSelected: PublishRelay<Album.Item> { get }
 }
 
@@ -15,6 +16,7 @@ protocol AlbumViewModelProtocol: AlbumViewModelInput, AlbumViewModelOutput { }
 final class AlbumViewModel: AlbumViewModelProtocol {
     private let albumRepository: AlbumRepositoryProtocol
 
+    let requestAlbumData = PublishRelay<Void>()
     let photoSelected = PublishRelay<Album.Item>()
     let albumData = BehaviorSubject<[Album]>(value: [])
 
@@ -32,9 +34,12 @@ final class AlbumViewModel: AlbumViewModelProtocol {
 
 private extension AlbumViewModel {
     func bind(to navigation: AlbumNavigation) {
-        let fetchedAlbum = albumRepository.fetchAlbumData()
 
-        fetchedAlbum
+        requestAlbumData
+            .withUnretained(self)
+            .flatMapLatest { viewModel, _ in
+                viewModel.albumRepository.fetchAlbumData()
+            }
             .bind(to: albumData)
             .disposed(by: disposeBag)
 

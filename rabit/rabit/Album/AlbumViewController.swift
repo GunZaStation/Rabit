@@ -39,6 +39,8 @@ final class AlbumViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.isHidden = true
+
+        viewModel?.requestAlbumData.accept(())
     }
 }
 
