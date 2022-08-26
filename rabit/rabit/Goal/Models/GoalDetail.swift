@@ -1,14 +1,13 @@
 import Foundation
 import RealmSwift
 
-@objcMembers
 final class GoalDetailEntity: Object {
     
-    dynamic var title: String = ""
-    dynamic var subtitle: String = ""
-    dynamic var progress: Int = 0
-    dynamic var target: Int = 0
-    dynamic var category: String = ""
+    @Persisted var title: String = ""
+    @Persisted var subtitle: String = ""
+    @Persisted var progress: Int = 0
+    @Persisted var target: Int = 0
+    @Persisted var category: String = ""
     
     convenience init(title: String, subtitle: String, progress: Int, target: Int, category: String) {
         self.init()

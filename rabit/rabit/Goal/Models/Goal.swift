@@ -2,10 +2,9 @@ import Foundation
 import Differentiator
 import RealmSwift
 
-@objcMembers
 class GoalEntity: Object {
     
-    dynamic var category: String = ""
+    @Persisted var category: String = ""
 
     convenience init(category: String) {
         self.init()
