@@ -9,7 +9,7 @@ final class CategoryAddRepository {
       
         realmManager.read(
             entity: CategoryEntity.self,
-            filter: "category == '\(input.trimmingCharacters(in: .whitespaces))'"
+            filter: "title == '\(input.trimmingCharacters(in: .whitespaces))'"
         ).count >= 1
     }
     

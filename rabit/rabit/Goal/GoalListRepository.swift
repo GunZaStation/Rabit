@@ -4,14 +4,9 @@ import RxSwift
 final class GoalListRepository {
     
     private let realmManager = RealmManager.shared
-    private var goalList: [Category] = []
-    
-    init() {
-        setMockData()
-    }
-    
+
     func fetchGoalListData() -> Single<[Category]> {
-        let goalList = goalList
+        let goalList = getLatestGoals()
         
         return .create { single in
             single(.success(goalList))
@@ -22,7 +17,7 @@ final class GoalListRepository {
 
 extension GoalListRepository {
     
-    private func setMockData() {
+    private func getLatestGoals() -> [Category] {
         var goalMap: [String:Category] = [:]
 
         let goalEntities = realmManager.read(entity: GoalEntity.self)
@@ -37,7 +32,8 @@ extension GoalListRepository {
             goalMap[$0.category]?.items.append(goal)
         }
 
-        goalList.append(contentsOf: goalMap.values)
+//        goalList.append(contentsOf: goalMap.values)
+        return goalMap.values.map { $0 }
     }
 }
 
