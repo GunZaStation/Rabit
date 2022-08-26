@@ -1,10 +1,10 @@
 import Foundation
 import RealmSwift
 
-final class RealmRepository {
+final class RealmManager {
     
     private let realm: Realm
-    static var shared = RealmRepository()
+    static var shared = RealmManager()
     
     private init() {
         self.realm = try! Realm()
