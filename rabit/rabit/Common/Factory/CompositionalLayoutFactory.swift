@@ -1,5 +1,25 @@
 import UIKit
 
+struct Spacing {
+    
+    let top: CGFloat
+    let bottom: CGFloat
+    let left: CGFloat
+    let right: CGFloat
+    
+    init(
+        top: CGFloat = .zero,
+        bottom: CGFloat = .zero,
+        left: CGFloat = .zero,
+        right: CGFloat = .zero
+    ) {
+        self.top = top
+        self.bottom = bottom
+        self.left = left
+        self.right = right
+    }
+}
+
 final class CompositionalLayoutFactory {
     static let shared = CompositionalLayoutFactory()
     
@@ -7,10 +27,7 @@ final class CompositionalLayoutFactory {
     
     func create(widthFraction: CGFloat,
                 heightFraction: CGFloat,
-                topSpacing: CGFloat = .zero,
-                bottomSpacing: CGFloat = .zero,
-                leftSpacing: CGFloat = .zero,
-                rightSpacing: CGFloat = .zero,
+                spacing: Spacing = Spacing(),
                 requireHeader: Bool = false,
                 headerWidth: CGFloat = .zero,
                 headerHeight: CGFloat = .zero,
@@ -23,10 +40,7 @@ final class CompositionalLayoutFactory {
             self.section(
                 widthFraction: widthFraction,
                 heightFraction: heightFraction,
-                topSpacing: topSpacing,
-                bottomSpacing: bottomSpacing,
-                leftSpacing: leftSpacing,
-                rightSpacing: rightSpacing,
+                spacing: spacing,
                 requireHeader: requireHeader,
                 headerWidth: headerWidth,
                 headerHeight: headerHeight,
@@ -42,18 +56,15 @@ final class CompositionalLayoutFactory {
 private extension CompositionalLayoutFactory {
     
     func section(widthFraction: CGFloat,
-                         heightFraction: CGFloat,
-                         topSpacing: CGFloat,
-                         bottomSpacing: CGFloat,
-                         leftSpacing: CGFloat,
-                         rightSpacing: CGFloat,
-                         requireHeader: Bool,
-                         headerWidth: CGFloat,
-                         headerHeight: CGFloat,
-                         requireFooter: Bool,
-                         footerWidth: CGFloat,
-                         footerHeight: CGFloat,
-                         enableScrolling: Bool) -> NSCollectionLayoutSection {
+                 heightFraction: CGFloat,
+                 spacing: Spacing,
+                 requireHeader: Bool,
+                 headerWidth: CGFloat,
+                 headerHeight: CGFloat,
+                 requireFooter: Bool,
+                 footerWidth: CGFloat,
+                 footerHeight: CGFloat,
+                 enableScrolling: Bool) -> NSCollectionLayoutSection {
         
         let widthFraction = widthFraction
         let heightFraction = heightFraction
@@ -64,10 +75,10 @@ private extension CompositionalLayoutFactory {
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(
-            top: topSpacing,
-            leading: leftSpacing,
-            bottom: bottomSpacing,
-            trailing: rightSpacing
+            top: spacing.top,
+            leading: spacing.left,
+            bottom: spacing.bottom,
+            trailing: spacing.right
         )
         
         let groupSize = NSCollectionLayoutSize(

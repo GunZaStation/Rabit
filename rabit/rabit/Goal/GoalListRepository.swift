@@ -3,7 +3,7 @@ import RxSwift
 
 final class GoalListRepository {
     
-    private let realmRepository = RealmRepository.shared
+    private let realmManager = RealmManager.shared
     private var goalList: [Category] = []
     
     init() {
@@ -25,11 +25,11 @@ extension GoalListRepository {
     private func setMockData() {
         var goalMap: [String:Category] = [:]
 
-        let goalEntities = realmRepository.read(entity: GoalEntity.self)
-        let categoryEntities = realmRepository.read(entity: CategoryEntity.self)
+        let goalEntities = realmManager.read(entity: GoalEntity.self)
+        let categoryEntities = realmManager.read(entity: CategoryEntity.self)
         
         categoryEntities.forEach {
-            goalMap[$0.title] = Category(title: $0.title, details: [])
+            goalMap[$0.title] = Category(title: $0.title)
         }
         
         goalEntities.forEach {

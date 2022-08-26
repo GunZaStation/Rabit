@@ -10,7 +10,7 @@ final class AlbumRepository: AlbumRepositoryProtocol {
 
         return Observable.create { observer in
 
-            let realmManager = RealmRepository.shared
+            let realmManager = RealmManager.shared
 
             let fetchedGoalDetailData = realmManager.read(entity: CategoryEntity.self)
             let fetchedPhotoData = realmManager.read(entity: PhotoEntity.self)

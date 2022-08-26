@@ -3,11 +3,11 @@ import RxSwift
 
 final class CategoryAddRepository {
     
-    private let realmRepository = RealmRepository.shared
+    private let realmManager = RealmManager.shared
     
     func checkTitleDuplicated(input: String) -> Bool {
       
-        realmRepository.read(
+        realmManager.read(
             entity: CategoryEntity.self,
             filter: "category == '\(input.trimmingCharacters(in: .whitespaces))'"
         ).count >= 1
@@ -17,7 +17,7 @@ final class CategoryAddRepository {
         
         var result = true
         do {
-            try realmRepository.write(entity: category.toEntity())
+            try realmManager.write(entity: category.toEntity())
         } catch {
             result = false
         }

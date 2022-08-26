@@ -100,7 +100,7 @@ extension GoalListViewController {
         let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1.0,
             heightFraction: 0.21,
-            bottomSpacing: 15,
+            spacing: Spacing(bottom: 15),
             requireHeader: true,
             headerWidth: view.frame.width*0.85,
             headerHeight: view.frame.height*0.07
