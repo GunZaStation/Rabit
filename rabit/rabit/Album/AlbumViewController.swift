@@ -103,11 +103,8 @@ private extension AlbumViewController {
                 return UICollectionReusableView()
             }
 
-            let formatter = DateFormatter()
-            formatter.timeZone = .current
-            formatter.dateFormat = "yyyy년 MM월 dd일"
-            let targetDate = dataSource.sectionModels[indexPath.section].date
-            header.configure(with: formatter.string(from: targetDate))
+            let headerTitle = dataSource.sectionModels[indexPath.section].categoryTitle
+            header.configure(with: headerTitle)
 
             return header
         }

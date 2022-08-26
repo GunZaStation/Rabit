@@ -20,8 +20,15 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
     let stylePickerButtonTouched = PublishRelay<Void>()
     let backButtonTouched = PublishRelay<Void>()
     let hexPhotoColor: BehaviorRelay<String>
+    let selectedPhotoData = BehaviorSubject<Album.Item>(
+        value: Album.Item(
+            categoryTitle: "",
+            goalTitle: "",
+            imageData: Data(),
+            date: Date(),
+            color: "")
+    )
 
-    let selectedPhotoData = BehaviorSubject<Album.Item>(value: Album.Item(imageData: Data(), date: Date(), color: ""))
     private var disposeBag = DisposeBag()
 
     init(
@@ -52,6 +59,8 @@ private extension PhotoEditViewModel {
             .withUnretained(self)
             .map { viewModel, photoData in
                 Album.Item(
+                    categoryTitle: photoData.categoryTitle,
+                    goalTitle: photoData.goalTitle,
                     imageData: photoData.imageData,
                     date: photoData.date,
                     color: viewModel.hexPhotoColor.value

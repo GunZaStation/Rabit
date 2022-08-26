@@ -3,11 +3,11 @@ import Differentiator
 
 struct Album {
     typealias Item = Photo
+    var categoryTitle: String
     var items: [Item]
-    var date: Date
 
-    init(date: Date, items: [Item]) {
-        self.date = date
+    init(categoryTitle: String, items: [Item]) {
+        self.categoryTitle = categoryTitle
         self.items = items
     }
 }

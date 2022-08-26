@@ -12,15 +12,23 @@ final class AlbumRepository: AlbumRepositoryProtocol {
 
             let realmManager = RealmRepository.shared
 
-            let fetchedData = realmManager.read(entity: PhotoEntity.self)
+            let fetchedGoalDetailData = realmManager.read(entity: GoalEntity.self)
+            let fetchedPhotoData = realmManager.read(entity: PhotoEntity.self)
 
-            var albumData = Album(date: fetchedData.first?.date ?? Date(), items: [])
+            var albumData = [Album]()
 
-            fetchedData.forEach {
-                albumData.items.append(Photo(entity: $0))
+            fetchedGoalDetailData.forEach {
+                let categoryTitle = $0.category
+
+                let filteredPhotoData = fetchedPhotoData.filter("categoryTitle == '\(categoryTitle)'")
+                let transformedPhotoData = filteredPhotoData.toArray(ofType: PhotoEntity.self).map {
+                    Photo(entity: $0)
+                }
+
+                albumData.append(Album(categoryTitle: categoryTitle, items: transformedPhotoData))
             }
 
-            observer.onNext([albumData])
+            observer.onNext(albumData)
 
             return Disposables.create()
         }

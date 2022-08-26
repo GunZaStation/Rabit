@@ -1,18 +1,23 @@
 import Foundation
 import RealmSwift
 
-@objcMembers
 final class PhotoEntity: Object {
-    dynamic var imageData: Data = Data()
-    dynamic var date: Date = Date()
-    dynamic var color: String = ""
+    @Persisted var categoryTitle: String = ""
+    @Persisted var goalTitle: String = ""
+    @Persisted var imageData: Data = Data()
+    @Persisted var date: Date = Date()
+    @Persisted var color: String = ""
 
     convenience init(
+        categoryTitle: String,
+        goalTitle: String,
         imageData: Data,
         date: Date,
         color: String
     ) {
         self.init()
+        self.categoryTitle = categoryTitle
+        self.goalTitle = goalTitle
         self.imageData = imageData
         self.date = date
         self.color = color
