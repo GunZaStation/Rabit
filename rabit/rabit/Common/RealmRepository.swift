@@ -18,9 +18,8 @@ final class RealmRepository {
         }
     }
  
-    func write(entity: Object) {
-        
-        try! realm.write {
+    func write(entity: Object) throws {
+        try? realm.write {
             realm.add(entity)
         }
     }
