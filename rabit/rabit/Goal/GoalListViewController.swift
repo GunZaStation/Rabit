@@ -62,7 +62,7 @@ final class GoalListViewController: UIViewController {
 
 private extension GoalListViewController {
     
-    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Goal> {
+    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Category> {
         let viewModel = viewModel
         return .init(
             configureCell: { dataSource, collectionView, indexPath, goal in
