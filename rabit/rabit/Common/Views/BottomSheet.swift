@@ -20,6 +20,7 @@ final class BottomSheet: UIView {
     }
     
     private func setupViews() {
+        
         addSubview(topBar)
         topBar.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)
@@ -27,5 +28,26 @@ final class BottomSheet: UIView {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(8)
         }
+    }
+}
+
+extension BottomSheet {
+
+    func move(upTo topConstraint: CGFloat,
+              duration: CGFloat,
+              animation: @escaping () -> Void,
+              completion: @escaping (Bool) -> Void = { _ in }) {
+        
+        self.snp.remakeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(topConstraint)
+        }
+        
+        UIView.animate(
+            withDuration: duration,
+            delay: 0,
+            animations: animation,
+            completion: completion
+        )
     }
 }
