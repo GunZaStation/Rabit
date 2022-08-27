@@ -61,7 +61,10 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .disposed(by: disposeBag)
         
         closePeriodSelectView
-            .bind(onNext: closePeriodSelectViewController)
+            .withUnretained(self)
+            .bind(onNext: { coordinator, _ in
+                coordinator.dismissCurrentView(animated: false)
+            })
             .disposed(by: disposeBag)
     }
 
@@ -99,18 +102,9 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     
     private func presentPeriodSelectViewController() {
         
-        guard let navigationController = navigationController.presentedViewController as? UINavigationController else { return }
-        
         let viewModel = PeriodSelectViewModel(navigation: self)
         let viewController = PeriodSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overCurrentContext
-        navigationController.present(viewController, animated: false)
-    }
-    
-    private func closePeriodSelectViewController() {
-        
-        guard let navigationController = navigationController.presentedViewController as? UINavigationController else { return }
-        
-        navigationController.presentedViewController?.dismiss(animated: true)
+        navigationController.presentedViewController?.present(viewController, animated: false)
     }
 }
