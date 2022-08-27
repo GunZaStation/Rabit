@@ -32,6 +32,12 @@ final class InsertField: UIView {
         }
     }
     
+    var isEnabled: Bool = true {
+        didSet {
+            textField.isEnabled = isEnabled
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()

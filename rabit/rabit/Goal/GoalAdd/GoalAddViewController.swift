@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxGesture
 
 final class GoalAddViewController: UIViewController {
     
@@ -30,6 +31,7 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "목표 기간"
         insertField.placeholder = "문자열 입력"
+        insertField.isEnabled = false
         return insertField
     }()
     
@@ -37,6 +39,7 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "인증 시간"
         insertField.placeholder = "문자열 입력"
+        insertField.isEnabled = false
         return insertField
     }()
     
@@ -78,13 +81,18 @@ final class GoalAddViewController: UIViewController {
     
     private func bind() {
         guard let viewModel = viewModel else { return }
-
+        
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
         
         navigationItem.leftBarButtonItem?.rx.tap
             .bind(to: viewModel.closeButtonTouched)
+            .disposed(by: disposeBag)
+        
+        periodField.rx.gesture(.tap())
+            .when(.recognized)
+            .bind { _ in viewModel.periodFieldTouched.accept(()) }
             .disposed(by: disposeBag)
     }
     
@@ -98,12 +106,12 @@ final class GoalAddViewController: UIViewController {
         
         view.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.85)
-            $0.height.equalToSuperview().multipliedBy(0.45)
+            $0.height.equalToSuperview().multipliedBy(0.5)
         }
-                
+        
         stackView.addArrangedSubview(titleField)
         stackView.addArrangedSubview(descriptionField)
         stackView.addArrangedSubview(periodField)
