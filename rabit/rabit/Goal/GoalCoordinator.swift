@@ -8,6 +8,8 @@ protocol GoalNavigation {
     var closeCategoryAddView: PublishRelay<Void> { get }
     var showGoalAddView: PublishRelay<Void> { get }
     var closeGoalAddView: PublishRelay<Void> { get }
+    var showPeriodSelectView: PublishRelay<Void> { get }
+    var closePeriodSelectView: PublishRelay<Void> { get }
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation {
@@ -20,6 +22,8 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeCategoryAddView = PublishRelay<Void>()
     let showGoalAddView = PublishRelay<Void>()
     let closeGoalAddView = PublishRelay<Void>()
+    let showPeriodSelectView = PublishRelay<Void>()
+    let closePeriodSelectView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
 
@@ -50,6 +54,14 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .bind(onNext: { coordinator, _ in
                 coordinator.dismissCurrentView(animated: true)
             })
+            .disposed(by: disposeBag)
+        
+        showPeriodSelectView
+            .bind(onNext: presentPeriodSelectViewController)
+            .disposed(by: disposeBag)
+        
+        closePeriodSelectView
+            .bind(onNext: closePeriodSelectViewController)
             .disposed(by: disposeBag)
     }
 
@@ -83,5 +95,22 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
         let viewModel = GoalAddViewModel(navigation: self)
         let viewController = GoalAddViewController(viewModel: viewModel)
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
+    }
+    
+    private func presentPeriodSelectViewController() {
+        
+        guard let navigationController = navigationController.presentedViewController as? UINavigationController else { return }
+        
+        let viewModel = PeriodSelectViewModel(navigation: self)
+        let viewController = PeriodSelectViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .overCurrentContext
+        navigationController.present(viewController, animated: false)
+    }
+    
+    private func closePeriodSelectViewController() {
+        
+        guard let navigationController = navigationController.presentedViewController as? UINavigationController else { return }
+        
+        navigationController.presentedViewController?.dismiss(animated: true)
     }
 }
