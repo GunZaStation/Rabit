@@ -17,10 +17,24 @@ final class PeriodSelectViewController: UIViewController {
         return sheet
     }()
     
-    private let calendarView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
+    //우선은 UIDatePicker에서 선택한 날짜 기준으로 1주일을 임시로 지정
+    //추후 달력화면 구현시 수정해야 함
+    private let calendarView: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.locale = Locale(identifier: "ko-KR")
+        datePicker.datePickerMode = .date
+        return datePicker
+    }()
+    
+    private lazy var saveButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("\t저장\t", for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.backgroundColor = .systemGreen
+        button.roundCorners(10)
+        return button
     }()
     
     private let disposeBag = DisposeBag()
@@ -45,6 +59,7 @@ final class PeriodSelectViewController: UIViewController {
     }
     
     private func bind() {
+        guard let viewModel = viewModel else { return }
         
         dimmedView.rx.gesture(.tap())
             .when(.recognized)
@@ -61,6 +76,21 @@ final class PeriodSelectViewController: UIViewController {
                 viewController.hidePeriodSheet()
             }
             .disposed(by: disposeBag)
+        
+        calendarView.rx.date
+            .bind(to: viewModel.selectedStartDate)
+            .disposed(by: disposeBag)
+        
+        calendarView.rx.date
+            .compactMap {
+                Calendar.current.date(byAdding: DateComponents(day: 7), to: $0)
+            }
+            .bind(to: viewModel.selectedEndDate)
+            .disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .bind(to: viewModel.saveButtonTouched)
+            .disposed(by: disposeBag)
     }
     
     private func setupViews() {
@@ -74,6 +104,18 @@ final class PeriodSelectViewController: UIViewController {
         periodSheet.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.top.equalTo(view.snp.bottom)
+        }
+        
+        periodSheet.contentView.addSubview(calendarView)
+        calendarView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.8)
+        }
+        
+        periodSheet.contentView.addSubview(saveButton)
+        saveButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(10)
+            $0.centerX.equalToSuperview()
         }
     }
 }

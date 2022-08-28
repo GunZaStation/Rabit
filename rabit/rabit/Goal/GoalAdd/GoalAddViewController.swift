@@ -94,6 +94,11 @@ final class GoalAddViewController: UIViewController {
             .when(.recognized)
             .bind { _ in viewModel.periodFieldTouched.accept(()) }
             .disposed(by: disposeBag)
+        
+        viewModel.selectedPeriod
+            .map { $0.description }
+            .bind(to: periodField.rx.text)
+            .disposed(by: disposeBag)
     }
     
     private func setAttributes() {
