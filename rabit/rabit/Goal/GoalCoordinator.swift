@@ -8,7 +8,7 @@ protocol GoalNavigation {
     var closeCategoryAddView: PublishRelay<Void> { get }
     var showGoalAddView: PublishRelay<Void> { get }
     var closeGoalAddView: PublishRelay<Void> { get }
-    var showPeriodSelectView: PublishRelay<Void> { get }
+    var showPeriodSelectView: PublishRelay<PeriodSelectViewModel> { get }
     var closePeriodSelectView: PublishRelay<Void> { get }
 }
 
@@ -22,7 +22,7 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeCategoryAddView = PublishRelay<Void>()
     let showGoalAddView = PublishRelay<Void>()
     let closeGoalAddView = PublishRelay<Void>()
-    let showPeriodSelectView = PublishRelay<Void>()
+    let showPeriodSelectView = PublishRelay<PeriodSelectViewModel>()
     let closePeriodSelectView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
@@ -100,9 +100,8 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
     
-    private func presentPeriodSelectViewController() {
+    private func presentPeriodSelectViewController(viewModel: PeriodSelectViewModel) {
         
-        let viewModel = PeriodSelectViewModel(navigation: self)
         let viewController = PeriodSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overCurrentContext
         navigationController.presentedViewController?.present(viewController, animated: false)

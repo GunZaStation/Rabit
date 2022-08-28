@@ -9,11 +9,17 @@ protocol GoalAddViewModelInput {
     var periodFieldTouched: PublishRelay<Void> { get }
 }
 
-final class GoalAddViewModel: GoalAddViewModelInput {
+protocol GoalAddViewModelOutput {
+    
+    var periodSelectViewModel: PublishRelay<PeriodSelectViewModel> { get }
+}
+
+final class GoalAddViewModel: GoalAddViewModelInput, GoalAddViewModelOutput {
     
     let saveButtonTouched = PublishRelay<Void>()
     let closeButtonTouched = PublishRelay<Void>()
     let periodFieldTouched = PublishRelay<Void>()
+    let periodSelectViewModel = PublishRelay<PeriodSelectViewModel>()
     
     private let disposeBag = DisposeBag()
     
@@ -35,7 +41,14 @@ private extension GoalAddViewModel {
             .disposed(by: disposeBag)
         
         periodFieldTouched
-            .bind(to: navigation.showPeriodSelectView)
+            .map { PeriodSelectViewModel(navigation: navigation) }
+            .withUnretained(self)
+            .bind(onNext: { viewModel, subViewModel in
+                viewModel.periodSelectViewModel.accept(subViewModel)
+                navigation.showPeriodSelectView.accept(subViewModel)
+            })
+            .disposed(by: disposeBag)
+        
             .disposed(by: disposeBag)
     }
 }
