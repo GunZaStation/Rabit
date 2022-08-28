@@ -26,6 +26,12 @@ final class InsertField: UIView {
         }
     }
     
+    var text: String? {
+        didSet {
+            textField.text = text ?? ""
+        }
+    }
+    
     var placeholder: String = "" {
         didSet {
             textField.placeholder = " \(placeholder)"
