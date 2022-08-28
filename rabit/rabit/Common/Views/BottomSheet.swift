@@ -10,6 +10,8 @@ final class BottomSheet: UIView {
         return view
     }()
     
+    let contentView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -23,16 +25,24 @@ final class BottomSheet: UIView {
         
         addSubview(topBar)
         topBar.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.width.equalToSuperview().multipliedBy(0.5)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(8)
+            $0.centerY.equalToSuperview().multipliedBy(0.08)
+            $0.width.equalToSuperview().multipliedBy(0.5)
+            $0.height.equalTo(7)
+        }
+        
+        addSubview(contentView)
+        contentView.snp.makeConstraints {
+            $0.top.equalTo(topBar.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.9)
+            $0.height.equalToSuperview().multipliedBy(0.83)
         }
     }
 }
 
 extension BottomSheet {
-
+    
     func move(upTo topConstraint: CGFloat,
               duration: CGFloat,
               animation: @escaping () -> Void,
