@@ -89,7 +89,11 @@ final class PeriodSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
-            .bind(to: viewModel.saveButtonTouched)
+            .withUnretained(self)
+            .bind(onNext: { viewController, _ in
+                viewModel.saveButtonTouched.accept(())
+                viewController.hidePeriodSheet()
+            })
             .disposed(by: disposeBag)
     }
     
@@ -144,7 +148,7 @@ private extension PeriodSelectViewController {
             animation: view.layoutIfNeeded
         ) { _ in
             self.dimmedView.isHidden = true
-            viewModel.dimmedViewTouched.accept(())
+            viewModel.closingViewRequested.accept(())
         }
     }
 }

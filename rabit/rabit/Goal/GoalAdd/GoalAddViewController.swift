@@ -30,7 +30,7 @@ final class GoalAddViewController: UIViewController {
     private let periodField:InsertField = {
         let insertField = InsertField()
         insertField.title = "목표 기간"
-        insertField.placeholder = "문자열 입력"
+        insertField.placeholder = "시작일과 종료일을 선택하세요"
         insertField.isEnabled = false
         return insertField
     }()

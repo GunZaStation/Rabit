@@ -5,7 +5,7 @@ import RxRelay
 
 protocol PeriodSelectViewModelInput {
     
-    var dimmedViewTouched: PublishRelay<Void> { get }
+    var closingViewRequested: PublishRelay<Void> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
 }
 
@@ -18,7 +18,7 @@ protocol PeriodSelectViewModelOutput {
 
 final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewModelOutput {
     
-    let dimmedViewTouched = PublishRelay<Void>()
+    let closingViewRequested = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
     let selectedStartDate = PublishRelay<Date>()
     let selectedEndDate = PublishRelay<Date>()
@@ -32,7 +32,7 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
     
     func bind(to navigation: GoalNavigation) {
         
-        dimmedViewTouched
+        closingViewRequested
             .bind(to: navigation.closePeriodSelectView)
             .disposed(by: disposeBag)
         
@@ -49,7 +49,6 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
             .withUnretained(self)
             .bind(onNext: { viewModel, period in
                 viewModel.selectedPeriod.accept(period)
-                navigation.closePeriodSelectView.accept(())
             })
             .disposed(by: disposeBag)
     }
