@@ -44,11 +44,12 @@ private extension GoalAddViewModel {
         
         periodFieldTouched
             .map { PeriodSelectViewModel(navigation: navigation) }
-            .withUnretained(self)
-            .bind(onNext: { viewModel, subViewModel in
-                viewModel.periodSelectViewModel.accept(subViewModel)
-                navigation.showPeriodSelectView.accept(subViewModel)
-            })
+            .bind(to: periodSelectViewModel)
+            .disposed(by: disposeBag)
+        
+        periodSelectViewModel
+            .map { $0 }
+            .bind(to: navigation.showPeriodSelectView)
             .disposed(by: disposeBag)
         
         periodSelectViewModel

@@ -2,7 +2,6 @@ import Foundation
 import RxSwift
 import RxRelay
 
-
 protocol PeriodSelectViewModelInput {
     
     var closingViewRequested: PublishRelay<Void> { get }
@@ -36,20 +35,16 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
             .bind(to: navigation.closePeriodSelectView)
             .disposed(by: disposeBag)
         
-        let period = Observable
-                        .combineLatest(
-                            selectedStartDate.asObservable(),
-                            selectedEndDate.asObservable()
-                        )
-                        .map { Period(start: $0, end: $1) }
-                        .share()
+        let period = Observable.combineLatest(
+                        selectedStartDate.asObservable(),
+                        selectedEndDate.asObservable()
+                    )
+                    .map { Period(start: $0, end: $1) }
+                    .share()
         
         saveButtonTouched
             .withLatestFrom(period)
-            .withUnretained(self)
-            .bind(onNext: { viewModel, period in
-                viewModel.selectedPeriod.accept(period)
-            })
+            .bind(to: selectedPeriod)
             .disposed(by: disposeBag)
     }
 }
