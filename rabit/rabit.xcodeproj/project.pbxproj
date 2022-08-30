@@ -48,6 +48,8 @@
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
 		B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D75F328B3E76300C11405 /* UIView + shadow.swift */; };
 		B57D75F928B5319D00C11405 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = B57D75F828B5319D00C11405 /* RxGesture */; };
+		B582573C28BDF6F2001AE268 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573B28BDF6F2001AE268 /* DateComponent.swift */; };
+		B582573E28BDF718001AE268 /* Date + toDateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573D28BDF718001AE268 /* Date + toDateComponent.swift */; };
 		B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2228B5F9AF00D5783F /* RealmManager.swift */; };
 		B58A1C2528B74E1E00D5783F /* CategoryAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2428B74E1E00D5783F /* CategoryAddRepository.swift */; };
 		B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58EF87628B8BABC0075B295 /* BottomSheet.swift */; };
@@ -127,6 +129,8 @@
 		B569EA122898D4AB006FFFB9 /* rabitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITests.swift; sourceTree = "<group>"; };
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B57D75F328B3E76300C11405 /* UIView + shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + shadow.swift"; sourceTree = "<group>"; };
+		B582573B28BDF6F2001AE268 /* DateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponent.swift; sourceTree = "<group>"; };
+		B582573D28BDF718001AE268 /* Date + toDateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + toDateComponent.swift"; sourceTree = "<group>"; };
 		B58A1C2228B5F9AF00D5783F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		B58A1C2428B74E1E00D5783F /* CategoryAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddRepository.swift; sourceTree = "<group>"; };
 		B58EF87628B8BABC0075B295 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
@@ -291,6 +295,7 @@
 				02C9713428AF82390087B8D2 /* UIImage + Utils.swift */,
 				02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */,
 				B57D75F328B3E76300C11405 /* UIView + shadow.swift */,
+				B582573D28BDF718001AE268 /* Date + toDateComponent.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -449,6 +454,7 @@
 				B5D131E7289C2D1100EE1833 /* Category.swift */,
 				02A093C728B8A52B00BDF69B /* CategoryEntity.swift */,
 				B563D9BD28BA5A3C00A755EB /* Period.swift */,
+				B582573B28BDF6F2001AE268 /* DateComponent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -626,9 +632,11 @@
 				02DB2F8428AC8D7E005938CB /* PhotoEditViewController.swift in Sources */,
 				B5B9413F28AF6F280098022F /* InsertField.swift in Sources */,
 				02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */,
+				B582573E28BDF718001AE268 /* Date + toDateComponent.swift in Sources */,
 				B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */,
 				B563D9C228BA5C9B00A755EB /* PeriodSelectViewModel.swift in Sources */,
 				0232BD9928AF6B25009057F8 /* Photo.swift in Sources */,
+				B582573C28BDF6F2001AE268 /* DateComponent.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				02A093CA28B8A67800BDF69B /* GoalEntity.swift in Sources */,
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
