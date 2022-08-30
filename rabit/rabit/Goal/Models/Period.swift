@@ -2,17 +2,15 @@ import Foundation
 
 struct Period: CustomStringConvertible {
     
-    let start: Date
-    let end: Date
+    let start: DateComponent
+    let end: DateComponent
     
     var description: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return "\(formatter.string(from: start)) ~ \(formatter.string(from: end))"
+        return "\(start.formattedString) ~ \(end.formattedString)"
     }
         
-    init(start: Date = Date(), end: Date = Date()) {
-        self.start = start
-        self.end = end
+    init(start: Date, end: Date) {
+        self.start = start.toDateComponent()
+        self.end = end.toDateComponent()
     }
 }
