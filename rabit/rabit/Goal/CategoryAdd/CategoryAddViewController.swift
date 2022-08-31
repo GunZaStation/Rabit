@@ -1,9 +1,16 @@
 import UIKit
 import SnapKit
 import RxCocoa
+import RxGesture
 import RxSwift
 
 final class CategoryAddViewController: UIViewController {
+    
+    private let dimmedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.6)
+        return view
+    }()
     
     private let formView: UIView = {
         let view = UIView()
@@ -69,7 +76,6 @@ final class CategoryAddViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
-        setAttributes()
         bind()
     }
     
@@ -88,11 +94,11 @@ final class CategoryAddViewController: UIViewController {
         }
         
         UIView.animate(
-            withDuration: 0.12,
+            withDuration: 0.2,
             delay: 0,
             animations: self.view.layoutIfNeeded,
             completion: nil
-        )
+        )        
     }
     
     private func bind() {
@@ -109,6 +115,11 @@ final class CategoryAddViewController: UIViewController {
         
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
+            .disposed(by: disposeBag)
+        
+        dimmedView.rx.tapGesture()
+            .when(.recognized)
+            .bind { _ in viewModel.closeButtonTouched.accept(()) }
             .disposed(by: disposeBag)
 
         viewModel.closeButtonTouched
@@ -133,6 +144,11 @@ final class CategoryAddViewController: UIViewController {
     }
     
     private func setupViews() {
+        
+        view.addSubview(dimmedView)
+        dimmedView.snp.makeConstraints {
+            $0.leading.trailing.top.bottom.equalToSuperview()
+        }
         
         view.addSubview(formView)
         formView.snp.makeConstraints {
@@ -166,10 +182,5 @@ final class CategoryAddViewController: UIViewController {
             $0.top.equalTo(textField.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(35)
         }
-    }
-    
-    private func setAttributes() {
-        
-        view.backgroundColor = .black.withAlphaComponent(0.6)
     }
 }
