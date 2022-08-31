@@ -59,7 +59,7 @@ final class TimeSelectViewController: UIViewController {
     private func bind() {
         guard let viewModel = viewModel else { return }
         
-        dimmedView.rx.gesture(.tap())
+        dimmedView.rx.tapGesture()
             .when(.recognized)
             .withUnretained(self)
             .bind { viewController, _ in
@@ -67,7 +67,7 @@ final class TimeSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        periodSheet.rx.gesture(.swipe(direction: .down))
+        periodSheet.rx.swipeGesture(.down)
             .when(.recognized)
             .withUnretained(self)
             .bind { viewController, _ in

@@ -90,7 +90,7 @@ final class GoalAddViewController: UIViewController {
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
         
-        periodField.rx.gesture(.tap())
+        periodField.rx.tapGesture()
             .when(.recognized)
             .bind { _ in viewModel.periodFieldTouched.accept(()) }
             .disposed(by: disposeBag)

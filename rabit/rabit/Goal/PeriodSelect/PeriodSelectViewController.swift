@@ -61,7 +61,7 @@ final class PeriodSelectViewController: UIViewController {
     private func bind() {
         guard let viewModel = viewModel else { return }
         
-        dimmedView.rx.gesture(.tap())
+        dimmedView.rx.tapGesture()
             .when(.recognized)
             .withUnretained(self)
             .bind { viewController, _ in
@@ -69,7 +69,7 @@ final class PeriodSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        periodSheet.rx.gesture(.swipe(direction: .down))
+        periodSheet.rx.swipeGesture(.down)
             .when(.recognized)
             .withUnretained(self)
             .bind { viewController, _ in
@@ -142,6 +142,7 @@ private extension PeriodSelectViewController {
         guard let viewModel = viewModel else { return }
         
         isModalInPresentation = false
+        
         periodSheet.move(
             upTo: view.bounds.height,
             duration: 0.2,
