@@ -12,3 +12,10 @@ struct DateComponent {
         return "\(year)-\(month)-\(day)"
     }
 }
+
+extension DateComponent {
+    
+    func toDateComponents() -> DateComponents {
+        return DateComponents(year: year, month: month, day: day)
+    }
+}
