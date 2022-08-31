@@ -70,6 +70,17 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
                 coordinator.dismissCurrentView(animated: false)
             })
             .disposed(by: disposeBag)
+        
+        showTimeSelectView
+            .bind(onNext: presentTimeSelectViewController)
+            .disposed(by: disposeBag)
+        
+        closeTimeSelectView
+            .withUnretained(self)
+            .bind(onNext: { coordinator, _ in
+                coordinator.dismissCurrentView(animated: false)
+            })
+            .disposed(by: disposeBag)
     }
 
     func start() {
@@ -107,6 +118,13 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     private func presentPeriodSelectViewController(viewModel: PeriodSelectViewModel) {
         
         let viewController = PeriodSelectViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .overCurrentContext
+        navigationController.presentedViewController?.present(viewController, animated: false)
+    }
+    
+    private func presentTimeSelectViewController(viewModel: TimeSelectViewModel) {
+        
+        let viewController = TimeSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overCurrentContext
         navigationController.presentedViewController?.present(viewController, animated: false)
     }

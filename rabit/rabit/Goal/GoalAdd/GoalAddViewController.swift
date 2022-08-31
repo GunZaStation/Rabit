@@ -99,6 +99,16 @@ final class GoalAddViewController: UIViewController {
             .map { $0.description }
             .bind(to: periodField.rx.text)
             .disposed(by: disposeBag)
+        
+        timeField.rx.tapGesture()
+            .when(.recognized)
+            .bind { _ in viewModel.timeFieldTouched.accept(()) }
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedTime
+            .map { $0.description }
+            .bind(to: timeField.rx.text)
+            .disposed(by: disposeBag)
     }
     
     private func setAttributes() {
