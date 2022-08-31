@@ -10,6 +10,8 @@ protocol GoalNavigation {
     var closeGoalAddView: PublishRelay<Void> { get }
     var showPeriodSelectView: PublishRelay<PeriodSelectViewModel> { get }
     var closePeriodSelectView: PublishRelay<Void> { get }
+    var showTimeSelectView: PublishRelay<TimeSelectViewModel> { get }
+    var closeTimeSelectView: PublishRelay<Void> { get }
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation {
@@ -24,6 +26,8 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeGoalAddView = PublishRelay<Void>()
     let showPeriodSelectView = PublishRelay<PeriodSelectViewModel>()
     let closePeriodSelectView = PublishRelay<Void>()
+    let showTimeSelectView = PublishRelay<TimeSelectViewModel>()
+    let closeTimeSelectView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
 

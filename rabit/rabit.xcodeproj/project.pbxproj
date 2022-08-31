@@ -50,6 +50,8 @@
 		B57D75F928B5319D00C11405 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = B57D75F828B5319D00C11405 /* RxGesture */; };
 		B582573C28BDF6F2001AE268 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573B28BDF6F2001AE268 /* DateComponent.swift */; };
 		B582573E28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */; };
+		B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */; };
+		B582574428BDFCE7001AE268 /* TimeSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */; };
 		B582574628BF3323001AE268 /* CertifiableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574528BF3323001AE268 /* CertifiableTime.swift */; };
 		B582574828BF3330001AE268 /* TimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574728BF3330001AE268 /* TimeComponent.swift */; };
 		B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2228B5F9AF00D5783F /* RealmManager.swift */; };
@@ -133,6 +135,8 @@
 		B57D75F328B3E76300C11405 /* UIView + shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + shadow.swift"; sourceTree = "<group>"; };
 		B582573B28BDF6F2001AE268 /* DateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponent.swift; sourceTree = "<group>"; };
 		B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + toDateComponent, toTimeComponent.swift"; sourceTree = "<group>"; };
+		B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectViewController.swift; sourceTree = "<group>"; };
+		B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectViewModel.swift; sourceTree = "<group>"; };
 		B582574528BF3323001AE268 /* CertifiableTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertifiableTime.swift; sourceTree = "<group>"; };
 		B582574728BF3330001AE268 /* TimeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeComponent.swift; sourceTree = "<group>"; };
 		B58A1C2228B5F9AF00D5783F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -365,6 +369,15 @@
 			path = rabitUITests;
 			sourceTree = "<group>";
 		};
+		B582574028BDF829001AE268 /* TimeSelect */ = {
+			isa = PBXGroup;
+			children = (
+				B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */,
+				B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */,
+			);
+			path = TimeSelect;
+			sourceTree = "<group>";
+		};
 		B58EF87528B8BAB50075B295 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +440,7 @@
 		B5D131D4289A0CF100EE1833 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				B582574028BDF829001AE268 /* TimeSelect */,
 				B563D9BC28BA5A2A00A755EB /* PeriodSelect */,
 				B5B9413A28AF6D3F0098022F /* GoalAdd */,
 				B59BB3C528A82DFA007C5013 /* CategoryAdd */,
@@ -614,6 +628,7 @@
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
 				B582574628BF3323001AE268 /* CertifiableTime.swift in Sources */,
 				B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */,
+				B582574428BDFCE7001AE268 /* TimeSelectViewModel.swift in Sources */,
 				02A093C828B8A52B00BDF69B /* CategoryEntity.swift in Sources */,
 				0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */,
 				0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */,
@@ -651,6 +666,7 @@
 				02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */,
 				0232BD9228AE1134009057F8 /* ColorPickerViewController.swift in Sources */,
 				0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */,
+				B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */,
 				02C9713728B356200087B8D2 /* PresetColorCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
 				02C9713528AF82390087B8D2 /* UIImage + Utils.swift in Sources */,
