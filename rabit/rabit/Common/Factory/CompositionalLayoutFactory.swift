@@ -28,26 +28,30 @@ final class CompositionalLayoutFactory {
     func create(widthFraction: CGFloat,
                 heightFraction: CGFloat,
                 spacing: Spacing = Spacing(),
+                groupWidthFraction: CGFloat = 1.0,
                 requireHeader: Bool = false,
                 headerWidth: CGFloat = .zero,
                 headerHeight: CGFloat = .zero,
                 requireFooter: Bool = false,
                 footerWidth: CGFloat = .zero,
                 footerHeight: CGFloat = .zero,
-                enableScrolling: Bool = false) -> UICollectionViewCompositionalLayout {
+                enableScrolling: Bool = false,
+                sectionHandler: (([NSCollectionLayoutVisibleItem], CGPoint, NSCollectionLayoutEnvironment) -> Void)? = nil ) -> UICollectionViewCompositionalLayout {
         
         UICollectionViewCompositionalLayout { section, _ in
             self.section(
                 widthFraction: widthFraction,
                 heightFraction: heightFraction,
                 spacing: spacing,
+                groupWidthFraction: groupWidthFraction,
                 requireHeader: requireHeader,
                 headerWidth: headerWidth,
                 headerHeight: headerHeight,
                 requireFooter: requireFooter,
                 footerWidth: footerWidth,
                 footerHeight: footerHeight,
-                enableScrolling: enableScrolling
+                enableScrolling: enableScrolling,
+                sectionHandler: sectionHandler
             )
         }
     }
@@ -58,13 +62,15 @@ private extension CompositionalLayoutFactory {
     func section(widthFraction: CGFloat,
                  heightFraction: CGFloat,
                  spacing: Spacing,
+                 groupWidthFraction: CGFloat,
                  requireHeader: Bool,
                  headerWidth: CGFloat,
                  headerHeight: CGFloat,
                  requireFooter: Bool,
                  footerWidth: CGFloat,
                  footerHeight: CGFloat,
-                 enableScrolling: Bool) -> NSCollectionLayoutSection {
+                 enableScrolling: Bool,
+                 sectionHandler: (([NSCollectionLayoutVisibleItem], CGPoint, NSCollectionLayoutEnvironment) -> Void)?) -> NSCollectionLayoutSection {
         
         let widthFraction = widthFraction
         let heightFraction = heightFraction
@@ -82,16 +88,16 @@ private extension CompositionalLayoutFactory {
         )
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
+            widthDimension: .fractionalWidth(groupWidthFraction),
             heightDimension: .fractionalHeight(heightFraction)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = []
-        
+
         if(enableScrolling) {
-            section.orthogonalScrollingBehavior = .groupPaging
+            section.orthogonalScrollingBehavior = .groupPagingCentered
         }
         
         if(requireHeader) {
@@ -123,7 +129,11 @@ private extension CompositionalLayoutFactory {
             
             section.boundarySupplementaryItems.append(footerItem)
         }
-        
+
+        if let sectionHandler = sectionHandler {
+            section.visibleItemsInvalidationHandler = sectionHandler
+        }
+
         return section
     }
 }
