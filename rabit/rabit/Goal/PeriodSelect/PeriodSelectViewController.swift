@@ -21,8 +21,11 @@ final class PeriodSelectViewController: UIViewController {
     //추후 달력화면 구현시 수정해야 함
     private let calendarView: UIDatePicker = {
         let datePicker = UIDatePicker()
-        datePicker.locale = Locale(identifier: "ko-KR")
         datePicker.datePickerMode = .date
+        
+        if #available(iOS 14.0, *) {
+            datePicker.preferredDatePickerStyle = .inline
+        }
         return datePicker
     }()
     

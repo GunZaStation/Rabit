@@ -12,7 +12,6 @@ protocol GoalAddViewModelInput {
 
 protocol GoalAddViewModelOutput {
     
-    var periodSelectViewModel: PublishRelay<PeriodSelectViewModel> { get }
     var timeSelectViewModel: PublishRelay<TimeSelectViewModel> { get }
     var selectedPeriod: PublishRelay<Period> { get }
     var selectedTime: PublishRelay<CertifiableTime> { get }
@@ -24,7 +23,6 @@ final class GoalAddViewModel: GoalAddViewModelInput, GoalAddViewModelOutput {
     let closeButtonTouched = PublishRelay<Void>()
     let periodFieldTouched = PublishRelay<Void>()
     let timeFieldTouched = PublishRelay<Void>()
-    let periodSelectViewModel = PublishRelay<PeriodSelectViewModel>()
     let selectedPeriod = PublishRelay<Period>()
     let timeSelectViewModel = PublishRelay<TimeSelectViewModel>()
     let selectedTime = PublishRelay<CertifiableTime>()
@@ -49,18 +47,11 @@ private extension GoalAddViewModel {
             .disposed(by: disposeBag)
         
         periodFieldTouched
-            .map { PeriodSelectViewModel(navigation: navigation) }
-            .bind(to: periodSelectViewModel)
-            .disposed(by: disposeBag)
-        
-        periodSelectViewModel
-            .map { $0 }
-            .bind(to: navigation.showPeriodSelectView)
-            .disposed(by: disposeBag)
-        
-        periodSelectViewModel
-            .flatMapLatest { $0.selectedPeriod }
-            .bind(to: selectedPeriod)
+            .withUnretained(self)
+            .map { viewModel, _ in
+                viewModel.selectedPeriod
+            }
+            .bind(onNext: navigation.showPeriodSelectView)
             .disposed(by: disposeBag)
         
         timeFieldTouched

@@ -12,7 +12,6 @@ protocol PeriodSelectViewModelOutput {
     
     var selectedStartDate: PublishRelay<Date> { get }
     var selectedEndDate: PublishRelay<Date> { get }
-    var selectedPeriod: PublishRelay<Period> { get }
 }
 
 final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewModelOutput {
@@ -21,15 +20,20 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
     let saveButtonTouched = PublishRelay<Void>()
     let selectedStartDate = PublishRelay<Date>()
     let selectedEndDate = PublishRelay<Date>()
-    let selectedPeriod = PublishRelay<Period>()
     
     private let disposeBag = DisposeBag()
     
-    init(navigation: GoalNavigation) {
-        bind(to: navigation)
+    init(
+        navigation: GoalNavigation,
+        with periodStream: PublishRelay<Period>
+    ) {
+        bind(to: navigation, with: periodStream)
     }
     
-    func bind(to navigation: GoalNavigation) {
+    func bind(
+        to navigation: GoalNavigation,
+        with periodStream: PublishRelay<Period>
+    ) {
         
         closingViewRequested
             .bind(to: navigation.closePeriodSelectView)
@@ -44,7 +48,7 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
         
         saveButtonTouched
             .withLatestFrom(period)
-            .bind(to: selectedPeriod)
+            .bind(to: periodStream)
             .disposed(by: disposeBag)
     }
 }
