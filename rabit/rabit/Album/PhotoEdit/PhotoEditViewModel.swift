@@ -44,6 +44,10 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
 private extension PhotoEditViewModel {
     func bind(to navigation: PhotoEditNavigation) {
         colorPickerButtonTouched
+            .withUnretained(self)
+            .map { viewModel, _ in
+                viewModel.hexPhotoColor
+            }
             .bind(to: navigation.showColorPickerView)
             .disposed(by: disposeBag)
 
