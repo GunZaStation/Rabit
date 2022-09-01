@@ -31,7 +31,9 @@ final class PhotoEdtiViewController: UIViewController {
 
     private var viewModel: PhotoEditViewModelProtocol?
 
-    let hexPhotoColor = PublishSubject<String>()
+    var hexPhotoColor: BehaviorRelay<String> {
+        return .init(value: viewModel?.hexPhotoColor.value ?? "")
+    }
 
     private var disposeBag = DisposeBag()
 

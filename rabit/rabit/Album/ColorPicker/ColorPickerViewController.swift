@@ -73,6 +73,22 @@ private extension ColorPickerViewController {
             }
             .disposed(by: disposeBag)
 
+        viewModel.selectedColor
+            .compactMap { (color) -> IndexPath? in
+                guard let index =  viewModel.presetColors
+                    .firstIndex(of: color) else { return nil }
+                return IndexPath(item: index, section: 0)
+            }
+            .withUnretained(self)
+            .bind(onNext: { viewController, indexPath in
+                viewController.presetColorCollectionView.selectItem(
+                    at: indexPath,
+                    animated: true,
+                    scrollPosition: .centeredVertically
+                )
+            })
+            .disposed(by: disposeBag)
+
         presetColorCollectionView.rx.modelSelected(String.self)
             .bind(to: viewModel.selectedColor)
             .disposed(by: disposeBag)

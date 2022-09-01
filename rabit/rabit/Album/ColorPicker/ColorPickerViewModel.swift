@@ -3,7 +3,7 @@ import RxSwift
 import RxRelay
 
 protocol ColorPickerViewModelInput {
-    var selectedColor: PublishSubject<String> { get }
+    var selectedColor: BehaviorRelay<String> { get }
     var backButtonTouched: PublishSubject<Void> { get }
 }
 
@@ -14,7 +14,7 @@ protocol ColorPickerViewModelOutput {
 protocol ColorPickerViewModelProtocol: ColorPickerViewModelInput, ColorPickerViewModelOutput { }
 
 final class ColorPickerViewModel: ColorPickerViewModelProtocol {
-    let selectedColor = PublishSubject<String>()
+    let selectedColor: BehaviorRelay<String>
     let backButtonTouched = PublishSubject<Void>()
     let presetColors = [
         "#E4B6BC", "#E09681", "#000000",
@@ -28,16 +28,17 @@ final class ColorPickerViewModel: ColorPickerViewModelProtocol {
     private var disposeBag = DisposeBag()
 
     init(
-        colorStream: PublishSubject<String>,
+        colorStream: BehaviorRelay<String>,
         navigation: ColorPickerNavigation
     ) {
+        selectedColor = .init(value: colorStream.value)
         bind(to: colorStream)
         bind(to: navigation)
     }
 }
 
 private extension ColorPickerViewModel {
-    func bind(to colorStream: PublishSubject<String>) {
+    func bind(to colorStream: BehaviorRelay<String>) {
         selectedColor
             .bind(to: colorStream)
             .disposed(by: disposeBag)
