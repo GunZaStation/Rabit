@@ -10,7 +10,7 @@ protocol GoalNavigation {
     var closeGoalAddView: PublishRelay<Void> { get }
     var showPeriodSelectView: (PublishRelay<Period>) -> Void { get }
     var closePeriodSelectView: PublishRelay<Void> { get }
-    var showTimeSelectView: PublishRelay<TimeSelectViewModel> { get }
+    var showTimeSelectView: (PublishRelay<CertifiableTime> ) -> Void { get }
     var closeTimeSelectView: PublishRelay<Void> { get }
 }
 
@@ -28,7 +28,9 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
         self.presentPeriodSelectViewController(with: periodStream)
     }
     let closePeriodSelectView = PublishRelay<Void>()
-    let showTimeSelectView = PublishRelay<TimeSelectViewModel>()
+    private (set) lazy var showTimeSelectView: (PublishRelay<CertifiableTime>) -> Void = { timeStream in
+        self.presentTimeSelectViewController(with: timeStream)
+    }
     let closeTimeSelectView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
@@ -67,10 +69,6 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .bind(onNext: { coordinator, _ in
                 coordinator.dismissCurrentView(animated: false)
             })
-            .disposed(by: disposeBag)
-        
-        showTimeSelectView
-            .bind(onNext: presentTimeSelectViewController)
             .disposed(by: disposeBag)
         
         closeTimeSelectView
@@ -124,8 +122,9 @@ private extension GoalCoordinator {
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
     
-    func presentTimeSelectViewController(viewModel: TimeSelectViewModel) {
+    func presentTimeSelectViewController(with timeStream: PublishRelay<CertifiableTime>) {
         
+        let viewModel = TimeSelectViewModel(navigation: self, with: timeStream)
         let viewController = TimeSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overCurrentContext
         navigationController.presentedViewController?.present(viewController, animated: false)

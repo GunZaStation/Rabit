@@ -12,7 +12,6 @@ protocol TimeSelectViewModelOutput {
     
     var selectedStartTime: PublishRelay<Date> { get }
     var selectedEndTime: PublishRelay<Date> { get }
-    var selectedTime: PublishRelay<CertifiableTime> { get }
 }
 
 final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOutput {
@@ -21,15 +20,20 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
     let saveButtonTouched = PublishRelay<Void>()
     let selectedStartTime = PublishRelay<Date>()
     let selectedEndTime = PublishRelay<Date>()
-    let selectedTime = PublishRelay<CertifiableTime>()
     
     private let disposeBag = DisposeBag()
     
-    init(navigation: GoalNavigation) {
-        bind(to: navigation)
+    init(
+        navigation: GoalNavigation,
+        with timeStream: PublishRelay<CertifiableTime>
+    ) {
+        bind(to: navigation, with: timeStream)
     }
     
-    func bind(to navigation: GoalNavigation) {
+    func bind(
+        to navigation: GoalNavigation,
+        with timeStream: PublishRelay<CertifiableTime>
+    ) {
         
         closingViewRequested
             .bind(to: navigation.closePeriodSelectView)
@@ -44,7 +48,7 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
         
         saveButtonTouched
             .withLatestFrom(time)
-            .bind(to: selectedTime)
+            .bind(to: timeStream)
             .disposed(by: disposeBag)
     }
 }
