@@ -28,15 +28,19 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
             date: Date(),
             color: "")
     )
+    private let albumRepository: AlbumRepositoryProtocol
 
     private var disposeBag = DisposeBag()
 
     init(
         selectedData: Album.Item,
+        repository: AlbumRepositoryProtocol,
         navigation: PhotoEditNavigation
     ) {
         selectedPhotoData.onNext(selectedData)
         hexPhotoColor = BehaviorRelay<String>(value: selectedData.color)
+        self.albumRepository = repository
+
         bind(to: navigation)
     }
 }
@@ -55,14 +59,20 @@ private extension PhotoEditViewModel {
             .bind(to: navigation.showStylePickerView)
             .disposed(by: disposeBag)
 
-        backButtonTouched
-            .bind(to: navigation.closePhotoEditView)
+        backButtonTouched.withLatestFrom(selectedPhotoData)
+            .withUnretained(self)
+            .bind(onNext: { viewModel, data in
+                viewModel.albumRepository.updateAlbumData(data)
+
+                navigation.closePhotoEditView.accept(())
+            })
             .disposed(by: disposeBag)
 
         hexPhotoColor.withLatestFrom(selectedPhotoData)
             .withUnretained(self)
             .map { viewModel, photoData in
                 Album.Item(
+                    uuid: photoData.uuid,
                     categoryTitle: photoData.categoryTitle,
                     goalTitle: photoData.goalTitle,
                     imageData: photoData.imageData,

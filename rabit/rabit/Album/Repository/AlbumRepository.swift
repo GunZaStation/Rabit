@@ -3,6 +3,7 @@ import RxSwift
 
 protocol AlbumRepositoryProtocol {
     func fetchAlbumData() -> Observable<[Album]>
+    func updateAlbumData(_ data: Photo) -> Single<Bool>
 }
 
 final class AlbumRepository: AlbumRepositoryProtocol {
@@ -35,6 +36,22 @@ final class AlbumRepository: AlbumRepositoryProtocol {
             }
 
             observer.onNext(albumData)
+
+            return Disposables.create()
+        }
+    }
+
+    func updateAlbumData(_ data: Photo) -> Single<Bool> {
+
+        var result = true
+        do {
+            try realmManager.update(entity: data.toEntity())
+        } catch {
+            result = false
+        }
+
+        return .create { single in
+            single(.success(result))
 
             return Disposables.create()
         }
