@@ -68,21 +68,6 @@ private extension PhotoEditViewModel {
             })
             .disposed(by: disposeBag)
 
-        hexPhotoColor.withLatestFrom(selectedPhotoData)
-            .withUnretained(self)
-            .map { viewModel, photoData in
-                Album.Item(
-                    uuid: photoData.uuid,
-                    categoryTitle: photoData.categoryTitle,
-                    goalTitle: photoData.goalTitle,
-                    imageData: photoData.imageData,
-                    date: photoData.date,
-                    color: viewModel.hexPhotoColor.value
-                )
-            }
-            .bind(to: selectedPhotoData)
-            .disposed(by: disposeBag)
-
         hexPhotoColor
             .withLatestFrom(selectedPhotoData) {
                 Album.Item(
