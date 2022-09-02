@@ -4,6 +4,8 @@ import RxRelay
 
 protocol AlbumNavigation {
     var showPhotoEditView: PublishRelay<Album.Item> { get }
+    var closeColorPickerView: PublishRelay<Void> { get }
+    var closePhotoEditView: PublishRelay<Void> { get }
 }
 
 protocol PhotoEditNavigation {
@@ -49,8 +51,10 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
 // MARK: - Navigation methods
 private extension AlbumCoordinator {
     func presentPhotoEditView(_ selectedPhoto: Album.Item) {
+        let repository = AlbumRepository()
         let viewModel = PhotoEditViewModel(
             selectedData: selectedPhoto,
+            repository: repository,
             navigation: self
         )
         let viewController = PhotoEdtiViewController(viewModel: viewModel)
