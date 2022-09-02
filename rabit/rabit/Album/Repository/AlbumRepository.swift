@@ -6,20 +6,23 @@ protocol AlbumRepositoryProtocol {
 }
 
 final class AlbumRepository: AlbumRepositoryProtocol {
+
+    private let realmManager = RealmManager.shared
+
     func fetchAlbumData() -> Observable<[Album]> {
 
-        return Observable.create { observer in
+        return Observable.create { [weak self] observer in
 
-            let realmManager = RealmManager.shared
+            guard let self = self else { return Disposables.create() }
 
-            let fetchedGoalDetailData = realmManager.read(entity: CategoryEntity.self)
+            let fetchedGoalDetailData = self.realmManager.read(entity: CategoryEntity.self)
 
             var albumData = [Album]()
 
             fetchedGoalDetailData.forEach {
                 let categoryTitle = $0.title
 
-                let fetchedPhotoData = realmManager
+                let fetchedPhotoData = self.realmManager
                     .read(
                         entity: PhotoEntity.self,
                         filter: "categoryTitle == '\(categoryTitle)'"
