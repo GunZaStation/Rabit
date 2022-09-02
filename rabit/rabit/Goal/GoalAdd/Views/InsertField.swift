@@ -5,17 +5,18 @@ final class InsertField: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        label.textAlignment = .left
         return label
     }()
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.clipsToBounds = true
         textField.layer.borderColor = UIColor.systemGray4.cgColor
         textField.layer.borderWidth = 1.0
-        textField.layer.cornerRadius = 9
+        textField.backgroundColor = .white
+        textField.roundCorners(10)
+        textField.shadowApplied(opacity: 0.2)
         return textField
     }()
     
@@ -25,9 +26,21 @@ final class InsertField: UIView {
         }
     }
     
+    var text: String? {
+        didSet {
+            textField.text = text ?? ""
+        }
+    }
+    
     var placeholder: String = "" {
         didSet {
             textField.placeholder = " \(placeholder)"
+        }
+    }
+    
+    var isEnabled: Bool = true {
+        didSet {
+            textField.isEnabled = isEnabled
         }
     }
     
@@ -43,14 +56,13 @@ final class InsertField: UIView {
     private func setupViews() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.leading.centerY.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.2)
+            $0.top.leading.trailing.equalToSuperview()
         }
         
         addSubview(textField)
         textField.snp.makeConstraints {
-            $0.leading.equalTo(titleLabel.snp.trailing).offset(10)
-            $0.height.centerY.trailing.equalToSuperview()
+            $0.bottom.leading.trailing.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.5)
         }
     }
 }

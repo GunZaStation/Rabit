@@ -51,8 +51,7 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.systemGray5.cgColor
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 10
+        contentView.roundCorners(10)
     }
     
     private func setupViews() {

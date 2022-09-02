@@ -8,6 +8,10 @@ protocol GoalNavigation {
     var closeCategoryAddView: PublishRelay<Void> { get }
     var showGoalAddView: PublishRelay<Void> { get }
     var closeGoalAddView: PublishRelay<Void> { get }
+    var showPeriodSelectView: PublishRelay<PeriodSelectViewModel> { get }
+    var closePeriodSelectView: PublishRelay<Void> { get }
+    var showTimeSelectView: PublishRelay<TimeSelectViewModel> { get }
+    var closeTimeSelectView: PublishRelay<Void> { get }
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation {
@@ -20,6 +24,10 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeCategoryAddView = PublishRelay<Void>()
     let showGoalAddView = PublishRelay<Void>()
     let closeGoalAddView = PublishRelay<Void>()
+    let showPeriodSelectView = PublishRelay<PeriodSelectViewModel>()
+    let closePeriodSelectView = PublishRelay<Void>()
+    let showTimeSelectView = PublishRelay<TimeSelectViewModel>()
+    let closeTimeSelectView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
 
@@ -51,6 +59,28 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
                 coordinator.dismissCurrentView(animated: true)
             })
             .disposed(by: disposeBag)
+        
+        showPeriodSelectView
+            .bind(onNext: presentPeriodSelectViewController)
+            .disposed(by: disposeBag)
+        
+        closePeriodSelectView
+            .withUnretained(self)
+            .bind(onNext: { coordinator, _ in
+                coordinator.dismissCurrentView(animated: false)
+            })
+            .disposed(by: disposeBag)
+        
+        showTimeSelectView
+            .bind(onNext: presentTimeSelectViewController)
+            .disposed(by: disposeBag)
+        
+        closeTimeSelectView
+            .withUnretained(self)
+            .bind(onNext: { coordinator, _ in
+                coordinator.dismissCurrentView(animated: false)
+            })
+            .disposed(by: disposeBag)
     }
 
     func start() {
@@ -69,7 +99,7 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
 
         let viewModel = CategoryAddViewModel(navigation: self)
         let viewController = CategoryAddViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .overFullScreen
         navigationController.present(viewController, animated: false)
     }
     
@@ -82,6 +112,20 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
 
         let viewModel = GoalAddViewModel(navigation: self)
         let viewController = GoalAddViewController(viewModel: viewModel)
-        navigationController.present(viewController, animated: true)
+        navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
+    }
+    
+    private func presentPeriodSelectViewController(viewModel: PeriodSelectViewModel) {
+        
+        let viewController = PeriodSelectViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .overCurrentContext
+        navigationController.presentedViewController?.present(viewController, animated: false)
+    }
+    
+    private func presentTimeSelectViewController(viewModel: TimeSelectViewModel) {
+        
+        let viewController = TimeSelectViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .overCurrentContext
+        navigationController.presentedViewController?.present(viewController, animated: false)
     }
 }

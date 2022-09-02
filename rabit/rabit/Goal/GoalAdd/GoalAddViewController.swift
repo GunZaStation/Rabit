@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxGesture
 
 final class GoalAddViewController: UIViewController {
     
@@ -8,7 +9,7 @@ final class GoalAddViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 12.5
+        stackView.spacing = 14
         return stackView
     }()
     
@@ -29,7 +30,8 @@ final class GoalAddViewController: UIViewController {
     private let periodField:InsertField = {
         let insertField = InsertField()
         insertField.title = "목표 기간"
-        insertField.placeholder = "문자열 입력"
+        insertField.placeholder = "시작일과 종료일을 선택하세요"
+        insertField.isEnabled = false
         return insertField
     }()
     
@@ -37,6 +39,7 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "인증 시간"
         insertField.placeholder = "문자열 입력"
+        insertField.isEnabled = false
         return insertField
     }()
     
@@ -51,6 +54,11 @@ final class GoalAddViewController: UIViewController {
     }()
     
     private lazy var rightButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "저장", style: .plain, target: self, action: nil)
+        return button
+    }()
+    
+    private lazy var closeButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "저장", style: .plain, target: self, action: nil)
         return button
     }()
@@ -73,28 +81,52 @@ final class GoalAddViewController: UIViewController {
     
     private func bind() {
         guard let viewModel = viewModel else { return }
-
+        
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
+            .disposed(by: disposeBag)
+        
+        navigationItem.leftBarButtonItem?.rx.tap
+            .bind(to: viewModel.closeButtonTouched)
+            .disposed(by: disposeBag)
+        
+        periodField.rx.tapGesture()
+            .when(.recognized)
+            .bind { _ in viewModel.periodFieldTouched.accept(()) }
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedPeriod
+            .map { $0.description }
+            .bind(to: periodField.rx.text)
+            .disposed(by: disposeBag)
+        
+        timeField.rx.tapGesture()
+            .when(.recognized)
+            .bind { _ in viewModel.timeFieldTouched.accept(()) }
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedTime
+            .map { $0.description }
+            .bind(to: timeField.rx.text)
             .disposed(by: disposeBag)
     }
     
     private func setAttributes() {
         
         view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = rightButton
-        navigationItem.title = "새로운 목표 만들기"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
     }
     
     private func setupViews() {
         
         view.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalToSuperview().multipliedBy(0.3)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.85)
+            $0.height.equalToSuperview().multipliedBy(0.5)
         }
-                
+        
         stackView.addArrangedSubview(titleField)
         stackView.addArrangedSubview(descriptionField)
         stackView.addArrangedSubview(periodField)

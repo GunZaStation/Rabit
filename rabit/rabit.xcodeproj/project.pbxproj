@@ -36,6 +36,9 @@
 		02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37253289E1EA200F361C7 /* PaddingLabel.swift */; };
 		02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */; };
 		B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536FA0528A929D800178786 /* GoalListRepository.swift */; };
+		B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563D9BD28BA5A3C00A755EB /* Period.swift */; };
+		B563D9C028BA5A8F00A755EB /* PeriodSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */; };
+		B563D9C228BA5C9B00A755EB /* PeriodSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563D9C128BA5C9B00A755EB /* PeriodSelectViewModel.swift */; };
 		B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */; };
 		B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */; };
 		B569E9FB2898D4AA006FFFB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */; };
@@ -43,6 +46,14 @@
 		B569EA092898D4AB006FFFB9 /* rabitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA082898D4AB006FFFB9 /* rabitTests.swift */; };
 		B569EA132898D4AB006FFFB9 /* rabitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA122898D4AB006FFFB9 /* rabitUITests.swift */; };
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
+		B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D75F328B3E76300C11405 /* UIView + shadow.swift */; };
+		B57D75F928B5319D00C11405 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = B57D75F828B5319D00C11405 /* RxGesture */; };
+		B582573C28BDF6F2001AE268 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573B28BDF6F2001AE268 /* DateComponent.swift */; };
+		B582573E28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */; };
+		B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */; };
+		B582574428BDFCE7001AE268 /* TimeSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */; };
+		B582574628BF3323001AE268 /* CertifiableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574528BF3323001AE268 /* CertifiableTime.swift */; };
+		B582574828BF3330001AE268 /* TimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574728BF3330001AE268 /* TimeComponent.swift */; };
 		B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2228B5F9AF00D5783F /* RealmManager.swift */; };
 		B58A1C2528B74E1E00D5783F /* CategoryAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58A1C2428B74E1E00D5783F /* CategoryAddRepository.swift */; };
 		B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58EF87628B8BABC0075B295 /* BottomSheet.swift */; };
@@ -107,6 +118,9 @@
 		02F37253289E1EA200F361C7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		B536FA0528A929D800178786 /* GoalListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListRepository.swift; sourceTree = "<group>"; };
+		B563D9BD28BA5A3C00A755EB /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
+		B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectViewController.swift; sourceTree = "<group>"; };
+		B563D9C128BA5C9B00A755EB /* PeriodSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectViewModel.swift; sourceTree = "<group>"; };
 		B569E9EE2898D4A8006FFFB9 /* rabit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rabit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569E9F12898D4A8006FFFB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +132,13 @@
 		B569EA0E2898D4AB006FFFB9 /* rabitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rabitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569EA122898D4AB006FFFB9 /* rabitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITests.swift; sourceTree = "<group>"; };
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B57D75F328B3E76300C11405 /* UIView + shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + shadow.swift"; sourceTree = "<group>"; };
+		B582573B28BDF6F2001AE268 /* DateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponent.swift; sourceTree = "<group>"; };
+		B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + toDateComponent, toTimeComponent.swift"; sourceTree = "<group>"; };
+		B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectViewController.swift; sourceTree = "<group>"; };
+		B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectViewModel.swift; sourceTree = "<group>"; };
+		B582574528BF3323001AE268 /* CertifiableTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertifiableTime.swift; sourceTree = "<group>"; };
+		B582574728BF3330001AE268 /* TimeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeComponent.swift; sourceTree = "<group>"; };
 		B58A1C2228B5F9AF00D5783F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		B58A1C2428B74E1E00D5783F /* CategoryAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddRepository.swift; sourceTree = "<group>"; };
 		B58EF87628B8BABC0075B295 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
@@ -149,6 +170,7 @@
 				02B7FD29289A1EC300EBA86D /* RealmSwift in Frameworks */,
 				02B7FD2E289A1EEC00EBA86D /* RxSwift in Frameworks */,
 				022B7838289C05C2009003EA /* RxDataSources in Frameworks */,
+				B57D75F928B5319D00C11405 /* RxGesture in Frameworks */,
 				02B7FD26289A1E3400EBA86D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,8 +302,19 @@
 				0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */,
 				02C9713428AF82390087B8D2 /* UIImage + Utils.swift */,
 				02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */,
+				B57D75F328B3E76300C11405 /* UIView + shadow.swift */,
+				B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		B563D9BC28BA5A2A00A755EB /* PeriodSelect */ = {
+			isa = PBXGroup;
+			children = (
+				B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */,
+				B563D9C128BA5C9B00A755EB /* PeriodSelectViewModel.swift */,
+			);
+			path = PeriodSelect;
 			sourceTree = "<group>";
 		};
 		B569E9E52898D4A8006FFFB9 = {
@@ -334,6 +367,15 @@
 				B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */,
 			);
 			path = rabitUITests;
+			sourceTree = "<group>";
+		};
+		B582574028BDF829001AE268 /* TimeSelect */ = {
+			isa = PBXGroup;
+			children = (
+				B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */,
+				B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */,
+			);
+			path = TimeSelect;
 			sourceTree = "<group>";
 		};
 		B58EF87528B8BAB50075B295 /* Views */ = {
@@ -398,6 +440,8 @@
 		B5D131D4289A0CF100EE1833 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				B582574028BDF829001AE268 /* TimeSelect */,
+				B563D9BC28BA5A2A00A755EB /* PeriodSelect */,
 				B5B9413A28AF6D3F0098022F /* GoalAdd */,
 				B59BB3C528A82DFA007C5013 /* CategoryAdd */,
 				B5D131E0289C29EE00EE1833 /* Models */,
@@ -427,6 +471,10 @@
 				02A093C928B8A67800BDF69B /* GoalEntity.swift */,
 				B5D131E7289C2D1100EE1833 /* Category.swift */,
 				02A093C728B8A52B00BDF69B /* CategoryEntity.swift */,
+				B563D9BD28BA5A3C00A755EB /* Period.swift */,
+				B582573B28BDF6F2001AE268 /* DateComponent.swift */,
+				B582574528BF3323001AE268 /* CertifiableTime.swift */,
+				B582574728BF3330001AE268 /* TimeComponent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -453,6 +501,7 @@
 				02B7FD2B289A1EEC00EBA86D /* RxCocoa */,
 				02B7FD2D289A1EEC00EBA86D /* RxSwift */,
 				022B7837289C05C2009003EA /* RxDataSources */,
+				B57D75F828B5319D00C11405 /* RxGesture */,
 			);
 			productName = rabit;
 			productReference = B569E9EE2898D4A8006FFFB9 /* rabit.app */;
@@ -531,6 +580,7 @@
 				02B7FD27289A1EC300EBA86D /* XCRemoteSwiftPackageReference "realm-swift" */,
 				02B7FD2A289A1EEC00EBA86D /* XCRemoteSwiftPackageReference "RxSwift" */,
 				022B7836289C05C2009003EA /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				B57D75F728B5319D00C11405 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = B569E9EF2898D4A8006FFFB9 /* Products */;
 			projectDirPath = "";
@@ -576,7 +626,9 @@
 			files = (
 				02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
+				B582574628BF3323001AE268 /* CertifiableTime.swift in Sources */,
 				B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */,
+				B582574428BDFCE7001AE268 /* TimeSelectViewModel.swift in Sources */,
 				02A093C828B8A52B00BDF69B /* CategoryEntity.swift in Sources */,
 				0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */,
 				0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */,
@@ -584,11 +636,15 @@
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
 				B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */,
+				B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */,
 				B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */,
+				B563D9C028BA5A8F00A755EB /* PeriodSelectViewController.swift in Sources */,
 				0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */,
+				B582574828BF3330001AE268 /* TimeComponent.swift in Sources */,
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
+				B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */,
 				B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
 				02B916DB28B89ADF0086F29E /* RealmResults + toArray.swift in Sources */,
@@ -599,14 +655,18 @@
 				02DB2F8428AC8D7E005938CB /* PhotoEditViewController.swift in Sources */,
 				B5B9413F28AF6F280098022F /* InsertField.swift in Sources */,
 				02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */,
+				B582573E28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift in Sources */,
 				B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */,
+				B563D9C228BA5C9B00A755EB /* PeriodSelectViewModel.swift in Sources */,
 				0232BD9928AF6B25009057F8 /* Photo.swift in Sources */,
+				B582573C28BDF6F2001AE268 /* DateComponent.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				02A093CA28B8A67800BDF69B /* GoalEntity.swift in Sources */,
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
 				02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */,
 				0232BD9228AE1134009057F8 /* ColorPickerViewController.swift in Sources */,
 				0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */,
+				B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */,
 				02C9713728B356200087B8D2 /* PresetColorCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
 				02C9713528AF82390087B8D2 /* UIImage + Utils.swift in Sources */,
@@ -987,6 +1047,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		B57D75F728B5319D00C11405 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1014,6 +1082,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 02B7FD2A289A1EEC00EBA86D /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		B57D75F828B5319D00C11405 /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B57D75F728B5319D00C11405 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
