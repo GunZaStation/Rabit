@@ -1,6 +1,7 @@
 import Foundation
 
 struct Photo {
+    let uuid: UUID
     let categoryTitle: String
     let goalTitle: String
     let imageData: Data
@@ -8,12 +9,14 @@ struct Photo {
     var color: String
 
     init(
+        uuid: UUID = UUID(),
         categoryTitle: String,
         goalTitle: String,
         imageData: Data,
         date: Date,
         color: String
     ) {
+        self.uuid = uuid
         self.categoryTitle = categoryTitle
         self.goalTitle = goalTitle
         self.imageData = imageData
@@ -25,6 +28,7 @@ struct Photo {
 extension Photo: Persistable {
     init(entity: PhotoEntity) {
         self.init(
+            uuid: entity.uuid,
             categoryTitle: entity.categoryTitle,
             goalTitle: entity.goalTitle,
             imageData: entity.imageData,
@@ -35,6 +39,7 @@ extension Photo: Persistable {
     
     func toEntity<T: PhotoEntity>() -> T {
         return T(
+            uuid: self.uuid,
             categoryTitle: self.categoryTitle,
             goalTitle: self.goalTitle,
             imageData: self.imageData,
