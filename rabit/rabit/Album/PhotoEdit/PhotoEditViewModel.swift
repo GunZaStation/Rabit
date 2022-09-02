@@ -72,5 +72,19 @@ private extension PhotoEditViewModel {
             }
             .bind(to: selectedPhotoData)
             .disposed(by: disposeBag)
+
+        hexPhotoColor
+            .withLatestFrom(selectedPhotoData) {
+                Album.Item(
+                    uuid: $1.uuid,
+                    categoryTitle: $1.categoryTitle,
+                    goalTitle: $1.goalTitle,
+                    imageData: $1.imageData,
+                    date: $1.date,
+                    color: $0
+                )
+            }
+            .bind(to: selectedPhotoData)
+            .disposed(by: disposeBag)
     }
 }
