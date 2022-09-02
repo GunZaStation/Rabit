@@ -47,7 +47,7 @@ private extension AlbumViewModel {
             .bind(to: navigation.showPhotoEditView)
             .disposed(by: disposeBag)
 
-        navigation.closeColorPickerView
+        navigation.closePhotoEditView
             .bind(to: requestAlbumData)
             .disposed(by: disposeBag)
     }
