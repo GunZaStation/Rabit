@@ -25,14 +25,14 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
     
     init(
         navigation: GoalNavigation,
-        with timeStream: PublishRelay<CertifiableTime>
+        with timeStream: BehaviorRelay<CertifiableTime>
     ) {
         bind(to: navigation, with: timeStream)
     }
     
     func bind(
         to navigation: GoalNavigation,
-        with timeStream: PublishRelay<CertifiableTime>
+        with timeStream: BehaviorRelay<CertifiableTime>
     ) {
         
         closingViewRequested

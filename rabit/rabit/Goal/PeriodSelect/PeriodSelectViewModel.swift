@@ -25,14 +25,14 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
     
     init(
         navigation: GoalNavigation,
-        with periodStream: PublishRelay<Period>
+        with periodStream: BehaviorRelay<Period>
     ) {
         bind(to: navigation, with: periodStream)
     }
     
     func bind(
         to navigation: GoalNavigation,
-        with periodStream: PublishRelay<Period>
+        with periodStream: BehaviorRelay<Period>
     ) {
         
         closingViewRequested

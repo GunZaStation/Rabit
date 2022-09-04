@@ -8,9 +8,9 @@ protocol GoalNavigation {
     var closeCategoryAddView: PublishRelay<Void> { get }
     var showGoalAddView: PublishRelay<Void> { get }
     var closeGoalAddView: PublishRelay<Void> { get }
-    var showPeriodSelectView: (PublishRelay<Period>) -> Void { get }
+    var showPeriodSelectView: PublishRelay<BehaviorRelay<Period>> { get }
     var closePeriodSelectView: PublishRelay<Void> { get }
-    var showTimeSelectView: (PublishRelay<CertifiableTime> ) -> Void { get }
+    var showTimeSelectView: PublishRelay<BehaviorRelay<CertifiableTime>> { get }
     var closeTimeSelectView: PublishRelay<Void> { get }
 }
 
@@ -24,13 +24,9 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeCategoryAddView = PublishRelay<Void>()
     let showGoalAddView = PublishRelay<Void>()
     let closeGoalAddView = PublishRelay<Void>()
-    private (set) lazy var showPeriodSelectView: (PublishRelay<Period>) -> Void = { periodStream in
-        self.presentPeriodSelectViewController(with: periodStream)
-    }
+    let showPeriodSelectView = PublishRelay<BehaviorRelay<Period>>()
     let closePeriodSelectView = PublishRelay<Void>()
-    private (set) lazy var showTimeSelectView: (PublishRelay<CertifiableTime>) -> Void = { timeStream in
-        self.presentTimeSelectViewController(with: timeStream)
-    }
+    let showTimeSelectView = PublishRelay<BehaviorRelay<CertifiableTime>>()
     let closeTimeSelectView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
@@ -64,11 +60,19 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             })
             .disposed(by: disposeBag)
         
+        showPeriodSelectView
+            .bind(onNext: presentPeriodSelectViewController)
+            .disposed(by: disposeBag)
+        
         closePeriodSelectView
             .withUnretained(self)
             .bind(onNext: { coordinator, _ in
                 coordinator.dismissCurrentView(animated: false)
             })
+            .disposed(by: disposeBag)
+        
+        showTimeSelectView
+            .bind(onNext: presentTimeSelectViewController)
             .disposed(by: disposeBag)
         
         closeTimeSelectView
@@ -114,7 +118,7 @@ private extension GoalCoordinator {
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
     
-    func presentPeriodSelectViewController(with periodStream: PublishRelay<Period>) {
+    func presentPeriodSelectViewController(with periodStream: BehaviorRelay<Period>) {
         
         let viewModel = PeriodSelectViewModel(navigation: self, with: periodStream)
         let viewController = PeriodSelectViewController(viewModel: viewModel)
@@ -122,7 +126,7 @@ private extension GoalCoordinator {
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
     
-    func presentTimeSelectViewController(with timeStream: PublishRelay<CertifiableTime>) {
+    func presentTimeSelectViewController(with timeStream: BehaviorRelay<CertifiableTime>) {
         
         let viewModel = TimeSelectViewModel(navigation: self, with: timeStream)
         let viewController = TimeSelectViewController(viewModel: viewModel)
