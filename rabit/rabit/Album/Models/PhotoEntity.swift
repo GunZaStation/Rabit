@@ -10,7 +10,7 @@ final class PhotoEntity: Object {
     @Persisted var color: String = ""
 
     convenience init(
-        uuid: UUID = UUID(),
+        uuid: UUID,
         categoryTitle: String,
         goalTitle: String,
         imageData: Data,
