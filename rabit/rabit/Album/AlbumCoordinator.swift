@@ -4,10 +4,12 @@ import RxRelay
 
 protocol AlbumNavigation {
     var showPhotoEditView: PublishRelay<Album.Item> { get }
+    var closeColorPickerView: PublishRelay<Void> { get }
+    var closePhotoEditView: PublishRelay<Void> { get }
 }
 
 protocol PhotoEditNavigation {
-    var showColorPickerView: PublishRelay<Void> { get }
+    var showColorPickerView: PublishRelay<BehaviorRelay<String>> { get }
     var showStylePickerView: PublishRelay<Void> { get }
     var closePhotoEditView: PublishRelay<Void> { get }
 }
@@ -23,7 +25,7 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
     var navigationController: UINavigationController
 
     let showPhotoEditView = PublishRelay<Album.Item>()
-    let showColorPickerView = PublishRelay<Void>()
+    let showColorPickerView = PublishRelay<BehaviorRelay<String>>()
     let showStylePickerView = PublishRelay<Void>()
     let closePhotoEditView = PublishRelay<Void>()
     let closeColorPickerView = PublishRelay<Void>()
@@ -49,8 +51,10 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
 // MARK: - Navigation methods
 private extension AlbumCoordinator {
     func presentPhotoEditView(_ selectedPhoto: Album.Item) {
+        let repository = AlbumRepository()
         let viewModel = PhotoEditViewModel(
             selectedData: selectedPhoto,
+            repository: repository,
             navigation: self
         )
         let viewController = PhotoEdtiViewController(viewModel: viewModel)
@@ -64,14 +68,13 @@ private extension AlbumCoordinator {
         navigationController.presentedViewController?.dismiss(animated: true)
     }
 
-    func pushColorPickerView() {
-        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController,
-              let photoEditViewController = navigationController.viewControllers.first as? PhotoEdtiViewController else {
+    func pushColorPickerView(colorStream: BehaviorRelay<String>) {
+        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else {
                   return
               }
 
         let viewModel = ColorPickerViewModel(
-            colorStream: photoEditViewController.hexPhotoColor,
+            colorStream: colorStream,
             navigation: self
         )
         let viewController = ColorPickerViewController(viewModel: viewModel)
@@ -104,7 +107,7 @@ private extension AlbumCoordinator {
             .disposed(by: disposeBag)
 
         showColorPickerView
-            .bind(onNext: pushColorPickerView)
+            .bind(onNext: pushColorPickerView(colorStream:))
             .disposed(by: disposeBag)
 
         showStylePickerView

@@ -31,8 +31,6 @@ final class PhotoEdtiViewController: UIViewController {
 
     private var viewModel: PhotoEditViewModelProtocol?
 
-    let hexPhotoColor = PublishSubject<String>()
-
     private var disposeBag = DisposeBag()
 
     convenience init(viewModel: PhotoEditViewModelProtocol) {
@@ -117,10 +115,6 @@ private extension PhotoEdtiViewController {
 
         navigationItem.leftBarButtonItem?.rx.tap
             .bind(to: viewModel.backButtonTouched)
-            .disposed(by: disposeBag)
-
-        hexPhotoColor
-            .bind(to: viewModel.hexPhotoColor)
             .disposed(by: disposeBag)
     }
 

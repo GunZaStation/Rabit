@@ -23,4 +23,10 @@ final class RealmManager {
             realm.add(entity)
         }
     }
+
+    func update<T: Object>(entity: T) throws {
+        try? realm.write {
+            realm.add(entity, update: .modified)
+        }
+    }
 }

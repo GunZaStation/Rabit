@@ -28,15 +28,19 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
             date: Date(),
             color: "")
     )
+    private let albumRepository: AlbumRepositoryProtocol
 
     private var disposeBag = DisposeBag()
 
     init(
         selectedData: Album.Item,
+        repository: AlbumRepositoryProtocol,
         navigation: PhotoEditNavigation
     ) {
         selectedPhotoData.onNext(selectedData)
         hexPhotoColor = BehaviorRelay<String>(value: selectedData.color)
+        self.albumRepository = repository
+
         bind(to: navigation)
     }
 }
@@ -44,6 +48,10 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
 private extension PhotoEditViewModel {
     func bind(to navigation: PhotoEditNavigation) {
         colorPickerButtonTouched
+            .withUnretained(self)
+            .map { viewModel, _ in
+                viewModel.hexPhotoColor
+            }
             .bind(to: navigation.showColorPickerView)
             .disposed(by: disposeBag)
 
@@ -51,19 +59,24 @@ private extension PhotoEditViewModel {
             .bind(to: navigation.showStylePickerView)
             .disposed(by: disposeBag)
 
-        backButtonTouched
-            .bind(to: navigation.closePhotoEditView)
+        backButtonTouched.withLatestFrom(selectedPhotoData)
+            .withUnretained(self)
+            .bind(onNext: { viewModel, data in
+                viewModel.albumRepository.updateAlbumData(data)
+
+                navigation.closePhotoEditView.accept(())
+            })
             .disposed(by: disposeBag)
 
-        hexPhotoColor.withLatestFrom(selectedPhotoData)
-            .withUnretained(self)
-            .map { viewModel, photoData in
+        hexPhotoColor
+            .withLatestFrom(selectedPhotoData) {
                 Album.Item(
-                    categoryTitle: photoData.categoryTitle,
-                    goalTitle: photoData.goalTitle,
-                    imageData: photoData.imageData,
-                    date: photoData.date,
-                    color: viewModel.hexPhotoColor.value
+                    uuid: $1.uuid,
+                    categoryTitle: $1.categoryTitle,
+                    goalTitle: $1.goalTitle,
+                    imageData: $1.imageData,
+                    date: $1.date,
+                    color: $0
                 )
             }
             .bind(to: selectedPhotoData)
