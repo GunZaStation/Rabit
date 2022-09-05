@@ -11,7 +11,7 @@ protocol TimeSelectViewModelInput {
 }
 
 protocol TimeSelectViewModelOutput {
-    var selectedTime: PublishRelay<CertifiableTime> { get }
+    var selectedTime: BehaviorRelay<CertifiableTime> { get }
 }
 
 final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOutput {
@@ -20,7 +20,7 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
     let saveButtonTouched = PublishRelay<Void>()
     let selectedStartTime = PublishRelay<Double>()
     let selectedEndTime = PublishRelay<Double>()
-    let selectedTime = PublishRelay<CertifiableTime>()
+    let selectedTime: BehaviorRelay<CertifiableTime>
     
     private let disposeBag = DisposeBag()
     
@@ -28,6 +28,7 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
         navigation: GoalNavigation,
         with timeStream: BehaviorRelay<CertifiableTime>
     ) {
+        self.selectedTime = .init(value: timeStream.value)
         bind(to: navigation, with: timeStream)
     }
     
@@ -35,13 +36,20 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
         to navigation: GoalNavigation,
         with timeStream: BehaviorRelay<CertifiableTime>
     ) {
+  
+        timeStream
+            .bind(to: selectedTime)
+            .disposed(by: disposeBag)
         
         closingViewRequested
             .bind(to: navigation.closePeriodSelectView)
             .disposed(by: disposeBag)
         
         Observable
-            .combineLatest(selectedStartTime.asObservable(), selectedEndTime.asObservable())
+            .combineLatest(
+                selectedStartTime.asObservable(),
+                selectedEndTime.asObservable()
+            )
             .map { CertifiableTime(start: Int($0), end: Int($1)) }
             .bind(to: selectedTime)
             .disposed(by: disposeBag)
