@@ -6,6 +6,7 @@ protocol PhotoEditViewModelInput {
     var colorPickerButtonTouched: PublishRelay<Void> { get }
     var stylePickerButtonTouched: PublishRelay<Void> { get }
     var backButtonTouched: PublishRelay<Void> { get }
+    var saveButtonTouched: PublishRelay<Void> { get }
     var hexPhotoColor: BehaviorRelay<String> { get }
 }
 
@@ -19,6 +20,7 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
     let colorPickerButtonTouched = PublishRelay<Void>()
     let stylePickerButtonTouched = PublishRelay<Void>()
     let backButtonTouched = PublishRelay<Void>()
+    let saveButtonTouched = PublishRelay<Void>()
     let hexPhotoColor: BehaviorRelay<String>
     let selectedPhotoData = BehaviorSubject<Album.Item>(
         value: Album.Item(
@@ -59,7 +61,11 @@ private extension PhotoEditViewModel {
             .bind(to: navigation.showStylePickerView)
             .disposed(by: disposeBag)
 
-        backButtonTouched.withLatestFrom(selectedPhotoData)
+        backButtonTouched
+            .bind(to: navigation.closePhotoEditView)
+            .disposed(by: disposeBag)
+
+        saveButtonTouched.withLatestFrom(selectedPhotoData)
             .withUnretained(self)
             .bind(onNext: { viewModel, data in
                 viewModel.albumRepository.updateAlbumData(data)

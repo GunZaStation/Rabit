@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
 final class PhotoEdtiViewController: UIViewController {
     private let photoImageView: UIImageView = {
@@ -116,18 +117,21 @@ private extension PhotoEdtiViewController {
         navigationItem.leftBarButtonItem?.rx.tap
             .bind(to: viewModel.backButtonTouched)
             .disposed(by: disposeBag)
+
+        navigationItem.rightBarButtonItem?.rx.tap
+            .bind(to: viewModel.saveButtonTouched)
+            .disposed(by: disposeBag)
     }
 
     func setNavigationBarButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(
-                systemName: "chevron.backward",
-                withConfiguration: UIImage.SymbolConfiguration(
-                    pointSize: 18,
-                    weight: .semibold)
-                ),
-            style: .plain,
-            target: nil, action: nil
+            barButtonSystemItem: .close,
+            target: self,
+            action: nil
         )
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: nil)
+
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "second")
     }
 }
