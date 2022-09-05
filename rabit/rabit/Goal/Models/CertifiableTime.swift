@@ -32,4 +32,9 @@ struct CertifiableTime: CustomStringConvertible {
         self.start = start.toTimeComponent()
         self.end = end.toTimeComponent()
     }
+    
+    init(start: Int, end: Int) {
+        self.start = TimeComponent(rawValue: start)
+        self.end = TimeComponent(rawValue: end)
+    }
 }
