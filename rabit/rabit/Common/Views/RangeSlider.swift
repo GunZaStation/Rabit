@@ -52,25 +52,27 @@ final class RangeSlider: UIControl {
         didSet { self.rightValue = maxValue }
     }
     
-    var leftValue: Double = 0.0 {
+    lazy var leftValue: Double = minValue {
         didSet { self.updateLayout(to: leftValue, direction: .left) }
     }
     
-    var rightValue: Double = 100.0 {
+    lazy var rightValue: Double = maxValue {
         didSet { self.updateLayout(to: rightValue, direction: .right) }
     }
     
-    convenience init(
-        min: Double, max: Double, left: Double, right: Double
-    ) {
+    convenience init(min: Double, max: Double) {
         self.init()
         
         self.minValue = min
         self.maxValue = max
-        self.leftValue = left
-        self.rightValue = right
         
         setupViews()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateLayout(to: rightValue, direction: .right)
+        updateLayout(to: leftValue, direction: .left)
     }
     
     private func setupViews() {
