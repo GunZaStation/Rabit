@@ -122,7 +122,7 @@ private extension GoalCoordinator {
         
         let viewModel = PeriodSelectViewModel(navigation: self, with: periodStream)
         let viewController = PeriodSelectViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .overFullScreen
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
     
@@ -130,7 +130,7 @@ private extension GoalCoordinator {
         
         let viewModel = TimeSelectViewModel(navigation: self, with: timeStream)
         let viewController = TimeSelectViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .overFullScreen
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
 }
