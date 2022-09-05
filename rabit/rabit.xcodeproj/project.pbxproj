@@ -47,6 +47,7 @@
 		B569EA132898D4AB006FFFB9 /* rabitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA122898D4AB006FFFB9 /* rabitUITests.swift */; };
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
 		B56AF75028C59E18001C82C0 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56AF74F28C59E18001C82C0 /* RangeSlider.swift */; };
+		B56AF75228C6528B001C82C0 /* RangeSlider + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56AF75128C6528B001C82C0 /* RangeSlider + Reactive.swift */; };
 		B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D75F328B3E76300C11405 /* UIView + shadow.swift */; };
 		B57D75F928B5319D00C11405 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = B57D75F828B5319D00C11405 /* RxGesture */; };
 		B582573C28BDF6F2001AE268 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573B28BDF6F2001AE268 /* DateComponent.swift */; };
@@ -134,6 +135,7 @@
 		B569EA122898D4AB006FFFB9 /* rabitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITests.swift; sourceTree = "<group>"; };
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B56AF74F28C59E18001C82C0 /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
+		B56AF75128C6528B001C82C0 /* RangeSlider + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangeSlider + Reactive.swift"; sourceTree = "<group>"; };
 		B57D75F328B3E76300C11405 /* UIView + shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + shadow.swift"; sourceTree = "<group>"; };
 		B582573B28BDF6F2001AE268 /* DateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponent.swift; sourceTree = "<group>"; };
 		B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + toDateComponent, toTimeComponent.swift"; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */,
 				B57D75F328B3E76300C11405 /* UIView + shadow.swift */,
 				B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */,
+				B56AF75128C6528B001C82C0 /* RangeSlider + Reactive.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
 				B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */,
+				B56AF75228C6528B001C82C0 /* RangeSlider + Reactive.swift in Sources */,
 				B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */,
 				B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */,
 				B563D9C028BA5A8F00A755EB /* PeriodSelectViewController.swift in Sources */,
