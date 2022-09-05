@@ -18,7 +18,7 @@ final class TimeSelectViewController: UIViewController {
         return sheet
     }()
     
-    private let timeRangleSlider: RangeSlider = {
+    private let timeRangeSlider: RangeSlider = {
         let slider = RangeSlider(min: 60, max: 60*60*23 + 60*59)
         return slider
     }()
@@ -80,14 +80,14 @@ final class TimeSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
        
-        timeRangleSlider.rx.leftValue
+        timeRangeSlider.rx.leftValue
             .bind(to: viewModel.selectedStartTime)
             .disposed(by: disposeBag)
         
-        timeRangleSlider.rx.rightValue
+        timeRangeSlider.rx.rightValue
             .bind(to: viewModel.selectedEndTime)
             .disposed(by: disposeBag)
-
+        
         viewModel.selectedTime
             .map { $0.description }
             .bind(to: timePreviewLabel.rx.text)
@@ -115,18 +115,17 @@ final class TimeSelectViewController: UIViewController {
             $0.top.equalTo(view.snp.bottom)
         }
         
+        timeSelectSheet.contentView.addSubview(timeRangeSlider)
+        timeRangeSlider.snp.makeConstraints {
+            $0.height.equalToSuperview().multipliedBy(0.08)
+            $0.width.equalToSuperview().multipliedBy(0.9)
+            $0.centerX.centerY.equalToSuperview()
+        }
+        
         timeSelectSheet.contentView.addSubview(timePreviewLabel)
         timePreviewLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview()
-        }
-        
-        timeSelectSheet.contentView.addSubview(timeRangleSlider)
-        timeRangleSlider.snp.makeConstraints {
-            $0.height.equalTo(60)
-            $0.width.equalToSuperview().multipliedBy(0.7)
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
+            $0.bottom.equalTo(timeRangeSlider.snp.top).offset(-10)
         }
         
         timeSelectSheet.contentView.addSubview(saveButton)
@@ -145,7 +144,7 @@ private extension TimeSelectViewController {
         isModalInPresentation = true
         
         timeSelectSheet.move(
-            upTo: view.bounds.height*0.45,
+            upTo: view.bounds.height*0.55,
             duration: 0.2,
             animation: self.view.layoutIfNeeded
         )

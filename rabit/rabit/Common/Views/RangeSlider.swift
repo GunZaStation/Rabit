@@ -21,10 +21,11 @@ final class RangeSlider: UIControl {
         return button
     }()
     
-    private let trackView: UIView = {
+    private lazy var trackView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .lightGray
         view.isUserInteractionEnabled = false
+        view.roundCorners(5)
         return view
     }()
     
@@ -58,6 +59,18 @@ final class RangeSlider: UIControl {
     
     lazy var rightValue: Double = maxValue {
         didSet { self.updateLayout(to: rightValue, direction: .right) }
+    }
+    
+    var trackViewColor: UIColor = .lightGray {
+        didSet {
+            trackView.backgroundColor = trackViewColor
+        }
+    }
+    
+    var trackTintViewColor: UIColor = .systemBlue {
+        didSet {
+            trackTintView.backgroundColor = trackTintViewColor
+        }
     }
     
     convenience init(min: Double, max: Double) {
@@ -100,7 +113,7 @@ final class RangeSlider: UIControl {
         
         trackView.snp.makeConstraints {
             $0.left.right.centerY.equalToSuperview()
-            $0.height.equalToSuperview().multipliedBy(0.2)
+            $0.height.equalToSuperview().multipliedBy(0.4)
         }
         
         trackTintView.snp.makeConstraints {
