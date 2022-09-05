@@ -4,7 +4,8 @@ import RxRelay
 
 protocol ColorPickerViewModelInput {
     var selectedColor: BehaviorRelay<String> { get }
-    var backButtonTouched: PublishSubject<Void> { get }
+    var closeColorPickerRequested: PublishRelay<Void> { get }
+    var saveButtonTouched: PublishRelay<Void> { get }
 }
 
 protocol ColorPickerViewModelOutput {
@@ -15,7 +16,8 @@ protocol ColorPickerViewModelProtocol: ColorPickerViewModelInput, ColorPickerVie
 
 final class ColorPickerViewModel: ColorPickerViewModelProtocol {
     let selectedColor: BehaviorRelay<String>
-    let backButtonTouched = PublishSubject<Void>()
+    let closeColorPickerRequested = PublishRelay<Void>()
+    let saveButtonTouched = PublishRelay<Void>()
     let presetColors = [
         "#E4B6BC", "#E09681", "#000000",
         "#FFFFFF", "#003865", "#3BCF4E",
@@ -39,14 +41,18 @@ final class ColorPickerViewModel: ColorPickerViewModelProtocol {
 
 private extension ColorPickerViewModel {
     func bind(to colorStream: BehaviorRelay<String>) {
-        selectedColor
+        saveButtonTouched.withLatestFrom(selectedColor)
             .bind(to: colorStream)
             .disposed(by: disposeBag)
     }
 
     func bind(to navigation: ColorPickerNavigation) {
-        backButtonTouched
+        closeColorPickerRequested
             .bind(to: navigation.closeColorPickerView)
+            .disposed(by: disposeBag)
+
+        saveButtonTouched
+            .bind(to: navigation.saveSelectedColor)
             .disposed(by: disposeBag)
     }
 }
