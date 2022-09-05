@@ -40,8 +40,9 @@ final class ColorPickerViewController: UIViewController {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = UIColor(named: "third")
         button.roundCorners()
+        button.setBackgroundColor(UIColor(named: "third"), for: .normal)
+        button.setBackgroundColor(.systemGray3, for: .disabled)
         return button
     }()
 
@@ -102,6 +103,7 @@ private extension ColorPickerViewController {
             make.top.equalTo(presetColorCollectionView.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(50)
         }
     }
 
