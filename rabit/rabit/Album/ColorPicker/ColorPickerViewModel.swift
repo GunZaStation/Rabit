@@ -10,6 +10,7 @@ protocol ColorPickerViewModelInput {
 
 protocol ColorPickerViewModelOutput {
     var presetColors: [String] { get }
+    var saveButtonState: BehaviorRelay<Bool> { get }
 }
 
 protocol ColorPickerViewModelProtocol: ColorPickerViewModelInput, ColorPickerViewModelOutput { }
@@ -18,6 +19,7 @@ final class ColorPickerViewModel: ColorPickerViewModelProtocol {
     let selectedColor: BehaviorRelay<String>
     let closeColorPickerRequested = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
+    let saveButtonState = BehaviorRelay<Bool>(value: false)
     let presetColors = [
         "#E4B6BC", "#E09681", "#000000",
         "#FFFFFF", "#003865", "#3BCF4E",
@@ -43,6 +45,13 @@ private extension ColorPickerViewModel {
     func bind(to colorStream: BehaviorRelay<String>) {
         saveButtonTouched.withLatestFrom(selectedColor)
             .bind(to: colorStream)
+            .disposed(by: disposeBag)
+
+        selectedColor
+            .map {
+                $0 != colorStream.value
+            }
+            .bind(to: saveButtonState)
             .disposed(by: disposeBag)
     }
 
