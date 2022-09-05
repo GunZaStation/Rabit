@@ -159,6 +159,10 @@ private extension ColorPickerViewController {
                 viewController.hideColorSheet(target: viewModel.saveButtonTouched)
             })
             .disposed(by: disposeBag)
+
+        viewModel.saveButtonState
+            .bind(to: saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
 
     func setupPresetColorCollectionView() {
