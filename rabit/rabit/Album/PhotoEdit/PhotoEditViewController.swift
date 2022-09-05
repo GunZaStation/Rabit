@@ -15,8 +15,8 @@ final class PhotoEdtiViewController: UIViewController {
         button.setTitle("글씨 색깔 변경", for: .normal)
         button.setImage(UIImage(systemName: "paintpalette"), for: .normal)
         button.tintColor = UIColor.white
-        button.backgroundColor = UIColor(named: "second")
         button.roundCorners()
+        button.setBackgroundColor(UIColor(named: "second"), for: .normal)
         return button
     }()
 
@@ -25,8 +25,8 @@ final class PhotoEdtiViewController: UIViewController {
         button.setTitle("글씨 스타일 변경", for: .normal)
         button.setImage(UIImage(systemName: "scribble"), for: .normal)
         button.tintColor = UIColor.white
-        button.backgroundColor = UIColor(named: "second")
         button.roundCorners()
+        button.setBackgroundColor(UIColor(named: "second"), for: .normal)
         return button
     }()
 
