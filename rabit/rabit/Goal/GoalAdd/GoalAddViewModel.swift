@@ -12,10 +12,8 @@ protocol GoalAddViewModelInput {
 
 protocol GoalAddViewModelOutput {
     
-    var periodSelectViewModel: PublishRelay<PeriodSelectViewModel> { get }
-    var timeSelectViewModel: PublishRelay<TimeSelectViewModel> { get }
-    var selectedPeriod: PublishRelay<Period> { get }
-    var selectedTime: PublishRelay<CertifiableTime> { get }
+    var selectedPeriod: BehaviorRelay<Period> { get }
+    var selectedTime: BehaviorRelay<CertifiableTime> { get }
 }
 
 final class GoalAddViewModel: GoalAddViewModelInput, GoalAddViewModelOutput {
@@ -24,10 +22,8 @@ final class GoalAddViewModel: GoalAddViewModelInput, GoalAddViewModelOutput {
     let closeButtonTouched = PublishRelay<Void>()
     let periodFieldTouched = PublishRelay<Void>()
     let timeFieldTouched = PublishRelay<Void>()
-    let periodSelectViewModel = PublishRelay<PeriodSelectViewModel>()
-    let selectedPeriod = PublishRelay<Period>()
-    let timeSelectViewModel = PublishRelay<TimeSelectViewModel>()
-    let selectedTime = PublishRelay<CertifiableTime>()
+    let selectedPeriod = BehaviorRelay<Period>(value: Period())
+    let selectedTime = BehaviorRelay<CertifiableTime>(value: CertifiableTime())
     
     private let disposeBag = DisposeBag()
     
@@ -49,32 +45,15 @@ private extension GoalAddViewModel {
             .disposed(by: disposeBag)
         
         periodFieldTouched
-            .map { PeriodSelectViewModel(navigation: navigation) }
-            .bind(to: periodSelectViewModel)
-            .disposed(by: disposeBag)
-        
-        periodSelectViewModel
-            .map { $0 }
+            .withUnretained(self)
+            .map { $0.0.selectedPeriod }
             .bind(to: navigation.showPeriodSelectView)
             .disposed(by: disposeBag)
         
-        periodSelectViewModel
-            .flatMapLatest { $0.selectedPeriod }
-            .bind(to: selectedPeriod)
-            .disposed(by: disposeBag)
-        
         timeFieldTouched
-            .map { TimeSelectViewModel(navigation: navigation) }
-            .bind(to: timeSelectViewModel)
-            .disposed(by: disposeBag)
-        
-        timeSelectViewModel
+            .withUnretained(self)
+            .map { $0.0.selectedTime }
             .bind(to: navigation.showTimeSelectView)
-            .disposed(by: disposeBag)
-        
-        timeSelectViewModel
-            .flatMapLatest { $0.selectedTime }
-            .bind(to: selectedTime)
             .disposed(by: disposeBag)
     }
 }

@@ -8,9 +8,9 @@ protocol GoalNavigation {
     var closeCategoryAddView: PublishRelay<Void> { get }
     var showGoalAddView: PublishRelay<Void> { get }
     var closeGoalAddView: PublishRelay<Void> { get }
-    var showPeriodSelectView: PublishRelay<PeriodSelectViewModel> { get }
+    var showPeriodSelectView: PublishRelay<BehaviorRelay<Period>> { get }
     var closePeriodSelectView: PublishRelay<Void> { get }
-    var showTimeSelectView: PublishRelay<TimeSelectViewModel> { get }
+    var showTimeSelectView: PublishRelay<BehaviorRelay<CertifiableTime>> { get }
     var closeTimeSelectView: PublishRelay<Void> { get }
 }
 
@@ -24,9 +24,9 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeCategoryAddView = PublishRelay<Void>()
     let showGoalAddView = PublishRelay<Void>()
     let closeGoalAddView = PublishRelay<Void>()
-    let showPeriodSelectView = PublishRelay<PeriodSelectViewModel>()
+    let showPeriodSelectView = PublishRelay<BehaviorRelay<Period>>()
     let closePeriodSelectView = PublishRelay<Void>()
-    let showTimeSelectView = PublishRelay<TimeSelectViewModel>()
+    let showTimeSelectView = PublishRelay<BehaviorRelay<CertifiableTime>>()
     let closeTimeSelectView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
@@ -88,14 +88,17 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
         pushGoalListViewController()
         bind()
     }
+}
+
+private extension GoalCoordinator {
     
-    private func pushGoalListViewController() {
+    func pushGoalListViewController() {
         let viewModel = GoalListViewModel(navigation: self)
         let viewController = GoalListViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    private func presentCategoryAddViewController() {
+    func presentCategoryAddViewController() {
 
         let viewModel = CategoryAddViewModel(navigation: self)
         let viewController = CategoryAddViewController(viewModel: viewModel)
@@ -103,29 +106,31 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
         navigationController.present(viewController, animated: false)
     }
     
-    private func dismissCurrentView(animated: Bool) {
+    func dismissCurrentView(animated: Bool) {
         
         navigationController.presentedViewController?.dismiss(animated: animated)
     }
     
-    private func presentGoalAddViewController() {
+    func presentGoalAddViewController() {
 
         let viewModel = GoalAddViewModel(navigation: self)
         let viewController = GoalAddViewController(viewModel: viewModel)
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
     
-    private func presentPeriodSelectViewController(viewModel: PeriodSelectViewModel) {
+    func presentPeriodSelectViewController(with periodStream: BehaviorRelay<Period>) {
         
+        let viewModel = PeriodSelectViewModel(navigation: self, with: periodStream)
         let viewController = PeriodSelectViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .overFullScreen
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
     
-    private func presentTimeSelectViewController(viewModel: TimeSelectViewModel) {
+    func presentTimeSelectViewController(with timeStream: BehaviorRelay<CertifiableTime>) {
         
+        let viewModel = TimeSelectViewModel(navigation: self, with: timeStream)
         let viewController = TimeSelectViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .overFullScreen
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
 }

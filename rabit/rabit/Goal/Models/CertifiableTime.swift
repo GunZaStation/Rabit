@@ -22,8 +22,19 @@ struct CertifiableTime: CustomStringConvertible {
         return "\(start.formattedString) ~ \(end.formattedString)"
     }
     
+    init() {
+        let currDate = Date()
+        self.start = currDate.toTimeComponent()
+        self.end = currDate.toTimeComponent()
+    }
+    
     init(start: Date, end: Date) {
         self.start = start.toTimeComponent()
         self.end = end.toTimeComponent()
+    }
+    
+    init(start: Int, end: Int) {
+        self.start = TimeComponent(rawValue: start)
+        self.end = TimeComponent(rawValue: end)
     }
 }

@@ -1,5 +1,6 @@
 import UIKit
 import RxSwift
+import RxCocoa
 
 final class TimeSelectViewController: UIViewController {
     
@@ -10,18 +11,22 @@ final class TimeSelectViewController: UIViewController {
         return view
     }()
     
-    private let periodSheet: BottomSheet = {
+    private let timeSelectSheet: BottomSheet = {
         let sheet = BottomSheet()
         sheet.backgroundColor = .white
         sheet.roundCorners(20)
         return sheet
     }()
     
-    private let timeSelectView: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.locale = Locale(identifier: "ko-KR")
-        datePicker.datePickerMode = .time
-        return datePicker
+    private let timeRangeSlider: RangeSlider = {
+        let slider = RangeSlider(min: 60, max: 60*60*23 + 60*59)
+        return slider
+    }()
+    
+    private let timePreviewLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        return label
     }()
     
     private lazy var saveButton: UIButton = {
@@ -52,13 +57,13 @@ final class TimeSelectViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         showPeriodSheet()
     }
     
     private func bind() {
         guard let viewModel = viewModel else { return }
-        
+                
         dimmedView.rx.tapGesture()
             .when(.recognized)
             .withUnretained(self)
@@ -67,21 +72,30 @@ final class TimeSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        periodSheet.rx.swipeGesture(.down)
-            .when(.recognized)
+        timeSelectSheet.rx.swipeGesture(.down)
+            .when(.ended)
             .withUnretained(self)
             .bind { viewController, _ in
                 viewController.hidePeriodSheet()
             }
             .disposed(by: disposeBag)
-        
-        timeSelectView.rx.date
+       
+        timeRangeSlider.rx.leftValue
             .bind(to: viewModel.selectedStartTime)
             .disposed(by: disposeBag)
         
-        timeSelectView.rx.date
-            .compactMap { Calendar.current.date(byAdding: DateComponents(hour:2), to: $0) }
+        timeRangeSlider.rx.rightValue
             .bind(to: viewModel.selectedEndTime)
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedTime
+            .map { $0.description }
+            .bind(to: timePreviewLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedTime
+            .map { Double($0.start.toSeconds()) }
+            .bind(to: timeRangeSlider.rx.leftValue)
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
@@ -100,19 +114,26 @@ final class TimeSelectViewController: UIViewController {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        view.addSubview(periodSheet)
-        periodSheet.snp.makeConstraints {
+        view.addSubview(timeSelectSheet)
+        timeSelectSheet.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.top.equalTo(view.snp.bottom)
         }
         
-        periodSheet.contentView.addSubview(timeSelectView)
-        timeSelectView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalToSuperview().multipliedBy(0.8)
+        timeSelectSheet.contentView.addSubview(timeRangeSlider)
+        timeRangeSlider.snp.makeConstraints {
+            $0.height.equalToSuperview().multipliedBy(0.1)
+            $0.width.equalToSuperview().multipliedBy(0.9)
+            $0.centerX.centerY.equalToSuperview()
         }
         
-        periodSheet.contentView.addSubview(saveButton)
+        timeSelectSheet.contentView.addSubview(timePreviewLabel)
+        timePreviewLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(timeRangeSlider.snp.top).offset(-10)
+        }
+        
+        timeSelectSheet.contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(10)
             $0.centerX.equalToSuperview()
@@ -126,8 +147,8 @@ private extension TimeSelectViewController {
         
         dimmedView.isHidden = false
         isModalInPresentation = true
-
-        periodSheet.move(
+        
+        timeSelectSheet.move(
             upTo: view.bounds.height*0.55,
             duration: 0.2,
             animation: self.view.layoutIfNeeded
@@ -139,7 +160,7 @@ private extension TimeSelectViewController {
         
         isModalInPresentation = false
         
-        periodSheet.move(
+        timeSelectSheet.move(
             upTo: view.bounds.height,
             duration: 0.2,
             animation: view.layoutIfNeeded
@@ -149,4 +170,3 @@ private extension TimeSelectViewController {
         }
     }
 }
-
