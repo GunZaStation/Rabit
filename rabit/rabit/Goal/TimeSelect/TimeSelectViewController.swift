@@ -75,7 +75,7 @@ final class TimeSelectViewController: UIViewController {
         timeSelectSheet.rx.swipeGesture(.down)
             .when(.ended)
             .withUnretained(self)
-            .bind { viewController, temp in
+            .bind { viewController, _ in
                 viewController.hidePeriodSheet()
             }
             .disposed(by: disposeBag)
@@ -91,6 +91,11 @@ final class TimeSelectViewController: UIViewController {
         viewModel.selectedTime
             .map { $0.description }
             .bind(to: timePreviewLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedTime
+            .map { Double($0.start.toSeconds()) }
+            .bind(to: timeRangeSlider.rx.leftValue)
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
@@ -117,7 +122,7 @@ final class TimeSelectViewController: UIViewController {
         
         timeSelectSheet.contentView.addSubview(timeRangeSlider)
         timeRangeSlider.snp.makeConstraints {
-            $0.height.equalToSuperview().multipliedBy(0.08)
+            $0.height.equalToSuperview().multipliedBy(0.1)
             $0.width.equalToSuperview().multipliedBy(0.9)
             $0.centerX.centerY.equalToSuperview()
         }

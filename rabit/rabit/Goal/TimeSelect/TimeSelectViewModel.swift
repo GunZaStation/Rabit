@@ -36,20 +36,13 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
         to navigation: GoalNavigation,
         with timeStream: BehaviorRelay<CertifiableTime>
     ) {
-  
-        timeStream
-            .bind(to: selectedTime)
-            .disposed(by: disposeBag)
         
         closingViewRequested
             .bind(to: navigation.closePeriodSelectView)
             .disposed(by: disposeBag)
         
         Observable
-            .combineLatest(
-                selectedStartTime.asObservable(),
-                selectedEndTime.asObservable()
-            )
+            .combineLatest( selectedStartTime, selectedEndTime )
             .map { CertifiableTime(start: Int($0), end: Int($1)) }
             .bind(to: selectedTime)
             .disposed(by: disposeBag)
