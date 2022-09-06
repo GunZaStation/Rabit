@@ -138,11 +138,8 @@ final class RangeSlider: UIControl {
         isRightThumbTouched = rightThumbButton.frame.contains(touchedPoint)
         previousTouchedPoint = touchedPoint
         
-        if isLeftThumbTouched {
-            leftThumbButton.isSelected = true
-        } else {
-            rightThumbButton.isSelected = true
-        }
+        leftThumbButton.isSelected = isLeftThumbTouched
+        rightThumbButton.isSelected = isRightThumbTouched
         
         return isLeftThumbTouched || isRightThumbTouched
     }
