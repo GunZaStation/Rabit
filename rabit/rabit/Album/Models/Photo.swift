@@ -1,6 +1,6 @@
 import Foundation
 
-struct Photo {
+struct Photo: Equatable {
     let uuid: UUID
     let categoryTitle: String
     let goalTitle: String

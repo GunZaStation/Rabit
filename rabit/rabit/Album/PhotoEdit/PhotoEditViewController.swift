@@ -30,6 +30,19 @@ final class PhotoEdtiViewController: UIViewController {
         return button
     }()
 
+    private let cancelButton: UIBarButtonItem = UIBarButtonItem(
+        barButtonSystemItem: .close,
+        target: nil,
+        action: nil
+    )
+
+    private let saveButton: UIBarButtonItem = UIBarButtonItem(
+        title: "저장",
+        style: .done,
+        target: nil,
+        action: nil
+    )
+
     private var viewModel: PhotoEditViewModelProtocol?
 
     private var disposeBag = DisposeBag()
@@ -114,24 +127,23 @@ private extension PhotoEdtiViewController {
             .bind(to: viewModel.stylePickerButtonTouched)
             .disposed(by: disposeBag)
 
-        navigationItem.leftBarButtonItem?.rx.tap
+        cancelButton.rx.tap
             .bind(to: viewModel.backButtonTouched)
             .disposed(by: disposeBag)
 
-        navigationItem.rightBarButtonItem?.rx.tap
+        saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
+            .disposed(by: disposeBag)
+
+        viewModel.saveButtonState
+            .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }
 
     func setNavigationBarButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close,
-            target: self,
-            action: nil
-        )
+        navigationItem.leftBarButtonItem = cancelButton
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: nil)
-
-        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "second")
+        navigationItem.rightBarButtonItem = saveButton
+        saveButton.tintColor = UIColor(named: "second")
     }
 }
