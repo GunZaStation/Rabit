@@ -5,13 +5,14 @@ import RxRelay
 protocol AlbumNavigation {
     var showPhotoEditView: PublishRelay<Album.Item> { get }
     var closeColorPickerView: PublishRelay<Void> { get }
-    var closePhotoEditView: PublishRelay<Void> { get }
+    var saveUpdatedPhoto: PublishRelay<Void> { get }
 }
 
 protocol PhotoEditNavigation {
     var showColorPickerView: PublishRelay<BehaviorRelay<String>> { get }
     var showStylePickerView: PublishRelay<Void> { get }
     var closePhotoEditView: PublishRelay<Void> { get }
+    var saveUpdatedPhoto: PublishRelay<Void> { get }
 }
 
 protocol ColorPickerNavigation {
@@ -29,6 +30,7 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
     let showColorPickerView = PublishRelay<BehaviorRelay<String>>()
     let showStylePickerView = PublishRelay<Void>()
     let closePhotoEditView = PublishRelay<Void>()
+    let saveUpdatedPhoto = PublishRelay<Void>()
     let closeColorPickerView = PublishRelay<Void>()
     let saveSelectedColor = PublishRelay<Void>()
 
@@ -99,6 +101,10 @@ private extension AlbumCoordinator {
             .disposed(by: disposeBag)
 
         closePhotoEditView
+            .bind(onNext: dismissPhotoEditView)
+            .disposed(by: disposeBag)
+
+        saveUpdatedPhoto
             .bind(onNext: dismissPhotoEditView)
             .disposed(by: disposeBag)
 
