@@ -8,6 +8,7 @@ protocol PhotoEditViewModelInput {
     var backButtonTouched: PublishRelay<Void> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
     var hexPhotoColor: BehaviorRelay<String> { get }
+    var albumUpdateResult: PublishRelay<Bool> { get }
 }
 
 protocol PhotoEditViewModelOutput {
@@ -23,6 +24,8 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
     let backButtonTouched = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
     let hexPhotoColor: BehaviorRelay<String>
+    let albumUpdateResult = PublishRelay<Bool>()
+
     let saveButtonState = BehaviorRelay<Bool>(value: false)
     let selectedPhotoData: BehaviorRelay<Album.Item>
 
@@ -63,10 +66,15 @@ private extension PhotoEditViewModel {
 
         saveButtonTouched.withLatestFrom(selectedPhotoData)
             .withUnretained(self)
-            .bind(onNext: { viewModel, data in
+            .flatMapLatest { viewModel, data in
                 viewModel.albumRepository.updateAlbumData(data)
+            }
+            .bind(to: albumUpdateResult)
+            .disposed(by: disposeBag)
 
-                navigation.saveUpdatedPhoto.accept(())
+        albumUpdateResult
+            .bind(onNext: { isSuccess in
+                isSuccess ? navigation.saveUpdatedPhoto.accept(()) : nil
             })
             .disposed(by: disposeBag)
 
