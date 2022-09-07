@@ -12,21 +12,29 @@ protocol PeriodSelectViewModelOutput {
     
     var selectedStartDate: PublishRelay<Date> { get }
     var selectedEndDate: PublishRelay<Date> { get }
+    var dayData: BehaviorRelay<[Days]> { get }
 }
 
 final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewModelOutput {
     
     let closingViewRequested = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
+
     let selectedStartDate = PublishRelay<Date>()
     let selectedEndDate = PublishRelay<Date>()
-    
+    let dayData: BehaviorRelay<[Days]>
+
+    private let usecase: CalendarManagable
+
     private let disposeBag = DisposeBag()
     
     init(
         navigation: GoalNavigation,
+        usecase: CalendarManagable,
         with periodStream: BehaviorRelay<Period>
     ) {
+        self.usecase = usecase
+        self.dayData = .init(value: usecase.days)
         bind(to: navigation, with: periodStream)
     }
     
