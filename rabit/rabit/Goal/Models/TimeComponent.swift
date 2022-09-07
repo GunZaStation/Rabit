@@ -31,4 +31,8 @@ extension TimeComponent {
     func toDateComponents() -> DateComponents {
         return DateComponents(hour: hour, minute: minute)
     }
+    
+    func toSeconds() -> Int {
+        return hour*3600 + minute*60 + seconds
+    }
 }
