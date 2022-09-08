@@ -29,6 +29,10 @@ final class TimeSelectViewController: UIViewController {
         return label
     }()
     
+    private lazy var weekdayCollectionView: UICollectionView = {
+        initializeWeekdaySelectCollectionView()
+    }()
+    
     private lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("\t저장\t", for: .normal)
@@ -142,6 +146,28 @@ final class TimeSelectViewController: UIViewController {
 }
 
 private extension TimeSelectViewController {
+    
+    func initializeWeekdaySelectCollectionView() -> UICollectionView {
+        
+        let layout = CompositionalLayoutFactory.shared.create(
+            widthFraction: 1/7,
+            heightFraction: 1.0
+        )
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = true
+        
+        collectionView.register(
+            WeekdaySelectCell.self,
+            forCellWithReuseIdentifier: WeekdaySelectCell.identifier
+        )
+        
+        return collectionView
+    }
     
     func showPeriodSheet() {
         
