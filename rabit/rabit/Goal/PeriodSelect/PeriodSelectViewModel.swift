@@ -10,9 +10,9 @@ protocol PeriodSelectViewModelInput {
 
 protocol PeriodSelectViewModelOutput {
     
-    var selectedStartDate: PublishRelay<Date> { get }
-    var selectedEndDate: PublishRelay<Date> { get }
     var dayData: BehaviorRelay<[Days]> { get }
+    var selectedPeriod: BehaviorRelay<Period> { get }
+    var selectedDay: PublishRelay<Day> { get }
 }
 
 final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewModelOutput {
@@ -20,9 +20,9 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
     let closingViewRequested = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
 
-    let selectedStartDate = PublishRelay<Date>()
-    let selectedEndDate = PublishRelay<Date>()
     let dayData: BehaviorRelay<[Days]>
+    let selectedPeriod: BehaviorRelay<Period>
+    let selectedDay = PublishRelay<Day>()
 
     private let usecase: CalendarManagable
 
@@ -35,6 +35,7 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
     ) {
         self.usecase = usecase
         self.dayData = .init(value: usecase.days)
+        self.selectedPeriod = .init(value: periodStream.value)
         bind(to: navigation, with: periodStream)
     }
     
@@ -47,16 +48,25 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
             .bind(to: navigation.closePeriodSelectView)
             .disposed(by: disposeBag)
         
-        let period = Observable.combineLatest(
-                        selectedStartDate.asObservable(),
-                        selectedEndDate.asObservable()
-                    )
-                    .map { Period(start: $0, end: $1) }
-                    .share()
-        
         saveButtonTouched
-            .withLatestFrom(period)
+            .withLatestFrom(selectedPeriod)
             .bind(to: periodStream)
+            .disposed(by: disposeBag)
+
+        selectedDay
+            .withUnretained(self)
+            .bind(onNext: { viewModel, selectedDay in
+                viewModel.usecase.updateSelectedDay(with: selectedDay)
+            })
+            .disposed(by: disposeBag)
+
+        let selectedStartDate = usecase.selectedStartDay.compactMap(\.?.date)
+
+        usecase.selectedEndDay
+            .compactMap(\.?.date)
+            .withLatestFrom(selectedStartDate) { ($1, $0) }
+            .map(Period.init)
+            .bind(to: selectedPeriod)
             .disposed(by: disposeBag)
     }
 }

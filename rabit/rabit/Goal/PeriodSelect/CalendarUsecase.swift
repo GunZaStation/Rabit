@@ -1,7 +1,13 @@
 import Foundation
+import RxSwift
+import RxRelay
 
 protocol CalendarManagable {
     var days: [Days] { get }
+    var selectedStartDay: BehaviorRelay<Day?> { get }
+    var selectedEndDay: BehaviorRelay<Day?> { get }
+
+    func updateSelectedDay(with newDay: Day)
 }
 
 struct CalendarUsecase: CalendarManagable {
@@ -10,6 +16,27 @@ struct CalendarUsecase: CalendarManagable {
     var days: [Days] {
         return (0..<12).map { offset -> Days in
             generateDaysInMonth(for: calendar.date(byAdding: .month, value: offset, to: Date()) ?? Date())
+        }
+    }
+    var selectedStartDay = BehaviorRelay<Day?>(value: nil)
+    var selectedEndDay = BehaviorRelay<Day?>(value: nil)
+
+    func updateSelectedDay(with newDay: Day) {
+        let isSetBothSelectedDay = (selectedStartDay.value != nil && selectedEndDay.value != nil)
+
+        if isSetBothSelectedDay {
+            selectedStartDay.accept(newDay)
+            selectedEndDay.accept(nil)
+        } else if let selectedStartDayValue = selectedStartDay.value {
+            if newDay.date <= selectedStartDayValue.date {
+                selectedEndDay.accept(selectedStartDayValue)
+                selectedStartDay.accept(newDay)
+            } else {
+                selectedEndDay.accept(newDay)
+            }
+        } else {
+            selectedStartDay.accept(newDay)
+            selectedEndDay.accept(nil)
         }
     }
 }

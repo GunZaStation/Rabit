@@ -79,6 +79,23 @@ final class PeriodSelectViewController: UIViewController {
             .bind(to: calendarView.monthCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
+        calendarView.monthCollectionView.rx.itemSelected
+            .withLatestFrom(viewModel.dayData) {
+                var dayData = $1
+                let isSelected = dayData[$0.section].items[$0.item].isSelected
+
+                dayData[$0.section].items[$0.item].isSelected = !isSelected
+
+                return dayData
+            }
+            .bind(to: viewModel.dayData)
+            .disposed(by: disposeBag)
+
+        calendarView.monthCollectionView.rx.modelSelected(Day.self)
+            .filter { $0.isSelected == true }
+            .bind(to: viewModel.selectedDay)
+            .disposed(by: disposeBag)
+        
         saveButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
