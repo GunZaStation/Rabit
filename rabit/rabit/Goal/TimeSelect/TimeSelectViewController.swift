@@ -4,6 +4,13 @@ import RxCocoa
 
 final class TimeSelectViewController: UIViewController {
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.text = "인증시간 선택"
+        return label
+    }()
+    
     private let dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.6)
@@ -83,13 +90,22 @@ final class TimeSelectViewController: UIViewController {
                 viewController.hidePeriodSheet()
             }
             .disposed(by: disposeBag)
-       
+        
         timeRangeSlider.rx.leftValue
             .bind(to: viewModel.selectedStartTime)
             .disposed(by: disposeBag)
         
         timeRangeSlider.rx.rightValue
             .bind(to: viewModel.selectedEndTime)
+            .disposed(by: disposeBag)
+        
+        viewModel.weekdayNames
+            .bind(to: weekdayCollectionView.rx.items(
+                cellIdentifier: WeekdaySelectCell.identifier,
+                cellType: WeekdaySelectCell.self
+            )) {_, weekdayName, cell in
+                cell.configure(with: weekdayName)
+            }
             .disposed(by: disposeBag)
         
         viewModel.selectedTime
@@ -124,17 +140,29 @@ final class TimeSelectViewController: UIViewController {
             $0.top.equalTo(view.snp.bottom)
         }
         
-        timeSelectSheet.contentView.addSubview(timeRangeSlider)
-        timeRangeSlider.snp.makeConstraints {
-            $0.height.equalToSuperview().multipliedBy(0.1)
-            $0.width.equalToSuperview().multipliedBy(0.9)
-            $0.centerX.centerY.equalToSuperview()
+        timeSelectSheet.contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().offset(20)
         }
-        
+
+        timeSelectSheet.contentView.addSubview(weekdayCollectionView)
+        weekdayCollectionView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalToSuperview().multipliedBy(0.2)
+        }
+
         timeSelectSheet.contentView.addSubview(timePreviewLabel)
         timePreviewLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(timeRangeSlider.snp.top).offset(-10)
+            $0.top.equalTo(weekdayCollectionView.snp.bottom).offset(10)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        
+        timeSelectSheet.contentView.addSubview(timeRangeSlider)
+        timeRangeSlider.snp.makeConstraints {
+            $0.top.equalTo(timePreviewLabel.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalToSuperview().multipliedBy(0.1)
         }
         
         timeSelectSheet.contentView.addSubview(saveButton)
@@ -175,7 +203,7 @@ private extension TimeSelectViewController {
         isModalInPresentation = true
         
         timeSelectSheet.move(
-            upTo: view.bounds.height*0.55,
+            upTo: view.bounds.height*0.65,
             duration: 0.2,
             animation: self.view.layoutIfNeeded
         )
