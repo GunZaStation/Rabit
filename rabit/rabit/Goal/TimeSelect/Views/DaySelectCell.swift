@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class WeekdaySelectCell: UICollectionViewCell {
+final class DaySelectCell: UICollectionViewCell {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -42,7 +42,7 @@ final class WeekdaySelectCell: UICollectionViewCell {
     }
 }
 
-private extension WeekdaySelectCell {
+private extension DaySelectCell {
     func setupViews() {
         
         addSubview(nameLabel)
