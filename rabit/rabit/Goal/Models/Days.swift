@@ -84,7 +84,7 @@ extension Array where Element == Day {
     }
     
     var isContinuous: Bool {
-        guard self.count >= 2 else { return false }
+        guard self.count >= 3 else { return false }
         
         var curr = self[0].rawValue
         for day in self {

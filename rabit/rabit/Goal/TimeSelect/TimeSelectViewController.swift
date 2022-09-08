@@ -35,6 +35,7 @@ final class TimeSelectViewController: UIViewController {
     private let timePreviewLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
+        label.numberOfLines = 2
         return label
     }()
     
@@ -174,7 +175,7 @@ final class TimeSelectViewController: UIViewController {
 
         timeSelectSheet.contentView.addSubview(timePreviewLabel)
         timePreviewLabel.snp.makeConstraints {
-            $0.top.equalTo(daySelectCollectionView.snp.bottom).offset(10)
+            $0.top.equalTo(daySelectCollectionView.snp.bottom).offset(5)
             $0.leading.equalToSuperview().offset(20)
         }
         

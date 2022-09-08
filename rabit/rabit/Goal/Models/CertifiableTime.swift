@@ -8,7 +8,7 @@ struct CertifiableTime: CustomStringConvertible {
     let days: Days
     
     var description: String {
-        return "\(days) \(start.formattedString) ~ \(end.formattedString)"
+        return "\(days)\n\(start.formattedString) ~ \(end.formattedString)"
     }
     
     init() {
