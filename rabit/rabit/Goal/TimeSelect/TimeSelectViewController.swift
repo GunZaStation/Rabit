@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 import RxSwift
 import RxCocoa
 
@@ -8,6 +9,7 @@ final class TimeSelectViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.text = "인증시간 선택"
+        label.sizeToFit()
         return label
     }()
     
@@ -36,8 +38,8 @@ final class TimeSelectViewController: UIViewController {
         return label
     }()
     
-    private lazy var weekdayCollectionView: UICollectionView = {
-        initializeWeekdaySelectCollectionView()
+    private lazy var daySelectCollectionView: UICollectionView = {
+        initializeDaySelectCollectionView()
     }()
     
     private lazy var saveButton: UIButton = {
@@ -99,12 +101,12 @@ final class TimeSelectViewController: UIViewController {
             .bind(to: viewModel.selectedEndTime)
             .disposed(by: disposeBag)
         
-        viewModel.weekdayNames
-            .bind(to: weekdayCollectionView.rx.items(
-                cellIdentifier: WeekdaySelectCell.identifier,
-                cellType: WeekdaySelectCell.self
-            )) {_, weekdayName, cell in
-                cell.configure(with: weekdayName)
+        viewModel.presetDays
+            .bind(to: daySelectCollectionView.rx.items(
+                cellIdentifier: DaySelectCell.identifier,
+                cellType: DaySelectCell.self
+            )) {_, day, cell in
+                cell.configure(with: "\(day)")
             }
             .disposed(by: disposeBag)
         
@@ -145,8 +147,8 @@ final class TimeSelectViewController: UIViewController {
             $0.top.leading.equalToSuperview().offset(20)
         }
 
-        timeSelectSheet.contentView.addSubview(weekdayCollectionView)
-        weekdayCollectionView.snp.makeConstraints {
+        timeSelectSheet.contentView.addSubview(daySelectCollectionView)
+        daySelectCollectionView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalToSuperview().multipliedBy(0.2)
@@ -154,7 +156,7 @@ final class TimeSelectViewController: UIViewController {
 
         timeSelectSheet.contentView.addSubview(timePreviewLabel)
         timePreviewLabel.snp.makeConstraints {
-            $0.top.equalTo(weekdayCollectionView.snp.bottom).offset(10)
+            $0.top.equalTo(daySelectCollectionView.snp.bottom).offset(10)
             $0.leading.equalToSuperview().offset(20)
         }
         
@@ -175,7 +177,7 @@ final class TimeSelectViewController: UIViewController {
 
 private extension TimeSelectViewController {
     
-    func initializeWeekdaySelectCollectionView() -> UICollectionView {
+    func initializeDaySelectCollectionView() -> UICollectionView {
         
         let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1/7,
@@ -190,8 +192,8 @@ private extension TimeSelectViewController {
         collectionView.allowsMultipleSelection = true
         
         collectionView.register(
-            WeekdaySelectCell.self,
-            forCellWithReuseIdentifier: WeekdaySelectCell.identifier
+            DaySelectCell.self,
+            forCellWithReuseIdentifier: DaySelectCell.identifier
         )
         
         return collectionView

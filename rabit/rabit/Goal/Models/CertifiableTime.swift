@@ -5,10 +5,10 @@ struct CertifiableTime: CustomStringConvertible {
     // 지정한 요일에, 시작~끝 시간 동안만 인증이 가능
     let start: TimeComponent
     let end: TimeComponent
-    let weekdays: [WeekDay] = []
+    let days: Days
     
     var description: String {
-        return "\(start.formattedString) ~ \(end.formattedString)"
+        return "\(days) \(start.formattedString) ~ \(end.formattedString)"
     }
     
     init() {

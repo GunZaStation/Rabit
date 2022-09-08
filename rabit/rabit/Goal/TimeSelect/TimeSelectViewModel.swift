@@ -12,7 +12,7 @@ protocol TimeSelectViewModelInput {
 
 protocol TimeSelectViewModelOutput {
     var selectedTime: BehaviorRelay<CertifiableTime> { get }
-    var weekdayNames: Observable<[String]> { get }
+    var presetDays: Observable<[Day]> { get }
 }
 
 final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOutput {
@@ -22,7 +22,8 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
     let selectedStartTime = PublishRelay<Double>()
     let selectedEndTime = PublishRelay<Double>()
     let selectedTime: BehaviorRelay<CertifiableTime>
-    let weekdayNames = Observable.of(["월","화","수","목","금","토","일"])
+    let selectedDays = BehaviorRelay<Set<Day>>(value: [])
+    let presetDays = Observable.of(Day.allCases)
     
     private let disposeBag = DisposeBag()
     
