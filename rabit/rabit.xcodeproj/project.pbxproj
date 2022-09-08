@@ -31,7 +31,6 @@
 		02B916DB28B89ADF0086F29E /* RealmResults + toArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */; };
 		02C9713528AF82390087B8D2 /* UIImage + Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9713428AF82390087B8D2 /* UIImage + Utils.swift */; };
 		02C9713728B356200087B8D2 /* PresetColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9713628B356200087B8D2 /* PresetColorCell.swift */; };
-		02D30E6928C8671500B5C4B2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E6828C8671500B5C4B2 /* CalendarView.swift */; };
 		02D30E6B28C8689000B5C4B2 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */; };
 		02D30E6D28C86AB100B5C4B2 /* String + strikeThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E6C28C86AB100B5C4B2 /* String + strikeThrough.swift */; };
 		02D30E6F28C86F6900B5C4B2 /* CalendarUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E6E28C86F6900B5C4B2 /* CalendarUsecase.swift */; };
@@ -125,7 +124,6 @@
 		02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmResults + toArray.swift"; sourceTree = "<group>"; };
 		02C9713428AF82390087B8D2 /* UIImage + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Utils.swift"; sourceTree = "<group>"; };
 		02C9713628B356200087B8D2 /* PresetColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetColorCell.swift; sourceTree = "<group>"; };
-		02D30E6828C8671500B5C4B2 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		02D30E6C28C86AB100B5C4B2 /* String + strikeThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + strikeThrough.swift"; sourceTree = "<group>"; };
 		02D30E6E28C86F6900B5C4B2 /* CalendarUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUsecase.swift; sourceTree = "<group>"; };
@@ -440,7 +438,6 @@
 			isa = PBXGroup;
 			children = (
 				B5B9413E28AF6F280098022F /* InsertField.swift */,
-				02D30E6828C8671500B5C4B2 /* CalendarView.swift */,
 				02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */,
 				02D30E7228C87BE400B5C4B2 /* CalendarHeaderView.swift */,
 			);
@@ -675,7 +672,6 @@
 				02D30E7928C87EDE00B5C4B2 /* DateConverter.swift in Sources */,
 				B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */,
 				B56AF75228C6528B001C82C0 /* RangeSlider + Reactive.swift in Sources */,
-				02D30E6928C8671500B5C4B2 /* CalendarView.swift in Sources */,
 				02D30E7128C878EC00B5C4B2 /* Days.swift in Sources */,
 				B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */,
 				B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */,

@@ -18,7 +18,19 @@ final class PeriodSelectViewController: UIViewController {
         return sheet
     }()
     
-    private let calendarView = CalendarView()
+    private let calendarCollectionView: UICollectionView = {
+        let screenSize = UIScreen.main.bounds.size
+        let layout = UICollectionViewFlowLayout()
+        layout.headerReferenceSize = CGSize(width: screenSize.width, height: 35)
+
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout
+        )
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
@@ -47,6 +59,7 @@ final class PeriodSelectViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        setupCollectionViewAttributes()
         bind()
     }
     
@@ -76,10 +89,10 @@ final class PeriodSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.dayData
-            .bind(to: calendarView.monthCollectionView.rx.items(dataSource: dataSource))
+            .bind(to: calendarCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
-        calendarView.monthCollectionView.rx.itemSelected
+        calendarCollectionView.rx.itemSelected
             .withLatestFrom(viewModel.dayData) {
                 var dayData = $1
                 let isSelected = dayData[$0.section].items[$0.item].isSelected
@@ -91,7 +104,7 @@ final class PeriodSelectViewController: UIViewController {
             .bind(to: viewModel.dayData)
             .disposed(by: disposeBag)
 
-        calendarView.monthCollectionView.rx.modelSelected(Day.self)
+        calendarCollectionView.rx.modelSelected(Day.self)
             .filter { $0.isSelected == true }
             .bind(to: viewModel.selectedDay)
             .disposed(by: disposeBag)
@@ -118,8 +131,8 @@ final class PeriodSelectViewController: UIViewController {
             $0.top.equalTo(view.snp.bottom)
         }
         
-        periodSheet.contentView.addSubview(calendarView)
-        calendarView.snp.makeConstraints {
+        periodSheet.contentView.addSubview(calendarCollectionView)
+        calendarCollectionView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.height.equalToSuperview().multipliedBy(0.8)
         }
@@ -198,5 +211,17 @@ private extension PeriodSelectViewController {
 
         return dataSource
     }
-}
 
+    func setupCollectionViewAttributes() {
+        calendarCollectionView.register(
+            CalendarCell.self,
+            forCellWithReuseIdentifier: CalendarCell.identifier
+        )
+
+        calendarCollectionView.register(
+            CalendarHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: CalendarHeaderView.identifier
+        )
+    }
+}
