@@ -87,7 +87,7 @@ private extension GoalListViewController {
                 }
                 
                 let goal = dataSource.sectionModels[indexPath.section]
-                header.configure(title: goal.title)
+                header.configure(with: goal.title)
                 header.bind(viewModel: viewModel)
                 
                 return header
