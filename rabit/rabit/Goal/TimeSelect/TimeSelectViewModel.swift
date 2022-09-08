@@ -8,6 +8,7 @@ protocol TimeSelectViewModelInput {
     var saveButtonTouched: PublishRelay<Void> { get }
     var selectedStartTime: PublishRelay<Double> { get }
     var selectedEndTime: PublishRelay<Double> { get }
+    var selectedDays: BehaviorRelay<Set<Day>> { get }
 }
 
 protocol TimeSelectViewModelOutput {
@@ -45,8 +46,8 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
             .disposed(by: disposeBag)
         
         Observable
-            .combineLatest( selectedStartTime, selectedEndTime )
-            .map { CertifiableTime(start: Int($0), end: Int($1)) }
+            .combineLatest( selectedStartTime, selectedEndTime, selectedDays )
+            .map { CertifiableTime(start: Int($0), end: Int($1), days: Days($2)) }
             .bind(to: selectedTime)
             .disposed(by: disposeBag)
         

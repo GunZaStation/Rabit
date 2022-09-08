@@ -110,6 +110,24 @@ final class TimeSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        daySelectCollectionView.rx.modelSelected(Day.self)
+            .map { day in
+                var days = viewModel.selectedDays.value
+                days.insert(day)
+                return days
+            }
+            .bind(to: viewModel.selectedDays)
+            .disposed(by: disposeBag)
+        
+        daySelectCollectionView.rx.modelDeselected(Day.self)
+            .map { day in
+                var days = viewModel.selectedDays.value
+                days.remove(day)
+                return days
+            }
+            .bind(to: viewModel.selectedDays)
+            .disposed(by: disposeBag)
+        
         viewModel.selectedTime
             .map { $0.description }
             .bind(to: timePreviewLabel.rx.text)

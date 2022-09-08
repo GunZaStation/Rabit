@@ -15,15 +15,18 @@ struct CertifiableTime: CustomStringConvertible {
         let currDate = Date()
         self.start = currDate.toTimeComponent()
         self.end = currDate.toTimeComponent()
+        self.days = Days()
     }
     
     init(start: Date, end: Date) {
         self.start = start.toTimeComponent()
         self.end = end.toTimeComponent()
+        self.days = Days()
     }
     
-    init(start: Int, end: Int) {
+    init(start: Int, end: Int, days: Days) {
         self.start = TimeComponent(rawValue: start)
         self.end = TimeComponent(rawValue: end)
+        self.days = days
     }
 }
