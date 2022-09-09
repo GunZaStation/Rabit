@@ -38,8 +38,9 @@ final class PeriodSelectViewController: UIViewController {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemGreen
         button.roundCorners(10)
+        button.setBackgroundColor(UIColor(named: "third"), for: .normal)
+        button.setBackgroundColor(.systemGray3, for: .disabled)
         return button
     }()
     
@@ -115,6 +116,10 @@ final class PeriodSelectViewController: UIViewController {
                 viewModel.saveButtonTouched.accept(())
                 viewController.hidePeriodSheet()
             })
+            .disposed(by: disposeBag)
+
+        viewModel.saveButtonState
+            .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }
     

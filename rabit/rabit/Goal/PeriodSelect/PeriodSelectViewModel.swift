@@ -13,6 +13,7 @@ protocol PeriodSelectViewModelOutput {
     var dayData: BehaviorRelay<[Days]> { get }
     var selectedPeriod: BehaviorRelay<Period> { get }
     var selectedDay: PublishRelay<Day> { get }
+    var saveButtonState: BehaviorRelay<Bool> { get }
 }
 
 final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewModelOutput {
@@ -23,6 +24,7 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
     let dayData: BehaviorRelay<[Days]>
     let selectedPeriod: BehaviorRelay<Period>
     let selectedDay = PublishRelay<Day>()
+    let saveButtonState = BehaviorRelay<Bool>(value: false)
 
     private let usecase: CalendarManagable
 
@@ -67,6 +69,21 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
             .withLatestFrom(selectedStartDate) { ($1, $0) }
             .map(Period.init)
             .bind(to: selectedPeriod)
+            .disposed(by: disposeBag)
+
+        let isSelectedPeriodChanged = selectedPeriod
+            .map { $0 != periodStream.value }
+
+        Observable
+            .combineLatest(
+                usecase.selectedStartDay,
+                usecase.selectedEndDay
+            )
+            .map { $0 != nil && $1 != nil }
+            .withLatestFrom(isSelectedPeriodChanged) {
+                $0 && $1
+            }
+            .bind(to: saveButtonState)
             .disposed(by: disposeBag)
     }
 }

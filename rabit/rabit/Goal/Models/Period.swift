@@ -1,6 +1,6 @@
 import Foundation
 
-struct Period: CustomStringConvertible {
+struct Period: CustomStringConvertible, Equatable {
     
     let start: DateComponent
     let end: DateComponent

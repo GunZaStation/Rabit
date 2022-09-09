@@ -1,6 +1,6 @@
 import Foundation
 
-struct DateComponent {
+struct DateComponent: Equatable {
     
     let year: Int
     let month: Int
