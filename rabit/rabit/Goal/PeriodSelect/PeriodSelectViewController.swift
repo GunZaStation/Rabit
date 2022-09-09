@@ -116,9 +116,7 @@ final class PeriodSelectViewController: UIViewController {
                     }
                 }
 
-                let isSelected = dayData[$0.1.section].items[$0.1.item].isSelected
-
-                dayData[$0.1.section].items[$0.1.item].isSelected = !isSelected
+                dayData[$0.1.section].items[$0.1.item].isSelected = true
 
                 return dayData
             }
