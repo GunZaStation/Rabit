@@ -77,7 +77,7 @@ final class TimeSelectViewController: UIViewController {
     
     private func bind() {
         guard let viewModel = viewModel else { return }
-                
+        
         dimmedView.rx.tapGesture()
             .when(.recognized)
             .withUnretained(self)
@@ -106,8 +106,17 @@ final class TimeSelectViewController: UIViewController {
             .bind(to: daySelectCollectionView.rx.items(
                 cellIdentifier: DaySelectCell.identifier,
                 cellType: DaySelectCell.self
-            )) {_, day, cell in
+            )) { [weak self] index, day, cell in
+
                 cell.configure(with: "\(day)")
+                if viewModel.selectedDays.value.contains(day) {
+                    self?.daySelectCollectionView.selectItem(
+                        at: IndexPath(item: index, section: 0),
+                        animated: false,
+                        scrollPosition: .init()
+                    )
+
+                }
             }
             .disposed(by: disposeBag)
         
@@ -134,6 +143,8 @@ final class TimeSelectViewController: UIViewController {
             .bind(to: timePreviewLabel.rx.text)
             .disposed(by: disposeBag)
         
+        viewModel.saveButtonEnabled
+            .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
