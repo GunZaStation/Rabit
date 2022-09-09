@@ -63,13 +63,15 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
             .disposed(by: disposeBag)
 
         let selectedStartDate = usecase.selectedStartDay.compactMap(\.?.date)
+        let selectedEndDate = usecase.selectedEndDay.compactMap(\.?.date)
 
-        usecase.selectedEndDay
-            .compactMap(\.?.date)
-            .withLatestFrom(selectedStartDate) { ($1, $0) }
-            .map(Period.init)
-            .bind(to: selectedPeriod)
-            .disposed(by: disposeBag)
+        Observable.combineLatest(
+            selectedStartDate,
+            selectedEndDate
+        )
+        .map(Period.init)
+        .bind(to: selectedPeriod)
+        .disposed(by: disposeBag)
 
         let isSelectedPeriodChanged = selectedPeriod
             .map { $0 != periodStream.value }
