@@ -72,7 +72,7 @@ final class TimeSelectViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        showPeriodSheet()
+        showTimeSelectSheet()
     }
     
     private func bind() {
@@ -82,7 +82,7 @@ final class TimeSelectViewController: UIViewController {
             .when(.recognized)
             .withUnretained(self)
             .bind { viewController, _ in
-                viewController.hidePeriodSheet()
+                viewController.hideTimeSelectSheet()
             }
             .disposed(by: disposeBag)
         
@@ -90,7 +90,7 @@ final class TimeSelectViewController: UIViewController {
             .when(.ended)
             .withUnretained(self)
             .bind { viewController, _ in
-                viewController.hidePeriodSheet()
+                viewController.hideTimeSelectSheet()
             }
             .disposed(by: disposeBag)
         
@@ -134,17 +134,13 @@ final class TimeSelectViewController: UIViewController {
             .bind(to: timePreviewLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.selectedTime
-            .map { Double($0.start.toSeconds()) }
-            .bind(to: timeRangeSlider.rx.leftValue)
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
-            .withUnretained(self)
-            .bind(onNext: { viewController, _ in
-                viewModel.saveButtonTouched.accept(())
-                viewController.hidePeriodSheet()
-            })
+            .withUnretained(self) { viewController, _ in
+                viewController.hideTimeSelectSheet()
+            }
+            .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
     }
     
@@ -218,7 +214,7 @@ private extension TimeSelectViewController {
         return collectionView
     }
     
-    func showPeriodSheet() {
+    func showTimeSelectSheet() {
         
         dimmedView.isHidden = false
         isModalInPresentation = true
@@ -230,7 +226,7 @@ private extension TimeSelectViewController {
         )
     }
     
-    func hidePeriodSheet() {
+    func hideTimeSelectSheet() {
         guard let viewModel = viewModel else { return }
         
         isModalInPresentation = false

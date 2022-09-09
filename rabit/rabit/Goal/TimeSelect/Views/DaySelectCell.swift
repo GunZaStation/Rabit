@@ -19,11 +19,7 @@ final class DaySelectCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                checkMarkImageView.isHidden = false
-            } else {
-                checkMarkImageView.isHidden = true
-            }
+            checkMarkImageView.isHidden = !isSelected
         }
     }
     
@@ -36,7 +32,7 @@ final class DaySelectCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+     
     func configure(with weekdayName: String) {
         nameLabel.text = weekdayName
     }
