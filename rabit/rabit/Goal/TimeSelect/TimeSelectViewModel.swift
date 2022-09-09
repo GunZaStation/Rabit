@@ -12,6 +12,7 @@ protocol TimeSelectViewModelInput {
 }
 
 protocol TimeSelectViewModelOutput {
+    var saveButtonEnabled: PublishRelay<Bool> { get }
     var selectedTime: BehaviorRelay<CertifiableTime> { get }
     var presetDays: Observable<[Day]> { get }
 }
@@ -25,6 +26,7 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
     let selectedTime: BehaviorRelay<CertifiableTime>
     let selectedDays = BehaviorRelay<Set<Day>>(value: [])
     let presetDays = Observable.of(Day.allCases)
+    let saveButtonEnabled = PublishRelay<Bool>()
     
     private let disposeBag = DisposeBag()
     
@@ -40,6 +42,16 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
         to navigation: GoalNavigation,
         with timeStream: BehaviorRelay<CertifiableTime>
     ) {
+        
+        timeStream
+            .map { $0.days.daysSet }
+            .bind(to: selectedDays)
+            .disposed(by: disposeBag)
+        
+        selectedDays
+            .map { !$0.isEmpty }
+            .bind(to: saveButtonEnabled)
+            .disposed(by: disposeBag)
         
         closingViewRequested
             .bind(to: navigation.closePeriodSelectView)
