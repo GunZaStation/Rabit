@@ -38,21 +38,15 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
         self.usecase = usecase
         self.dayData = .init(value: usecase.days)
         self.selectedPeriod = .init(value: periodStream.value)
-        bind(to: navigation, with: periodStream)
+        bind(to: navigation)
+        bind(to: periodStream)
     }
-    
-    func bind(
-        to navigation: GoalNavigation,
-        with periodStream: BehaviorRelay<Period>
-    ) {
-        
+}
+
+private extension PeriodSelectViewModel {
+    func bind(to navigation: GoalNavigation) {
         closingViewRequested
             .bind(to: navigation.closePeriodSelectView)
-            .disposed(by: disposeBag)
-        
-        saveButtonTouched
-            .withLatestFrom(selectedPeriod)
-            .bind(to: periodStream)
             .disposed(by: disposeBag)
 
         selectedDay
@@ -72,6 +66,13 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
         .map(Period.init)
         .bind(to: selectedPeriod)
         .disposed(by: disposeBag)
+    }
+
+    func bind(to periodStream: BehaviorRelay<Period>) {
+        saveButtonTouched
+            .withLatestFrom(selectedPeriod)
+            .bind(to: periodStream)
+            .disposed(by: disposeBag)
 
         let isSelectedPeriodChanged = selectedPeriod
             .map { $0 != periodStream.value }
