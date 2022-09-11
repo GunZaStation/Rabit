@@ -44,7 +44,7 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
     ) {
         
         timeStream
-            .map { $0.days.daysSet }
+            .map { $0.days.set }
             .bind(to: selectedDays)
             .disposed(by: disposeBag)
         

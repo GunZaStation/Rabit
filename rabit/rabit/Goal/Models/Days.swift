@@ -32,8 +32,7 @@ enum Day: Int, CaseIterable, CustomStringConvertible {
 
 struct Days: CustomStringConvertible {
     
-    let daysSet: Set<Day>
-    private let toArray: [Day]
+    let set: Set<Day>
     
     var description: String {
         if isEveryday {
@@ -43,34 +42,32 @@ struct Days: CustomStringConvertible {
         } else if isWeekdaysOnly {
             return "평일"
         } else {
-            return self.toArray.description
+            return  Array(set).sorted { $0.rawValue < $1.rawValue}.description
         }
     }
     
     private var isEveryday: Bool {
-        return self.daysSet.count == 7
+        return self.set.count == 7
     }
     
     private var isWeekendsOnly: Bool {
         guard isEveryday == false else { return false }
-        guard daysSet.contains(.sun) && daysSet.contains(.sat) else { return false }
-        return daysSet.count == 2
+        guard set.contains(.sun) && set.contains(.sat) else { return false }
+        return set.count == 2
     }
     
     private var isWeekdaysOnly: Bool {
         guard isEveryday == false else { return false }
-        guard !daysSet.contains(.sun) && !daysSet.contains(.sat) else { return false }
-        return daysSet.count == 5 && !isWeekendsOnly
+        guard !set.contains(.sun) && !set.contains(.sat) else { return false }
+        return set.count == 5 && !isWeekendsOnly
     }
     
     init() {
-        self.daysSet = Set(Day.allCases)
-        self.toArray = Array(daysSet).sorted { $0.rawValue < $1.rawValue}
+        self.set = Set(Day.allCases)
     }
     
-    init(_ daysSet: Set<Day>) {
-        self.daysSet = daysSet
-        self.toArray = Array(daysSet).sorted { $0.rawValue < $1.rawValue}
+    init(_ set: Set<Day>) {
+        self.set = set
     }
 }
 
