@@ -16,6 +16,7 @@
 		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
 		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */; };
+		024FBEFA28CCEFE700521926 /* Date + isSameDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024FBEF928CCEFE700521926 /* Date + isSameDate.swift */; };
 		02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520986289A5A2400E7E604 /* AlbumViewController.swift */; };
 		02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520988289A5C1D00E7E604 /* AlbumCell.swift */; };
 		0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098E289A661E00E7E604 /* AlbumHeaderView.swift */; };
@@ -113,6 +114,7 @@
 		0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Initializer.swift"; sourceTree = "<group>"; };
 		0232BD9828AF6B25009057F8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + setBackgroundColor.swift"; sourceTree = "<group>"; };
+		024FBEF928CCEFE700521926 /* Date + isSameDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + isSameDate.swift"; sourceTree = "<group>"; };
 		02520986289A5A2400E7E604 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		02520988289A5C1D00E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */,
 				B57D75F328B3E76300C11405 /* UIView + shadow.swift */,
 				B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */,
+				024FBEF928CCEFE700521926 /* Date + isSameDate.swift */,
 				02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */,
 				B56AF75128C6528B001C82C0 /* RangeSlider + Reactive.swift */,
 				02D30E6C28C86AB100B5C4B2 /* String + strikeThrough.swift */,
@@ -688,6 +691,7 @@
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
 				02D30E6D28C86AB100B5C4B2 /* String + strikeThrough.swift in Sources */,
 				02B916DB28B89ADF0086F29E /* RealmResults + toArray.swift in Sources */,
+				024FBEFA28CCEFE700521926 /* Date + isSameDate.swift in Sources */,
 				B5B9414128AF7D5C0098022F /* GoalAddViewModel.swift in Sources */,
 				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
 				B58A1C2528B74E1E00D5783F /* CategoryAddRepository.swift in Sources */,
