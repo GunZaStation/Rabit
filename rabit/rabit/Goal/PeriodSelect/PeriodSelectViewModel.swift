@@ -51,15 +51,15 @@ private extension PeriodSelectViewModel {
 
         selectedDay
             .withUnretained(self)
-            .bind(onNext: { viewModel, selectedDay in
+            .bind { viewModel, selectedDay in
                 viewModel.usecase.updateSelectedDay(with: selectedDay)
-            })
+            }
             .disposed(by: disposeBag)
 
         let selectedStartDate = usecase.selectedStartDay.compactMap(\.?.date)
         let selectedEndDate = usecase.selectedEndDay.compactMap(\.?.date)
 
-        Observable.combineLatest(
+        Observable.zip(
             selectedStartDate,
             selectedEndDate
         )

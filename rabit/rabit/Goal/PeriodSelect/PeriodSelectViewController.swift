@@ -51,7 +51,7 @@ final class PeriodSelectViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var viewModel: PeriodSelectViewModel?
 
-    private var countSelectedCell = 0
+    private var countSelectedCell = 2
     
     convenience init(viewModel: PeriodSelectViewModel) {
         self.init()
@@ -95,17 +95,21 @@ final class PeriodSelectViewController: UIViewController {
             .bind(to: calendarCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
 
-        calendarCollectionView.rx.itemSelected
+        calendarCollectionView.rx.modelSelected(Day.self)
             .withUnretained(self)
-            .bind(onNext: { viewController, _ in
-                viewController.countSelectedCell += 1
-            })
+            .bind { viewController, data in
+                let isSelectable = !data.isBeforeToday
+
+                viewController.countSelectedCell += (isSelectable) ? 1 : 0
+                print(viewController.countSelectedCell)
+            }
             .disposed(by: disposeBag)
 
         calendarCollectionView.rx.itemSelected
             .withUnretained(self)
             .withLatestFrom(viewModel.dayData) {
                 var dayData = $1
+                let isSelectable = !dayData[$0.1.section].items[$0.1.item].isBeforeToday
 
                 if $0.0.countSelectedCell > 2 {
                     $0.0.countSelectedCell = 1
@@ -116,7 +120,7 @@ final class PeriodSelectViewController: UIViewController {
                     }
                 }
 
-                dayData[$0.1.section].items[$0.1.item].isSelected = true
+                dayData[$0.1.section].items[$0.1.item].isSelected = isSelectable
 
                 return dayData
             }
