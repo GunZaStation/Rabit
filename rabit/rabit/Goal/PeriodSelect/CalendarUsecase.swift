@@ -22,19 +22,21 @@ struct CalendarUsecase: CalendarManagable {
     var endDate = BehaviorRelay<CalendarDate?>(value: nil)
 
     func updateSelectedDate(with newDate: CalendarDate) {
-        let isSetBothDates = (startDate.value != nil && endDate.value != nil)
+        let countSetDate = [startDate.value, endDate.value]
+            .compactMap { $0 }
+            .count
 
-        if isSetBothDates {
+        switch countSetDate {
+        case 0:
             startDate.accept(newDate)
-            endDate.accept(nil)
-        } else if let startDayValue = startDate.value {
-            if newDate.date <= startDayValue.date {
-                endDate.accept(startDayValue)
+        case 1:
+            if newDate.date <= (startDate.value?.date ?? Date()) {
+                endDate.accept(startDate.value)
                 startDate.accept(newDate)
             } else {
                 endDate.accept(newDate)
             }
-        } else {
+        default:
             startDate.accept(newDate)
             endDate.accept(nil)
         }
