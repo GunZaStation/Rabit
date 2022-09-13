@@ -35,7 +35,7 @@ final class CalendarCell: UICollectionViewCell {
         indicatingView.isHidden = true
     }
 
-    func configure(with day: Day) {
+    func configure(with day: CalendarDate) {
         if day.isBeforeToday {
             dateLabel.attributedText = day.number.strikeThrough()
         } else {
@@ -66,7 +66,7 @@ private extension CalendarCell {
         indicatingView.roundCorners(size/2)
     }
 
-    func updateSelectionStatus(of day: Day) {
+    func updateSelectionStatus(of day: CalendarDate) {
         if day.isSelected {
             applySelectedStyle()
         } else {

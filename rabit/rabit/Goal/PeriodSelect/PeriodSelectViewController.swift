@@ -44,7 +44,7 @@ final class PeriodSelectViewController: UIViewController {
         return button
     }()
     
-    private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<Days> = {
+    private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<CalendarDates> = {
         initializeDataSource()
     }()
     
@@ -91,23 +91,22 @@ final class PeriodSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.dayData
+        viewModel.calendarData
             .bind(to: calendarCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
 
-        calendarCollectionView.rx.modelSelected(Day.self)
+        calendarCollectionView.rx.modelSelected(CalendarDate.self)
             .withUnretained(self)
             .bind { viewController, data in
                 let isSelectable = !data.isBeforeToday
 
                 viewController.countSelectedCell += (isSelectable) ? 1 : 0
-                print(viewController.countSelectedCell)
             }
             .disposed(by: disposeBag)
 
         calendarCollectionView.rx.itemSelected
             .withUnretained(self)
-            .withLatestFrom(viewModel.dayData) {
+            .withLatestFrom(viewModel.calendarData) {
                 var dayData = $1
                 let isSelectable = !dayData[$0.1.section].items[$0.1.item].isBeforeToday
 
@@ -124,12 +123,12 @@ final class PeriodSelectViewController: UIViewController {
 
                 return dayData
             }
-            .bind(to: viewModel.dayData)
+            .bind(to: viewModel.calendarData)
             .disposed(by: disposeBag)
 
-        calendarCollectionView.rx.modelSelected(Day.self)
+        calendarCollectionView.rx.modelSelected(CalendarDate.self)
             .filter { $0.isSelected == true }
-            .bind(to: viewModel.selectedDay)
+            .bind(to: viewModel.selectedDate)
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
@@ -201,8 +200,8 @@ private extension PeriodSelectViewController {
         }
     }
 
-    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Days> {
-        return RxCollectionViewSectionedReloadDataSource<Days>(
+    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<CalendarDates> {
+        return RxCollectionViewSectionedReloadDataSource<CalendarDates>(
             configureCell: self.configureCell,
             configureSupplementaryView: self.configureHeaderView
         )
@@ -222,10 +221,10 @@ private extension PeriodSelectViewController {
     }
 
     func configureCell(
-        _ dataSource: CollectionViewSectionedDataSource<Days>,
+        _ dataSource: CollectionViewSectionedDataSource<CalendarDates>,
         _ collectionView: UICollectionView,
         _ indexPath: IndexPath,
-        _ item: Days.Item
+        _ item: CalendarDates.Item
     ) -> UICollectionViewCell {
         guard let periodData = viewModel?.selectedPeriod.value,
               let cell = collectionView.dequeueReusableCell(
@@ -254,7 +253,7 @@ private extension PeriodSelectViewController {
     }
 
     func configureHeaderView(
-        _ dataSource: CollectionViewSectionedDataSource<Days>,
+        _ dataSource: CollectionViewSectionedDataSource<CalendarDates>,
         _ collectionView: UICollectionView,
         _ kind: String,
         _ indexPath: IndexPath

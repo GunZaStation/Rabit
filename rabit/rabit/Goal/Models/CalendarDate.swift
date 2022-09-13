@@ -1,6 +1,6 @@
 import Foundation
 
-struct Day {
+struct CalendarDate {
     let date: Date
     let number: String
     var isSelected: Bool

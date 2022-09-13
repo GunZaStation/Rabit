@@ -10,9 +10,9 @@ protocol PeriodSelectViewModelInput {
 
 protocol PeriodSelectViewModelOutput {
     
-    var dayData: BehaviorRelay<[Days]> { get }
+    var calendarData: BehaviorRelay<[CalendarDates]> { get }
     var selectedPeriod: BehaviorRelay<Period> { get }
-    var selectedDay: PublishRelay<Day> { get }
+    var selectedDate: PublishRelay<CalendarDate> { get }
     var saveButtonState: BehaviorRelay<Bool> { get }
 }
 
@@ -21,9 +21,9 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
     let closingViewRequested = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
 
-    let dayData: BehaviorRelay<[Days]>
+    let calendarData: BehaviorRelay<[CalendarDates]>
     let selectedPeriod: BehaviorRelay<Period>
-    let selectedDay = PublishRelay<Day>()
+    let selectedDate = PublishRelay<CalendarDate>()
     let saveButtonState = BehaviorRelay<Bool>(value: false)
 
     private let usecase: CalendarManagable
@@ -36,7 +36,7 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
         with periodStream: BehaviorRelay<Period>
     ) {
         self.usecase = usecase
-        self.dayData = .init(value: usecase.days)
+        self.calendarData = .init(value: usecase.dates)
         self.selectedPeriod = .init(value: periodStream.value)
         bind(to: navigation)
         bind(to: periodStream)
@@ -49,19 +49,19 @@ private extension PeriodSelectViewModel {
             .bind(to: navigation.closePeriodSelectView)
             .disposed(by: disposeBag)
 
-        selectedDay
+        selectedDate
             .withUnretained(self)
             .bind { viewModel, selectedDay in
-                viewModel.usecase.updateSelectedDay(with: selectedDay)
+                viewModel.usecase.updateSelectedDate(with: selectedDay)
             }
             .disposed(by: disposeBag)
 
-        let selectedStartDate = usecase.selectedStartDay.compactMap(\.?.date)
-        let selectedEndDate = usecase.selectedEndDay.compactMap(\.?.date)
+        let startDate = usecase.startDate.compactMap(\.?.date)
+        let endDate = usecase.endDate.compactMap(\.?.date)
 
-        Observable.zip(
-            selectedStartDate,
-            selectedEndDate
+        Observable.combineLatest(
+            startDate,
+            endDate
         )
         .map(Period.init)
         .bind(to: selectedPeriod)
@@ -79,8 +79,8 @@ private extension PeriodSelectViewModel {
 
         Observable
             .combineLatest(
-                usecase.selectedStartDay,
-                usecase.selectedEndDay
+                usecase.startDate,
+                usecase.endDate
             )
             .map { $0 != nil && $1 != nil }
             .withLatestFrom(isSelectedPeriodChanged) {

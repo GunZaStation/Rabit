@@ -1,8 +1,8 @@
 import Foundation
 import Differentiator
 
-struct Days {
-    typealias Item = Day
+struct CalendarDates {
+    typealias Item = CalendarDate
     var items: [Item]
 
     init(items: [Item]) {
@@ -18,8 +18,8 @@ struct Days {
     }
 }
 
-extension Days: SectionModelType {
-    init(original: Days, items: [Item]) {
+extension CalendarDates: SectionModelType {
+    init(original: CalendarDates, items: [Item]) {
         self = original
         self.items = items
     }

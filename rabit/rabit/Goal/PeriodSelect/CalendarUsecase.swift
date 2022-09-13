@@ -3,73 +3,73 @@ import RxSwift
 import RxRelay
 
 protocol CalendarManagable {
-    var days: [Days] { get }
-    var selectedStartDay: BehaviorRelay<Day?> { get }
-    var selectedEndDay: BehaviorRelay<Day?> { get }
+    var dates: [CalendarDates] { get }
+    var startDate: BehaviorRelay<CalendarDate?> { get }
+    var endDate: BehaviorRelay<CalendarDate?> { get }
 
-    func updateSelectedDay(with newDay: Day)
+    func updateSelectedDate(with newDate: CalendarDate)
 }
 
 struct CalendarUsecase: CalendarManagable {
     private let calendar = Calendar(identifier: .gregorian)
 
-    var days: [Days] {
-        return (0..<12).map { offset -> Days in
-            generateDaysInMonth(for: calendar.date(byAdding: .month, value: offset, to: Date()) ?? Date())
+    var dates: [CalendarDates] {
+        return (0..<12).map { offset -> CalendarDates in
+            generateDatesInMonth(for: calendar.date(byAdding: .month, value: offset, to: Date()) ?? Date())
         }
     }
-    var selectedStartDay = BehaviorRelay<Day?>(value: nil)
-    var selectedEndDay = BehaviorRelay<Day?>(value: nil)
+    var startDate = BehaviorRelay<CalendarDate?>(value: nil)
+    var endDate = BehaviorRelay<CalendarDate?>(value: nil)
 
-    func updateSelectedDay(with newDay: Day) {
-        let isSetBothSelectedDay = (selectedStartDay.value != nil && selectedEndDay.value != nil)
+    func updateSelectedDate(with newDate: CalendarDate) {
+        let isSetBothDates = (startDate.value != nil && endDate.value != nil)
 
-        if isSetBothSelectedDay {
-            selectedStartDay.accept(newDay)
-            selectedEndDay.accept(nil)
-        } else if let selectedStartDayValue = selectedStartDay.value {
-            if newDay.date <= selectedStartDayValue.date {
-                selectedEndDay.accept(selectedStartDayValue)
-                selectedStartDay.accept(newDay)
+        if isSetBothDates {
+            startDate.accept(newDate)
+            endDate.accept(nil)
+        } else if let startDayValue = startDate.value {
+            if newDate.date <= startDayValue.date {
+                endDate.accept(startDayValue)
+                startDate.accept(newDate)
             } else {
-                selectedEndDay.accept(newDay)
+                endDate.accept(newDate)
             }
         } else {
-            selectedStartDay.accept(newDay)
-            selectedEndDay.accept(nil)
+            startDate.accept(newDate)
+            endDate.accept(nil)
         }
     }
 }
 
 private extension CalendarUsecase {
-    func generateDaysInMonth(for baseDate: Date) -> Days {
-        guard let monthMetaData = getMonthMetaData(for: baseDate) else { return Days(items: []) }
+    func generateDatesInMonth(for baseDate: Date) -> CalendarDates {
+        guard let monthMetaData = getMonthMetaData(for: baseDate) else { return CalendarDates(items: []) }
 
         let numberOfDaysInMonth = monthMetaData.numberOfDays
         let offsetInInitialRow = monthMetaData.firstDayOfWeekday
         let firstDayOfMonth = monthMetaData.firstDay
 
-        let days: [Day] = (1..<(numberOfDaysInMonth + offsetInInitialRow))
+        let dates: [CalendarDate] = (1..<(numberOfDaysInMonth + offsetInInitialRow))
             .map { day in
                 let isWithinDisplayedMonth = day >= offsetInInitialRow
 
                 let dayOffset = isWithinDisplayedMonth ? day - offsetInInitialRow : -(offsetInInitialRow - day)
 
-                return generateDay(
+                return generateDate(
                     offsetBy: dayOffset,
                     for: firstDayOfMonth,
                     isWithinDisplayedMonth: isWithinDisplayedMonth
                 )
             }
 
-        return Days(items: days)
+        return CalendarDates(items: dates)
     }
 
-    func generateDay(
+    func generateDate(
         offsetBy dayOffset: Int,
         for baseDate: Date,
         isWithinDisplayedMonth: Bool
-    ) -> Day {
+    ) -> CalendarDate {
         let date = calendar.date(
             byAdding: .day,
             value: dayOffset,
@@ -78,7 +78,7 @@ private extension CalendarUsecase {
         let yesterDay = Date(timeIntervalSinceNow: -86400)
         let isBeforeToday = date <= yesterDay
 
-        return Day(
+        return CalendarDate(
             date: date,
             number: DateConverter.convertToDayString(date: date),
             isSelected: false,
