@@ -75,6 +75,8 @@
 		B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */; };
 		B5D131E6289C2CFB00EE1833 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E5289C2CFB00EE1833 /* Goal.swift */; };
 		B5D131E8289C2D1100EE1833 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131E7289C2D1100EE1833 /* Category.swift */; };
+		B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D34DB228C9B8DF00F04070 /* DaySelectCell.swift */; };
+		B5D34DB528CA07E200F04070 /* Days.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D34DB428CA07E200F04070 /* Days.swift */; };
 		B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +164,8 @@
 		B5D131E3289C2CD300EE1833 /* GoalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewModel.swift; sourceTree = "<group>"; };
 		B5D131E5289C2CFB00EE1833 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		B5D131E7289C2D1100EE1833 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		B5D34DB228C9B8DF00F04070 /* DaySelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectCell.swift; sourceTree = "<group>"; };
+		B5D34DB428CA07E200F04070 /* Days.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Days.swift; sourceTree = "<group>"; };
 		B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -377,6 +381,7 @@
 		B582574028BDF829001AE268 /* TimeSelect */ = {
 			isa = PBXGroup;
 			children = (
+				B5D34DB128C9B8CA00F04070 /* Views */,
 				B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */,
 				B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */,
 			);
@@ -481,8 +486,17 @@
 				B582573B28BDF6F2001AE268 /* DateComponent.swift */,
 				B582574528BF3323001AE268 /* CertifiableTime.swift */,
 				B582574728BF3330001AE268 /* TimeComponent.swift */,
+				B5D34DB428CA07E200F04070 /* Days.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B5D34DB128C9B8CA00F04070 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B5D34DB228C9B8DF00F04070 /* DaySelectCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -676,6 +690,7 @@
 				B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */,
 				02C9713728B356200087B8D2 /* PresetColorCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
+				B5D34DB528CA07E200F04070 /* Days.swift in Sources */,
 				02C9713528AF82390087B8D2 /* UIImage + Utils.swift in Sources */,
 				B5D131E6289C2CFB00EE1833 /* Goal.swift in Sources */,
 				B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */,
@@ -686,6 +701,7 @@
 				0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Category.swift in Sources */,
+				B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */,
 				B56AF75028C59E18001C82C0 /* RangeSlider.swift in Sources */,
 				02972D5F28B74343008C097D /* PhotoEntity.swift in Sources */,
 			);

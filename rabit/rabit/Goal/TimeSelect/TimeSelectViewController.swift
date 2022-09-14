@@ -1,8 +1,17 @@
 import UIKit
+import SnapKit
 import RxSwift
 import RxCocoa
 
 final class TimeSelectViewController: UIViewController {
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.text = "인증시간 선택"
+        label.sizeToFit()
+        return label
+    }()
     
     private let dimmedView: UIView = {
         let view = UIView()
@@ -26,7 +35,12 @@ final class TimeSelectViewController: UIViewController {
     private let timePreviewLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
+        label.numberOfLines = 2
         return label
+    }()
+    
+    private lazy var daySelectCollectionView: UICollectionView = {
+        initializeDaySelectCollectionView()
     }()
     
     private lazy var saveButton: UIButton = {
@@ -58,17 +72,17 @@ final class TimeSelectViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        showPeriodSheet()
+        showTimeSelectSheet()
     }
     
     private func bind() {
         guard let viewModel = viewModel else { return }
-                
+        
         dimmedView.rx.tapGesture()
             .when(.recognized)
             .withUnretained(self)
             .bind { viewController, _ in
-                viewController.hidePeriodSheet()
+                viewController.hideTimeSelectSheet()
             }
             .disposed(by: disposeBag)
         
@@ -76,10 +90,10 @@ final class TimeSelectViewController: UIViewController {
             .when(.ended)
             .withUnretained(self)
             .bind { viewController, _ in
-                viewController.hidePeriodSheet()
+                viewController.hideTimeSelectSheet()
             }
             .disposed(by: disposeBag)
-       
+        
         timeRangeSlider.rx.leftValue
             .bind(to: viewModel.selectedStartTime)
             .disposed(by: disposeBag)
@@ -88,22 +102,56 @@ final class TimeSelectViewController: UIViewController {
             .bind(to: viewModel.selectedEndTime)
             .disposed(by: disposeBag)
         
+        viewModel.presetDays
+            .bind(to: daySelectCollectionView.rx.items(
+                cellIdentifier: DaySelectCell.identifier,
+                cellType: DaySelectCell.self
+            )) { [weak self] index, day, cell in
+
+                cell.configure(with: "\(day)")
+                if viewModel.selectedDays.value.contains(day) {
+                    self?.daySelectCollectionView.selectItem(
+                        at: IndexPath(item: index, section: 0),
+                        animated: false,
+                        scrollPosition: .init()
+                    )
+
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        daySelectCollectionView.rx.modelSelected(Day.self)
+            .map { day in
+                var days = viewModel.selectedDays.value
+                days.insert(day)
+                return days
+            }
+            .bind(to: viewModel.selectedDays)
+            .disposed(by: disposeBag)
+        
+        daySelectCollectionView.rx.modelDeselected(Day.self)
+            .map { day in
+                var days = viewModel.selectedDays.value
+                days.remove(day)
+                return days
+            }
+            .bind(to: viewModel.selectedDays)
+            .disposed(by: disposeBag)
+        
         viewModel.selectedTime
             .map { $0.description }
             .bind(to: timePreviewLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.selectedTime
-            .map { Double($0.start.toSeconds()) }
-            .bind(to: timeRangeSlider.rx.leftValue)
+        viewModel.saveButtonEnabled
+            .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
-            .withUnretained(self)
-            .bind(onNext: { viewController, _ in
-                viewModel.saveButtonTouched.accept(())
-                viewController.hidePeriodSheet()
-            })
+            .withUnretained(self) { viewController, _ in
+                viewController.hideTimeSelectSheet()
+            }
+            .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
     }
     
@@ -120,17 +168,29 @@ final class TimeSelectViewController: UIViewController {
             $0.top.equalTo(view.snp.bottom)
         }
         
-        timeSelectSheet.contentView.addSubview(timeRangeSlider)
-        timeRangeSlider.snp.makeConstraints {
-            $0.height.equalToSuperview().multipliedBy(0.1)
-            $0.width.equalToSuperview().multipliedBy(0.9)
-            $0.centerX.centerY.equalToSuperview()
+        timeSelectSheet.contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().offset(20)
         }
-        
+
+        timeSelectSheet.contentView.addSubview(daySelectCollectionView)
+        daySelectCollectionView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalToSuperview().multipliedBy(0.2)
+        }
+
         timeSelectSheet.contentView.addSubview(timePreviewLabel)
         timePreviewLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(timeRangeSlider.snp.top).offset(-10)
+            $0.top.equalTo(daySelectCollectionView.snp.bottom).offset(5)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        
+        timeSelectSheet.contentView.addSubview(timeRangeSlider)
+        timeRangeSlider.snp.makeConstraints {
+            $0.top.equalTo(timePreviewLabel.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalToSuperview().multipliedBy(0.1)
         }
         
         timeSelectSheet.contentView.addSubview(saveButton)
@@ -143,19 +203,41 @@ final class TimeSelectViewController: UIViewController {
 
 private extension TimeSelectViewController {
     
-    func showPeriodSheet() {
+    func initializeDaySelectCollectionView() -> UICollectionView {
+        
+        let layout = CompositionalLayoutFactory.shared.create(
+            widthFraction: 1/7,
+            heightFraction: 1.0
+        )
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = true
+        
+        collectionView.register(
+            DaySelectCell.self,
+            forCellWithReuseIdentifier: DaySelectCell.identifier
+        )
+        
+        return collectionView
+    }
+    
+    func showTimeSelectSheet() {
         
         dimmedView.isHidden = false
         isModalInPresentation = true
         
         timeSelectSheet.move(
-            upTo: view.bounds.height*0.55,
+            upTo: view.bounds.height*0.65,
             duration: 0.2,
             animation: self.view.layoutIfNeeded
         )
     }
     
-    func hidePeriodSheet() {
+    func hideTimeSelectSheet() {
         guard let viewModel = viewModel else { return }
         
         isModalInPresentation = false
