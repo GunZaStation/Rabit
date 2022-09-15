@@ -50,7 +50,7 @@ final class CalendarCell: UICollectionViewCell {
             dateLabel.text = day.number
         }
 
-        dateLabel.textColor = day.isBeforeToday ? .systemGray4 : .label
+        dateLabel.textColor = day.isBeforeToday ? .systemGray4 : (isSelected ? .white : .label)
         isHidden = !day.isWithinDisplayedMonth
     }
 }
