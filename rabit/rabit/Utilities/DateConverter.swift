@@ -12,11 +12,6 @@ struct DateConverter {
         return dateFormatter.string(from: date)
     }
 
-    static func convertToYearAndMonthString(date: Date) -> String {
-        dateFormatter.dateFormat = "y년 M월"
-        return dateFormatter.string(from: date)
-    }
-
     static func convertToPeriodString(date: Date) -> String {
         dateFormatter.dateFormat = "y-MM-dd"
         return dateFormatter.string(from: date)
