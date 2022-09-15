@@ -8,14 +8,6 @@ struct CalendarDates {
     init(items: [Item]) {
         self.items = items
     }
-
-    mutating func resetDaysSelectedState() {
-        items = items.map {
-            var temp = $0
-            temp.isSelected = false
-            return temp
-        }
-    }
 }
 
 extension CalendarDates: SectionModelType {

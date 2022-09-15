@@ -29,6 +29,7 @@ final class PeriodSelectViewController: UIViewController {
         )
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = true
         return collectionView
     }()
     
@@ -49,11 +50,9 @@ final class PeriodSelectViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private var viewModel: PeriodSelectViewModel?
+    private var viewModel: PeriodSelectViewModelProtocol?
 
-    private var countSelectedCell = 2
-    
-    convenience init(viewModel: PeriodSelectViewModel) {
+    convenience init(viewModel: PeriodSelectViewModelProtocol) {
         self.init()
         self.viewModel = viewModel
     }
@@ -95,42 +94,30 @@ final class PeriodSelectViewController: UIViewController {
             .bind(to: calendarCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
 
-        calendarCollectionView.rx.modelSelected(CalendarDate.self)
-            .withUnretained(self)
-            .bind { viewController, data in
-                let isSelectable = !data.isBeforeToday
-
-                viewController.countSelectedCell += (isSelectable) ? 1 : 0
-            }
-            .disposed(by: disposeBag)
-
         calendarCollectionView.rx.itemSelected
-            .withUnretained(self)
-            .withLatestFrom(viewModel.calendarData) {
-                var dayData = $1
-                let isSelectable = !dayData[$0.1.section].items[$0.1.item].isBeforeToday
+            .withLatestFrom(
+                calendarCollectionView.rx.modelSelected(CalendarDates.Item.self),
+                resultSelector: { ($0, $1) }
+            )
+            .withUnretained(self.calendarCollectionView) { ($0, $1.0, $1.1) }
+            .bind { collectionView, indexPath, selectedItemData in
 
-                if $0.0.countSelectedCell > 2 {
-                    $0.0.countSelectedCell = 1
-                    dayData = dayData.map {
-                        var temp = $0
-                        temp.resetDaysSelectedState()
-                        return temp
-                    }
+                if let selectedItemsIndexPaths = collectionView.indexPathsForSelectedItems,
+                   selectedItemsIndexPaths.count > 2 {
+                    selectedItemsIndexPaths
+                        .filter { $0 != indexPath }
+                        .map { ($0, false) }
+                        .forEach(collectionView.deselectItem(at:animated:))
                 }
 
-                dayData[$0.1.section].items[$0.1.item].isSelected = isSelectable
-
-                return dayData
+                viewModel.selectedDate.accept(selectedItemData)
             }
-            .bind(to: viewModel.calendarData)
-            .disposed(by: disposeBag)
-
-        calendarCollectionView.rx.modelSelected(CalendarDate.self)
-            .filter { $0.isSelected == true }
-            .bind(to: viewModel.selectedDate)
             .disposed(by: disposeBag)
         
+        calendarCollectionView.rx.modelDeselected(CalendarDates.Item.self)
+            .bind(to: viewModel.deselectedDate)
+            .disposed(by: disposeBag)
+
         saveButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
@@ -228,27 +215,22 @@ private extension PeriodSelectViewController {
     ) -> UICollectionViewCell {
         guard let periodData = viewModel?.selectedPeriod.value,
               let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CalendarCell.identifier,
-            for: indexPath
-        ) as? CalendarCell else { return UICollectionViewCell() }
+                withReuseIdentifier: CalendarCell.identifier,
+                for: indexPath
+              ) as? CalendarCell else { return UICollectionViewCell() }
 
-        var itemData = dataSource.sectionModels[indexPath.section].items[indexPath.item]
-        let isInitialState = (countSelectedCell != 1)
+        let isStartDate = item.date.isSameDate(with: periodData.start)
+        let isEndDate = item.date.isSameDate(with: periodData.end)
 
-        if isInitialState {
-            /**
-             처음 PeriodSelectVC가 화면에 나온 상황에서, periodStream으로부터 받아온 Period의 값이 저장된 selectedPeriod.value로부터 시작일과 종료일을 먼저 calendarCollectionView에 표시해놓기 위한 로직입니다.
-             해당 처리를 여기서 하는 이유는, periodStream의 value인 Period를 viewModel내에서 selected 처리를 하기 위해서는
-             index를 찾고 찾아 그 데이터의 `isSelected = true` 처리를 해야하는 복잡한 과정이 필요했기 때문에,
-             cell을 configure 해주는 위치에서, 현재 상황이 initial State인지, 그리고 표시하려는 cell에 해당하는 모델 데이터의 date를 확인해 표시해주는 로직을 구현.
-             **/
-            let isStartDate = itemData.date.isSameDate(with: periodData.start)
-            let isEndDate = itemData.date.isSameDate(with: periodData.end)
-
-            itemData.isSelected = isStartDate || isEndDate
+        if isStartDate || isEndDate {
+            collectionView.selectItem(
+                at: indexPath,
+                animated: false,
+                scrollPosition: .init()
+            )
         }
 
-        cell.configure(with: itemData)
+        cell.configure(with: item)
         return cell
     }
 

@@ -4,10 +4,11 @@ import RxRelay
 
 protocol CalendarManagable {
     var dates: [CalendarDates] { get }
-    var startDate: BehaviorRelay<CalendarDate?> { get }
-    var endDate: BehaviorRelay<CalendarDate?> { get }
+    var startDate: BehaviorRelay<Date?> { get }
+    var endDate: BehaviorRelay<Date?> { get }
 
     func updateSelectedDate(with newDate: CalendarDate)
+    func updateDeselectedDate(with oldDate: CalendarDate)
 }
 
 struct CalendarUsecase: CalendarManagable {
@@ -18,27 +19,48 @@ struct CalendarUsecase: CalendarManagable {
             generateDatesInMonth(for: calendar.date(byAdding: .month, value: offset, to: Date()) ?? Date())
         }
     }
-    var startDate = BehaviorRelay<CalendarDate?>(value: nil)
-    var endDate = BehaviorRelay<CalendarDate?>(value: nil)
+    var startDate: BehaviorRelay<Date?>
+    var endDate: BehaviorRelay<Date?>
+
+    init(periodStream: BehaviorRelay<Period>) {
+        startDate = .init(value: periodStream.value.start)
+        endDate = .init(value: periodStream.value.end)
+    }
 
     func updateSelectedDate(with newDate: CalendarDate) {
+        let newDate = newDate.date
         let countSetDate = [startDate.value, endDate.value]
             .compactMap { $0 }
             .count
+        let isSetSameDate = (startDate.value?.toDateComponent() == endDate.value?.toDateComponent())
 
-        switch countSetDate {
-        case 0:
-            startDate.accept(newDate)
-        case 1:
-            if newDate.date <= (startDate.value?.date ?? Date()) {
-                endDate.accept(startDate.value)
+        switch countSetDate == 2 && isSetSameDate {
+        case true:
+            guard let startDateValue = startDate.value else { return }
+
+            if startDateValue >= newDate {
                 startDate.accept(newDate)
+                endDate.accept(startDateValue)
             } else {
                 endDate.accept(newDate)
             }
-        default:
+
+        case false:
             startDate.accept(newDate)
-            endDate.accept(nil)
+            endDate.accept(newDate)
+        }
+    }
+
+    func updateDeselectedDate(with oldDate: CalendarDate) {
+        let oldDate = oldDate.date.toDateComponent()
+        let startDateValue = startDate.value
+        let endDateValue = endDate.value
+
+        if oldDate == startDateValue?.toDateComponent() {
+            startDate.accept(endDateValue == startDateValue ? nil : endDateValue)
+        }
+        if oldDate == endDateValue?.toDateComponent() {
+            endDate.accept(startDateValue == endDateValue ? nil : startDateValue)
         }
     }
 }
@@ -83,7 +105,6 @@ private extension CalendarUsecase {
         return CalendarDate(
             date: date,
             number: DateConverter.convertToDayString(date: date),
-            isSelected: false,
             isWithinDisplayedMonth: isWithinDisplayedMonth,
             isBeforeToday: isBeforeToday
         )

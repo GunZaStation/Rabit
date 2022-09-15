@@ -16,6 +16,12 @@ final class CalendarCell: UICollectionViewCell {
         return label
     }()
 
+    override var isSelected: Bool {
+        didSet {
+            updateSelectedState(with: isSelected)
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -33,16 +39,18 @@ final class CalendarCell: UICollectionViewCell {
         dateLabel.attributedText = nil
         dateLabel.text = nil
         indicatingView.isHidden = true
+        isUserInteractionEnabled = true
     }
 
     func configure(with day: CalendarDate) {
         if day.isBeforeToday {
             dateLabel.attributedText = day.number.strikeThrough()
+            isUserInteractionEnabled = false
         } else {
             dateLabel.text = day.number
         }
 
-        updateSelectionStatus(of: day)
+        dateLabel.textColor = day.isBeforeToday ? .systemGray4 : .label
         isHidden = !day.isWithinDisplayedMonth
     }
 }
@@ -66,21 +74,17 @@ private extension CalendarCell {
         indicatingView.roundCorners(size/2)
     }
 
-    func updateSelectionStatus(of day: CalendarDate) {
-        if day.isSelected {
-            applySelectedStyle()
-        } else {
-            applyDefaultStyle(isBeforeToday: day.isBeforeToday)
-        }
-    }
-
     func applySelectedStyle() {
         dateLabel.textColor = .white
         indicatingView.isHidden = false
     }
 
-    func applyDefaultStyle(isBeforeToday: Bool) {
-        dateLabel.textColor = isBeforeToday ? .systemGray4 : .label
+    func applyDefaultStyle() {
+        dateLabel.textColor = .label
         indicatingView.isHidden = true
+    }
+
+    func updateSelectedState(with isSelected: Bool) {
+        isSelected ? applySelectedStyle() : applyDefaultStyle()
     }
 }

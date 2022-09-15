@@ -122,8 +122,8 @@ private extension GoalCoordinator {
         
         let viewModel = PeriodSelectViewModel(
             navigation: self,
-            usecase: CalendarUsecase(),
-            with: periodStream
+            usecase: CalendarUsecase(periodStream: periodStream),
+            periodStream: periodStream
         )
         let viewController = PeriodSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen

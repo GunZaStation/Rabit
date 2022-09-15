@@ -6,25 +6,29 @@ protocol PeriodSelectViewModelInput {
     
     var closingViewRequested: PublishRelay<Void> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
+    var selectedDate: PublishRelay<CalendarDates.Item> { get }
+    var deselectedDate: PublishRelay<CalendarDates.Item> { get }
 }
 
 protocol PeriodSelectViewModelOutput {
     
     var calendarData: BehaviorRelay<[CalendarDates]> { get }
     var selectedPeriod: BehaviorRelay<Period> { get }
-    var selectedDate: PublishRelay<CalendarDate> { get }
     var saveButtonState: BehaviorRelay<Bool> { get }
 }
 
-final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewModelOutput {
+protocol PeriodSelectViewModelProtocol: PeriodSelectViewModelInput, PeriodSelectViewModelOutput { }
+
+final class PeriodSelectViewModel: PeriodSelectViewModelProtocol {
     
     let closingViewRequested = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
+    let selectedDate = PublishRelay<CalendarDates.Item>()
+    let deselectedDate = PublishRelay<CalendarDates.Item>()
 
     let calendarData: BehaviorRelay<[CalendarDates]>
     let selectedPeriod: BehaviorRelay<Period>
-    let selectedDate = PublishRelay<CalendarDate>()
-    let saveButtonState = BehaviorRelay<Bool>(value: false)
+    let saveButtonState = BehaviorRelay<Bool>(value: true)
 
     private let usecase: CalendarManagable
 
@@ -33,7 +37,7 @@ final class PeriodSelectViewModel: PeriodSelectViewModelInput, PeriodSelectViewM
     init(
         navigation: GoalNavigation,
         usecase: CalendarManagable,
-        with periodStream: BehaviorRelay<Period>
+        periodStream: BehaviorRelay<Period>
     ) {
         self.usecase = usecase
         self.calendarData = .init(value: usecase.dates)
@@ -51,13 +55,20 @@ private extension PeriodSelectViewModel {
 
         selectedDate
             .withUnretained(self)
-            .bind { viewModel, selectedDay in
-                viewModel.usecase.updateSelectedDate(with: selectedDay)
+            .bind { viewModel, selectedDate in
+                viewModel.usecase.updateSelectedDate(with: selectedDate)
             }
             .disposed(by: disposeBag)
 
-        let startDate = usecase.startDate.compactMap(\.?.date)
-        let endDate = usecase.endDate.compactMap(\.?.date)
+        deselectedDate
+            .withUnretained(self)
+            .bind { viewModel, deselectedDate in
+                viewModel.usecase.updateDeselectedDate(with: deselectedDate)
+            }
+            .disposed(by: disposeBag)
+
+        let startDate = usecase.startDate.compactMap { $0 }
+        let endDate = usecase.endDate.compactMap { $0 }
 
         Observable.combineLatest(
             startDate,
@@ -66,27 +77,20 @@ private extension PeriodSelectViewModel {
         .map(Period.init)
         .bind(to: selectedPeriod)
         .disposed(by: disposeBag)
+
+        Observable.combineLatest(
+            usecase.startDate,
+            usecase.endDate
+        )
+        .map { $0 != nil && $1 != nil }
+        .bind(to: saveButtonState)
+        .disposed(by: disposeBag)
     }
 
     func bind(to periodStream: BehaviorRelay<Period>) {
         saveButtonTouched
             .withLatestFrom(selectedPeriod)
             .bind(to: periodStream)
-            .disposed(by: disposeBag)
-
-        let isSelectedPeriodChanged = selectedPeriod
-            .map { $0 != periodStream.value }
-
-        Observable
-            .combineLatest(
-                usecase.startDate,
-                usecase.endDate
-            )
-            .map { $0 != nil && $1 != nil }
-            .withLatestFrom(isSelectedPeriodChanged) {
-                $0 && $1
-            }
-            .bind(to: saveButtonState)
             .disposed(by: disposeBag)
     }
 }
