@@ -96,10 +96,12 @@ final class TimeSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         timeRangeSlider.rx.leftValue
+            .distinctUntilChanged()
             .bind(to: viewModel.selectedStartTime)
             .disposed(by: disposeBag)
         
         timeRangeSlider.rx.rightValue
+            .distinctUntilChanged()
             .bind(to: viewModel.selectedEndTime)
             .disposed(by: disposeBag)
         

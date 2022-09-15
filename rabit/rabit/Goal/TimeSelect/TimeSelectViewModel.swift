@@ -25,8 +25,9 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
     let saveButtonTouched = PublishRelay<Void>()
     let selectedStartTime = PublishRelay<Double>()
     let selectedEndTime = PublishRelay<Double>()
-    let selectedTime: BehaviorRelay<CertifiableTime>
     let selectedDays = BehaviorRelay<Set<Day>>(value: [])
+    
+    let selectedTime: BehaviorRelay<CertifiableTime>
     let presetDays = Observable.of(Day.allCases)
     let saveButtonEnabled = PublishRelay<Bool>()
     
@@ -60,7 +61,7 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
             .disposed(by: disposeBag)
         
         timeStream
-            .map { $0.days.set }
+            .map { $0.days.selectedValues }
             .bind(to: selectedDays)
             .disposed(by: disposeBag)
         
