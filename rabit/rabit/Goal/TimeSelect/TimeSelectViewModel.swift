@@ -9,6 +9,7 @@ protocol TimeSelectViewModelInput {
     var selectedStartTime: PublishRelay<Double> { get }
     var selectedEndTime: PublishRelay<Double> { get }
     var selectedDays: BehaviorRelay<Set<Day>> { get }
+    var viewDidLoad: PublishRelay<Void> { get }
 }
 
 protocol TimeSelectViewModelOutput {
@@ -19,6 +20,7 @@ protocol TimeSelectViewModelOutput {
 
 final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOutput {
     
+    let viewDidLoad = PublishRelay<Void>()
     let closingViewRequested = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
     let selectedStartTime = PublishRelay<Double>()
@@ -42,6 +44,20 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
         to navigation: GoalNavigation,
         with timeStream: BehaviorRelay<CertifiableTime>
     ) {
+        
+        viewDidLoad
+            .withLatestFrom(timeStream) {
+                Double($1.start.toSeconds())
+            }
+            .bind(to: selectedStartTime)
+            .disposed(by: disposeBag)
+
+        viewDidLoad
+            .withLatestFrom(timeStream) {
+                Double($1.end.toSeconds())
+            }
+            .bind(to: selectedEndTime)
+            .disposed(by: disposeBag)
         
         timeStream
             .map { $0.days.set }

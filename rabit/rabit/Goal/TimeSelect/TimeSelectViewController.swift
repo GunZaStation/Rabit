@@ -67,6 +67,7 @@ final class TimeSelectViewController: UIViewController {
         
         setupViews()
         bind()
+        viewModel?.viewDidLoad.accept(())
     }
     
     override func viewDidAppear(_ animated: Bool) {
