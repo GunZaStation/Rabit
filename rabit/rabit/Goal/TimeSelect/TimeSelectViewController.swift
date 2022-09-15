@@ -121,8 +121,8 @@ final class TimeSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         daySelectCollectionView.rx.modelSelected(Day.self)
-            .map { day in
-                var days = viewModel.selectedDays.value
+            .withLatestFrom(viewModel.selectedTime) { day, time in
+                var days = time.days.selectedValues
                 days.insert(day)
                 return days
             }
@@ -130,8 +130,8 @@ final class TimeSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         daySelectCollectionView.rx.modelDeselected(Day.self)
-            .map { day in
-                var days = viewModel.selectedDays.value
+            .withLatestFrom(viewModel.selectedTime) { day, time in
+                var days = time.days.selectedValues
                 days.remove(day)
                 return days
             }
