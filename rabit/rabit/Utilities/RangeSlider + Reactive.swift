@@ -8,7 +8,9 @@ extension Reactive where Base: RangeSlider {
         base.rx.controlProperty(
             editingEvents: .valueChanged,
             getter: { $0.leftValue },
-            setter: { _, _ in }
+            setter: { rangeSlider, leftValue in
+                rangeSlider.leftValue = leftValue
+            }
         )
     }
     
@@ -16,7 +18,9 @@ extension Reactive where Base: RangeSlider {
         base.rx.controlProperty(
             editingEvents: .valueChanged,
             getter: { $0.rightValue },
-            setter: { _, _ in }
+            setter: { rangeSlider, rightValue in
+                rangeSlider.rightValue = rightValue
+            }
         )
     }
 }

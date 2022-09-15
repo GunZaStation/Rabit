@@ -110,7 +110,7 @@ final class TimeSelectViewController: UIViewController {
                 cellIdentifier: DaySelectCell.identifier,
                 cellType: DaySelectCell.self
             )) { [weak self] index, day, cell in
-
+                
                 cell.configure(with: "\(day)")
                 if viewModel.selectedDays.value.contains(day) {
                     self?.daySelectCollectionView.selectItem(
@@ -118,7 +118,6 @@ final class TimeSelectViewController: UIViewController {
                         animated: false,
                         scrollPosition: .init()
                     )
-
                 }
             }
             .disposed(by: disposeBag)
@@ -139,6 +138,20 @@ final class TimeSelectViewController: UIViewController {
                 return days
             }
             .bind(to: viewModel.selectedDays)
+            .disposed(by: disposeBag)
+
+        viewModel.selectedTime
+            .distinctUntilChanged { $0.start == $1.start }
+            .take(2)
+            .map { Double($0.start.toSeconds()) }
+            .bind(to: timeRangeSlider.rx.leftValue)
+            .disposed(by: disposeBag)
+
+        viewModel.selectedTime
+            .distinctUntilChanged { $0.end == $1.end }
+            .take(2)
+            .map { Double($0.end.toSeconds()) }
+            .bind(to: timeRangeSlider.rx.rightValue)
             .disposed(by: disposeBag)
         
         viewModel.selectedTime
