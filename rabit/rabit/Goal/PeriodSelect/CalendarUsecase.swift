@@ -32,7 +32,13 @@ struct CalendarUsecase: CalendarManagable {
         let countSetDate = [startDate.value, endDate.value]
             .compactMap { $0 }
             .count
-        let isSetSameDate = (startDate.value?.toDateComponent() == endDate.value?.toDateComponent())
+        var isSetSameDate: Bool {
+            if let startDateValue = startDate.value,
+               let endDateValue = endDate.value {
+                return startDateValue == endDateValue
+            }
+            return false
+        }
 
         switch countSetDate == 2 && isSetSameDate {
         case true:
@@ -52,14 +58,17 @@ struct CalendarUsecase: CalendarManagable {
     }
 
     func updateDeselectedDate(with oldDate: CalendarDate) {
-        let oldDate = oldDate.date.toDateComponent()
+        let oldDate = oldDate.date
         let startDateValue = startDate.value
         let endDateValue = endDate.value
 
-        if oldDate == startDateValue?.toDateComponent() {
+        if let startDateValue = startDateValue,
+           oldDate.isSameDate(with: startDateValue) {
             startDate.accept(endDateValue == startDateValue ? nil : endDateValue)
         }
-        if oldDate == endDateValue?.toDateComponent() {
+
+        if let endDateValue = endDateValue,
+           oldDate.isSameDate(with: endDateValue) {
             endDate.accept(startDateValue == endDateValue ? nil : startDateValue)
         }
     }

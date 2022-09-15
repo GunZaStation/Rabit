@@ -60,7 +60,6 @@
 		B56AF75228C6528B001C82C0 /* RangeSlider + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56AF75128C6528B001C82C0 /* RangeSlider + Reactive.swift */; };
 		B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D75F328B3E76300C11405 /* UIView + shadow.swift */; };
 		B57D75F928B5319D00C11405 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = B57D75F828B5319D00C11405 /* RxGesture */; };
-		B582573C28BDF6F2001AE268 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573B28BDF6F2001AE268 /* DateComponent.swift */; };
 		B582573E28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */; };
 		B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */; };
 		B582574428BDFCE7001AE268 /* TimeSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */; };
@@ -157,7 +156,6 @@
 		B56AF74F28C59E18001C82C0 /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		B56AF75128C6528B001C82C0 /* RangeSlider + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangeSlider + Reactive.swift"; sourceTree = "<group>"; };
 		B57D75F328B3E76300C11405 /* UIView + shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + shadow.swift"; sourceTree = "<group>"; };
-		B582573B28BDF6F2001AE268 /* DateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponent.swift; sourceTree = "<group>"; };
 		B582573D28BDF718001AE268 /* Date + toDateComponent, toTimeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + toDateComponent, toTimeComponent.swift"; sourceTree = "<group>"; };
 		B582574128BDFCBC001AE268 /* TimeSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectViewController.swift; sourceTree = "<group>"; };
 		B582574328BDFCE7001AE268 /* TimeSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectViewModel.swift; sourceTree = "<group>"; };
@@ -505,7 +503,6 @@
 				B5D131E7289C2D1100EE1833 /* Category.swift */,
 				02A093C728B8A52B00BDF69B /* CategoryEntity.swift */,
 				B563D9BD28BA5A3C00A755EB /* Period.swift */,
-				B582573B28BDF6F2001AE268 /* DateComponent.swift */,
 				B582574528BF3323001AE268 /* CertifiableTime.swift */,
 				B582574728BF3330001AE268 /* TimeComponent.swift */,
 				02D30E7028C878EC00B5C4B2 /* CalendarDates.swift */,
@@ -704,7 +701,6 @@
 				B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */,
 				B563D9C228BA5C9B00A755EB /* PeriodSelectViewModel.swift in Sources */,
 				0232BD9928AF6B25009057F8 /* Photo.swift in Sources */,
-				B582573C28BDF6F2001AE268 /* DateComponent.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				02A093CA28B8A67800BDF69B /* GoalEntity.swift in Sources */,
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
