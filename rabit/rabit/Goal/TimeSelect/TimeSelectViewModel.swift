@@ -3,7 +3,6 @@ import RxSwift
 import RxRelay
 
 protocol TimeSelectViewModelInput {
-    
     var closingViewRequested: PublishRelay<Void> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
     var selectedStartTime: PublishRelay<Double> { get }
@@ -75,8 +74,12 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
             .disposed(by: disposeBag)
         
         Observable
-            .combineLatest( selectedStartTime, selectedEndTime, selectedDays )
-            .map { CertifiableTime(start: Int($0), end: Int($1), days: Days($2)) }
+            .combineLatest( selectedStartTime, selectedEndTime, selectedDays ) {
+                CertifiableTime(start: Int($0), end: Int($1), days: Days($2)
+            }
+            .distinctUntilChanged {
+                $0.0 == $1.0 && $0.1 == $1.1 && $0.2 == $1.2
+            }
             .bind(to: selectedTime)
             .disposed(by: disposeBag)
         
