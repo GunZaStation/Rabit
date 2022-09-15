@@ -25,7 +25,7 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
     let selectedStartTime = PublishRelay<Double>()
     let selectedEndTime = PublishRelay<Double>()
     let selectedDays = BehaviorRelay<Set<Day>>(value: [])
-    
+
     let selectedTime: BehaviorRelay<CertifiableTime>
     let presetDays = Observable.of(Day.allCases)
     let saveButtonEnabled = PublishRelay<Bool>()
@@ -74,12 +74,11 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
             .disposed(by: disposeBag)
         
         Observable
-            .combineLatest( selectedStartTime, selectedEndTime, selectedDays ) {
-                CertifiableTime(start: Int($0), end: Int($1), days: Days($2)
-            }
+            .combineLatest( selectedStartTime, selectedEndTime, selectedDays )
             .distinctUntilChanged {
                 $0.0 == $1.0 && $0.1 == $1.1 && $0.2 == $1.2
             }
+            .map { CertifiableTime(start: Int($0), end: Int($1), days: Days($2)) }
             .bind(to: selectedTime)
             .disposed(by: disposeBag)
         
