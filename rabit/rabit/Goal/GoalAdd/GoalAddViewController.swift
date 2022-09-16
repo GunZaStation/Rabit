@@ -96,12 +96,7 @@ final class GoalAddViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.selectedPeriod
-            .map {
-                let start = DateConverter.convertToPeriodString(date: $0.start)
-                let end = DateConverter.convertToPeriodString(date: $0.end)
-
-                return "\(start) ~ \(end)"
-            }
+            .map(\.description)
             .bind(to: periodField.rx.text)
             .disposed(by: disposeBag)
         

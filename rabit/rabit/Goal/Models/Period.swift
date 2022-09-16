@@ -16,3 +16,12 @@ struct Period: Equatable {
         self.end = end
     }
 }
+
+extension Period: CustomStringConvertible {
+    var description: String {
+        let start = DateConverter.convertToPeriodString(date: start)
+        let end = DateConverter.convertToPeriodString(date: end)
+
+        return "\(start) ~ \(end)"
+    }
+}
