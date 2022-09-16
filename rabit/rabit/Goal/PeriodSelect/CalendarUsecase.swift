@@ -35,7 +35,7 @@ struct CalendarUsecase: CalendarManagable {
         var isSetSameDate: Bool {
             if let startDateValue = startDate.value,
                let endDateValue = endDate.value {
-                return startDateValue == endDateValue
+                return startDateValue.isSameDate(with: endDateValue)
             }
             return false
         }
