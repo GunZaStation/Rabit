@@ -58,15 +58,15 @@ struct Days: CustomStringConvertible {
     }
     
     private var isWeekendsOnly: Bool {
-        guard isEveryday == false else { return false }
-        guard selectedValues.contains(.sun) && selectedValues.contains(.sat) else { return false }
+        guard !isEveryday,
+              selectedValues.contains(.sun) && selectedValues.contains(.sat) else { return false }
         return selectedValues.count == 2
     }
     
     private var isWeekdaysOnly: Bool {
-        guard isEveryday == false else { return false }
-        guard !selectedValues.contains(.sun) && !selectedValues.contains(.sat) else { return false }
-        return selectedValues.count == 5 && !isWeekendsOnly
+        guard !isEveryday && !isWeekendsOnly,
+              !selectedValues.contains(.sun) && !selectedValues.contains(.sat) else { return false }
+        return selectedValues.count == 5
     }
     
     init() {
