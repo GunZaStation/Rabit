@@ -38,6 +38,6 @@ extension Days {
     }
     
     func toIntArray() -> [Int] {
-        return Array(self.selectedValues).map { $0.rawValue }
+        return self.selectedValues.map(\.rawValue)
     }
 }
