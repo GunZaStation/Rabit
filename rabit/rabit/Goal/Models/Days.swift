@@ -30,6 +30,13 @@ enum Day: Int, CaseIterable, CustomStringConvertible {
     }
 }
 
+extension Day: Comparable {
+    
+    static func < (lhs: Day, rhs: Day) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+}
+
 struct Days: CustomStringConvertible {
     
     let selectedValues: Set<Day>
@@ -42,7 +49,7 @@ struct Days: CustomStringConvertible {
         } else if isWeekdaysOnly {
             return "평일"
         } else {
-            return  Array(selectedValues).sorted { $0.rawValue < $1.rawValue}.description
+            return selectedValues.sorted(by: <).description
         }
     }
     
