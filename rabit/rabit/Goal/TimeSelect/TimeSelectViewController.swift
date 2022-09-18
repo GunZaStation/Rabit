@@ -119,6 +119,11 @@ final class TimeSelectViewController: UIViewController {
                         scrollPosition: .init()
                     )
                 }
+                
+                guard #available(iOS 15, *) else {
+                    cell.isSelected = true
+                    return
+                }
             }
             .disposed(by: disposeBag)
         
