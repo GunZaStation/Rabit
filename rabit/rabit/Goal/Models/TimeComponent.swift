@@ -1,6 +1,6 @@
 import Foundation
 
-struct TimeComponent {
+struct TimeComponent: Equatable {
     
     let hour: Int
     let minute: Int
@@ -24,11 +24,19 @@ struct TimeComponent {
         self.minute = (seconds % 3600) / 60
         self.seconds = (seconds % 3600) % 60
     }
+    
+    public static func == (lhs: TimeComponent, rhs: TimeComponent) -> Bool {
+        return lhs.hour == rhs.hour && lhs.minute == rhs.minute && lhs.seconds == rhs.seconds
+    }
 }
 
 extension TimeComponent {
     
     func toDateComponents() -> DateComponents {
         return DateComponents(hour: hour, minute: minute)
+    }
+    
+    func toSeconds() -> Int {
+        return hour*3600 + minute*60 + seconds
     }
 }

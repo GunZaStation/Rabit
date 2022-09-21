@@ -6,6 +6,7 @@ struct Goal {
     let subtitle: String
     var progress: Int
 //    let period: Period
+    let certTime: CertifiableTime
     let target: Int
     let category: String
 }
@@ -18,7 +19,11 @@ extension Goal: Persistable {
         self.target = entity.target
         self.progress = entity.progress
         self.category = entity.category
-//        self.period = Period()
+        self.certTime = CertifiableTime(
+                            start: entity.startCertTime,
+                            end: entity.endCertTime,
+                            days: Days(entity.certDays)
+                        )
     }
     
     func toEntity<T: GoalEntity>() -> T {
@@ -27,7 +32,8 @@ extension Goal: Persistable {
             subtitle: subtitle,
             progress: progress,
             target: target,
-            category: category
+            category: category,
+            certTime: certTime
         )
     }
 }

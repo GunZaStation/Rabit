@@ -33,7 +33,7 @@ final class GoalListCollectionViewHeader: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String) {
+    func configure(with title: String) {
         titleLabel.text = title
     }
     

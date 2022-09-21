@@ -1,40 +1,35 @@
 import Foundation
 
-enum WeekDay: Int {
-    
-    case mon = 1
-    case tue = 2
-    case wed = 3
-    case thu = 4
-    case fri = 5
-    case sat = 6
-    case sun = 0
-}
-
 struct CertifiableTime: CustomStringConvertible {
     
     // 지정한 요일에, 시작~끝 시간 동안만 인증이 가능
     let start: TimeComponent
     let end: TimeComponent
-    let weekdays: [WeekDay] = []
+    let days: Days
     
     var description: String {
-        return "\(start.formattedString) ~ \(end.formattedString)"
+        return "\(days)\n\(start.formattedString) ~ \(end.formattedString)"
     }
     
     init() {
         let currDate = Date()
-        self.start = currDate.toTimeComponent()
-        self.end = currDate.toTimeComponent()
+        let start = currDate.toTimeComponent()
+        let end = Calendar.current.date(byAdding: .hour, value: 5, to: currDate)?.toTimeComponent() ?? start
+       
+        self.start = start
+        self.end =  end
+        self.days = Days()
     }
     
     init(start: Date, end: Date) {
         self.start = start.toTimeComponent()
         self.end = end.toTimeComponent()
+        self.days = Days()
     }
     
-    init(start: Int, end: Int) {
+    init(start: Int, end: Int, days: Days) {
         self.start = TimeComponent(rawValue: start)
         self.end = TimeComponent(rawValue: end)
+        self.days = days
     }
 }
