@@ -34,10 +34,10 @@ final class GoalEntity: Object {
 extension Days {
     
     init(_ list: List<Int>) {
-        self.set = Set(list.compactMap { Day(rawValue: $0) })
+        self.selectedValues = Set(list.compactMap { Day(rawValue: $0) })
     }
     
     func toIntArray() -> [Int] {
-        return Array(self.set).map { $0.rawValue }
+        return self.selectedValues.map(\.rawValue)
     }
 }

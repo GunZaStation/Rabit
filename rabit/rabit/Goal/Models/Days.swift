@@ -30,9 +30,16 @@ enum Day: Int, CaseIterable, CustomStringConvertible {
     }
 }
 
+extension Day: Comparable {
+    
+    static func < (lhs: Day, rhs: Day) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+}
+
 struct Days: CustomStringConvertible {
     
-    let set: Set<Day>
+    let selectedValues: Set<Day>
     
     var description: String {
         if isEveryday {
@@ -42,32 +49,32 @@ struct Days: CustomStringConvertible {
         } else if isWeekdaysOnly {
             return "평일"
         } else {
-            return  Array(set).sorted { $0.rawValue < $1.rawValue}.description
+            return selectedValues.sorted(by: <).description
         }
     }
     
     private var isEveryday: Bool {
-        return self.set.count == 7
+        return self.selectedValues.count == 7
     }
     
     private var isWeekendsOnly: Bool {
-        guard isEveryday == false else { return false }
-        guard set.contains(.sun) && set.contains(.sat) else { return false }
-        return set.count == 2
+        guard !isEveryday,
+              selectedValues.contains(.sun) && selectedValues.contains(.sat) else { return false }
+        return selectedValues.count == 2
     }
     
     private var isWeekdaysOnly: Bool {
-        guard isEveryday == false else { return false }
-        guard !set.contains(.sun) && !set.contains(.sat) else { return false }
-        return set.count == 5 && !isWeekendsOnly
+        guard !isEveryday && !isWeekendsOnly,
+              !selectedValues.contains(.sun) && !selectedValues.contains(.sat) else { return false }
+        return selectedValues.count == 5
     }
     
     init() {
-        self.set = Set(Day.allCases)
+        self.selectedValues = Set(Day.allCases)
     }
     
     init(_ set: Set<Day>) {
-        self.set = set
+        self.selectedValues = set
     }
 }
 
@@ -83,7 +90,7 @@ extension Array where Element == Day {
         }
     }
     
-    var isContinuous: Bool {
+    private var isContinuous: Bool {
         guard self.count >= 3 else { return false }
         
         var curr = self[0].rawValue

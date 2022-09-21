@@ -13,8 +13,11 @@ struct CertifiableTime: CustomStringConvertible {
     
     init() {
         let currDate = Date()
-        self.start = currDate.toTimeComponent()
-        self.end = currDate.toTimeComponent()
+        let start = currDate.toTimeComponent()
+        let end = Calendar.current.date(byAdding: .hour, value: 5, to: currDate)?.toTimeComponent() ?? start
+       
+        self.start = start
+        self.end =  end
         self.days = Days()
     }
     

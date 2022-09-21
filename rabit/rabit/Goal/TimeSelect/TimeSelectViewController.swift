@@ -67,6 +67,7 @@ final class TimeSelectViewController: UIViewController {
         
         setupViews()
         bind()
+        viewModel?.viewDidLoad.accept(())
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,10 +96,12 @@ final class TimeSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         timeRangeSlider.rx.leftValue
+            .distinctUntilChanged()
             .bind(to: viewModel.selectedStartTime)
             .disposed(by: disposeBag)
         
         timeRangeSlider.rx.rightValue
+            .distinctUntilChanged()
             .bind(to: viewModel.selectedEndTime)
             .disposed(by: disposeBag)
         
@@ -107,7 +110,7 @@ final class TimeSelectViewController: UIViewController {
                 cellIdentifier: DaySelectCell.identifier,
                 cellType: DaySelectCell.self
             )) { [weak self] index, day, cell in
-
+                
                 cell.configure(with: "\(day)")
                 if viewModel.selectedDays.value.contains(day) {
                     self?.daySelectCollectionView.selectItem(
@@ -115,14 +118,18 @@ final class TimeSelectViewController: UIViewController {
                         animated: false,
                         scrollPosition: .init()
                     )
-
+                }
+                
+                guard #available(iOS 15, *) else {
+                    cell.isSelected = true
+                    return
                 }
             }
             .disposed(by: disposeBag)
         
         daySelectCollectionView.rx.modelSelected(Day.self)
-            .map { day in
-                var days = viewModel.selectedDays.value
+            .withLatestFrom(viewModel.selectedTime) { day, time in
+                var days = time.days.selectedValues
                 days.insert(day)
                 return days
             }
@@ -130,12 +137,26 @@ final class TimeSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         daySelectCollectionView.rx.modelDeselected(Day.self)
-            .map { day in
-                var days = viewModel.selectedDays.value
+            .withLatestFrom(viewModel.selectedTime) { day, time in
+                var days = time.days.selectedValues
                 days.remove(day)
                 return days
             }
             .bind(to: viewModel.selectedDays)
+            .disposed(by: disposeBag)
+
+        viewModel.selectedTime
+            .distinctUntilChanged { $0.start == $1.start }
+            .take(2)
+            .map { Double($0.start.toSeconds()) }
+            .bind(to: timeRangeSlider.rx.leftValue)
+            .disposed(by: disposeBag)
+
+        viewModel.selectedTime
+            .distinctUntilChanged { $0.end == $1.end }
+            .take(2)
+            .map { Double($0.end.toSeconds()) }
+            .bind(to: timeRangeSlider.rx.rightValue)
             .disposed(by: disposeBag)
         
         viewModel.selectedTime
