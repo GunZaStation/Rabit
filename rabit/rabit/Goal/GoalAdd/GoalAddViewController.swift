@@ -96,7 +96,7 @@ final class GoalAddViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.selectedPeriod
-            .map { $0.description }
+            .map(\.description)
             .bind(to: periodField.rx.text)
             .disposed(by: disposeBag)
         

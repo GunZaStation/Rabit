@@ -1,5 +1,7 @@
 import UIKit
+import SnapKit
 import RxSwift
+import RxDataSources
 
 final class PeriodSelectViewController: UIViewController {
     
@@ -17,33 +19,28 @@ final class PeriodSelectViewController: UIViewController {
         return sheet
     }()
     
-    //우선은 UIDatePicker에서 선택한 날짜 기준으로 1주일을 임시로 지정
-    //추후 달력화면 구현시 수정해야 함
-    private let calendarView: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        
-        if #available(iOS 14.0, *) {
-            datePicker.preferredDatePickerStyle = .inline
-        }
-        return datePicker
-    }()
+    private let calendarView = CalendarView()
     
-    private lazy var saveButton: UIButton = {
+    private let saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("\t저장\t", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemGreen
         button.roundCorners(10)
+        button.setBackgroundColor(UIColor(named: "third"), for: .normal)
+        button.setBackgroundColor(.systemGray3, for: .disabled)
         return button
     }()
     
-    private let disposeBag = DisposeBag()
-    private var viewModel: PeriodSelectViewModel?
+    private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<CalendarDates> = {
+        initializeDataSource()
+    }()
     
-    convenience init(viewModel: PeriodSelectViewModel) {
+    private let disposeBag = DisposeBag()
+    private var viewModel: PeriodSelectViewModelProtocol?
+
+    convenience init(viewModel: PeriodSelectViewModelProtocol) {
         self.init()
         self.viewModel = viewModel
     }
@@ -80,17 +77,10 @@ final class PeriodSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        calendarView.rx.date
-            .bind(to: viewModel.selectedStartDate)
+        viewModel.calendarData
+            .bind(to: calendarView.calendarCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
-        
-        calendarView.rx.date
-            .compactMap {
-                Calendar.current.date(byAdding: DateComponents(day: 7), to: $0)
-            }
-            .bind(to: viewModel.selectedEndDate)
-            .disposed(by: disposeBag)
-        
+
         saveButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
@@ -98,6 +88,12 @@ final class PeriodSelectViewController: UIViewController {
                 viewController.hidePeriodSheet()
             })
             .disposed(by: disposeBag)
+
+        viewModel.saveButtonState
+            .bind(to: saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+
+        calendarView.bind(to: viewModel)
     }
     
     private func setupViews() {
@@ -114,9 +110,9 @@ final class PeriodSelectViewController: UIViewController {
         }
         
         periodSheet.contentView.addSubview(calendarView)
-        calendarView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalToSuperview().multipliedBy(0.8)
+        calendarView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.9)
         }
         
         periodSheet.contentView.addSubview(saveButton)
@@ -135,7 +131,7 @@ private extension PeriodSelectViewController {
         isModalInPresentation = true
 
         periodSheet.move(
-            upTo: view.bounds.height*0.55,
+            upTo: view.bounds.height*0.48,
             duration: 0.2,
             animation: self.view.layoutIfNeeded
         )
@@ -155,5 +151,37 @@ private extension PeriodSelectViewController {
             viewModel.closingViewRequested.accept(())
         }
     }
-}
 
+    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<CalendarDates> {
+        return RxCollectionViewSectionedReloadDataSource<CalendarDates>(
+            configureCell: self.configureCell
+        )
+    }
+
+    func configureCell(
+        _ dataSource: CollectionViewSectionedDataSource<CalendarDates>,
+        _ collectionView: UICollectionView,
+        _ indexPath: IndexPath,
+        _ item: CalendarDates.Item
+    ) -> UICollectionViewCell {
+        guard let periodData = viewModel?.selectedPeriod.value,
+              let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CalendarCell.identifier,
+                for: indexPath
+              ) as? CalendarCell else { return UICollectionViewCell() }
+
+        let isStartDate = item.date.isSameDate(with: periodData.start)
+        let isEndDate = item.date.isSameDate(with: periodData.end)
+
+        if isStartDate || isEndDate {
+            collectionView.selectItem(
+                at: indexPath,
+                animated: false,
+                scrollPosition: .init()
+            )
+        }
+
+        cell.configure(with: item)
+        return cell
+    }
+}

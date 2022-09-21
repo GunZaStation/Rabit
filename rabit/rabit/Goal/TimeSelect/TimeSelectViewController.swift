@@ -35,7 +35,7 @@ final class TimeSelectViewController: UIViewController {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemGreen
+        button.backgroundColor = UIColor(named: "third")
         button.roundCorners(10)
         return button
     }()
@@ -100,10 +100,10 @@ final class TimeSelectViewController: UIViewController {
         
         saveButton.rx.tap
             .withUnretained(self)
-            .bind(onNext: { viewController, _ in
+            .bind { viewController, _ in
                 viewModel.saveButtonTouched.accept(())
                 viewController.hidePeriodSheet()
-            })
+            }
             .disposed(by: disposeBag)
     }
     
