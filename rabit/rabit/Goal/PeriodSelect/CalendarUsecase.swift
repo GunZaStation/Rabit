@@ -40,8 +40,7 @@ struct CalendarUsecase: CalendarUsecaseProtocol {
             return false
         }
 
-        switch countSetDate == 2 && isSetSameDate {
-        case true:
+        if countSetDate == 2 && isSetSameDate {
             guard let startDateValue = startDate.value else { return }
 
             if startDateValue >= newDate {
@@ -51,7 +50,7 @@ struct CalendarUsecase: CalendarUsecaseProtocol {
                 endDate.accept(newDate)
             }
 
-        case false:
+        } else {
             startDate.accept(newDate)
             endDate.accept(newDate)
         }
