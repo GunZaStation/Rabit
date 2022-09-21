@@ -120,7 +120,11 @@ private extension GoalCoordinator {
     
     func presentPeriodSelectViewController(with periodStream: BehaviorRelay<Period>) {
         
-        let viewModel = PeriodSelectViewModel(navigation: self, with: periodStream)
+        let viewModel = PeriodSelectViewModel(
+            navigation: self,
+            usecase: CalendarUsecase(periodStream: periodStream),
+            periodStream: periodStream
+        )
         let viewController = PeriodSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen
         navigationController.presentedViewController?.present(viewController, animated: false)

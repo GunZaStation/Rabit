@@ -62,11 +62,13 @@ private extension AlbumViewController {
     func setupAlbumCollectionView() {
         let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1.0,
-            heightFraction: 0.5,
+            heightFraction: 0.32,
+            groupWidthFraction: 0.65,
             requireHeader: true,
             headerWidth: UIScreen.main.bounds.width,
             headerHeight: 50.0,
-            enableScrolling: true
+            enableScrolling: true,
+            sectionHandler: getFocusedCellIndex
         )
 
         albumCollectionView.collectionViewLayout = layout
@@ -129,5 +131,24 @@ private extension AlbumViewController {
         albumCollectionView.rx.modelSelected(Album.Item.self)
             .bind(to: viewModel.photoSelected)
             .disposed(by: disposeBag)
+    }
+
+    func getFocusedCellIndex(
+        items: [NSCollectionLayoutVisibleItem],
+        offset: CGPoint,
+        environment: NSCollectionLayoutEnvironment
+    ) {
+        items.forEach { item in
+            guard item.representedElementKind != UICollectionView.elementKindSectionHeader else { return }
+
+            let cellWidth = environment.container.contentSize.width
+            let distanceFromCenter = abs((item.frame.midX - offset.x) - cellWidth / 2.0)
+
+            let minScale: CGFloat = 0.7
+            let maxScale: CGFloat = 1.0
+            let scale = max(maxScale - (distanceFromCenter / cellWidth), minScale)
+
+            item.transform = CGAffineTransform(scaleX: scale, y: scale)
+        }
     }
 }

@@ -8,7 +8,7 @@ protocol AlbumViewModelInput {
 }
 
 protocol AlbumViewModelOutput {
-    var albumData: BehaviorSubject<[Album]> { get }
+    var albumData: BehaviorRelay<[Album]> { get }
 }
 
 protocol AlbumViewModelProtocol: AlbumViewModelInput, AlbumViewModelOutput { }
@@ -18,7 +18,7 @@ final class AlbumViewModel: AlbumViewModelProtocol {
 
     let requestAlbumData = PublishRelay<Void>()
     let photoSelected = PublishRelay<Album.Item>()
-    let albumData = BehaviorSubject<[Album]>(value: [])
+    let albumData = BehaviorRelay<[Album]>(value: [])
 
     private var disposeBag = DisposeBag()
 
@@ -45,6 +45,10 @@ private extension AlbumViewModel {
 
         photoSelected
             .bind(to: navigation.showPhotoEditView)
+            .disposed(by: disposeBag)
+
+        navigation.saveUpdatedPhoto
+            .bind(to: requestAlbumData)
             .disposed(by: disposeBag)
     }
 }

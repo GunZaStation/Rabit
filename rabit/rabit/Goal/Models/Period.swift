@@ -1,22 +1,27 @@
 import Foundation
 
-struct Period: CustomStringConvertible {
+struct Period {
     
-    let start: DateComponent
-    let end: DateComponent
-    
-    var description: String {
-        return "\(start.formattedString) ~ \(end.formattedString)"
-    }
+    let start: Date
+    let end: Date
     
     init() {
         let currDate = Date()
-        self.start = currDate.toDateComponent()
-        self.end = currDate.toDateComponent()
+        self.start = currDate
+        self.end = currDate
     }
         
     init(start: Date, end: Date) {
-        self.start = start.toDateComponent()
-        self.end = end.toDateComponent()
+        self.start = start
+        self.end = end
+    }
+}
+
+extension Period: CustomStringConvertible {
+    var description: String {
+        let start = DateConverter.convertToPeriodString(date: start)
+        let end = DateConverter.convertToPeriodString(date: end)
+
+        return "\(start) ~ \(end)"
     }
 }

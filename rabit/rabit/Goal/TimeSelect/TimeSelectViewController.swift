@@ -49,7 +49,7 @@ final class TimeSelectViewController: UIViewController {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemGreen
+        button.backgroundColor = UIColor(named: "third")
         button.roundCorners(10)
         return button
     }()

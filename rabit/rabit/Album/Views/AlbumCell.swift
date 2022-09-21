@@ -34,8 +34,8 @@ private extension AlbumCell {
         addSubview(thumbnailPictureView)
 
         thumbnailPictureView.snp.makeConstraints { make in
-            make.top.leading.equalTo(self).offset(10)
-            make.bottom.trailing.equalTo(self).inset(10)
+            make.top.leading.equalToSuperview().offset(10)
+            make.bottom.trailing.equalToSuperview().inset(10)
         }
     }
 }
