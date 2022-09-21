@@ -241,6 +241,15 @@
 			path = ColorPicker;
 			sourceTree = "<group>";
 		};
+		02459CE328DAE5460003E61E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */,
+				0222FDDB28D342CC0098F372 /* CalendarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		02972D5A28B5F83D008C097D /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +347,7 @@
 		B563D9BC28BA5A2A00A755EB /* PeriodSelect */ = {
 			isa = PBXGroup;
 			children = (
+				02459CE328DAE5460003E61E /* Views */,
 				B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */,
 				B563D9C128BA5C9B00A755EB /* PeriodSelectViewModel.swift */,
 				02D30E6E28C86F6900B5C4B2 /* CalendarUsecase.swift */,
@@ -439,8 +449,6 @@
 			isa = PBXGroup;
 			children = (
 				B5B9413E28AF6F280098022F /* InsertField.swift */,
-				02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */,
-				0222FDDB28D342CC0098F372 /* CalendarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
