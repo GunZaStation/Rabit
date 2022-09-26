@@ -38,13 +38,13 @@ final class PeriodSelectViewModel: PeriodSelectViewModelProtocol {
     let prevMonthButtonState = BehaviorRelay<Bool>(value: false)
     let nextMonthButtonState = BehaviorRelay<Bool>(value: true)
 
-    private let usecase: CalendarManagable
+    private let usecase: CalendarUsecaseProtocol
 
     private let disposeBag = DisposeBag()
     
     init(
         navigation: GoalNavigation,
-        usecase: CalendarManagable,
+        usecase: CalendarUsecaseProtocol,
         periodStream: BehaviorRelay<Period>
     ) {
         self.usecase = usecase
