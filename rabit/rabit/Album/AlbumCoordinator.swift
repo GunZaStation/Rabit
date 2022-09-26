@@ -4,34 +4,34 @@ import RxRelay
 
 protocol AlbumNavigation {
     var showPhotoEditView: PublishRelay<Album.Item> { get }
-    var closeColorPickerView: PublishRelay<Void> { get }
+    var closeColorSelectView: PublishRelay<Void> { get }
     var saveUpdatedPhoto: PublishRelay<Void> { get }
 }
 
 protocol PhotoEditNavigation {
-    var showColorPickerView: PublishRelay<BehaviorRelay<String>> { get }
+    var showColorSelectView: PublishRelay<BehaviorRelay<String>> { get }
     var showStylePickerView: PublishRelay<Void> { get }
     var closePhotoEditView: PublishRelay<Void> { get }
     var saveUpdatedPhoto: PublishRelay<Void> { get }
 }
 
-protocol ColorPickerNavigation {
-    var closeColorPickerView: PublishRelay<Void> { get }
+protocol ColorSelectNavigation {
+    var closeColorSelectView: PublishRelay<Void> { get }
     var saveSelectedColor: PublishRelay<Void> { get }
 }
 
-final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation, ColorPickerNavigation {
+final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation, ColorSelectNavigation {
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
 
     let showPhotoEditView = PublishRelay<Album.Item>()
-    let showColorPickerView = PublishRelay<BehaviorRelay<String>>()
+    let showColorSelectView = PublishRelay<BehaviorRelay<String>>()
     let showStylePickerView = PublishRelay<Void>()
     let closePhotoEditView = PublishRelay<Void>()
     let saveUpdatedPhoto = PublishRelay<Void>()
-    let closeColorPickerView = PublishRelay<Void>()
+    let closeColorSelectView = PublishRelay<Void>()
     let saveSelectedColor = PublishRelay<Void>()
 
     private var disposeBag = DisposeBag()
@@ -70,18 +70,18 @@ private extension AlbumCoordinator {
         navigationController.presentedViewController?.dismiss(animated: true)
     }
 
-    func presentColorPickerView(colorStream: BehaviorRelay<String>) {
-        let viewModel = ColorPickerViewModel(
+    func presentColorSelectView(colorStream: BehaviorRelay<String>) {
+        let viewModel = ColorSelectViewModel(
             colorStream: colorStream,
             navigation: self
         )
 
-        let viewController = ColorPickerViewController(viewModel: viewModel)
+        let viewController = ColorSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overCurrentContext
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
 
-    func dismissColorPickerView() {
+    func dismissColorSelectView() {
         navigationController.presentedViewController?.dismiss(animated: false)
     }
 
@@ -108,20 +108,20 @@ private extension AlbumCoordinator {
             .bind(onNext: dismissPhotoEditView)
             .disposed(by: disposeBag)
 
-        showColorPickerView
-            .bind(onNext: presentColorPickerView(colorStream:))
+        showColorSelectView
+            .bind(onNext: presentColorSelectView(colorStream:))
             .disposed(by: disposeBag)
 
         showStylePickerView
             .bind(onNext: pushStylePickerView)
             .disposed(by: disposeBag)
 
-        closeColorPickerView
-            .bind(onNext: dismissColorPickerView)
+        closeColorSelectView
+            .bind(onNext: dismissColorSelectView)
             .disposed(by: disposeBag)
 
         saveSelectedColor
-            .bind(onNext: dismissColorPickerView)
+            .bind(onNext: dismissColorSelectView)
             .disposed(by: disposeBag)
     }
 }

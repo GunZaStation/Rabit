@@ -10,7 +10,7 @@ final class PhotoEdtiViewController: UIViewController {
         return imageView
     }()
 
-    private let colorPickerButton: UIButton = {
+    private let selectColorButton: UIButton = {
         let button = UIButton()
         button.setTitle("글씨 색깔 변경", for: .normal)
         button.setImage(UIImage(systemName: "paintpalette"), for: .normal)
@@ -71,7 +71,7 @@ private extension PhotoEdtiViewController {
     func setupViews() {
         setAttributes()
         view.addSubview(photoImageView)
-        view.addSubview(colorPickerButton)
+        view.addSubview(selectColorButton)
         view.addSubview(stylePickerButton)
 
 
@@ -81,7 +81,7 @@ private extension PhotoEdtiViewController {
             make.width.equalToSuperview()
         }
 
-        colorPickerButton.snp.makeConstraints { make in
+        selectColorButton.snp.makeConstraints { make in
             make.top.equalTo(photoImageView.snp.bottom).offset(100)
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().inset(15)
@@ -89,8 +89,8 @@ private extension PhotoEdtiViewController {
         }
 
         stylePickerButton.snp.makeConstraints { make in
-            make.top.equalTo(colorPickerButton.snp.bottom).offset(30)
-            make.leading.trailing.height.equalTo(colorPickerButton)
+            make.top.equalTo(selectColorButton.snp.bottom).offset(30)
+            make.leading.trailing.height.equalTo(selectColorButton)
         }
     }
 
@@ -119,8 +119,8 @@ private extension PhotoEdtiViewController {
             })
             .disposed(by: disposeBag)
 
-        colorPickerButton.rx.tap
-            .bind(to: viewModel.colorPickerButtonTouched)
+        selectColorButton.rx.tap
+            .bind(to: viewModel.selectColorButtonTouched)
             .disposed(by: disposeBag)
 
         stylePickerButton.rx.tap
