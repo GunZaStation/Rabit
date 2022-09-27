@@ -115,16 +115,7 @@ private extension ColorSelectViewController {
                 cellIdentifier: ColorSelectCell.identifier,
                 cellType: ColorSelectCell.self
             )) { [weak self] index, element, cell in
-                let isSelected = (element == viewModel.selectedColor.value)
-
-                if isSelected {
-                    self?.colorSelectCollectionView.selectItem(
-                        at: IndexPath(item: index, section: 0),
-                        animated: false,
-                        scrollPosition: .init()
-                    )
-                }
-
+                self?.presentSelectedCell(index: index, data: element)
                 cell.configure(with: element)
             }
             .disposed(by: disposeBag)
@@ -196,6 +187,18 @@ private extension ColorSelectViewController {
         ) { _ in
             self.dimmedView.isHidden = true
             target.accept(())
+        }
+    }
+
+    func presentSelectedCell(index: Int, data: String) {
+        let isSelected = (viewModel?.selectedColor.value == data)
+
+        if isSelected {
+            colorSelectCollectionView.selectItem(
+                at: IndexPath(item: index, section: 0),
+                animated: false,
+                scrollPosition: .init()
+            )
         }
     }
 }

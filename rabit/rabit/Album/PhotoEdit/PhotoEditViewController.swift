@@ -103,20 +103,13 @@ private extension PhotoEdtiViewController {
         guard let viewModel = viewModel else { return }
 
         viewModel.selectedPhotoData
-            .compactMap {
-                UIImage(data: $0.imageData)
-            }
+            .map(\.imageData)
+            .compactMap(UIImage.init(data:))
             .withUnretained(self)
-            .bind(onNext: { viewController, image in
-                let newImageView = UIImageView(image: image)
-                let ratio = newImageView.frame.height / newImageView.frame.width
-                let currentWidth = viewController.view.frame.width
-
+            .bind { viewController, image in
                 viewController.photoImageView.image = image
-                viewController.photoImageView.snp.makeConstraints { make in
-                    make.height.equalTo(ratio * currentWidth)
-                }
-            })
+                viewController.resizePhotoImageView(with: image)
+            }
             .disposed(by: disposeBag)
 
         selectColorButton.rx.tap
@@ -145,5 +138,15 @@ private extension PhotoEdtiViewController {
 
         navigationItem.rightBarButtonItem = saveButton
         saveButton.tintColor = UIColor(named: "second")
+    }
+
+    func resizePhotoImageView(with image: UIImage) {
+        let referenceImageView = UIImageView(image: image)
+        let ratio = referenceImageView.frame.height / referenceImageView.frame.width
+        let currentWidth = view.frame.width
+
+        photoImageView.snp.makeConstraints { make in
+            make.height.equalTo(ratio * currentWidth)
+        }
     }
 }
