@@ -64,18 +64,17 @@ private extension PhotoEditViewModel {
             .bind(to: navigation.closePhotoEditView)
             .disposed(by: disposeBag)
 
-        saveButtonTouched.withLatestFrom(selectedPhotoData)
-            .withUnretained(self)
-            .flatMapLatest { viewModel, data in
-                viewModel.albumRepository.updateAlbumData(data)
-            }
-            .bind(to: albumUpdateResult)
-            .disposed(by: disposeBag)
-
         albumUpdateResult
-            .bind(onNext: { isSuccess in
+            .bind { isSuccess in
                 isSuccess ? navigation.saveUpdatedPhoto.accept(()) : nil
-            })
+            }
+            .disposed(by: disposeBag)
+    }
+
+    func bind(to selectedData: Album.Item) {
+        selectedPhotoData
+            .map { $0 != selectedData }
+            .bind(to: saveButtonState)
             .disposed(by: disposeBag)
 
         hexPhotoColor
@@ -91,12 +90,14 @@ private extension PhotoEditViewModel {
             }
             .bind(to: selectedPhotoData)
             .disposed(by: disposeBag)
-    }
 
-    func bind(to selectedData: Album.Item) {
-        selectedPhotoData
-            .map { $0 != selectedData }
-            .bind(to: saveButtonState)
+        saveButtonTouched.withLatestFrom(selectedPhotoData)
+            .withUnretained(self)
+            .flatMapLatest { viewModel, data in
+                viewModel.albumRepository.updateAlbumData(data)
+            }
+            .bind(to: albumUpdateResult)
             .disposed(by: disposeBag)
+
     }
 }
