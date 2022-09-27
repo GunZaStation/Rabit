@@ -111,10 +111,12 @@ final class CalendarView: UIView {
             .disposed(by: disposeBag)
 
         prevMonthButton.rx.tap
+            .throttle(.milliseconds(400), latest: false, scheduler: MainScheduler.instance)
             .bind(to: viewModel.prevMonthButtonTouched)
             .disposed(by: disposeBag)
 
         nextMonthButton.rx.tap
+            .throttle(.milliseconds(400), latest: false, scheduler: MainScheduler.instance)
             .bind(to: viewModel.nextMonthButtonTouched)
             .disposed(by: disposeBag)
 
