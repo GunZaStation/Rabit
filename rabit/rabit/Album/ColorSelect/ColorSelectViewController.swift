@@ -125,7 +125,7 @@ private extension ColorSelectViewController {
             .disposed(by: disposeBag)
 
         dimmedView.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.hideColorSheet(target: viewModel.closeColorSelectRequested)
@@ -133,7 +133,7 @@ private extension ColorSelectViewController {
             .disposed(by: disposeBag)
 
         colorSheet.rx.swipeGesture(.down)
-            .when(.recognized)
+            .when(.ended)
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.hideColorSheet(target: viewModel.closeColorSelectRequested)
