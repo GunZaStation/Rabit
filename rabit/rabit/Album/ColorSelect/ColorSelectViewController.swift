@@ -114,25 +114,19 @@ private extension ColorSelectViewController {
             .bind(to: colorSelectCollectionView.rx.items(
                 cellIdentifier: ColorSelectCell.identifier,
                 cellType: ColorSelectCell.self
-            )) { _, element, cell in
+            )) { [weak self] index, element, cell in
+                let isSelected = (element == viewModel.selectedColor.value)
+
+                if isSelected {
+                    self?.colorSelectCollectionView.selectItem(
+                        at: IndexPath(item: index, section: 0),
+                        animated: false,
+                        scrollPosition: .init()
+                    )
+                }
+
                 cell.configure(with: element)
             }
-            .disposed(by: disposeBag)
-
-        viewModel.selectedColor
-            .compactMap { (color) -> IndexPath? in
-                guard let index =  viewModel.presetColors
-                    .firstIndex(of: color) else { return nil }
-                return IndexPath(item: index, section: 0)
-            }
-            .withUnretained(self)
-            .bind(onNext: { viewController, indexPath in
-                viewController.colorSelectCollectionView.selectItem(
-                    at: indexPath,
-                    animated: true,
-                    scrollPosition: .centeredVertically
-                )
-            })
             .disposed(by: disposeBag)
 
         colorSelectCollectionView.rx.modelSelected(String.self)
