@@ -3,16 +3,14 @@ import RxSwift
 import RxRelay
 
 protocol AlbumNavigation {
-    var showPhotoEditView: PublishRelay<Album.Item> { get }
+    var showPhotoEditView: PublishRelay<BehaviorRelay<Album.Item>> { get }
     var closeColorSelectView: PublishRelay<Void> { get }
-    var saveUpdatedPhoto: PublishRelay<Void> { get }
 }
 
 protocol PhotoEditNavigation {
     var showColorSelectView: PublishRelay<BehaviorRelay<String>> { get }
     var showStylePickerView: PublishRelay<Void> { get }
     var closePhotoEditView: PublishRelay<Void> { get }
-    var saveUpdatedPhoto: PublishRelay<Void> { get }
 }
 
 protocol ColorSelectNavigation {
@@ -26,11 +24,10 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
     var children: [Coordinator] = []
     var navigationController: UINavigationController
 
-    let showPhotoEditView = PublishRelay<Album.Item>()
+    let showPhotoEditView = PublishRelay<BehaviorRelay<Album.Item>>()
     let showColorSelectView = PublishRelay<BehaviorRelay<String>>()
     let showStylePickerView = PublishRelay<Void>()
     let closePhotoEditView = PublishRelay<Void>()
-    let saveUpdatedPhoto = PublishRelay<Void>()
     let closeColorSelectView = PublishRelay<Void>()
     let saveSelectedColor = PublishRelay<Void>()
 
@@ -54,10 +51,10 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
 
 // MARK: - Navigation methods
 private extension AlbumCoordinator {
-    func presentPhotoEditView(_ selectedPhoto: Album.Item) {
+    func presentPhotoEditView(_ selectedPhoto: BehaviorRelay<Album.Item>) {
         let repository = AlbumRepository()
         let viewModel = PhotoEditViewModel(
-            selectedData: selectedPhoto,
+            photoStream: selectedPhoto,
             repository: repository,
             navigation: self
         )
@@ -101,10 +98,6 @@ private extension AlbumCoordinator {
             .disposed(by: disposeBag)
 
         closePhotoEditView
-            .bind(onNext: dismissPhotoEditView)
-            .disposed(by: disposeBag)
-
-        saveUpdatedPhoto
             .bind(onNext: dismissPhotoEditView)
             .disposed(by: disposeBag)
 

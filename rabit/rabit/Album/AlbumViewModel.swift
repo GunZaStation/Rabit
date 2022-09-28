@@ -4,7 +4,9 @@ import RxRelay
 
 protocol AlbumViewModelInput {
     var requestAlbumData: PublishRelay<Void> { get }
-    var photoSelected: PublishRelay<Album.Item> { get }
+    var photoSelected: BehaviorRelay<Album.Item> { get }
+    var indexSelected: PublishRelay<IndexPath> { get }
+    var showNextViewRequested: PublishRelay<Void> { get }
 }
 
 protocol AlbumViewModelOutput {
@@ -17,7 +19,10 @@ final class AlbumViewModel: AlbumViewModelProtocol {
     private let albumRepository: AlbumRepositoryProtocol
 
     let requestAlbumData = PublishRelay<Void>()
-    let photoSelected = PublishRelay<Album.Item>()
+    let photoSelected = BehaviorRelay<Album.Item>(value: Album.Item())
+    let indexSelected = PublishRelay<IndexPath>()
+    let showNextViewRequested = PublishRelay<Void>()
+
     let albumData = BehaviorRelay<[Album]>(value: [])
 
     private var disposeBag = DisposeBag()
@@ -43,12 +48,24 @@ private extension AlbumViewModel {
             .bind(to: albumData)
             .disposed(by: disposeBag)
 
-        photoSelected
+        showNextViewRequested
+            .withUnretained(self) { viewModel, _ in
+                viewModel.photoSelected
+            }
             .bind(to: navigation.showPhotoEditView)
             .disposed(by: disposeBag)
 
-        navigation.saveUpdatedPhoto
-            .bind(to: requestAlbumData)
+        photoSelected
+            .distinctUntilChanged()
+            .withLatestFrom(indexSelected) { ($0, $1) }
+            .withUnretained(self) { ($0, $1.0, $1.1) }
+            .map { viewModel, newData, indexPath in
+                var albumData = viewModel.albumData.value
+                albumData[indexPath.section].items[indexPath.item] = newData
+
+                return albumData
+            }
+            .bind(to: albumData)
             .disposed(by: disposeBag)
     }
 }
