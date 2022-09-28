@@ -148,6 +148,7 @@ private extension AlbumViewController {
         environment: NSCollectionLayoutEnvironment
     ) {
         items.forEach { item in
+            guard item.representedElementKind != UICollectionView.elementKindSectionHeader else { return }
             let cellWidth = environment.container.contentSize.width
             let distanceFromCenter = abs((item.frame.midX - offset.x) - cellWidth / 2.0)
 
