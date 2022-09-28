@@ -24,7 +24,13 @@ final class AlbumCell: UICollectionViewCell {
     }
 
     func configure(with photo: Album.Item) {
-        thumbnailPictureView.image = UIImage(data: photo.imageData)
+        DispatchQueue.global().sync {
+            let image = UIImage(data: photo.imageData)
+
+            DispatchQueue.main.async {
+                self.thumbnailPictureView.image = image
+            }
+        }
     }
 }
 
