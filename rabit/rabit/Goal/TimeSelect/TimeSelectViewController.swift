@@ -20,8 +20,8 @@ final class TimeSelectViewController: UIViewController {
         return view
     }()
     
-    private let timeSelectSheet: BottomSheet = {
-        let sheet = BottomSheet()
+    private lazy var timeSelectSheet: BottomSheet = {
+        let sheet = BottomSheet(view.bounds.height, view.bounds.height*0.65)
         sheet.backgroundColor = .white
         sheet.roundCorners(20)
         return sheet
