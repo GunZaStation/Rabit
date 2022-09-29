@@ -87,6 +87,7 @@
 		B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D34DB228C9B8DF00F04070 /* DaySelectCell.swift */; };
 		B5D34DB528CA07E200F04070 /* Days.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D34DB428CA07E200F04070 /* Days.swift */; };
 		B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */; };
+		B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		B5D34DB228C9B8DF00F04070 /* DaySelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectCell.swift; sourceTree = "<group>"; };
 		B5D34DB428CA07E200F04070 /* Days.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Days.swift; sourceTree = "<group>"; };
 		B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewHeader.swift; sourceTree = "<group>"; };
+		B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomSheet + Reactive.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,6 +337,7 @@
 				B56AF75128C6528B001C82C0 /* RangeSlider + Reactive.swift */,
 				02D30E6C28C86AB100B5C4B2 /* String + strikeThrough.swift */,
 				02D30E7828C87EDE00B5C4B2 /* DateConverter.swift */,
+				B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
 				0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */,
+				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Category.swift in Sources */,
 				B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */,
