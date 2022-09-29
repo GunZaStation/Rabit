@@ -87,14 +87,10 @@ final class TimeSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        timeSelectSheet.rx.swipeGesture(.down)
-            .when(.ended)
-            .withUnretained(self)
-            .bind { viewController, _ in
-                viewController.hideTimeSelectSheet()
-            }
+        timeSelectSheet.rx.isClosed
+            .bind(onNext: hideTimeSelectSheet)
             .disposed(by: disposeBag)
-        
+
         timeRangeSlider.rx.leftValue
             .distinctUntilChanged()
             .bind(to: viewModel.selectedStartTime)
@@ -186,7 +182,7 @@ final class TimeSelectViewController: UIViewController {
         view.addSubview(timeSelectSheet)
         timeSelectSheet.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(view.snp.bottom)
+            $0.top.equalTo(view.bounds.height)
         }
         
         timeSelectSheet.contentView.addSubview(titleLabel)
@@ -249,7 +245,6 @@ private extension TimeSelectViewController {
     func showTimeSelectSheet() {
         
         dimmedView.isHidden = false
-        isModalInPresentation = true
         
         timeSelectSheet.move(
             upTo: view.bounds.height*0.65,
@@ -260,9 +255,7 @@ private extension TimeSelectViewController {
     
     func hideTimeSelectSheet() {
         guard let viewModel = viewModel else { return }
-        
-        isModalInPresentation = false
-        
+    
         timeSelectSheet.move(
             upTo: view.bounds.height,
             duration: 0.2,
