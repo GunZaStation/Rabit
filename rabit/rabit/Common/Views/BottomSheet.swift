@@ -3,6 +3,7 @@ import SnapKit
 
 final class BottomSheet: UIControl {
     
+    private let topBarArea: UIView = UIView()
     private let topBar: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray5
@@ -42,7 +43,7 @@ final class BottomSheet: UIControl {
     
     private func addPanGestureRecognizer() {
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan))
-        addGestureRecognizer(recognizer)
+        topBarArea.addGestureRecognizer(recognizer)
     }
     
     @objc private func didPan(_ recognizer: UIPanGestureRecognizer) {
@@ -69,22 +70,27 @@ final class BottomSheet: UIControl {
         
         if yPosition >= maxTopOffset {
             closeFlag = true
-        }
+        }        
     }
     
     private func setupViews() {
         
-        addSubview(topBar)
+        addSubview(topBarArea)
+        topBarArea.snp.makeConstraints {
+            $0.left.right.top.equalToSuperview()
+            $0.height.equalTo(21)
+        }
+        
+        topBarArea.addSubview(topBar)
         topBar.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().multipliedBy(0.08)
+            $0.centerX.centerY.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.5)
             $0.height.equalTo(7)
         }
         
         addSubview(contentView)
         contentView.snp.makeConstraints {
-            $0.top.equalTo(topBar.snp.bottom).offset(10)
+            $0.top.equalTo(topBarArea.snp.bottom)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.9)
             $0.height.equalToSuperview().multipliedBy(0.83)
