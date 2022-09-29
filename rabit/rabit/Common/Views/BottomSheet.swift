@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class BottomSheet: UIView {
+final class BottomSheet: UIControl {
     
     private let topBar: UIView = {
         let view = UIView()
@@ -11,6 +11,9 @@ final class BottomSheet: UIView {
     }()
     
     let contentView = UIView()
+    private var closeFlag = false {
+        didSet { sendActions(for: .valueChanged) }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
