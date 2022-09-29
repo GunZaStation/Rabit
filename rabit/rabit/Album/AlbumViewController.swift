@@ -128,12 +128,12 @@ private extension AlbumViewController {
             .bind(to: albumCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
 
-        albumCollectionView.rx.modelSelected(Album.Item.self)
-            .bind(to: viewModel.photoSelected)
-            .disposed(by: disposeBag)
-
         albumCollectionView.rx.itemSelected
             .bind(to: viewModel.indexSelected)
+            .disposed(by: disposeBag)
+
+        albumCollectionView.rx.modelSelected(Album.Item.self)
+            .bind(to: viewModel.photoSelected)
             .disposed(by: disposeBag)
 
         albumCollectionView.rx.itemSelected

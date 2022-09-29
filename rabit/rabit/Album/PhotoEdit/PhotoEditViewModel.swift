@@ -42,8 +42,8 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
         hexPhotoColor = .init(value: photoStream.value.color)
         self.albumRepository = repository
 
-        bind(to: navigation)
         bind(to: photoStream)
+        bind(to: navigation)
     }
 }
 
@@ -66,7 +66,7 @@ private extension PhotoEditViewModel {
 
         albumUpdateResult
             .bind { isSuccess in
-                isSuccess ? navigation.closePhotoEditView.accept(()) : nil
+                isSuccess ? navigation.didChangePhoto.accept(()) : nil
             }
             .disposed(by: disposeBag)
     }
@@ -92,15 +92,15 @@ private extension PhotoEditViewModel {
             .disposed(by: disposeBag)
 
         saveButtonTouched.withLatestFrom(selectedPhotoData)
+            .bind(to: photoStream)
+            .disposed(by: disposeBag)
+
+        saveButtonTouched.withLatestFrom(selectedPhotoData)
             .withUnretained(self)
             .flatMapLatest { viewModel, data in
                 viewModel.albumRepository.updateAlbumData(data)
             }
             .bind(to: albumUpdateResult)
-            .disposed(by: disposeBag)
-
-        saveButtonTouched.withLatestFrom(selectedPhotoData)
-            .bind(to: photoStream)
             .disposed(by: disposeBag)
     }
 }

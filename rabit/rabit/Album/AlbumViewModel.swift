@@ -55,7 +55,8 @@ private extension AlbumViewModel {
             .bind(to: navigation.showPhotoEditView)
             .disposed(by: disposeBag)
 
-        photoSelected
+        navigation.didChangePhoto
+            .withLatestFrom(photoSelected)
             .distinctUntilChanged()
             .withLatestFrom(indexSelected) { ($0, $1) }
             .withUnretained(self) { ($0, $1.0, $1.1) }
