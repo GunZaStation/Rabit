@@ -46,15 +46,19 @@ final class BottomSheet: UIControl {
 
 extension BottomSheet {
     
-    func move(upTo topConstraint: CGFloat,
+    private func updateConstraints(_ topOffset: CGFloat) {
+        self.snp.remakeConstraints {
+            $0.left.right.bottom.equalToSuperview()
+            $0.top.equalToSuperview().inset(topOffset)
+        }
+    }
+    
+    func move(upTo topOffset: CGFloat,
               duration: CGFloat,
               animation: @escaping () -> Void,
               completion: @escaping (Bool) -> Void = { _ in }) {
         
-        self.snp.remakeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(topConstraint)
-        }
+        updateConstraints(topOffset)
         
         UIView.animate(
             withDuration: duration,
