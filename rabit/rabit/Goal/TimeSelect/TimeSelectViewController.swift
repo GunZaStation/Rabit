@@ -212,7 +212,7 @@ final class TimeSelectViewController: UIViewController {
         
         timeSelectSheet.contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(10)
+            $0.top.equalTo(timeRangeSlider.snp.bottom).offset(10)
             $0.centerX.equalToSuperview()
         }
     }

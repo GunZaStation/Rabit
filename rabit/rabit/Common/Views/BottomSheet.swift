@@ -60,7 +60,7 @@ final class BottomSheet: UIControl {
         //recognizer이 끝났을 때 상태 업데이트
         guard recognizer.state == .ended else { return }
         let isDownward = recognizer.velocity(in: self).y > 0
-        let yPosition: CGFloat = updatedY > maxTopOffset*0.7 ? maxTopOffset : updatedY
+        let yPosition: CGFloat = updatedY > maxTopOffset*0.8 ? maxTopOffset : minTopOffset
 
         if isDownward {
             updateConstraints(yPosition)
@@ -70,7 +70,9 @@ final class BottomSheet: UIControl {
         
         if yPosition >= maxTopOffset {
             closeFlag = true
-        }        
+        }
+        
+        UIView.animate(withDuration: 0.4, delay: .zero, animations: layoutIfNeeded)
     }
     
     private func setupViews() {
