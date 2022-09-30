@@ -20,8 +20,8 @@ final class TimeSelectViewController: UIViewController {
         return view
     }()
     
-    private let timeSelectSheet: BottomSheet = {
-        let sheet = BottomSheet()
+    private lazy var timeSelectSheet: BottomSheet = {
+        let sheet = BottomSheet(view.bounds.height, view.bounds.height*0.65)
         sheet.backgroundColor = .white
         sheet.roundCorners(20)
         return sheet
@@ -87,14 +87,10 @@ final class TimeSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        timeSelectSheet.rx.swipeGesture(.down)
-            .when(.ended)
-            .withUnretained(self)
-            .bind { viewController, _ in
-                viewController.hideTimeSelectSheet()
-            }
+        timeSelectSheet.rx.isClosed
+            .bind(onNext: hideTimeSelectSheet)
             .disposed(by: disposeBag)
-        
+
         timeRangeSlider.rx.leftValue
             .distinctUntilChanged()
             .bind(to: viewModel.selectedStartTime)
@@ -186,7 +182,7 @@ final class TimeSelectViewController: UIViewController {
         view.addSubview(timeSelectSheet)
         timeSelectSheet.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(view.snp.bottom)
+            $0.top.equalTo(view.bounds.height)
         }
         
         timeSelectSheet.contentView.addSubview(titleLabel)
@@ -216,7 +212,7 @@ final class TimeSelectViewController: UIViewController {
         
         timeSelectSheet.contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(10)
+            $0.top.equalTo(timeRangeSlider.snp.bottom).offset(10)
             $0.centerX.equalToSuperview()
         }
     }
@@ -249,7 +245,6 @@ private extension TimeSelectViewController {
     func showTimeSelectSheet() {
         
         dimmedView.isHidden = false
-        isModalInPresentation = true
         
         timeSelectSheet.move(
             upTo: view.bounds.height*0.65,
@@ -260,9 +255,7 @@ private extension TimeSelectViewController {
     
     func hideTimeSelectSheet() {
         guard let viewModel = viewModel else { return }
-        
-        isModalInPresentation = false
-        
+    
         timeSelectSheet.move(
             upTo: view.bounds.height,
             duration: 0.2,
