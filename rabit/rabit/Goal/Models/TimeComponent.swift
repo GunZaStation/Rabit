@@ -13,7 +13,7 @@ struct TimeComponent: Equatable {
         return "\(ampm) \(hour)시 \(minute)분"
     }
     
-    init(hour: Int, minute: Int, seconds: Int) {
+    init(hour: Int, minute: Int = .zero, seconds: Int = .zero) {
         self.hour = hour
         self.minute = minute
         self.seconds = seconds

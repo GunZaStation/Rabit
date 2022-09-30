@@ -23,9 +23,14 @@ final class DaySelectCell: UICollectionViewCell {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        nameLabel.roundCorners(self.bounds.height/2)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         setupViews()
     }
 
