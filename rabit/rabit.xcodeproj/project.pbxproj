@@ -12,8 +12,8 @@
 		0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */; };
 		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
 		0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */; };
-		0232BD9228AE1134009057F8 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9128AE1134009057F8 /* ColorPickerViewController.swift */; };
-		0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorPickerViewModel.swift */; };
+		0232BD9228AE1134009057F8 /* ColorSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9128AE1134009057F8 /* ColorSelectViewController.swift */; };
+		0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */; };
 		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
 		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */; };
@@ -32,7 +32,7 @@
 		02B7FD2E289A1EEC00EBA86D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02B7FD2D289A1EEC00EBA86D /* RxSwift */; };
 		02B916DB28B89ADF0086F29E /* RealmResults + toArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */; };
 		02C9713528AF82390087B8D2 /* UIImage + Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9713428AF82390087B8D2 /* UIImage + Utils.swift */; };
-		02C9713728B356200087B8D2 /* PresetColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9713628B356200087B8D2 /* PresetColorCell.swift */; };
+		02C9713728B356200087B8D2 /* ColorSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9713628B356200087B8D2 /* ColorSelectCell.swift */; };
 		02D30E6B28C8689000B5C4B2 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */; };
 		02D30E6D28C86AB100B5C4B2 /* String + strikeThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E6C28C86AB100B5C4B2 /* String + strikeThrough.swift */; };
 		02D30E6F28C86F6900B5C4B2 /* CalendarUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E6E28C86F6900B5C4B2 /* CalendarUsecase.swift */; };
@@ -112,8 +112,8 @@
 		0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + identifier.swift"; sourceTree = "<group>"; };
 		0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutFactory.swift; sourceTree = "<group>"; };
 		0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + roundCorners.swift"; sourceTree = "<group>"; };
-		0232BD9128AE1134009057F8 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
-		0232BD9428AE11DD009057F8 /* ColorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewModel.swift; sourceTree = "<group>"; };
+		0232BD9128AE1134009057F8 /* ColorSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectViewController.swift; sourceTree = "<group>"; };
+		0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectViewModel.swift; sourceTree = "<group>"; };
 		0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Initializer.swift"; sourceTree = "<group>"; };
 		0232BD9828AF6B25009057F8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + setBackgroundColor.swift"; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		02A093C928B8A67800BDF69B /* GoalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalEntity.swift; sourceTree = "<group>"; };
 		02B916DA28B89ADF0086F29E /* RealmResults + toArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmResults + toArray.swift"; sourceTree = "<group>"; };
 		02C9713428AF82390087B8D2 /* UIImage + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Utils.swift"; sourceTree = "<group>"; };
-		02C9713628B356200087B8D2 /* PresetColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetColorCell.swift; sourceTree = "<group>"; };
+		02C9713628B356200087B8D2 /* ColorSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectCell.swift; sourceTree = "<group>"; };
 		02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		02D30E6C28C86AB100B5C4B2 /* String + strikeThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + strikeThrough.swift"; sourceTree = "<group>"; };
 		02D30E6E28C86F6900B5C4B2 /* CalendarUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUsecase.swift; sourceTree = "<group>"; };
@@ -237,14 +237,23 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		0232BD9328AE113D009057F8 /* ColorPicker */ = {
+		0232BD9328AE113D009057F8 /* ColorSelect */ = {
 			isa = PBXGroup;
 			children = (
-				0232BD9128AE1134009057F8 /* ColorPickerViewController.swift */,
-				0232BD9428AE11DD009057F8 /* ColorPickerViewModel.swift */,
+				0232BD9128AE1134009057F8 /* ColorSelectViewController.swift */,
+				0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */,
 				02C9713828B356290087B8D2 /* Views */,
 			);
-			path = ColorPicker;
+			path = ColorSelect;
+			sourceTree = "<group>";
+		};
+		02459CE328DAE5460003E61E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */,
+				0222FDDB28D342CC0098F372 /* CalendarView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		02972D5A28B5F83D008C097D /* Common */ = {
@@ -270,7 +279,7 @@
 		02C9713828B356290087B8D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				02C9713628B356200087B8D2 /* PresetColorCell.swift */,
+				02C9713628B356200087B8D2 /* ColorSelectCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +354,7 @@
 		B563D9BC28BA5A2A00A755EB /* PeriodSelect */ = {
 			isa = PBXGroup;
 			children = (
+				02459CE328DAE5460003E61E /* Views */,
 				B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */,
 				B563D9C128BA5C9B00A755EB /* PeriodSelectViewModel.swift */,
 				02D30E6E28C86F6900B5C4B2 /* CalendarUsecase.swift */,
@@ -447,8 +457,6 @@
 			isa = PBXGroup;
 			children = (
 				B5B9413E28AF6F280098022F /* InsertField.swift */,
-				02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */,
-				0222FDDB28D342CC0098F372 /* CalendarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -465,10 +473,10 @@
 			isa = PBXGroup;
 			children = (
 				02DB2F8528AC8D82005938CB /* PhotoEdit */,
-				0232BD9328AE113D009057F8 /* ColorPicker */,
+				0232BD9328AE113D009057F8 /* ColorSelect */,
 				02520986289A5A2400E7E604 /* AlbumViewController.swift */,
-				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
 				02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */,
+				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
 				02F37252289CE21800F361C7 /* Models */,
 				022B7835289B7A0D009003EA /* Views */,
 				0229C50128A7AF020093990E /* Repository */,
@@ -722,10 +730,10 @@
 				02A093CA28B8A67800BDF69B /* GoalEntity.swift in Sources */,
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
 				02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */,
-				0232BD9228AE1134009057F8 /* ColorPickerViewController.swift in Sources */,
+				0232BD9228AE1134009057F8 /* ColorSelectViewController.swift in Sources */,
 				0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */,
 				B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */,
-				02C9713728B356200087B8D2 /* PresetColorCell.swift in Sources */,
+				02C9713728B356200087B8D2 /* ColorSelectCell.swift in Sources */,
 				B569E9F22898D4A8006FFFB9 /* AppDelegate.swift in Sources */,
 				B5D34DB528CA07E200F04070 /* Days.swift in Sources */,
 				02C9713528AF82390087B8D2 /* UIImage + Utils.swift in Sources */,
@@ -738,6 +746,7 @@
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
 				0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */,
 				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
+				0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Category.swift in Sources */,
 				B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */,

@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-final class ColorPickerViewController: UIViewController {
+final class ColorSelectViewController: UIViewController {
     private let dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.6)
@@ -26,7 +26,7 @@ final class ColorPickerViewController: UIViewController {
         return label
     }()
 
-    private let presetColorCollectionView: UICollectionView = {
+    private let colorSelectCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
@@ -47,11 +47,11 @@ final class ColorPickerViewController: UIViewController {
     }()
 
 
-    private var viewModel: ColorPickerViewModelProtocol?
+    private var viewModel: ColorSelectViewModelProtocol?
 
     private var disposeBag = DisposeBag()
 
-    convenience init(viewModel: ColorPickerViewModelProtocol) {
+    convenience init(viewModel: ColorSelectViewModelProtocol) {
         self.init()
         self.viewModel = viewModel
     }
@@ -60,7 +60,7 @@ final class ColorPickerViewController: UIViewController {
         super.viewDidLoad()
 
         setupViews()
-        setupPresetColorCollectionView()
+        setupColorSelectCollectionView()
         bind()
     }
 
@@ -71,7 +71,7 @@ final class ColorPickerViewController: UIViewController {
     }
 }
 
-private extension ColorPickerViewController {
+private extension ColorSelectViewController {
     func setupViews() {
         view.addSubview(dimmedView)
         dimmedView.snp.makeConstraints { make in
@@ -90,8 +90,8 @@ private extension ColorPickerViewController {
             make.leading.equalToSuperview().offset(20)
         }
 
-        colorSheet.contentView.addSubview(presetColorCollectionView)
-        presetColorCollectionView.snp.makeConstraints { make in
+        colorSheet.contentView.addSubview(colorSelectCollectionView)
+        colorSelectCollectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
@@ -100,7 +100,7 @@ private extension ColorPickerViewController {
 
         colorSheet.contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints { make in
-            make.top.equalTo(presetColorCollectionView.snp.bottom).offset(20)
+            make.top.equalTo(colorSelectCollectionView.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
             make.height.equalTo(50)
@@ -111,47 +111,32 @@ private extension ColorPickerViewController {
         guard let viewModel = viewModel else { return }
 
         Observable.of(viewModel.presetColors)
-            .bind(to: presetColorCollectionView.rx.items(
-                cellIdentifier: PresetColorCell.identifier,
-                cellType: PresetColorCell.self
-            )) { _, element, cell in
+            .bind(to: colorSelectCollectionView.rx.items(
+                cellIdentifier: ColorSelectCell.identifier,
+                cellType: ColorSelectCell.self
+            )) { [weak self] index, element, cell in
+                self?.presentSelectedCell(index: index, data: element)
                 cell.configure(with: element)
             }
             .disposed(by: disposeBag)
 
-        viewModel.selectedColor
-            .compactMap { (color) -> IndexPath? in
-                guard let index =  viewModel.presetColors
-                    .firstIndex(of: color) else { return nil }
-                return IndexPath(item: index, section: 0)
-            }
-            .withUnretained(self)
-            .bind(onNext: { viewController, indexPath in
-                viewController.presetColorCollectionView.selectItem(
-                    at: indexPath,
-                    animated: true,
-                    scrollPosition: .centeredVertically
-                )
-            })
-            .disposed(by: disposeBag)
-
-        presetColorCollectionView.rx.modelSelected(String.self)
+        colorSelectCollectionView.rx.modelSelected(String.self)
             .bind(to: viewModel.selectedColor)
             .disposed(by: disposeBag)
 
         dimmedView.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
-                viewController.hideColorSheet(target: viewModel.closeColorPickerRequested)
+                viewController.hideColorSheet(target: viewModel.closeColorSelectRequested)
             })
             .disposed(by: disposeBag)
 
         colorSheet.rx.swipeGesture(.down)
-            .when(.recognized)
+            .when(.ended)
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
-                viewController.hideColorSheet(target: viewModel.closeColorPickerRequested)
+                viewController.hideColorSheet(target: viewModel.closeColorSelectRequested)
             })
             .disposed(by: disposeBag)
 
@@ -167,18 +152,18 @@ private extension ColorPickerViewController {
             .disposed(by: disposeBag)
     }
 
-    func setupPresetColorCollectionView() {
+    func setupColorSelectCollectionView() {
         let layout = CompositionalLayoutFactory.shared.create(
             widthFraction: 1/5,
             heightFraction: 1/5,
             spacing: Spacing(top: 5, bottom: 5, left: 5, right: 5)
         )
 
-        presetColorCollectionView.collectionViewLayout = layout
+        colorSelectCollectionView.collectionViewLayout = layout
 
-        presetColorCollectionView.register(
-            PresetColorCell.self,
-            forCellWithReuseIdentifier: PresetColorCell.identifier
+        colorSelectCollectionView.register(
+            ColorSelectCell.self,
+            forCellWithReuseIdentifier: ColorSelectCell.identifier
         )
     }
 
@@ -202,6 +187,18 @@ private extension ColorPickerViewController {
         ) { _ in
             self.dimmedView.isHidden = true
             target.accept(())
+        }
+    }
+
+    func presentSelectedCell(index: Int, data: String) {
+        let isSelected = (viewModel?.selectedColor.value == data)
+
+        if isSelected {
+            colorSelectCollectionView.selectItem(
+                at: IndexPath(item: index, section: 0),
+                animated: false,
+                scrollPosition: .init()
+            )
         }
     }
 }

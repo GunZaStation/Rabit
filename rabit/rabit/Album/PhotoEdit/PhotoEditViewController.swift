@@ -10,7 +10,7 @@ final class PhotoEdtiViewController: UIViewController {
         return imageView
     }()
 
-    private let colorPickerButton: UIButton = {
+    private let selectColorButton: UIButton = {
         let button = UIButton()
         button.setTitle("글씨 색깔 변경", for: .normal)
         button.setImage(UIImage(systemName: "paintpalette"), for: .normal)
@@ -71,7 +71,7 @@ private extension PhotoEdtiViewController {
     func setupViews() {
         setAttributes()
         view.addSubview(photoImageView)
-        view.addSubview(colorPickerButton)
+        view.addSubview(selectColorButton)
         view.addSubview(stylePickerButton)
 
 
@@ -81,7 +81,7 @@ private extension PhotoEdtiViewController {
             make.width.equalToSuperview()
         }
 
-        colorPickerButton.snp.makeConstraints { make in
+        selectColorButton.snp.makeConstraints { make in
             make.top.equalTo(photoImageView.snp.bottom).offset(100)
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().inset(15)
@@ -89,8 +89,8 @@ private extension PhotoEdtiViewController {
         }
 
         stylePickerButton.snp.makeConstraints { make in
-            make.top.equalTo(colorPickerButton.snp.bottom).offset(30)
-            make.leading.trailing.height.equalTo(colorPickerButton)
+            make.top.equalTo(selectColorButton.snp.bottom).offset(30)
+            make.leading.trailing.height.equalTo(selectColorButton)
         }
     }
 
@@ -103,24 +103,17 @@ private extension PhotoEdtiViewController {
         guard let viewModel = viewModel else { return }
 
         viewModel.selectedPhotoData
-            .compactMap {
-                UIImage(data: $0.imageData)
-            }
+            .map(\.imageData)
+            .compactMap(UIImage.init(data:))
             .withUnretained(self)
-            .bind(onNext: { viewController, image in
-                let newImageView = UIImageView(image: image)
-                let ratio = newImageView.frame.height / newImageView.frame.width
-                let currentWidth = viewController.view.frame.width
-
+            .bind { viewController, image in
                 viewController.photoImageView.image = image
-                viewController.photoImageView.snp.makeConstraints { make in
-                    make.height.equalTo(ratio * currentWidth)
-                }
-            })
+                viewController.resizePhotoImageView(with: image)
+            }
             .disposed(by: disposeBag)
 
-        colorPickerButton.rx.tap
-            .bind(to: viewModel.colorPickerButtonTouched)
+        selectColorButton.rx.tap
+            .bind(to: viewModel.selectColorButtonTouched)
             .disposed(by: disposeBag)
 
         stylePickerButton.rx.tap
@@ -145,5 +138,15 @@ private extension PhotoEdtiViewController {
 
         navigationItem.rightBarButtonItem = saveButton
         saveButton.tintColor = UIColor(named: "second")
+    }
+
+    func resizePhotoImageView(with image: UIImage) {
+        let referenceImageView = UIImageView(image: image)
+        let ratio = referenceImageView.frame.height / referenceImageView.frame.width
+        let currentWidth = view.frame.width
+
+        photoImageView.snp.makeConstraints { make in
+            make.height.equalTo(ratio * currentWidth)
+        }
     }
 }

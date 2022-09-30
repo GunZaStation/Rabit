@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol CalendarManagable {
+protocol CalendarUsecaseProtocol {
     var dates: [CalendarDates] { get }
     var startDate: BehaviorRelay<Date?> { get }
     var endDate: BehaviorRelay<Date?> { get }
@@ -11,7 +11,7 @@ protocol CalendarManagable {
     func updateDeselectedDate(with oldDate: CalendarDate)
 }
 
-struct CalendarUsecase: CalendarManagable {
+struct CalendarUsecase: CalendarUsecaseProtocol {
     private let calendar = Calendar(identifier: .gregorian)
 
     var dates: [CalendarDates] {
@@ -19,8 +19,8 @@ struct CalendarUsecase: CalendarManagable {
             generateDatesInMonth(for: calendar.date(byAdding: .month, value: offset, to: Date()) ?? Date())
         }
     }
-    var startDate: BehaviorRelay<Date?>
-    var endDate: BehaviorRelay<Date?>
+    let startDate: BehaviorRelay<Date?>
+    let endDate: BehaviorRelay<Date?>
 
     init(periodStream: BehaviorRelay<Period>) {
         startDate = .init(value: periodStream.value.start)
@@ -40,8 +40,7 @@ struct CalendarUsecase: CalendarManagable {
             return false
         }
 
-        switch countSetDate == 2 && isSetSameDate {
-        case true:
+        if countSetDate == 2 && isSetSameDate {
             guard let startDateValue = startDate.value else { return }
 
             if startDateValue >= newDate {
@@ -51,7 +50,7 @@ struct CalendarUsecase: CalendarManagable {
                 endDate.accept(newDate)
             }
 
-        case false:
+        } else {
             startDate.accept(newDate)
             endDate.accept(newDate)
         }

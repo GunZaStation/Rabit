@@ -2,22 +2,22 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol ColorPickerViewModelInput {
+protocol ColorSelectViewModelInput {
     var selectedColor: BehaviorRelay<String> { get }
-    var closeColorPickerRequested: PublishRelay<Void> { get }
+    var closeColorSelectRequested: PublishRelay<Void> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
 }
 
-protocol ColorPickerViewModelOutput {
+protocol ColorSelectViewModelOutput {
     var presetColors: [String] { get }
     var saveButtonState: BehaviorRelay<Bool> { get }
 }
 
-protocol ColorPickerViewModelProtocol: ColorPickerViewModelInput, ColorPickerViewModelOutput { }
+protocol ColorSelectViewModelProtocol: ColorSelectViewModelInput, ColorSelectViewModelOutput { }
 
-final class ColorPickerViewModel: ColorPickerViewModelProtocol {
+final class ColorSelectViewModel: ColorSelectViewModelProtocol {
     let selectedColor: BehaviorRelay<String>
-    let closeColorPickerRequested = PublishRelay<Void>()
+    let closeColorSelectRequested = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
     let saveButtonState = BehaviorRelay<Bool>(value: false)
     let presetColors = [
@@ -33,7 +33,7 @@ final class ColorPickerViewModel: ColorPickerViewModelProtocol {
 
     init(
         colorStream: BehaviorRelay<String>,
-        navigation: ColorPickerNavigation
+        navigation: ColorSelectNavigation
     ) {
         selectedColor = .init(value: colorStream.value)
         bind(to: colorStream)
@@ -41,7 +41,7 @@ final class ColorPickerViewModel: ColorPickerViewModelProtocol {
     }
 }
 
-private extension ColorPickerViewModel {
+private extension ColorSelectViewModel {
     func bind(to colorStream: BehaviorRelay<String>) {
         saveButtonTouched.withLatestFrom(selectedColor)
             .bind(to: colorStream)
@@ -55,9 +55,9 @@ private extension ColorPickerViewModel {
             .disposed(by: disposeBag)
     }
 
-    func bind(to navigation: ColorPickerNavigation) {
-        closeColorPickerRequested
-            .bind(to: navigation.closeColorPickerView)
+    func bind(to navigation: ColorSelectNavigation) {
+        closeColorSelectRequested
+            .bind(to: navigation.closeColorSelectView)
             .disposed(by: disposeBag)
 
         saveButtonTouched
