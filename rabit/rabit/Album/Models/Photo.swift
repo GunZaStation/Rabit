@@ -23,6 +23,16 @@ struct Photo: Equatable {
         self.date = date
         self.color = color
     }
+
+    init() {
+        self.init(
+            categoryTitle: "",
+            goalTitle: "",
+            imageData: Data(),
+            date: Date(),
+            color: ""
+        )
+    }
 }
 
 extension Photo: Persistable {

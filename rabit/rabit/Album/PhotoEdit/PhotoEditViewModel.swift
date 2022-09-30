@@ -3,7 +3,7 @@ import RxSwift
 import RxRelay
 
 protocol PhotoEditViewModelInput {
-    var colorPickerButtonTouched: PublishRelay<Void> { get }
+    var selectColorButtonTouched: PublishRelay<Void> { get }
     var stylePickerButtonTouched: PublishRelay<Void> { get }
     var backButtonTouched: PublishRelay<Void> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
@@ -19,7 +19,7 @@ protocol PhotoEditViewModelOutput {
 protocol PhotoEditViewModelProtocol: PhotoEditViewModelInput, PhotoEditViewModelOutput { }
 
 final class PhotoEditViewModel: PhotoEditViewModelProtocol {
-    let colorPickerButtonTouched = PublishRelay<Void>()
+    let selectColorButtonTouched = PublishRelay<Void>()
     let stylePickerButtonTouched = PublishRelay<Void>()
     let backButtonTouched = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
@@ -34,26 +34,26 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
     private var disposeBag = DisposeBag()
 
     init(
-        selectedData: Album.Item,
+        photoStream: BehaviorRelay<Album.Item>,
         repository: AlbumRepositoryProtocol,
         navigation: PhotoEditNavigation
     ) {
-        selectedPhotoData = .init(value: selectedData)
-        hexPhotoColor = .init(value: selectedData.color)
+        selectedPhotoData = .init(value: photoStream.value)
+        hexPhotoColor = .init(value: photoStream.value.color)
         self.albumRepository = repository
 
+        bind(to: photoStream)
         bind(to: navigation)
-        bind(to: selectedData)
     }
 }
 
 private extension PhotoEditViewModel {
     func bind(to navigation: PhotoEditNavigation) {
-        colorPickerButtonTouched
+        selectColorButtonTouched
             .withUnretained(self) { viewModel, _ in
                 viewModel.hexPhotoColor
             }
-            .bind(to: navigation.showColorPickerView)
+            .bind(to: navigation.showColorSelectView)
             .disposed(by: disposeBag)
 
         stylePickerButtonTouched
@@ -64,18 +64,17 @@ private extension PhotoEditViewModel {
             .bind(to: navigation.closePhotoEditView)
             .disposed(by: disposeBag)
 
-        saveButtonTouched.withLatestFrom(selectedPhotoData)
-            .withUnretained(self)
-            .flatMapLatest { viewModel, data in
-                viewModel.albumRepository.updateAlbumData(data)
-            }
-            .bind(to: albumUpdateResult)
-            .disposed(by: disposeBag)
-
         albumUpdateResult
-            .bind(onNext: { isSuccess in
-                isSuccess ? navigation.saveUpdatedPhoto.accept(()) : nil
-            })
+            .bind { isSuccess in
+                isSuccess ? navigation.didChangePhoto.accept(()) : nil
+            }
+            .disposed(by: disposeBag)
+    }
+
+    func bind(to photoStream: BehaviorRelay<Album.Item>) {
+        selectedPhotoData
+            .map { $0 != photoStream.value }
+            .bind(to: saveButtonState)
             .disposed(by: disposeBag)
 
         hexPhotoColor
@@ -91,12 +90,17 @@ private extension PhotoEditViewModel {
             }
             .bind(to: selectedPhotoData)
             .disposed(by: disposeBag)
-    }
 
-    func bind(to selectedData: Album.Item) {
-        selectedPhotoData
-            .map { $0 != selectedData }
-            .bind(to: saveButtonState)
+        saveButtonTouched.withLatestFrom(selectedPhotoData)
+            .bind(to: photoStream)
+            .disposed(by: disposeBag)
+
+        saveButtonTouched.withLatestFrom(selectedPhotoData)
+            .withUnretained(self)
+            .flatMapLatest { viewModel, data in
+                viewModel.albumRepository.updateAlbumData(data)
+            }
+            .bind(to: albumUpdateResult)
             .disposed(by: disposeBag)
     }
 }

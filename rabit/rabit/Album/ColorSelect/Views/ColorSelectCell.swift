@@ -1,8 +1,8 @@
 import UIKit
 import SnapKit
 
-final class PresetColorCell: UICollectionViewCell {
-    private let presetColorView: UIView = {
+final class ColorSelectCell: UICollectionViewCell {
+    private let colorView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.lightGray.cgColor
@@ -56,7 +56,7 @@ final class PresetColorCell: UICollectionViewCell {
     }
 
     func configure(with hexColorString: String) {
-        presetColorView.backgroundColor = UIColor(hexRGB: hexColorString)
+        colorView.backgroundColor = UIColor(hexRGB: hexColorString)
     }
 
     override func prepareForReuse() {
@@ -67,13 +67,13 @@ final class PresetColorCell: UICollectionViewCell {
     }
 }
 
-private extension PresetColorCell {
+private extension ColorSelectCell {
     func setupViews() {
-        addSubview(presetColorView)
+        addSubview(colorView)
         addSubview(dimmedView)
         addSubview(checkMarkImageView)
 
-        presetColorView.snp.makeConstraints { make in
+        colorView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
