@@ -55,5 +55,9 @@ private extension GoalListViewModel {
         navigation.closeCategoryAddView
             .bind(to: requestGoalList)
             .disposed(by: disposeBag)
+        
+        navigation.closeGoalAddView
+            .bind(to: requestGoalList)
+            .disposed(by: disposeBag)
     }
 }
