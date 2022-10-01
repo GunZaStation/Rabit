@@ -6,7 +6,7 @@ protocol GoalNavigation {
     
     var showCategoryAddView: PublishRelay<Void> { get }
     var closeCategoryAddView: PublishRelay<Void> { get }
-    var showGoalAddView: PublishRelay<Void> { get }
+    var showGoalAddView: PublishRelay<Category> { get }
     var closeGoalAddView: PublishRelay<Void> { get }
     var showPeriodSelectView: PublishRelay<BehaviorRelay<Period>> { get }
     var closePeriodSelectView: PublishRelay<Void> { get }
@@ -22,7 +22,7 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     
     let showCategoryAddView = PublishRelay<Void>()
     let closeCategoryAddView = PublishRelay<Void>()
-    let showGoalAddView = PublishRelay<Void>()
+    let showGoalAddView = PublishRelay<Category>()
     let closeGoalAddView = PublishRelay<Void>()
     let showPeriodSelectView = PublishRelay<BehaviorRelay<Period>>()
     let closePeriodSelectView = PublishRelay<Void>()
@@ -111,9 +111,9 @@ private extension GoalCoordinator {
         navigationController.presentedViewController?.dismiss(animated: animated)
     }
     
-    func presentGoalAddViewController() {
+    func presentGoalAddViewController(category: Category) {
 
-        let viewModel = GoalAddViewModel(navigation: self)
+        let viewModel = GoalAddViewModel(navigation: self, category: category)
         let viewController = GoalAddViewController(viewModel: viewModel)
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
