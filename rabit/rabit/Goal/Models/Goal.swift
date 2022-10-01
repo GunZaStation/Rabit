@@ -5,7 +5,7 @@ struct Goal {
     let title: String
     let subtitle: String
     var progress: Int
-//    let period: Period
+    let period: Period
     let certTime: CertifiableTime
     let target: Int
     let category: String
@@ -19,6 +19,7 @@ extension Goal: Persistable {
         self.target = entity.target
         self.progress = entity.progress
         self.category = entity.category
+        self.period = Period(start: entity.startDate, end: entity.endDate)
         self.certTime = CertifiableTime(
                             start: entity.startCertTime,
                             end: entity.endCertTime,
@@ -33,6 +34,7 @@ extension Goal: Persistable {
             progress: progress,
             target: target,
             category: category,
+            period: period,
             certTime: certTime
         )
     }
