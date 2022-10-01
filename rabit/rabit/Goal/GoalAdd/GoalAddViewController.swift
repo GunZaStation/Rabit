@@ -84,11 +84,19 @@ final class GoalAddViewController: UIViewController {
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
-        
+                
         navigationItem.leftBarButtonItem?.rx.tap
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
+                
+        titleField.rx.text
+            .bind(to: viewModel.goalTitleInput)
+            .disposed(by: disposeBag)
         
+        descriptionField.rx.text
+            .bind(to: viewModel.goalSubtitleInput)
+            .disposed(by: disposeBag)
+                
         periodField.rx.tapGesture()
             .when(.recognized)
             .bind { _ in viewModel.periodFieldTouched.accept(()) }
@@ -105,7 +113,7 @@ final class GoalAddViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.selectedTime
-            .map { $0.description }
+            .map(\.description)
             .bind(to: timeField.rx.text)
             .disposed(by: disposeBag)
     }

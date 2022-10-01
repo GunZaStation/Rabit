@@ -8,6 +8,8 @@ protocol GoalAddViewModelInput {
     var closeButtonTouched: PublishRelay<Void> { get }
     var periodFieldTouched: PublishRelay<Void> { get }
     var timeFieldTouched: PublishRelay<Void> { get }
+    var goalTitleInput: PublishRelay<String> { get }
+    var goalSubtitleInput: PublishRelay<String> { get }
 }
 
 protocol GoalAddViewModelOutput {
@@ -22,6 +24,8 @@ final class GoalAddViewModel: GoalAddViewModelInput, GoalAddViewModelOutput {
     let closeButtonTouched = PublishRelay<Void>()
     let periodFieldTouched = PublishRelay<Void>()
     let timeFieldTouched = PublishRelay<Void>()
+    let goalTitleInput = PublishRelay<String>()
+    let goalSubtitleInput = PublishRelay<String>()
     let selectedPeriod = BehaviorRelay<Period>(value: Period())
     let selectedTime = BehaviorRelay<CertifiableTime>(value: CertifiableTime())
     
