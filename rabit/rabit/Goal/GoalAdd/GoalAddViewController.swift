@@ -31,7 +31,7 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "목표 기간"
         insertField.placeholder = "시작일과 종료일을 선택하세요"
-        insertField.isEnabled = false
+        insertField.isTextFieldEnabled = false
         return insertField
     }()
     
@@ -39,13 +39,12 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "인증 시간"
         insertField.placeholder = "문자열 입력"
-        insertField.isEnabled = false
+        insertField.isTextFieldEnabled = false
         return insertField
     }()
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGreen
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("저장하기", for: .normal)
