@@ -86,9 +86,9 @@ private extension GoalListViewController {
                     return UICollectionReusableView()
                 }
                 
-                let goal = dataSource.sectionModels[indexPath.section]
-                header.configure(with: goal.title)
-                header.bind(viewModel: viewModel)
+                let category = dataSource.sectionModels[indexPath.section]
+                header.configure(with: category.title)
+                header.bind(viewModel: viewModel, category: category)
                 
                 return header
             }
