@@ -36,11 +36,6 @@ final class BottomSheet: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let hitView = super.hitTest(point, with: event)
-        return hitView == self ? nil : hitView
-    }
-    
     private func addPanGestureRecognizer() {
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan))
         topBarArea.addGestureRecognizer(recognizer)
@@ -89,7 +84,8 @@ final class BottomSheet: UIControl {
         addSubview(contentView)
         contentView.snp.makeConstraints {
             $0.top.equalTo(topBarArea.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(1)
         }
     }
 }
