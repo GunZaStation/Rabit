@@ -14,14 +14,16 @@ final class BottomSheet: UIControl {
     let contentView = UIView()
     private var minTopOffset: CGFloat = .zero
     private var maxTopOffset: CGFloat = .zero
+    private var defaultHeight: CGFloat = .zero
     private var closeFlag = false {
         didSet { if closeFlag { sendActions(for: .valueChanged) } }
     }
     
-    convenience init(_ maxTopOffset: CGFloat, _ minTopOffset: CGFloat) {
+    convenience init(_ superViewHeight: CGFloat, _ bottomSheetHeight: CGFloat) {
         self.init()
-        self.maxTopOffset = maxTopOffset
-        self.minTopOffset = minTopOffset
+        self.maxTopOffset = superViewHeight
+        self.minTopOffset = superViewHeight - bottomSheetHeight
+        self.defaultHeight = bottomSheetHeight
         setupViews()
         addPanGestureRecognizer()
     }
@@ -42,6 +44,7 @@ final class BottomSheet: UIControl {
     }
     
     @objc private func didPan(_ recognizer: UIPanGestureRecognizer) {
+        
         //이동된 y 거리 계산
         let updatedY = frame.minY + recognizer.translation(in: self).y
         
@@ -85,7 +88,7 @@ final class BottomSheet: UIControl {
         contentView.snp.makeConstraints {
             $0.top.equalTo(topBarArea.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(1)
+            $0.bottom.equalToSuperview()
         }
     }
 }
@@ -94,8 +97,9 @@ extension BottomSheet {
     
     private func updateConstraints(_ topOffset: CGFloat) {
         self.snp.remakeConstraints {
-            $0.left.right.bottom.equalToSuperview()
-            $0.top.equalToSuperview().inset(topOffset)
+            $0.top.equalToSuperview().offset(topOffset)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(defaultHeight)
         }
     }
     
