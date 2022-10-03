@@ -89,9 +89,7 @@ final class BottomSheet: UIControl {
         addSubview(contentView)
         contentView.snp.makeConstraints {
             $0.top.equalTo(topBarArea.snp.bottom)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.9)
-            $0.height.equalToSuperview().multipliedBy(0.83)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
