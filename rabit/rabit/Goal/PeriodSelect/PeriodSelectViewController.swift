@@ -12,14 +12,29 @@ final class PeriodSelectViewController: UIViewController {
         return view
     }()
     
-    private let periodSheet: BottomSheet = {
-        let sheet = BottomSheet()
+    private lazy var periodSheet: BottomSheet = {
+        let sheet = BottomSheet(view.bounds.height, view.bounds.height * 0.4)
         sheet.backgroundColor = .white
         sheet.roundCorners(20)
         return sheet
     }()
     
-    private let calendarView = CalendarView()
+    private let calendarCollectionView: UICollectionView = {
+        let screenSize = UIScreen.main.bounds
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: screenSize.width/10, height: screenSize.width/10)
+        layout.headerReferenceSize = CGSize(width: screenSize.width, height: 35)
+        
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout
+        )
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = true
+        
+        return collectionView
+    }()
     
     private let saveButton: UIButton = {
         let button = UIButton()
@@ -49,6 +64,7 @@ final class PeriodSelectViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        setupCalendarCollectionViewAttributes()
         bind()
     }
     
@@ -62,23 +78,19 @@ final class PeriodSelectViewController: UIViewController {
         guard let viewModel = viewModel else { return }
         
         dimmedView.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
             .withUnretained(self)
             .bind { viewController, _ in
                 viewController.hidePeriodSheet()
             }
             .disposed(by: disposeBag)
         
-        periodSheet.rx.swipeGesture(.down)
-            .when(.recognized)
-            .withUnretained(self)
-            .bind { viewController, _ in
-                viewController.hidePeriodSheet()
-            }
+        periodSheet.rx.isClosed
+            .bind(onNext: hidePeriodSheet)
             .disposed(by: disposeBag)
         
         viewModel.calendarData
-            .bind(to: calendarView.calendarCollectionView.rx.items(dataSource: dataSource))
+            .bind(to: calendarCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
@@ -93,7 +105,28 @@ final class PeriodSelectViewController: UIViewController {
             .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
 
-        calendarView.bind(to: viewModel)
+        calendarCollectionView.rx.itemSelected
+            .withLatestFrom(
+                calendarCollectionView.rx.modelSelected(CalendarDates.Item.self),
+                resultSelector: { ($0, $1) }
+            )
+            .withUnretained(self.calendarCollectionView) { ($0, $1.0, $1.1) }
+            .bind { collectionView, indexPath, selectedItemData in
+                if let selectedItemsIndexPaths = collectionView.indexPathsForSelectedItems,
+                   selectedItemsIndexPaths.count > 2 {
+                    selectedItemsIndexPaths
+                        .filter { $0 != indexPath }
+                        .map { ($0, false) }
+                        .forEach(collectionView.deselectItem(at:animated:))
+                }
+
+                viewModel.selectedDate.accept(selectedItemData)
+            }
+            .disposed(by: disposeBag)
+
+        calendarCollectionView.rx.modelDeselected(CalendarDates.Item.self)
+            .bind(to: viewModel.deselectedDate)
+            .disposed(by: disposeBag)
     }
     
     private func setupViews() {
@@ -109,21 +142,34 @@ final class PeriodSelectViewController: UIViewController {
             $0.top.equalTo(view.snp.bottom)
         }
         
-        periodSheet.contentView.addSubview(calendarView)
-        calendarView.snp.makeConstraints { make in
+        periodSheet.contentView.addSubview(calendarCollectionView)
+        calendarCollectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.9)
         }
         
         periodSheet.contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(10)
+            $0.top.equalTo(calendarCollectionView.snp.bottom).offset(15)
             $0.centerX.equalToSuperview()
         }
     }
 }
 
 private extension PeriodSelectViewController {
+
+    func setupCalendarCollectionViewAttributes() {
+        calendarCollectionView.register(
+            CalendarCell.self,
+            forCellWithReuseIdentifier: CalendarCell.identifier
+        )
+
+        calendarCollectionView.register(
+            CalendarHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: CalendarHeaderView.identifier
+        )
+    }
     
     func showPeriodSheet() {
         
@@ -131,7 +177,7 @@ private extension PeriodSelectViewController {
         isModalInPresentation = true
 
         periodSheet.move(
-            upTo: view.bounds.height*0.48,
+            upTo: view.bounds.height*0.4,
             duration: 0.2,
             animation: self.view.layoutIfNeeded
         )
@@ -154,7 +200,8 @@ private extension PeriodSelectViewController {
 
     func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<CalendarDates> {
         return RxCollectionViewSectionedReloadDataSource<CalendarDates>(
-            configureCell: self.configureCell
+            configureCell: self.configureCell,
+            configureSupplementaryView: self.configureHeader
         )
     }
 
@@ -183,5 +230,30 @@ private extension PeriodSelectViewController {
 
         cell.configure(with: item)
         return cell
+    }
+
+    func configureHeader(
+        _ dataSource: CollectionViewSectionedDataSource<CalendarDates>,
+        _ collectionView: UICollectionView,
+        _ kind: String,
+        _ indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader,
+              let header = collectionView.dequeueReusableSupplementaryView(
+                  ofKind: kind,
+                  withReuseIdentifier: CalendarHeaderView.identifier,
+                  for: indexPath
+              ) as? CalendarHeaderView else {
+            return UICollectionReusableView()
+        }
+
+        let baseDate = Calendar.current.date(
+            byAdding: .month,
+            value: indexPath.section,
+            to: Date()) ?? Date()
+
+        header.configure(with: baseDate)
+
+        return header
     }
 }

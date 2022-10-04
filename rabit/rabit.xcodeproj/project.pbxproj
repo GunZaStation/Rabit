@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0222FDDC28D342CC0098F372 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0222FDDB28D342CC0098F372 /* CalendarView.swift */; };
 		0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */; };
 		0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */; };
 		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
@@ -17,6 +16,7 @@
 		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
 		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */; };
+		0244F3D128E87B33007D3E8F /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */; };
 		024FBEFA28CCEFE700521926 /* Date + isSameDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024FBEF928CCEFE700521926 /* Date + isSameDate.swift */; };
 		02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520986289A5A2400E7E604 /* AlbumViewController.swift */; };
 		02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520988289A5C1D00E7E604 /* AlbumCell.swift */; };
@@ -108,7 +108,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0222FDDB28D342CC0098F372 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + identifier.swift"; sourceTree = "<group>"; };
 		0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutFactory.swift; sourceTree = "<group>"; };
 		0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + roundCorners.swift"; sourceTree = "<group>"; };
@@ -117,6 +116,7 @@
 		0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Initializer.swift"; sourceTree = "<group>"; };
 		0232BD9828AF6B25009057F8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + setBackgroundColor.swift"; sourceTree = "<group>"; };
+		0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
 		024FBEF928CCEFE700521926 /* Date + isSameDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + isSameDate.swift"; sourceTree = "<group>"; };
 		02520986289A5A2400E7E604 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		02520988289A5C1D00E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				02D30E6A28C8689000B5C4B2 /* CalendarCell.swift */,
-				0222FDDB28D342CC0098F372 /* CalendarView.swift */,
+				0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -684,7 +684,6 @@
 			files = (
 				02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */,
 				02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */,
-				0222FDDC28D342CC0098F372 /* CalendarView.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
 				B582574628BF3323001AE268 /* CertifiableTime.swift in Sources */,
 				B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */,
@@ -693,6 +692,7 @@
 				0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */,
 				0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */,
 				B5D131E4289C2CD300EE1833 /* GoalListViewModel.swift in Sources */,
+				0244F3D128E87B33007D3E8F /* CalendarHeaderView.swift in Sources */,
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
 				02D30E7928C87EDE00B5C4B2 /* DateConverter.swift in Sources */,
@@ -744,7 +744,7 @@
 				02972D5D28B61E76008C097D /* Persistable.swift in Sources */,
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
-				0232BD9528AE11DD009057F8 /* ColorPickerViewModel.swift in Sources */,
+				0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */,
 				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
 				0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
