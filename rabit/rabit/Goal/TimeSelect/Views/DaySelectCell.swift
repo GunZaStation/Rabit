@@ -22,12 +22,7 @@ final class DaySelectCell: UICollectionViewCell {
             checkMarkImageView.isHidden = !isSelected
         }
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        nameLabel.roundCorners(self.bounds.height/2)
-    }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
