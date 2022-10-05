@@ -7,8 +7,19 @@ struct Goal {
     var progress: Int
     let period: Period
     let certTime: CertifiableTime
-    let target: Int
     let category: String
+    
+    var target: Int {
+        var count = 0
+        let days = certTime.days.selectedValues
+        for date in stride(from: period.start, to: period.end, by: 60*60*24) {
+            guard let day = Day(rawValue: Calendar.current.component(.weekday, from: date) - 1) else {
+                continue
+            }
+            if days.contains(day) { count += 1 }
+        }
+        return count
+    }
 }
 
 extension Goal: Persistable {
@@ -16,7 +27,6 @@ extension Goal: Persistable {
     init(entity: GoalEntity) {
         self.title = entity.title
         self.subtitle = entity.subtitle
-        self.target = entity.target
         self.progress = entity.progress
         self.category = entity.category
         self.period = Period(start: entity.startDate, end: entity.endDate)

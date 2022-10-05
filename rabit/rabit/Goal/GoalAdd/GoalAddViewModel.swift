@@ -80,7 +80,6 @@ private extension GoalAddViewModel {
                             progress: .zero,
                             period: $1.2,
                             certTime: $1.3,
-                            target: .zero,
                             category: $0.category.title
                         )
                     }
