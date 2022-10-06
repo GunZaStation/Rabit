@@ -17,7 +17,6 @@ protocol PhotoEditNavigation {
 
 protocol ColorSelectNavigation {
     var closeColorSelectView: PublishRelay<Void> { get }
-    var saveSelectedColor: PublishRelay<Void> { get }
 }
 
 protocol StyleSelectNavigation {
@@ -36,7 +35,6 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
     let closePhotoEditView = PublishRelay<Void>()
     let didChangePhoto = PublishRelay<Void>()
     let closeColorSelectView = PublishRelay<Void>()
-    let saveSelectedColor = PublishRelay<Void>()
     let closeStyleSelectView = PublishRelay<Void>()
 
     private var disposeBag = DisposeBag()
@@ -82,7 +80,7 @@ private extension AlbumCoordinator {
         )
 
         let viewController = ColorSelectViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .overFullScreen
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
 

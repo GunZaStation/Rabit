@@ -59,9 +59,5 @@ private extension ColorSelectViewModel {
         closeColorSelectRequested
             .bind(to: navigation.closeColorSelectView)
             .disposed(by: disposeBag)
-
-        saveButtonTouched
-            .bind(to: navigation.saveSelectedColor)
-            .disposed(by: disposeBag)
     }
 }
