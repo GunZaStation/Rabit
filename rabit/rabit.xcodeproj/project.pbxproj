@@ -22,6 +22,7 @@
 		02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520988289A5C1D00E7E604 /* AlbumCell.swift */; };
 		0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098E289A661E00E7E604 /* AlbumHeaderView.swift */; };
 		025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025CA12528A631C0007AAADE /* AlbumRepository.swift */; };
+		027EA68128EC82380097E802 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EA68028EC82380097E802 /* Style.swift */; };
 		02972D5D28B61E76008C097D /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5C28B61E76008C097D /* Persistable.swift */; };
 		02972D5F28B74343008C097D /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5E28B74342008C097D /* PhotoEntity.swift */; };
 		02A093C828B8A52B00BDF69B /* CategoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A093C728B8A52B00BDF69B /* CategoryEntity.swift */; };
@@ -122,6 +123,7 @@
 		02520988289A5C1D00E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
 		025CA12528A631C0007AAADE /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
+		027EA68028EC82380097E802 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		02972D5C28B61E76008C097D /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		02972D5E28B74342008C097D /* PhotoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
 		02A093C728B8A52B00BDF69B /* CategoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEntity.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				02F37250289CE21400F361C7 /* Album.swift */,
 				0232BD9828AF6B25009057F8 /* Photo.swift */,
 				02972D5E28B74342008C097D /* PhotoEntity.swift */,
+				027EA68028EC82380097E802 /* Style.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -701,6 +704,7 @@
 				02D30E7128C878EC00B5C4B2 /* CalendarDates.swift in Sources */,
 				B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */,
 				B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */,
+				027EA68128EC82380097E802 /* Style.swift in Sources */,
 				B563D9C028BA5A8F00A755EB /* PeriodSelectViewController.swift in Sources */,
 				0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */,
 				B582574828BF3330001AE268 /* TimeComponent.swift in Sources */,
