@@ -4,7 +4,7 @@ import RxRelay
 
 protocol PhotoEditViewModelInput {
     var selectColorButtonTouched: PublishRelay<Void> { get }
-    var stylePickerButtonTouched: PublishRelay<Void> { get }
+    var selectStyleButtonTouched: PublishRelay<Void> { get }
     var backButtonTouched: PublishRelay<Void> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
     var hexPhotoColor: BehaviorRelay<String> { get }
@@ -20,7 +20,7 @@ protocol PhotoEditViewModelProtocol: PhotoEditViewModelInput, PhotoEditViewModel
 
 final class PhotoEditViewModel: PhotoEditViewModelProtocol {
     let selectColorButtonTouched = PublishRelay<Void>()
-    let stylePickerButtonTouched = PublishRelay<Void>()
+    let selectStyleButtonTouched = PublishRelay<Void>()
     let backButtonTouched = PublishRelay<Void>()
     let saveButtonTouched = PublishRelay<Void>()
     let hexPhotoColor: BehaviorRelay<String>
@@ -56,8 +56,11 @@ private extension PhotoEditViewModel {
             .bind(to: navigation.showColorSelectView)
             .disposed(by: disposeBag)
 
-        stylePickerButtonTouched
-            .bind(to: navigation.showStylePickerView)
+        selectStyleButtonTouched
+            .withUnretained(self) { viewModel, _ in
+                viewModel.selectedPhotoData
+            }
+            .bind(to: navigation.showStyleSelectView)
             .disposed(by: disposeBag)
 
         backButtonTouched

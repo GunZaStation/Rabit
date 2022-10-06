@@ -10,7 +10,7 @@ protocol AlbumNavigation {
 
 protocol PhotoEditNavigation {
     var showColorSelectView: PublishRelay<BehaviorRelay<String>> { get }
-    var showStylePickerView: PublishRelay<Void> { get }
+    var showStyleSelectView: PublishRelay<BehaviorRelay<Album.Item>> { get }
     var closePhotoEditView: PublishRelay<Void> { get }
     var didChangePhoto: PublishRelay<Void> { get }
 }
@@ -20,7 +20,11 @@ protocol ColorSelectNavigation {
     var saveSelectedColor: PublishRelay<Void> { get }
 }
 
-final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation, ColorSelectNavigation {
+protocol StyleSelectNavigation {
+    var closeStyleSelectView: PublishRelay<Void> { get }
+}
+
+final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation, ColorSelectNavigation, StyleSelectNavigation {
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
@@ -28,11 +32,12 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
 
     let showPhotoEditView = PublishRelay<BehaviorRelay<Album.Item>>()
     let showColorSelectView = PublishRelay<BehaviorRelay<String>>()
-    let showStylePickerView = PublishRelay<Void>()
+    let showStyleSelectView = PublishRelay<BehaviorRelay<Album.Item>>()
     let closePhotoEditView = PublishRelay<Void>()
     let didChangePhoto = PublishRelay<Void>()
     let closeColorSelectView = PublishRelay<Void>()
     let saveSelectedColor = PublishRelay<Void>()
+    let closeStyleSelectView = PublishRelay<Void>()
 
     private var disposeBag = DisposeBag()
     init() {
@@ -85,11 +90,19 @@ private extension AlbumCoordinator {
         navigationController.presentedViewController?.dismiss(animated: false)
     }
 
-    func pushStylePickerView() {
-        guard let navigationController = self.navigationController.presentedViewController as? UINavigationController else { return }
+    func presentStyleSelectView(photoStream: BehaviorRelay<Album.Item>) {
+        let viewModel = StyleSelectViewModel(
+            photoStream: photoStream,
+            navigation: self
+        )
 
-        // TODO: StylePickerView 완성 후 추가
-//        navigationController.pushViewController(stylePickerViewController(), animated: true)
+        let viewController = StyleSelectViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .overFullScreen
+        navigationController.presentedViewController?.present(viewController, animated: true)
+    }
+
+    func dismissStyleSelectView() {
+        navigationController.presentedViewController?.dismiss(animated: false)
     }
 }
 
@@ -112,16 +125,16 @@ private extension AlbumCoordinator {
             .bind(onNext: presentColorSelectView(colorStream:))
             .disposed(by: disposeBag)
 
-        showStylePickerView
-            .bind(onNext: pushStylePickerView)
+        showStyleSelectView
+            .bind(onNext: presentStyleSelectView(photoStream:))
             .disposed(by: disposeBag)
 
         closeColorSelectView
             .bind(onNext: dismissColorSelectView)
             .disposed(by: disposeBag)
 
-        saveSelectedColor
-            .bind(onNext: dismissColorSelectView)
+        closeStyleSelectView
+            .bind(onNext: dismissStyleSelectView)
             .disposed(by: disposeBag)
     }
 }
