@@ -25,7 +25,7 @@ final class AlbumCell: UICollectionViewCell {
 
     func configure(with photo: Album.Item) {
         DispatchQueue.global().sync {
-            let image = UIImage(data: photo.imageData)
+            let image = UIImage(data: photo.imageData)?.overlayText(of: photo)
 
             DispatchQueue.main.async {
                 self.thumbnailPictureView.image = image

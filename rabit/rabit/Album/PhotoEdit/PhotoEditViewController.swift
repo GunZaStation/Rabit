@@ -102,14 +102,20 @@ private extension PhotoEdtiViewController {
     func bind() {
         guard let viewModel = viewModel else { return }
 
-        viewModel.selectedPhotoData
-            .map(\.imageData)
-            .compactMap(UIImage.init(data:))
-            .withUnretained(self)
-            .bind { viewController, image in
-                viewController.photoImageView.image = image
-                viewController.resizePhotoImageView(with: image)
-            }
+        let updatedSelectedPhotoData = viewModel.selectedPhotoData
+                                            .map(\.imageData)
+                                            .compactMap(UIImage.init(data:))
+                                            .withLatestFrom(viewModel.selectedPhotoData) {
+                                                $0.overlayText(of: $1)
+                                            }
+                                            .compactMap { $0 }
+
+        updatedSelectedPhotoData
+            .bind(to: photoImageView.rx.image)
+            .disposed(by: disposeBag)
+
+        updatedSelectedPhotoData
+            .bind(onNext: resizePhotoImageView(with:))
             .disposed(by: disposeBag)
 
         selectColorButton.rx.tap

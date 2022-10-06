@@ -82,14 +82,9 @@ private extension PhotoEditViewModel {
 
         hexPhotoColor
             .withLatestFrom(selectedPhotoData) {
-                Album.Item(
-                    uuid: $1.uuid,
-                    categoryTitle: $1.categoryTitle,
-                    goalTitle: $1.goalTitle,
-                    imageData: $1.imageData,
-                    date: $1.date,
-                    color: $0
-                )
+                var photo = $1
+                photo.color = $0
+                return photo
             }
             .bind(to: selectedPhotoData)
             .disposed(by: disposeBag)
