@@ -128,6 +128,11 @@ private extension StyleSelectViewController {
             .bind(to: viewModel.appliedPhotoWithSelectedStyle)
             .disposed(by: disposeBag)
 
+        styleSelectCollectionView.rx.itemSelected
+            .map { ($0, UICollectionView.ScrollPosition.centeredHorizontally, true) }
+            .bind(onNext: styleSelectCollectionView.scrollToItem(at:at:animated:))
+            .disposed(by: disposeBag)
+
         dimmedView.rx.tapGesture()
             .when(.ended)
             .withUnretained(self)
