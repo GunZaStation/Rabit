@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		021549B828EFD8EB0088A1DA /* ColorSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */; };
 		0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */; };
 		0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */; };
 		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
 		0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */; };
 		0232BD9228AE1134009057F8 /* ColorSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9128AE1134009057F8 /* ColorSelectViewController.swift */; };
-		0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */; };
 		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
 		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */; };
@@ -710,6 +710,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				021549B828EFD8EB0088A1DA /* ColorSelectViewModel.swift in Sources */,
 				02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */,
 				02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */,
 				027EA68328EC8D720097E802 /* StyleSelectCell.swift in Sources */,
@@ -776,9 +777,7 @@
 				02972D5D28B61E76008C097D /* Persistable.swift in Sources */,
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
-				0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */,
 				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
-				0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Category.swift in Sources */,
 				B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */,
