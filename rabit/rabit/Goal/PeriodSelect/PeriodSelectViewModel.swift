@@ -67,8 +67,12 @@ private extension PeriodSelectViewModel {
             }
             .disposed(by: disposeBag)
 
-        let startDate = usecase.startDate.compactMap { $0 }
-        let endDate = usecase.endDate.compactMap { $0 }
+        let startDate = usecase.startDate
+            .compactMap { $0 }
+            .share()
+        let endDate = usecase.endDate
+            .compactMap { $0 }
+            .share()
 
         Observable.combineLatest(
             startDate,

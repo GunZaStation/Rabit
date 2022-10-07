@@ -109,6 +109,7 @@ private extension PhotoEdtiViewController {
                                                 $0.overlayText(of: $1)
                                             }
                                             .compactMap { $0 }
+                                            .share()
 
         updatedSelectedPhotoData
             .bind(to: photoImageView.rx.image)

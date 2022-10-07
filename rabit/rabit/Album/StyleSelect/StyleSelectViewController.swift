@@ -97,7 +97,7 @@ private extension StyleSelectViewController {
 
         styleSheet.contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints { make in
-            make.top.equalTo(styleSelectCollectionView.snp.bottom)/*.offset(20)*/
+            make.top.equalTo(styleSelectCollectionView.snp.bottom)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
             make.height.equalTo(50)
