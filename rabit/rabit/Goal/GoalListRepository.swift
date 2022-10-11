@@ -15,24 +15,28 @@ final class GoalListRepository {
     }
 }
 
-extension GoalListRepository {
+private extension GoalListRepository {
     
-    private func getLatestGoals() -> [Category] {
-        var goalMap: [String:Category] = [:]
+    func getLatestGoals() -> [Category] {
+        var cateogryMap: [String:Category] = [:]
 
         let goalEntities = realmManager.read(entity: GoalEntity.self)
         let categoryEntities = realmManager.read(entity: CategoryEntity.self)
         
         categoryEntities.forEach {
-            goalMap[$0.title] = Category(title: $0.title)
+            cateogryMap[$0.title] = Category(title: $0.title)
         }
         
         goalEntities.forEach {
-            let goal = Goal(entity: $0)
-            goalMap[$0.category]?.items.append(goal)
+            var goal = Goal(entity: $0)
+            let goalTitle = goal.title
+            let photoCount = realmManager.read(entity: PhotoEntity.self, filter: "goalTitle == '\(goalTitle)'").count
+            goal.progress = photoCount
+            cateogryMap[$0.category]?.items.append(goal)
         }
 
-        return goalMap.values.map { $0 }
+        return cateogryMap.values.map { $0 }
     }
+    
 }
 

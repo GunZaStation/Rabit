@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class InsertField: UIView {
+final class InsertField: UIControl {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -10,11 +10,12 @@ final class InsertField: UIView {
         return label
     }()
     
-    private let textField: UITextField = {
+    private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.layer.borderColor = UIColor.systemGray4.cgColor
         textField.layer.borderWidth = 1.0
         textField.backgroundColor = .white
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         textField.roundCorners(10)
         textField.shadowApplied(opacity: 0.2)
         return textField
@@ -29,6 +30,7 @@ final class InsertField: UIView {
     var text: String? {
         didSet {
             textField.text = text ?? ""
+            sendActions(for: .valueChanged)
         }
     }
     
@@ -38,9 +40,9 @@ final class InsertField: UIView {
         }
     }
     
-    var isEnabled: Bool = true {
+    var isTextFieldEnabled: Bool = true {
         didSet {
-            textField.isEnabled = isEnabled
+            textField.isEnabled = isTextFieldEnabled
         }
     }
     
@@ -64,5 +66,9 @@ final class InsertField: UIView {
             $0.bottom.leading.trailing.equalToSuperview()
             $0.height.equalToSuperview().multipliedBy(0.5)
         }
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        text = textField.text
     }
 }

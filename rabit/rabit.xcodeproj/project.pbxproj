@@ -73,6 +73,7 @@
 		B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */; };
 		B5B9413F28AF6F280098022F /* InsertField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9413E28AF6F280098022F /* InsertField.swift */; };
 		B5B9414128AF7D5C0098022F /* GoalAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B9414028AF7D5C0098022F /* GoalAddViewModel.swift */; };
+		B5CC800A28ED79B2009665F8 /* Date + Strideable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CC800928ED79B2009665F8 /* Date + Strideable.swift */; };
 		B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CD289A04F200EE1833 /* Coordinator.swift */; };
 		B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131CF289A065200EE1833 /* AppCoordinator.swift */; };
 		B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D131D1289A087000EE1833 /* MainCoordinator.swift */; };
@@ -87,6 +88,8 @@
 		B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D34DB228C9B8DF00F04070 /* DaySelectCell.swift */; };
 		B5D34DB528CA07E200F04070 /* Days.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D34DB428CA07E200F04070 /* Days.swift */; };
 		B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */; };
+		B5E3052328E73E450044B592 /* GoalAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E3052228E73E450044B592 /* GoalAddRepository.swift */; };
+		B5E3052528E7F4A40044B592 /* InsertField + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E3052428E7F4A40044B592 /* InsertField + Reactive.swift */; };
 		B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +175,7 @@
 		B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewController.swift; sourceTree = "<group>"; };
 		B5B9413E28AF6F280098022F /* InsertField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertField.swift; sourceTree = "<group>"; };
 		B5B9414028AF7D5C0098022F /* GoalAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewModel.swift; sourceTree = "<group>"; };
+		B5CC800928ED79B2009665F8 /* Date + Strideable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Strideable.swift"; sourceTree = "<group>"; };
 		B5D131CD289A04F200EE1833 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B5D131CF289A065200EE1833 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B5D131D1289A087000EE1833 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 		B5D34DB228C9B8DF00F04070 /* DaySelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectCell.swift; sourceTree = "<group>"; };
 		B5D34DB428CA07E200F04070 /* Days.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Days.swift; sourceTree = "<group>"; };
 		B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewHeader.swift; sourceTree = "<group>"; };
+		B5E3052228E73E450044B592 /* GoalAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddRepository.swift; sourceTree = "<group>"; };
+		B5E3052428E7F4A40044B592 /* InsertField + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InsertField + Reactive.swift"; sourceTree = "<group>"; };
 		B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomSheet + Reactive.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -347,6 +353,8 @@
 				02D30E6C28C86AB100B5C4B2 /* String + strikeThrough.swift */,
 				02D30E7828C87EDE00B5C4B2 /* DateConverter.swift */,
 				B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */,
+				B5E3052428E7F4A40044B592 /* InsertField + Reactive.swift */,
+				B5CC800928ED79B2009665F8 /* Date + Strideable.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -449,6 +457,7 @@
 				B5B9413D28AF6F1D0098022F /* Views */,
 				B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */,
 				B5B9414028AF7D5C0098022F /* GoalAddViewModel.swift */,
+				B5E3052228E73E450044B592 /* GoalAddRepository.swift */,
 			);
 			path = GoalAdd;
 			sourceTree = "<group>";
@@ -696,6 +705,7 @@
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
 				02D30E7928C87EDE00B5C4B2 /* DateConverter.swift in Sources */,
+				B5E3052328E73E450044B592 /* GoalAddRepository.swift in Sources */,
 				B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */,
 				B56AF75228C6528B001C82C0 /* RangeSlider + Reactive.swift in Sources */,
 				02D30E7128C878EC00B5C4B2 /* CalendarDates.swift in Sources */,
@@ -709,6 +719,7 @@
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
 				B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */,
+				B5CC800A28ED79B2009665F8 /* Date + Strideable.swift in Sources */,
 				B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */,
 				02D30E7728C87EBF00B5C4B2 /* CalendarDate.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
@@ -731,6 +742,7 @@
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
 				02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */,
 				0232BD9228AE1134009057F8 /* ColorSelectViewController.swift in Sources */,
+				B5E3052528E7F4A40044B592 /* InsertField + Reactive.swift in Sources */,
 				0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */,
 				B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */,
 				02C9713728B356200087B8D2 /* ColorSelectCell.swift in Sources */,

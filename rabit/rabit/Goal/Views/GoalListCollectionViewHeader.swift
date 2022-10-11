@@ -37,11 +37,12 @@ final class GoalListCollectionViewHeader: UICollectionReusableView {
         titleLabel.text = title
     }
     
-    func bind(viewModel: GoalListViewModel?) {
+    func bind(viewModel: GoalListViewModel?, category: Category) {
         guard let viewModel = viewModel else { return }
         disposeBag = DisposeBag()
         
         addButton.rx.tap
+            .map { category }
             .bind(to: viewModel.goalAddButtonTouched)
             .disposed(by: disposeBag)
     }

@@ -1,3 +1,4 @@
+import Foundation
 import RealmSwift
 
 final class GoalEntity: Object {
@@ -7,6 +8,8 @@ final class GoalEntity: Object {
     @Persisted var progress: Int = 0
     @Persisted var target: Int = 0
     @Persisted var category: String = ""
+    @Persisted var startDate: Date = Date()
+    @Persisted var endDate: Date = Date()
     @Persisted var startCertTime: Int = 0
     @Persisted var endCertTime: Int = 0
     @Persisted var certDays: List<Int> = List()
@@ -17,6 +20,7 @@ final class GoalEntity: Object {
         progress: Int,
         target: Int,
         category: String,
+        period: Period,
         certTime: CertifiableTime) {
         self.init()
         
@@ -25,6 +29,8 @@ final class GoalEntity: Object {
         self.progress = progress
         self.target = target
         self.category = category
+        self.startDate = period.start
+        self.endDate = period.end
         self.startCertTime = certTime.start.toSeconds()
         self.endCertTime = certTime.end.toSeconds()
         self.certDays.append(objectsIn: certTime.days.toIntArray())

@@ -31,7 +31,7 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "목표 기간"
         insertField.placeholder = "시작일과 종료일을 선택하세요"
-        insertField.isEnabled = false
+        insertField.isTextFieldEnabled = false
         return insertField
     }()
     
@@ -39,13 +39,12 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "인증 시간"
         insertField.placeholder = "문자열 입력"
-        insertField.isEnabled = false
+        insertField.isTextFieldEnabled = false
         return insertField
     }()
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGreen
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("저장하기", for: .normal)
@@ -85,11 +84,19 @@ final class GoalAddViewController: UIViewController {
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
-        
+                
         navigationItem.leftBarButtonItem?.rx.tap
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
+                
+        titleField.rx.text
+            .bind(to: viewModel.goalTitleInput)
+            .disposed(by: disposeBag)
         
+        descriptionField.rx.text
+            .bind(to: viewModel.goalSubtitleInput)
+            .disposed(by: disposeBag)
+                
         periodField.rx.tapGesture()
             .when(.recognized)
             .bind { _ in viewModel.periodFieldTouched.accept(()) }
@@ -106,7 +113,7 @@ final class GoalAddViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.selectedTime
-            .map { $0.description }
+            .map(\.description)
             .bind(to: timeField.rx.text)
             .disposed(by: disposeBag)
     }
