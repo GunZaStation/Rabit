@@ -1,17 +1,19 @@
 import Foundation
 
-struct Goal {
+@propertyWrapper
+struct DayCountable {
     
-    let title: String
-    let subtitle: String
-    var progress: Int
-    let period: Period
-    let certTime: CertifiableTime
-    let category: String
+    private var dayCount: Int = .zero
+    var wrappedValue: Int {
+        return dayCount
+    }
     
-    var target: Int {
+    init(period: Period, days: Set<Day>) {
+        self.dayCount = countAllDays(period: period, days: days)
+    }
+    
+    private func countAllDays(period: Period, days: Set<Day>) -> Int {
         var count = 0
-        let days = certTime.days.selectedValues
         for date in stride(from: period.start, to: period.end, by: 60*60*24) {
             guard let day = Day(rawValue: Calendar.current.component(.weekday, from: date) - 1) else {
                 continue
@@ -22,12 +24,38 @@ struct Goal {
     }
 }
 
+struct Goal {
+    
+    let title: String
+    let subtitle: String
+    var progress: Int
+    let period: Period
+    let certTime: CertifiableTime
+    let category: String
+    var target: Int
+    
+    init(title: String, subtitle: String, progress: Int = .zero, period: Period, certTime: CertifiableTime, category: String) {
+        self.title = title
+        self.subtitle = subtitle
+        self.progress = progress
+        self.period = period
+        self.certTime = certTime
+        self.category = category
+        
+        @DayCountable(period: period, days: certTime.days.selectedValues)
+        var target
+        
+        self.target = target
+    }
+}
+
 extension Goal: Persistable {
     
     init(entity: GoalEntity) {
         self.title = entity.title
         self.subtitle = entity.subtitle
         self.progress = entity.progress
+        self.target = entity.target
         self.category = entity.category
         self.period = Period(start: entity.startDate, end: entity.endDate)
         self.certTime = CertifiableTime(

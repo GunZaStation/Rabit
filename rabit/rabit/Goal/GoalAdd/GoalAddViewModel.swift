@@ -77,7 +77,6 @@ private extension GoalAddViewModel {
                         Goal(
                             title: $1.0,
                             subtitle: $1.1,
-                            progress: .zero,
                             period: $1.2,
                             certTime: $1.3,
                             category: $0.category.title
