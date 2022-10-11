@@ -12,6 +12,8 @@ protocol GoalNavigation {
     var closePeriodSelectView: PublishRelay<Void> { get }
     var showTimeSelectView: PublishRelay<BehaviorRelay<CertifiableTime>> { get }
     var closeTimeSelectView: PublishRelay<Void> { get }
+    var showGoalDetailView: PublishRelay<Goal> { get }
+    var closeGoalDetailView: PublishRelay<Void> { get }
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation {
@@ -28,6 +30,8 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closePeriodSelectView = PublishRelay<Void>()
     let showTimeSelectView = PublishRelay<BehaviorRelay<CertifiableTime>>()
     let closeTimeSelectView = PublishRelay<Void>()
+    let showGoalDetailView = PublishRelay<Goal>()
+    let closeGoalDetailView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
 
@@ -81,6 +85,15 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
                 coordinator.dismissCurrentView(animated: false)
             })
             .disposed(by: disposeBag)
+        
+        showGoalDetailView
+            .bind(onNext: pushGoalDetailViewController)
+            .disposed(by: disposeBag)
+        
+        closeGoalDetailView
+            .bind(onNext: popGoalDetailViewController)
+            .disposed(by: disposeBag)
+        
     }
 
     func start() {
@@ -137,4 +150,16 @@ private extension GoalCoordinator {
         viewController.modalPresentationStyle = .overFullScreen
         navigationController.presentedViewController?.present(viewController, animated: false)
     }
+    
+    func pushGoalDetailViewController(with goal: Goal) {
+        
+        let viewModel = GoalDetailViewModel(navigation: self, goal: goal)
+        let viewController = GoalDetailViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func popGoalDetailViewController() {
+        navigationController.popViewController(animated: true)
+    }
+    
 }

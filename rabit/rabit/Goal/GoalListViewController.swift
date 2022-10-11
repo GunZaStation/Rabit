@@ -43,6 +43,10 @@ final class GoalListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.rx.tap
             .bind(to: viewModel.categoryAddButtonTouched)
             .disposed(by: disposeBag)
+        
+        goalListCollectionView.rx.modelSelected(Goal.self)
+            .bind(to: viewModel.showGoalDetailView)
+            .disposed(by: disposeBag)
     }
     
     private func setupViews() {
