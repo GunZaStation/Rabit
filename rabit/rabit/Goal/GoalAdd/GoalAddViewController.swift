@@ -78,6 +78,10 @@ final class GoalAddViewController: UIViewController {
         bind()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     private func bind() {
         guard let viewModel = viewModel else { return }
         
