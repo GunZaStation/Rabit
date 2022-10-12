@@ -110,6 +110,7 @@ private extension PhotoEdtiViewController {
                                             }
                                             .compactMap { $0 }
                                             .share()
+                                            .debug()
 
         updatedSelectedPhotoData
             .bind(to: photoImageView.rx.image)
