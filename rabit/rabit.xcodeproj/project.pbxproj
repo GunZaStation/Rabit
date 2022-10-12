@@ -48,6 +48,7 @@
 		B52AEB1E28F59C7500923A86 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */; };
 		B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */; };
 		B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2128F5C04200923A86 /* DottedLineView.swift */; };
+		B52AEB2828F5C24E00923A86 /* CertPhotoCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2728F5C24E00923A86 /* CertPhotoCameraViewController.swift */; };
 		B52AEB2C28F7341600923A86 /* DimmedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2B28F7341600923A86 /* DimmedView.swift */; };
 		B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536FA0528A929D800178786 /* GoalListRepository.swift */; };
 		B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563D9BD28BA5A3C00A755EB /* Period.swift */; };
@@ -151,6 +152,7 @@
 		B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
 		B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		B52AEB2128F5C04200923A86 /* DottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
+		B52AEB2728F5C24E00923A86 /* CertPhotoCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertPhotoCameraViewController.swift; sourceTree = "<group>"; };
 		B52AEB2B28F7341600923A86 /* DimmedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedView.swift; sourceTree = "<group>"; };
 		B536FA0528A929D800178786 /* GoalListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListRepository.swift; sourceTree = "<group>"; };
 		B563D9BD28BA5A3C00A755EB /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				B52AEB2A28F7340100923A86 /* Views */,
+				B52AEB2728F5C24E00923A86 /* CertPhotoCameraViewController.swift */,
 			);
 			path = CertPhotoCamera;
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
 				B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */,
 				B5CC800A28ED79B2009665F8 /* Date + Strideable.swift in Sources */,
+				B52AEB2828F5C24E00923A86 /* CertPhotoCameraViewController.swift in Sources */,
 				B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */,
 				02D30E7728C87EBF00B5C4B2 /* CalendarDate.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
