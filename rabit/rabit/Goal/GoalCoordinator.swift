@@ -14,6 +14,7 @@ protocol GoalNavigation {
     var closeTimeSelectView: PublishRelay<Void> { get }
     var showGoalDetailView: PublishRelay<Goal> { get }
     var closeGoalDetailView: PublishRelay<Void> { get }
+    var showCertPhotoCameraView: PublishRelay<Void> { get }
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation {
@@ -32,6 +33,7 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeTimeSelectView = PublishRelay<Void>()
     let showGoalDetailView = PublishRelay<Goal>()
     let closeGoalDetailView = PublishRelay<Void>()
+    let showCertPhotoCameraView = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
 
@@ -94,6 +96,9 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .bind(onNext: popGoalDetailViewController)
             .disposed(by: disposeBag)
         
+        showCertPhotoCameraView
+            .bind(onNext: presentCertPhotoCameraView)
+            .disposed(by: disposeBag)
     }
 
     func start() {
@@ -162,4 +167,9 @@ private extension GoalCoordinator {
         navigationController.popViewController(animated: true)
     }
     
+    func presentCertPhotoCameraView() {
+        let viewController = CertPhotoCameraViewController()
+        navigationController.modalPresentationStyle = .overFullScreen
+        navigationController.present(viewController, animated: true)
+    }
 }

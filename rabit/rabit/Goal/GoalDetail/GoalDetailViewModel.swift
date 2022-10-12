@@ -8,6 +8,7 @@ protocol GoalDetailViewModelInput {
     var closeButtonTouched: PublishRelay<Void> { get }
     var goalTitleInput: PublishRelay<String> { get }
     var goalSubtitleInput: PublishRelay<String> { get }
+    var showCertPhotoCameraView: PublishRelay<Void> { get }
 }
 
 protocol GoalDetailViewModelOutput {
@@ -24,6 +25,7 @@ final class GoalDetailViewModel: GoalDetailViewModelInput, GoalDetailViewModelOu
     let closeButtonTouched = PublishRelay<Void>()
     let goalTitleInput = PublishRelay<String>()
     let goalSubtitleInput = PublishRelay<String>()
+    let showCertPhotoCameraView = PublishRelay<Void>()
     
     let selectedPeriod: BehaviorRelay<Period>
     let selectedTime: BehaviorRelay<CertifiableTime>
@@ -39,6 +41,20 @@ final class GoalDetailViewModel: GoalDetailViewModelInput, GoalDetailViewModelOu
         goalSubtitleOutput = BehaviorRelay(value: goal.subtitle)
         selectedPeriod = BehaviorRelay(value: goal.period)
         selectedTime = BehaviorRelay(value: goal.certTime)
+        bind(to: navigation)
     }
 }
 
+private extension GoalDetailViewModel {
+    
+    func bind(to navigation: GoalNavigation) {
+                
+        closeButtonTouched
+            .bind(to: navigation.showCertPhotoCameraView)
+            .disposed(by: disposeBag)
+        
+        showCertPhotoCameraView
+            .bind(to: navigation.showCertPhotoCameraView)
+            .disposed(by: disposeBag)
+     }
+}

@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxGesture
 
 final class GoalDetailViewController: UIViewController {
     
@@ -100,6 +101,12 @@ final class GoalDetailViewController: UIViewController {
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
         
+        certView.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { _ in
+                viewModel.showCertPhotoCameraView.accept(())
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setAttributes() {
