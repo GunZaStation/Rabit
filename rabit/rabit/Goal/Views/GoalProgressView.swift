@@ -73,7 +73,7 @@ final class GoalProgressView: UIView {
         targetView.addSubview(progressView)
         progressView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.47)
+            $0.width.equalToSuperview().multipliedBy(0)
         }
         
         addSubview(carrotIcon)

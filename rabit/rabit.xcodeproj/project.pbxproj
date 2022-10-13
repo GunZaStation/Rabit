@@ -49,6 +49,9 @@
 		02F37251289CE21400F361C7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37250289CE21400F361C7 /* Album.swift */; };
 		02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37253289E1EA200F361C7 /* PaddingLabel.swift */; };
 		02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */; };
+		B52AEB1E28F59C7500923A86 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */; };
+		B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */; };
+		B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2128F5C04200923A86 /* DottedLineView.swift */; };
 		B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536FA0528A929D800178786 /* GoalListRepository.swift */; };
 		B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563D9BD28BA5A3C00A755EB /* Period.swift */; };
 		B563D9C028BA5A8F00A755EB /* PeriodSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */; };
@@ -152,6 +155,9 @@
 		02F37250289CE21400F361C7 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		02F37253289E1EA200F361C7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
+		B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
+		B52AEB2128F5C04200923A86 /* DottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		B536FA0528A929D800178786 /* GoalListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListRepository.swift; sourceTree = "<group>"; };
 		B563D9BD28BA5A3C00A755EB /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectViewController.swift; sourceTree = "<group>"; };
@@ -366,6 +372,7 @@
 		02F37255289E1EA700F361C7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B52AEB2128F5C04200923A86 /* DottedLineView.swift */,
 				02F37253289E1EA200F361C7 /* PaddingLabel.swift */,
 				0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */,
 				0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */,
@@ -384,6 +391,15 @@
 				B5CC800928ED79B2009665F8 /* Date + Strideable.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		B52AEB1C28F5814400923A86 /* GoalDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */,
+				B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */,
+			);
+			path = GoalDetail;
 			sourceTree = "<group>";
 		};
 		B563D9BC28BA5A2A00A755EB /* PeriodSelect */ = {
@@ -524,6 +540,7 @@
 		B5D131D4289A0CF100EE1833 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				B52AEB1C28F5814400923A86 /* GoalDetail */,
 				B582574028BDF829001AE268 /* TimeSelect */,
 				B563D9BC28BA5A2A00A755EB /* PeriodSelect */,
 				B5B9413A28AF6D3F0098022F /* GoalAdd */,
@@ -721,6 +738,7 @@
 			files = (
 				021549B828EFD8EB0088A1DA /* ColorSelectViewModel.swift in Sources */,
 				02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */,
+				B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */,
 				02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */,
 				027EA68328EC8D720097E802 /* StyleSelectCell.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
@@ -759,6 +777,7 @@
 				02D30E6D28C86AB100B5C4B2 /* String + strikeThrough.swift in Sources */,
 				02B916DB28B89ADF0086F29E /* RealmResults + toArray.swift in Sources */,
 				024FBEFA28CCEFE700521926 /* Date + isSameDate.swift in Sources */,
+				B52AEB1E28F59C7500923A86 /* GoalDetailViewModel.swift in Sources */,
 				B5B9414128AF7D5C0098022F /* GoalAddViewModel.swift in Sources */,
 				B5D131DB289C0E8D00EE1833 /* GoalListViewController.swift in Sources */,
 				B58A1C2528B74E1E00D5783F /* CategoryAddRepository.swift in Sources */,
@@ -791,6 +810,7 @@
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
 				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
+				B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Category.swift in Sources */,
 				B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */,
 				B56AF75028C59E18001C82C0 /* RangeSlider.swift in Sources */,

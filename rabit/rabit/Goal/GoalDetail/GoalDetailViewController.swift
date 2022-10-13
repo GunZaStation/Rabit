@@ -1,9 +1,8 @@
 import UIKit
 import SnapKit
 import RxSwift
-import RxGesture
 
-final class GoalAddViewController: UIViewController {
+final class GoalDetailViewController: UIViewController {
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -31,7 +30,7 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "목표 기간"
         insertField.placeholder = "시작일과 종료일을 선택하세요"
-        insertField.isTextFieldEnabled = false
+        insertField.isUserInteractionEnabled = false
         return insertField
     }()
     
@@ -39,33 +38,19 @@ final class GoalAddViewController: UIViewController {
         let insertField = InsertField()
         insertField.title = "인증 시간"
         insertField.placeholder = "문자열 입력"
-        insertField.isTextFieldEnabled = false
+        insertField.isUserInteractionEnabled = false
         return insertField
     }()
     
-    private lazy var saveButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .systemGreen
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitle("저장하기", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 23, weight: .bold)
-        return button
-    }()
-    
-    private lazy var rightButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "저장", style: .plain, target: self, action: nil)
-        return button
-    }()
-    
-    private lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "저장", style: .plain, target: self, action: nil)
-        return button
+    private lazy var certView: DottedLineView = {
+        let view = DottedLineView()
+        return view
     }()
     
     private let disposeBag = DisposeBag()
-    private var viewModel: GoalAddViewModel?
+    private var viewModel: GoalDetailViewModel?
     
-    convenience init(viewModel: GoalAddViewModel) {
+    convenience init(viewModel: GoalDetailViewModel) {
         self.init()
         self.viewModel = viewModel
     }
@@ -78,18 +63,9 @@ final class GoalAddViewController: UIViewController {
         bind()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
-    }
-    
     private func bind() {
         guard let viewModel = viewModel else { return }
         
-        saveButton.rx.tap
-            .bind(to: viewModel.saveButtonTouched)
-            .disposed(by: disposeBag)
-                
         navigationItem.leftBarButtonItem?.rx.tap
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
@@ -101,32 +77,34 @@ final class GoalAddViewController: UIViewController {
         descriptionField.rx.text
             .bind(to: viewModel.goalSubtitleInput)
             .disposed(by: disposeBag)
-                
-        periodField.rx.tapGesture()
-            .when(.recognized)
-            .bind { _ in viewModel.periodFieldTouched.accept(()) }
+        
+        viewModel.goalTitleOutput
+            .bind(to: titleField.rx.text)
             .disposed(by: disposeBag)
         
+        viewModel.goalSubtitleOutput
+            .bind(to: descriptionField.rx.text)
+            .disposed(by: disposeBag)
+    
         viewModel.selectedPeriod
             .map(\.description)
             .bind(to: periodField.rx.text)
-            .disposed(by: disposeBag)
-        
-        timeField.rx.tapGesture()
-            .when(.recognized)
-            .bind { _ in viewModel.timeFieldTouched.accept(()) }
             .disposed(by: disposeBag)
         
         viewModel.selectedTime
             .map(\.description)
             .bind(to: timeField.rx.text)
             .disposed(by: disposeBag)
+        
+        navigationItem.leftBarButtonItem?.rx.tap
+            .bind(to: viewModel.closeButtonTouched)
+            .disposed(by: disposeBag)
+        
     }
     
     private func setAttributes() {
         
         view.backgroundColor = .systemBackground
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
     }
     
     private func setupViews() {
@@ -144,10 +122,12 @@ final class GoalAddViewController: UIViewController {
         stackView.addArrangedSubview(periodField)
         stackView.addArrangedSubview(timeField)
         
-        view.addSubview(saveButton)
-        saveButton.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalToSuperview().multipliedBy(0.11)
+        view.addSubview(certView)
+        certView.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.85)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10)
         }
     }
 }
