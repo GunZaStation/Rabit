@@ -12,8 +12,9 @@ final class PeriodSelectViewController: UIViewController {
         return view
     }()
     
-    private lazy var periodSheet: BottomSheet = {
-        let sheet = BottomSheet(view.bounds.height, view.bounds.height * 0.4)
+    private lazy var periodSelectSheetHeight = view.bounds.height * 0.5
+    private lazy var periodSelectSheet: BottomSheet = {
+        let sheet = BottomSheet(view.bounds.height, periodSelectSheetHeight)
         sheet.backgroundColor = .white
         sheet.roundCorners(20)
         return sheet
@@ -85,7 +86,7 @@ final class PeriodSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        periodSheet.rx.isClosed
+        periodSelectSheet.rx.isClosed
             .bind(onNext: hidePeriodSheet)
             .disposed(by: disposeBag)
         
@@ -132,26 +133,28 @@ final class PeriodSelectViewController: UIViewController {
     private func setupViews() {
         
         view.addSubview(dimmedView)
-        dimmedView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
+        dimmedView.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        view.addSubview(periodSheet)
-        periodSheet.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(view.snp.bottom)
+        view.addSubview(periodSelectSheet)
+        periodSelectSheet.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(view.bounds.height)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(periodSelectSheetHeight)
         }
         
-        periodSheet.contentView.addSubview(calendarCollectionView)
+        periodSelectSheet.contentView.addSubview(calendarCollectionView)
         calendarCollectionView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.9)
+            make.top.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalToSuperview().multipliedBy(0.75)
         }
         
-        periodSheet.contentView.addSubview(saveButton)
-        saveButton.snp.makeConstraints {
-            $0.top.equalTo(calendarCollectionView.snp.bottom).offset(15)
-            $0.centerX.equalToSuperview()
+        periodSelectSheet.contentView.addSubview(saveButton)
+        saveButton.snp.makeConstraints { make in
+            make.top.equalTo(calendarCollectionView.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
         }
     }
 }
@@ -174,10 +177,9 @@ private extension PeriodSelectViewController {
     func showPeriodSheet() {
         
         dimmedView.isHidden = false
-        isModalInPresentation = true
 
-        periodSheet.move(
-            upTo: view.bounds.height*0.4,
+        periodSelectSheet.move(
+            upTo: view.bounds.height - periodSelectSheetHeight,
             duration: 0.2,
             animation: self.view.layoutIfNeeded
         )
@@ -188,7 +190,7 @@ private extension PeriodSelectViewController {
         
         isModalInPresentation = false
         
-        periodSheet.move(
+        periodSelectSheet.move(
             upTo: view.bounds.height,
             duration: 0.2,
             animation: view.layoutIfNeeded
