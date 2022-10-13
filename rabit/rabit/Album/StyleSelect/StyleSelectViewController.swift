@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-final class ColorSelectViewController: UIViewController {
+final class StyleSelectViewController: UIViewController {
     private let dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.6)
@@ -12,23 +12,26 @@ final class ColorSelectViewController: UIViewController {
         return view
     }()
 
-    private lazy var colorSheetHeight = view.bounds.height * 0.5
-    private lazy var colorSheet: BottomSheet = {
-        let sheet = BottomSheet(view.bounds.height, colorSheetHeight)
+    private lazy var styleSheetHeight = view.bounds.height * 0.65
+    private lazy var styleSheet: BottomSheet = {
+        let screenSize = UIScreen.main.bounds
+        let sheet = BottomSheet(screenSize.height, styleSheetHeight)
         sheet.backgroundColor = .white
         sheet.roundCorners(20)
         return sheet
     }()
 
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.text = "Colors"
-        return label
-    }()
+    private let styleSelectCollectionView: UICollectionView = {
+        let screenSize = UIScreen.main.bounds.size
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: screenSize.width * 0.8, height: screenSize.width * 0.9)
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 0)
 
-    private let colorSelectCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout
+        )
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -47,12 +50,11 @@ final class ColorSelectViewController: UIViewController {
         return button
     }()
 
-
-    private var viewModel: ColorSelectViewModelProtocol?
+    private var viewModel: StyleSelectViewModelProtocol?
 
     private var disposeBag = DisposeBag()
 
-    convenience init(viewModel: ColorSelectViewModelProtocol) {
+    convenience init(viewModel: StyleSelectViewModelProtocol) {
         self.init()
         self.viewModel = viewModel
     }
@@ -61,48 +63,41 @@ final class ColorSelectViewController: UIViewController {
         super.viewDidLoad()
 
         setupViews()
-        setupColorSelectCollectionView()
+        setupStyleSelectCollectionView()
         bind()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        showColorSheet()
+        showStyleSheet()
     }
 }
 
-private extension ColorSelectViewController {
+private extension StyleSelectViewController {
     func setupViews() {
         view.addSubview(dimmedView)
         dimmedView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
-        view.addSubview(colorSheet)
-        colorSheet.snp.makeConstraints { make in
+        view.addSubview(styleSheet)
+        styleSheet.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(view.bounds.height)
-            make.height.equalTo(colorSheetHeight)
+            make.height.equalTo(styleSheetHeight)
             make.leading.trailing.equalToSuperview()
         }
 
-        colorSheet.contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
+        styleSheet.contentView.addSubview(styleSelectCollectionView)
+        styleSelectCollectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
-            make.leading.equalToSuperview().offset(20)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.8)
         }
 
-        colorSheet.contentView.addSubview(colorSelectCollectionView)
-        colorSelectCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(220)
-        }
-
-        colorSheet.contentView.addSubview(saveButton)
+        styleSheet.contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints { make in
-            make.top.equalTo(colorSelectCollectionView.snp.bottom).offset(20)
+            make.top.equalTo(styleSelectCollectionView.snp.bottom)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
             make.height.equalTo(50)
@@ -112,35 +107,47 @@ private extension ColorSelectViewController {
     func bind() {
         guard let viewModel = viewModel else { return }
 
-        Observable.of(viewModel.presetColors)
-            .bind(to: colorSelectCollectionView.rx.items(
-                cellIdentifier: ColorSelectCell.identifier,
-                cellType: ColorSelectCell.self
+        Observable.of(viewModel.presetStyles)
+            .bind(to: styleSelectCollectionView.rx.items(
+                cellIdentifier: StyleSelectCell.identifier,
+                cellType: StyleSelectCell.self
             )) { [weak self] index, element, cell in
                 self?.presentSelectedCell(index: index, data: element)
-                cell.configure(with: element)
+                var photo = viewModel.appliedPhotoWithSelectedStyle.value
+                photo.style = element
+                cell.configure(with: photo)
             }
             .disposed(by: disposeBag)
 
-        colorSelectCollectionView.rx.modelSelected(String.self)
-            .bind(to: viewModel.selectedColor)
+        styleSelectCollectionView.rx.modelSelected(Style.self)
+            .withLatestFrom(viewModel.appliedPhotoWithSelectedStyle) {
+                var photo = $1
+                photo.style = $0
+                return photo
+            }
+            .bind(to: viewModel.appliedPhotoWithSelectedStyle)
+            .disposed(by: disposeBag)
+
+        styleSelectCollectionView.rx.itemSelected
+            .map { ($0, UICollectionView.ScrollPosition.centeredHorizontally, true) }
+            .bind(onNext: styleSelectCollectionView.scrollToItem(at:at:animated:))
             .disposed(by: disposeBag)
 
         dimmedView.rx.tapGesture()
             .when(.ended)
             .withUnretained(self)
-            .bind(onNext: { viewController, _ in
-                viewController.hideColorSheet()
-            })
+            .bind { viewController, _ in
+                viewController.hideStyleSheet()
+            }
             .disposed(by: disposeBag)
 
-        colorSheet.rx.isClosed
-            .bind(to: viewModel.closeColorSelectRequested)
+        styleSheet.rx.isClosed
+            .bind(onNext: hideStyleSheet)
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
             .withUnretained(self) { viewController, _ in
-                viewController.hideColorSheet()
+                viewController.hideStyleSheet()
             }
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
@@ -150,51 +157,41 @@ private extension ColorSelectViewController {
             .disposed(by: disposeBag)
     }
 
-    func setupColorSelectCollectionView() {
-        let layout = CompositionalLayoutFactory.shared.create(
-            widthFraction: 1/5,
-            heightFraction: 1/5,
-            spacing: Spacing(top: 5, bottom: 5, left: 5, right: 5)
-        )
-
-        colorSelectCollectionView.collectionViewLayout = layout
-
-        colorSelectCollectionView.register(
-            ColorSelectCell.self,
-            forCellWithReuseIdentifier: ColorSelectCell.identifier
+    func setupStyleSelectCollectionView() {
+        styleSelectCollectionView.register(
+            StyleSelectCell.self,
+            forCellWithReuseIdentifier: StyleSelectCell.identifier
         )
     }
 
-    func showColorSheet() {
+    func showStyleSheet() {
         dimmedView.isHidden = false
 
-        colorSheet.move(
-            upTo: view.bounds.height - colorSheetHeight,
+        styleSheet.move(
+            upTo: view.bounds.height - styleSheetHeight,
             duration: 0.2,
             animation: view.layoutIfNeeded
         )
-
-        navigationController?.hidesBottomBarWhenPushed = true
     }
-    
-    func hideColorSheet() {
+
+    func hideStyleSheet() {
         guard let viewModel = viewModel else { return }
 
-        colorSheet.move(
+        styleSheet.move(
             upTo: view.bounds.height,
             duration: 0.2,
             animation: view.layoutIfNeeded
         ) { _ in
             self.dimmedView.isHidden = true
-            viewModel.closeColorSelectRequested.accept(())
+            viewModel.closeStyleSelectRequested.accept(())
         }
     }
 
-    func presentSelectedCell(index: Int, data: String) {
-        let isSelected = (viewModel?.selectedColor.value == data)
+    func presentSelectedCell(index: Int, data: Style) {
+        let isSelected = (viewModel?.appliedPhotoWithSelectedStyle.value.style == data)
 
         if isSelected {
-            colorSelectCollectionView.selectItem(
+            styleSelectCollectionView.selectItem(
                 at: IndexPath(item: index, section: 0),
                 animated: false,
                 scrollPosition: .init()

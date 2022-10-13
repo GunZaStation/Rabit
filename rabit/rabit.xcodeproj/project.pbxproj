@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		021549B828EFD8EB0088A1DA /* ColorSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */; };
 		0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */; };
 		0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */; };
 		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
 		0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */; };
 		0232BD9228AE1134009057F8 /* ColorSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9128AE1134009057F8 /* ColorSelectViewController.swift */; };
-		0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */; };
 		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
 		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */; };
@@ -22,6 +22,8 @@
 		02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520988289A5C1D00E7E604 /* AlbumCell.swift */; };
 		0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098E289A661E00E7E604 /* AlbumHeaderView.swift */; };
 		025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025CA12528A631C0007AAADE /* AlbumRepository.swift */; };
+		027EA68128EC82380097E802 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EA68028EC82380097E802 /* Style.swift */; };
+		027EA68328EC8D720097E802 /* StyleSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EA68228EC8D720097E802 /* StyleSelectCell.swift */; };
 		02972D5D28B61E76008C097D /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5C28B61E76008C097D /* Persistable.swift */; };
 		02972D5F28B74343008C097D /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5E28B74342008C097D /* PhotoEntity.swift */; };
 		02A093C828B8A52B00BDF69B /* CategoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A093C728B8A52B00BDF69B /* CategoryEntity.swift */; };
@@ -40,6 +42,8 @@
 		02D30E7528C87EA600B5C4B2 /* MonthMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7428C87EA600B5C4B2 /* MonthMetaData.swift */; };
 		02D30E7728C87EBF00B5C4B2 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7628C87EBF00B5C4B2 /* CalendarDate.swift */; };
 		02D30E7928C87EDE00B5C4B2 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7828C87EDE00B5C4B2 /* DateConverter.swift */; };
+		02DABAA928EC44F2001416DC /* StyleSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DABAA828EC44F1001416DC /* StyleSelectViewController.swift */; };
+		02DABAAC28EC4516001416DC /* StyleSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DABAAB28EC4515001416DC /* StyleSelectViewModel.swift */; };
 		02DB2F8428AC8D7E005938CB /* PhotoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */; };
 		02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DB2F8628AC9115005938CB /* PhotoEditViewModel.swift */; };
 		02F37251289CE21400F361C7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37250289CE21400F361C7 /* Album.swift */; };
@@ -125,6 +129,8 @@
 		02520988289A5C1D00E7E604 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
 		025CA12528A631C0007AAADE /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
+		027EA68028EC82380097E802 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		027EA68228EC8D720097E802 /* StyleSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectCell.swift; sourceTree = "<group>"; };
 		02972D5C28B61E76008C097D /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		02972D5E28B74342008C097D /* PhotoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
 		02A093C728B8A52B00BDF69B /* CategoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEntity.swift; sourceTree = "<group>"; };
@@ -139,6 +145,8 @@
 		02D30E7428C87EA600B5C4B2 /* MonthMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthMetaData.swift; sourceTree = "<group>"; };
 		02D30E7628C87EBF00B5C4B2 /* CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
 		02D30E7828C87EDE00B5C4B2 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
+		02DABAA828EC44F1001416DC /* StyleSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectViewController.swift; sourceTree = "<group>"; };
+		02DABAAB28EC4515001416DC /* StyleSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectViewModel.swift; sourceTree = "<group>"; };
 		02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditViewController.swift; sourceTree = "<group>"; };
 		02DB2F8628AC9115005938CB /* PhotoEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditViewModel.swift; sourceTree = "<group>"; };
 		02F37250289CE21400F361C7 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
@@ -262,6 +270,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		027EA68428EC8D790097E802 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				027EA68228EC8D720097E802 /* StyleSelectCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		02972D5A28B5F83D008C097D /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +304,16 @@
 				02C9713628B356200087B8D2 /* ColorSelectCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		02DABAAA28EC44FF001416DC /* StyleSelect */ = {
+			isa = PBXGroup;
+			children = (
+				02DABAA828EC44F1001416DC /* StyleSelectViewController.swift */,
+				02DABAAB28EC4515001416DC /* StyleSelectViewModel.swift */,
+				027EA68428EC8D790097E802 /* Views */,
+			);
+			path = StyleSelect;
 			sourceTree = "<group>";
 		};
 		02DB2F8528AC8D82005938CB /* PhotoEdit */ = {
@@ -332,6 +358,7 @@
 				02F37250289CE21400F361C7 /* Album.swift */,
 				0232BD9828AF6B25009057F8 /* Photo.swift */,
 				02972D5E28B74342008C097D /* PhotoEntity.swift */,
+				027EA68028EC82380097E802 /* Style.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -483,6 +510,7 @@
 			children = (
 				02DB2F8528AC8D82005938CB /* PhotoEdit */,
 				0232BD9328AE113D009057F8 /* ColorSelect */,
+				02DABAAA28EC44FF001416DC /* StyleSelect */,
 				02520986289A5A2400E7E604 /* AlbumViewController.swift */,
 				02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */,
 				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
@@ -691,8 +719,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				021549B828EFD8EB0088A1DA /* ColorSelectViewModel.swift in Sources */,
 				02DB2F8728AC9115005938CB /* PhotoEditViewModel.swift in Sources */,
 				02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */,
+				027EA68328EC8D720097E802 /* StyleSelectCell.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
 				B582574628BF3323001AE268 /* CertifiableTime.swift in Sources */,
 				B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */,
@@ -711,17 +741,20 @@
 				02D30E7128C878EC00B5C4B2 /* CalendarDates.swift in Sources */,
 				B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */,
 				B58A1C2328B5F9AF00D5783F /* RealmManager.swift in Sources */,
+				027EA68128EC82380097E802 /* Style.swift in Sources */,
 				B563D9C028BA5A8F00A755EB /* PeriodSelectViewController.swift in Sources */,
 				0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */,
 				B582574828BF3330001AE268 /* TimeComponent.swift in Sources */,
 				02D30E6B28C8689000B5C4B2 /* CalendarCell.swift in Sources */,
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
+				02DABAAC28EC4516001416DC /* StyleSelectViewModel.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
 				B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */,
 				B5CC800A28ED79B2009665F8 /* Date + Strideable.swift in Sources */,
 				B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */,
 				02D30E7728C87EBF00B5C4B2 /* CalendarDate.swift in Sources */,
+				02DABAA928EC44F2001416DC /* StyleSelectViewController.swift in Sources */,
 				B5D131DF289C178A00EE1833 /* GoalListCollectionViewCell.swift in Sources */,
 				02D30E6D28C86AB100B5C4B2 /* String + strikeThrough.swift in Sources */,
 				02B916DB28B89ADF0086F29E /* RealmResults + toArray.swift in Sources */,
@@ -756,9 +789,7 @@
 				02972D5D28B61E76008C097D /* Persistable.swift in Sources */,
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
-				0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */,
 				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
-				0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B5D131E8289C2D1100EE1833 /* Category.swift in Sources */,
 				B5D34DB328C9B8DF00F04070 /* DaySelectCell.swift in Sources */,

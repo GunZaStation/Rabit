@@ -46,8 +46,12 @@ private extension AlbumRepository {
         fetchedCategoryData.forEach {
             let categoryTitle = $0.title
 
-            let fetchedPhotoData = realmManager.read(entity: PhotoEntity.self, filter: "categoryTitle == '\(categoryTitle)'")
+            let fetchedPhotoData = realmManager.read(
+                entity: PhotoEntity.self,
+                filter: "categoryTitle == '\(categoryTitle)'"
+            )
                 .map(Photo.init)
+                .sorted { $0.date < $1.date }
 
             if !fetchedPhotoData.isEmpty {
                 albumData.append(Album(

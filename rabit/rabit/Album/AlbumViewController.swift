@@ -132,6 +132,11 @@ private extension AlbumViewController {
             .bind(to: viewModel.indexSelected)
             .disposed(by: disposeBag)
 
+        albumCollectionView.rx.itemSelected
+            .map { ($0, UICollectionView.ScrollPosition.centeredHorizontally, true) }
+            .bind(onNext: albumCollectionView.scrollToItem(at:at:animated:))
+            .disposed(by: disposeBag)
+
         albumCollectionView.rx.modelSelected(Album.Item.self)
             .bind(to: viewModel.photoSelected)
             .disposed(by: disposeBag)
