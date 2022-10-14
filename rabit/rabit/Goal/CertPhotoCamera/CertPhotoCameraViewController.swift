@@ -5,6 +5,10 @@ import RxCocoa
 
 final class CertPhotoCameraViewController: UIViewController {
     
+    private var captureSession: AVCaptureSession?
+    
+    private let capturedOutput = AVCapturePhotoOutput()
+    private let previewLayer = AVCaptureVideoPreviewLayer()
     
     private lazy var dimmedView: DimmedView = {
         let totalWidth = view.bounds.width
@@ -45,10 +49,33 @@ final class CertPhotoCameraViewController: UIViewController {
         setupViews()
         setAttributes()
         bind()
+        checkCameraPermissionSettings()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setupPreviewLayerView()
+    }
+    
+    private func setupPreviewLayerView() {
+        
+        previewLayerView.layer.addSublayer(previewLayer)
+        previewLayer.frame = previewLayerView.bounds
     }
     
     private func bind() {
         
+        shutterButton.rx.tapGesture()
+            .when(.recognized)
+            .withUnretained(self)
+            .bind(onNext: { viewController, _ in
+                viewController.capturedOutput.capturePhoto(
+                    with: AVCapturePhotoSettings(),
+                    delegate: viewController
+                )
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupViews() {
@@ -83,3 +110,68 @@ final class CertPhotoCameraViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
     }
     
+    private func checkCameraPermissionSettings() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
+                guard isAllowed else { return }
+                DispatchQueue.main.async {
+                    self?.setupCamera()
+                }
+            }
+        case .authorized:
+            setupCamera()
+        default:
+            break
+        }
+    }
+    
+    private func setupCamera() {
+        guard let device = AVCaptureDevice.default(for:.video) else { return }
+        let session = AVCaptureSession()
+        session.sessionPreset = .photo
+        do {
+            let input = try AVCaptureDeviceInput(device: device)
+            if session.canAddInput(input) {
+                session.addInput(input)
+            }
+            
+            if session.canAddOutput(capturedOutput) {
+                session.addOutput(capturedOutput)
+            }
+            
+            previewLayer.videoGravity = .resizeAspect
+            previewLayer.session = session
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                session.startRunning()
+            }
+            
+            captureSession = session
+        }
+        catch {
+            fatalError("unknown error while setting up camera")
+        }
+    }
+}
+
+extension CertPhotoCameraViewController: AVCapturePhotoCaptureDelegate {
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        guard let capturedData = photo.fileDataRepresentation(),
+              let capturedImage = UIImage(data: capturedData) else { return }
+        
+        let length = view.bounds.width
+        let squaredSize = CGSize(width: length, height: length)
+        let squaredImage = capturedImage.cropImageToSquare()
+                                        .resized(to: squaredSize)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.previewImageView.image = squaredImage
+            self.previewImageView.isHidden = false
+            self.shutterButton.isHidden = true
+            self.previewLayerView.isHidden = true
+        }
+    }
+}
