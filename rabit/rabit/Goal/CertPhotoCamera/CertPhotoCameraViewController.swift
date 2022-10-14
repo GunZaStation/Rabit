@@ -7,12 +7,19 @@ final class CertPhotoCameraViewController: UIViewController {
     
     
     private lazy var dimmedView: DimmedView = {
-        let squareSide = view.bounds.width
+        let totalWidth = view.bounds.width
+        let totalHeight = view.bounds.height
+        let length = min(totalWidth, totalHeight)
+        
+        let centerOrigin = CGPoint(x: .zero, y: (totalHeight-length)/2)
+        let centerSize = CGSize(width: length, height: length)
+        let centerRect = CGRect(origin: centerOrigin, size: centerSize)
+
         let backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        let transparentRect = CGRect(origin: .init(x: .zero, y: 100), size: .init(width: squareSide, height: squareSide))
-        let view = DimmedView(backgroundColor: backgroundColor, transparentRect: transparentRect)
+        let view = DimmedView(backgroundColor: backgroundColor, transparentRect: centerRect)
         return view
     }()
+
     
     private let shutterButton: UIButton = {
         let button = UIButton()
@@ -25,7 +32,7 @@ final class CertPhotoCameraViewController: UIViewController {
     private let previewLayerView = UIView()
     private let previewImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
         return imageView
     }()
