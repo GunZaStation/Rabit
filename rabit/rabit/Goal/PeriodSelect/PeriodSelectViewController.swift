@@ -3,8 +3,9 @@ import SnapKit
 import RxSwift
 import RxDataSources
 
+typealias CalendarDataSource = RxCollectionViewSectionedReloadDataSource<CalendarDates>
+
 final class PeriodSelectViewController: UIViewController {
-    typealias CalendarDataSource = RxCollectionViewSectionedReloadDataSource<CalendarDates>
     
     private let dimmedView: UIView = {
         let view = UIView()
@@ -202,8 +203,8 @@ private extension PeriodSelectViewController {
         }
     }
 
-    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<CalendarDates> {
-        return RxCollectionViewSectionedReloadDataSource<CalendarDates>(
+    func initializeDataSource() -> CalendarDataSource {
+        return CalendarDataSource(
             configureCell: { [weak self] dataSource, collectionView, indexPath, item in
                 guard let periodData = self?.viewModel?.selectedPeriod.value,
                       let cell = collectionView.dequeueReusableCell(
