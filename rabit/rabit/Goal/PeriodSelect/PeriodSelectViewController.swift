@@ -4,6 +4,7 @@ import RxSwift
 import RxDataSources
 
 final class PeriodSelectViewController: UIViewController {
+    typealias CalendarDataSource = RxCollectionViewSectionedReloadDataSource<CalendarDates>
     
     private let dimmedView: UIView = {
         let view = UIView()
@@ -49,10 +50,8 @@ final class PeriodSelectViewController: UIViewController {
         return button
     }()
     
-    private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<CalendarDates> = {
-        initializeDataSource()
-    }()
-    
+    private lazy var dataSource: CalendarDataSource = initializeDataSource()
+
     private let disposeBag = DisposeBag()
     private var viewModel: PeriodSelectViewModelProtocol?
 
@@ -205,60 +204,45 @@ private extension PeriodSelectViewController {
 
     func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<CalendarDates> {
         return RxCollectionViewSectionedReloadDataSource<CalendarDates>(
-            configureCell: self.configureCell,
-            configureSupplementaryView: self.configureHeader
+            configureCell: { [weak self] dataSource, collectionView, indexPath, item in
+                guard let periodData = self?.viewModel?.selectedPeriod.value,
+                      let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: CalendarCell.identifier,
+                        for: indexPath
+                      ) as? CalendarCell else { return UICollectionViewCell() }
+
+                let isStartDate = item.date.isSameDate(with: periodData.start)
+                let isEndDate = item.date.isSameDate(with: periodData.end)
+
+                if isStartDate || isEndDate {
+                    collectionView.selectItem(
+                        at: indexPath,
+                        animated: false,
+                        scrollPosition: .init()
+                    )
+                }
+
+                cell.configure(with: item)
+                return cell
+            },
+            configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
+                guard kind == UICollectionView.elementKindSectionHeader,
+                      let header = collectionView.dequeueReusableSupplementaryView(
+                          ofKind: kind,
+                          withReuseIdentifier: CalendarHeaderView.identifier,
+                          for: indexPath
+                      ) as? CalendarHeaderView else {
+                    return UICollectionReusableView()
+                }
+
+                let baseDate = Calendar.current.date(
+                    byAdding: .month,
+                    value: indexPath.section,
+                    to: Date()) ?? Date()
+
+                header.configure(with: baseDate)
+                return header
+            }
         )
-    }
-
-    func configureCell(
-        _ dataSource: CollectionViewSectionedDataSource<CalendarDates>,
-        _ collectionView: UICollectionView,
-        _ indexPath: IndexPath,
-        _ item: CalendarDates.Item
-    ) -> UICollectionViewCell {
-        guard let periodData = viewModel?.selectedPeriod.value,
-              let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: CalendarCell.identifier,
-                for: indexPath
-              ) as? CalendarCell else { return UICollectionViewCell() }
-
-        let isStartDate = item.date.isSameDate(with: periodData.start)
-        let isEndDate = item.date.isSameDate(with: periodData.end)
-
-        if isStartDate || isEndDate {
-            collectionView.selectItem(
-                at: indexPath,
-                animated: false,
-                scrollPosition: .init()
-            )
-        }
-
-        cell.configure(with: item)
-        return cell
-    }
-
-    func configureHeader(
-        _ dataSource: CollectionViewSectionedDataSource<CalendarDates>,
-        _ collectionView: UICollectionView,
-        _ kind: String,
-        _ indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader,
-              let header = collectionView.dequeueReusableSupplementaryView(
-                  ofKind: kind,
-                  withReuseIdentifier: CalendarHeaderView.identifier,
-                  for: indexPath
-              ) as? CalendarHeaderView else {
-            return UICollectionReusableView()
-        }
-
-        let baseDate = Calendar.current.date(
-            byAdding: .month,
-            value: indexPath.section,
-            to: Date()) ?? Date()
-
-        header.configure(with: baseDate)
-
-        return header
     }
 }
