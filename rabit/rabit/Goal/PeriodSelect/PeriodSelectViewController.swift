@@ -86,8 +86,11 @@ final class PeriodSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        periodSelectSheet.rx.isClosed
-            .bind(onNext: hidePeriodSheet)
+        periodSheet.rx.isClosed
+            .withUnretained(self)
+            .bind { viewController, _ in
+                viewController.hidePeriodSheet()
+            }
             .disposed(by: disposeBag)
         
         viewModel.calendarData
@@ -96,10 +99,10 @@ final class PeriodSelectViewController: UIViewController {
 
         saveButton.rx.tap
             .withUnretained(self)
-            .bind(onNext: { viewController, _ in
+            .bind { viewController, _ in
                 viewModel.saveButtonTouched.accept(())
                 viewController.hidePeriodSheet()
-            })
+            }
             .disposed(by: disposeBag)
 
         viewModel.saveButtonState
