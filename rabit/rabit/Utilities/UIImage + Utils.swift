@@ -16,4 +16,18 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    func cropImageToSquare() -> UIImage {
+
+        var imageWidth = self.size.width
+        var imageHeight = self.size.height
+        imageWidth = self.size.height
+        imageHeight = self.size.width
+
+        let rcy = imageHeight * 0.5
+        let centerRect = CGRect(x: rcy - imageWidth * 0.5, y: 0, width: imageWidth, height: imageWidth)
+        
+        guard let croppedImage = self.cgImage?.cropping(to: centerRect) else { return self }
+        return UIImage(cgImage: croppedImage, scale: 1.0, orientation: self.imageOrientation)
+    }
 }
