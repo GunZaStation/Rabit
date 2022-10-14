@@ -86,7 +86,7 @@ final class PeriodSelectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        periodSheet.rx.isClosed
+        periodSelectSheet.rx.isClosed
             .withUnretained(self)
             .bind { viewController, _ in
                 viewController.hidePeriodSheet()
