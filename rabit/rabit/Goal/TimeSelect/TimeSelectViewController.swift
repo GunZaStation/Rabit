@@ -89,7 +89,10 @@ final class TimeSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         timeSelectSheet.rx.isClosed
-            .bind(onNext: hideTimeSelectSheet)
+            .withUnretained(self)
+            .bind { viewController, _ in
+                viewController.hideTimeSelectSheet()
+            }
             .disposed(by: disposeBag)
 
         timeRangeSlider.rx.leftValue

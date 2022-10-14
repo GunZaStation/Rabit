@@ -129,8 +129,14 @@ private extension StyleSelectViewController {
             .disposed(by: disposeBag)
 
         styleSelectCollectionView.rx.itemSelected
-            .map { ($0, UICollectionView.ScrollPosition.centeredHorizontally, true) }
-            .bind(onNext: styleSelectCollectionView.scrollToItem(at:at:animated:))
+            .withUnretained(self.styleSelectCollectionView)
+            .bind { collectionView, selectedIndexPath in
+                collectionView.scrollToItem(
+                    at: selectedIndexPath,
+                    at: .centeredHorizontally,
+                    animated: true
+                )
+            }
             .disposed(by: disposeBag)
 
         dimmedView.rx.tapGesture()
@@ -142,7 +148,10 @@ private extension StyleSelectViewController {
             .disposed(by: disposeBag)
 
         styleSheet.rx.isClosed
-            .bind(onNext: hideStyleSheet)
+            .withUnretained(self)
+            .bind { viewController, _ in
+                viewController.hideStyleSheet()
+            }
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
