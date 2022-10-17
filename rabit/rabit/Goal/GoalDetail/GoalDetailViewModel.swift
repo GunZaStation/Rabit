@@ -41,19 +41,21 @@ final class GoalDetailViewModel: GoalDetailViewModelInput, GoalDetailViewModelOu
         goalSubtitleOutput = BehaviorRelay(value: goal.subtitle)
         selectedPeriod = BehaviorRelay(value: goal.period)
         selectedTime = BehaviorRelay(value: goal.certTime)
-        bind(to: navigation)
+        bind(to: navigation, with: goal)
     }
 }
 
 private extension GoalDetailViewModel {
     
-    func bind(to navigation: GoalNavigation) {
+    func bind(to navigation: GoalNavigation, with goal: Goal) {
                 
         closeButtonTouched
+            .map { goal }
             .bind(to: navigation.showCertPhotoCameraView)
             .disposed(by: disposeBag)
         
         showCertPhotoCameraView
+            .map { goal }
             .bind(to: navigation.showCertPhotoCameraView)
             .disposed(by: disposeBag)
      }

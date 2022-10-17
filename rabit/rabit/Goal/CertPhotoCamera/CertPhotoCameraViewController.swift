@@ -18,12 +18,11 @@ final class CertPhotoCameraViewController: UIViewController {
         let centerOrigin = CGPoint(x: .zero, y: (totalHeight-length)/2)
         let centerSize = CGSize(width: length, height: length)
         let centerRect = CGRect(origin: centerOrigin, size: centerSize)
-
+        
         let backgroundColor = UIColor.black.withAlphaComponent(0.8)
         let view = DimmedView(backgroundColor: backgroundColor, transparentRect: centerRect)
         return view
     }()
-
     
     private let shutterButton: UIButton = {
         let button = UIButton()
@@ -33,15 +32,43 @@ final class CertPhotoCameraViewController: UIViewController {
         return button
     }()
     
+    private let nextButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 50
+        button.setTitle("✅", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.isHidden = true
+        return button
+    }()
+    
     private let previewLayerView = UIView()
     private let previewImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.isHidden = true
         return imageView
     }()
     
+    private var capturedImageData: Data? {
+        didSet {
+            guard let imageData = capturedImageData else { return }
+            viewModel?.certPhotoDataInput.accept(imageData)
+        }
+    }
+    
     private let disposeBag = DisposeBag()
+    private var viewModel: CertPhotoCameraViewModel?
+    
+    convenience init(viewModel: CertPhotoCameraViewModel) {
+        self.init()
+        self.viewModel = viewModel
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        captureSession?.stopRunning()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +92,7 @@ final class CertPhotoCameraViewController: UIViewController {
     }
     
     private func bind() {
+        guard let viewModel = viewModel else { return }
         
         shutterButton.rx.tapGesture()
             .when(.recognized)
@@ -76,13 +104,23 @@ final class CertPhotoCameraViewController: UIViewController {
                 )
             })
             .disposed(by: disposeBag)
+        
+        viewModel.previewPhotoData
+            .map { UIImage(data: $0) }
+            .bind(to: previewImageView.rx.image)
+            .disposed(by: disposeBag)
+        
+        nextButton.rx.tap
+            .bind(to: viewModel.nextButtonTouched)
+            .disposed(by: disposeBag)
     }
     
     private func setupViews() {
         
         view.addSubview(previewLayerView)
         previewLayerView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.centerY.leading.trailing.equalToSuperview()
+            $0.height.equalTo(view.snp.width)
         }
         
         view.addSubview(dimmedView)
@@ -92,11 +130,20 @@ final class CertPhotoCameraViewController: UIViewController {
         
         view.addSubview(previewImageView)
         previewImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.centerY.leading.trailing.equalToSuperview()
+            $0.height.equalTo(previewLayerView.snp.width)
         }
         
         view.addSubview(shutterButton)
         shutterButton.snp.makeConstraints {
+            $0.width.equalTo(100)
+            $0.height.equalTo(100)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(30)
+        }
+        
+        view.addSubview(nextButton)
+        nextButton.snp.makeConstraints {
             $0.width.equalTo(100)
             $0.height.equalTo(100)
             $0.centerX.equalToSuperview()
@@ -127,7 +174,7 @@ final class CertPhotoCameraViewController: UIViewController {
     }
     
     private func setupCamera() {
-        guard let device = AVCaptureDevice.default(for:.video) else { return }
+        guard let device = AVCaptureDevice .default(for:.video) else { return }
         let session = AVCaptureSession()
         session.sessionPreset = .photo
         do {
@@ -140,7 +187,8 @@ final class CertPhotoCameraViewController: UIViewController {
                 session.addOutput(capturedOutput)
             }
             
-            previewLayer.videoGravity = .resizeAspect
+            previewLayer.connection?.videoOrientation = .portrait
+            previewLayer.videoGravity = .resizeAspectFill
             previewLayer.session = session
             
             DispatchQueue.global(qos: .userInitiated).async {
@@ -166,10 +214,12 @@ extension CertPhotoCameraViewController: AVCapturePhotoCaptureDelegate {
         let squaredImage = capturedImage.cropImageToSquare()
                                         .resized(to: squaredSize)
         
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.previewImageView.image = squaredImage
+            self.capturedImageData = squaredImage.pngData()
             self.previewImageView.isHidden = false
+            self.nextButton.isHidden = false
             self.shutterButton.isHidden = true
             self.previewLayerView.isHidden = true
         }
