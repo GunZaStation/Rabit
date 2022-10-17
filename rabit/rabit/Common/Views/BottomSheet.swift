@@ -14,14 +14,16 @@ final class BottomSheet: UIControl {
     let contentView = UIView()
     private var minTopOffset: CGFloat = .zero
     private var maxTopOffset: CGFloat = .zero
+    private var defaultHeight: CGFloat = .zero
     private var closeFlag = false {
         didSet { if closeFlag { sendActions(for: .valueChanged) } }
     }
     
-    convenience init(_ maxTopOffset: CGFloat, _ minTopOffset: CGFloat) {
+    convenience init(_ superViewHeight: CGFloat, _ bottomSheetHeight: CGFloat) {
         self.init()
-        self.maxTopOffset = maxTopOffset
-        self.minTopOffset = minTopOffset
+        self.maxTopOffset = superViewHeight
+        self.minTopOffset = superViewHeight - bottomSheetHeight
+        self.defaultHeight = bottomSheetHeight
         setupViews()
         addPanGestureRecognizer()
     }
@@ -36,17 +38,13 @@ final class BottomSheet: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let hitView = super.hitTest(point, with: event)
-        return hitView == self ? nil : hitView
-    }
-    
     private func addPanGestureRecognizer() {
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan))
         topBarArea.addGestureRecognizer(recognizer)
     }
     
     @objc private func didPan(_ recognizer: UIPanGestureRecognizer) {
+        
         //이동된 y 거리 계산
         let updatedY = frame.minY + recognizer.translation(in: self).y
         
@@ -89,9 +87,8 @@ final class BottomSheet: UIControl {
         addSubview(contentView)
         contentView.snp.makeConstraints {
             $0.top.equalTo(topBarArea.snp.bottom)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.9)
-            $0.height.equalToSuperview().multipliedBy(0.83)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
 }
@@ -100,8 +97,9 @@ extension BottomSheet {
     
     private func updateConstraints(_ topOffset: CGFloat) {
         self.snp.remakeConstraints {
-            $0.left.right.bottom.equalToSuperview()
-            $0.top.equalToSuperview().inset(topOffset)
+            $0.top.equalToSuperview().offset(topOffset)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(defaultHeight)
         }
     }
     

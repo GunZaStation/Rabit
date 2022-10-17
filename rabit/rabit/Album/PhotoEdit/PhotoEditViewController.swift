@@ -20,7 +20,7 @@ final class PhotoEdtiViewController: UIViewController {
         return button
     }()
 
-    private let stylePickerButton: UIButton = {
+    private let selectStyleButton: UIButton = {
         let button = UIButton()
         button.setTitle("글씨 스타일 변경", for: .normal)
         button.setImage(UIImage(systemName: "scribble"), for: .normal)
@@ -72,7 +72,7 @@ private extension PhotoEdtiViewController {
         setAttributes()
         view.addSubview(photoImageView)
         view.addSubview(selectColorButton)
-        view.addSubview(stylePickerButton)
+        view.addSubview(selectStyleButton)
 
 
         photoImageView.snp.makeConstraints { make in
@@ -88,7 +88,7 @@ private extension PhotoEdtiViewController {
             make.height.equalTo(50)
         }
 
-        stylePickerButton.snp.makeConstraints { make in
+        selectStyleButton.snp.makeConstraints { make in
             make.top.equalTo(selectColorButton.snp.bottom).offset(30)
             make.leading.trailing.height.equalTo(selectColorButton)
         }
@@ -102,12 +102,22 @@ private extension PhotoEdtiViewController {
     func bind() {
         guard let viewModel = viewModel else { return }
 
-        viewModel.selectedPhotoData
+        let updatedPhotoImage = viewModel.selectedPhotoData
             .map(\.imageData)
             .compactMap(UIImage.init(data:))
+            .withLatestFrom(viewModel.selectedPhotoData) {
+                $0.overlayText(of: $1)
+            }
+            .compactMap { $0 }
+            .share(replay: 1)
+
+        updatedPhotoImage
+            .bind(to: photoImageView.rx.image)
+            .disposed(by: disposeBag)
+
+        updatedPhotoImage
             .withUnretained(self)
             .bind { viewController, image in
-                viewController.photoImageView.image = image
                 viewController.resizePhotoImageView(with: image)
             }
             .disposed(by: disposeBag)
@@ -116,8 +126,8 @@ private extension PhotoEdtiViewController {
             .bind(to: viewModel.selectColorButtonTouched)
             .disposed(by: disposeBag)
 
-        stylePickerButton.rx.tap
-            .bind(to: viewModel.stylePickerButtonTouched)
+        selectStyleButton.rx.tap
+            .bind(to: viewModel.selectStyleButtonTouched)
             .disposed(by: disposeBag)
 
         cancelButton.rx.tap

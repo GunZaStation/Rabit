@@ -16,4 +16,14 @@ struct DateConverter {
         dateFormatter.dateFormat = "y-MM-dd"
         return dateFormatter.string(from: date)
     }
+
+    static func convertToYearAndMonthString(date: Date) -> String {
+        dateFormatter.dateFormat = "yyyy년 MM월"
+        return dateFormatter.string(from: date)
+    }
+
+    static func convertToDateString(date: Date) -> String {
+        dateFormatter.dateFormat = "yyyy-MM-dd\na hh:mm"
+        return dateFormatter.string(from: date)
+    }
 }

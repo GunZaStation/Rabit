@@ -14,15 +14,7 @@ final class MainCoordinator: Coordinator {
 
         createChildrenCoordinators()
 
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = children.compactMap {
-            $0.navigationController
-        }
-        tabBarController.tabBar.tintColor = UIColor(named: "second")
-        tabBarController.tabBar.selectionIndicatorImage = UIImage.imageWithColor(
-            color: UIColor(named: "fourth"),
-            size: CGSize(width: 60, height: 60)
-        )
+        let tabBarController = createTabBarController()
         navigationController.pushViewController(tabBarController, animated: false)
     }
 
@@ -31,16 +23,26 @@ final class MainCoordinator: Coordinator {
             let coordinator = $0.coordinator
             coordinator.parentCoordiantor = self
             coordinator.navigationController.tabBarItem = $0.tabBarItem
-            coordinator.navigationController.tabBarItem.imageInsets = UIEdgeInsets(
-                top: 22,
-                left: 0,
-                bottom: -22,
-                right: 0
-            )
+            coordinator.navigationController.tabBarItem.title = ""
 
             children.append(coordinator)
             coordinator.start()
         }
+    }
+
+    private func createTabBarController() -> UITabBarController {
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = children.compactMap {
+            $0.navigationController
+        }
+        tabBarController.tabBar.tintColor = UIColor(named: "second")
+
+        tabBarController.tabBar.selectionIndicatorImage = UIImage.imageWithColor(
+            color: UIColor(named: "fourth"),
+            size: CGSize(width: 48, height: 48)
+        )
+
+        return tabBarController
     }
 }
 
@@ -66,13 +68,13 @@ private extension MainCoordinator {
             case .goalCoordinator:
                 return UITabBarItem(
                     title: nil,
-                    image: UIImage(named: "goal_tabIcon")?.resized(to: CGSize(width: 45, height: 45)),
+                    image: UIImage(named: "goal_tabIcon"),
                     tag: 0
                 )
             case .albumCoordinator:
                 return UITabBarItem(
                     title: nil,
-                    image: UIImage(named: "album_tabIcon")?.resized(to: CGSize(width: 45, height: 45)),
+                    image: UIImage(named: "album_tabIcon"),
                     tag: 1
                 )
             }

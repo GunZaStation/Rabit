@@ -12,8 +12,9 @@ final class ColorSelectViewController: UIViewController {
         return view
     }()
 
-    private let colorSheet: BottomSheet = {
-        let sheet = BottomSheet()
+    private lazy var colorSheetHeight = view.bounds.height * 0.5
+    private lazy var colorSheet: BottomSheet = {
+        let sheet = BottomSheet(view.bounds.height, colorSheetHeight)
         sheet.backgroundColor = .white
         sheet.roundCorners(20)
         return sheet
@@ -80,8 +81,9 @@ private extension ColorSelectViewController {
 
         view.addSubview(colorSheet)
         colorSheet.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(view.snp.bottom)
+            make.top.equalToSuperview().offset(view.bounds.height)
+            make.height.equalTo(colorSheetHeight)
+            make.leading.trailing.equalToSuperview()
         }
 
         colorSheet.contentView.addSubview(titleLabel)
@@ -128,23 +130,19 @@ private extension ColorSelectViewController {
             .when(.ended)
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
-                viewController.hideColorSheet(target: viewModel.closeColorSelectRequested)
+                viewController.hideColorSheet()
             })
             .disposed(by: disposeBag)
 
-        colorSheet.rx.swipeGesture(.down)
-            .when(.ended)
-            .withUnretained(self)
-            .bind(onNext: { viewController, _ in
-                viewController.hideColorSheet(target: viewModel.closeColorSelectRequested)
-            })
+        colorSheet.rx.isClosed
+            .bind(to: viewModel.closeColorSelectRequested)
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
-            .withUnretained(self)
-            .bind(onNext: { viewController, _ in
-                viewController.hideColorSheet(target: viewModel.saveButtonTouched)
-            })
+            .withUnretained(self) { viewController, _ in
+                viewController.hideColorSheet()
+            }
+            .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
 
         viewModel.saveButtonState
@@ -171,7 +169,7 @@ private extension ColorSelectViewController {
         dimmedView.isHidden = false
 
         colorSheet.move(
-            upTo: view.bounds.height*0.5,
+            upTo: view.bounds.height - colorSheetHeight,
             duration: 0.2,
             animation: view.layoutIfNeeded
         )
@@ -179,14 +177,16 @@ private extension ColorSelectViewController {
         navigationController?.hidesBottomBarWhenPushed = true
     }
     
-    func hideColorSheet(target: PublishRelay<Void>) {
+    func hideColorSheet() {
+        guard let viewModel = viewModel else { return }
+
         colorSheet.move(
             upTo: view.bounds.height,
             duration: 0.2,
             animation: view.layoutIfNeeded
         ) { _ in
             self.dimmedView.isHidden = true
-            target.accept(())
+            viewModel.closeColorSelectRequested.accept(())
         }
     }
 
