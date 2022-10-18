@@ -2,17 +2,17 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol CertPhotoCameraViewInput {
+protocol CertPhotoCameraViewModelInput {
     
     var certPhotoDataInput: PublishRelay<Data> { get }
     var nextButtonTouched: PublishRelay<Void> { get }
 }
-protocol CertPhotoCameraViewOutput {
+protocol CertPhotoCameraViewModelOutput {
     
     var previewPhotoData: PublishRelay<Data> { get }
 }
 
-final class CertPhotoCameraViewModel: CertPhotoCameraViewInput, CertPhotoCameraViewOutput {
+final class CertPhotoCameraViewModel: CertPhotoCameraViewModelInput, CertPhotoCameraViewModelOutput {
     
     let certPhotoDataInput = PublishRelay<Data>()
     let nextButtonTouched = PublishRelay<Void>()
