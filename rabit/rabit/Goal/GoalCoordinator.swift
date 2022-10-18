@@ -14,6 +14,8 @@ protocol GoalNavigation {
     var closeTimeSelectView: PublishRelay<Void> { get }
     var showGoalDetailView: PublishRelay<Goal> { get }
     var closeGoalDetailView: PublishRelay<Void> { get }
+    var showCertPhotoCameraView: PublishRelay<Goal> { get }
+    var showPhotoEditView: PublishRelay<BehaviorRelay<Photo>> { get }
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation {
@@ -32,6 +34,8 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeTimeSelectView = PublishRelay<Void>()
     let showGoalDetailView = PublishRelay<Goal>()
     let closeGoalDetailView = PublishRelay<Void>()
+    let showCertPhotoCameraView = PublishRelay<Goal>()
+    let showPhotoEditView = PublishRelay<BehaviorRelay<Photo>>()
     
     private let disposeBag = DisposeBag()
 
@@ -94,6 +98,13 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .bind(onNext: popGoalDetailViewController)
             .disposed(by: disposeBag)
         
+        showCertPhotoCameraView
+            .bind(onNext: presentCertPhotoCameraView)
+            .disposed(by: disposeBag)
+        
+        showPhotoEditView
+            .bind(onNext: presentPhotoEditView(with:))
+            .disposed(by: disposeBag)
     }
 
     func start() {
@@ -162,4 +173,15 @@ private extension GoalCoordinator {
         navigationController.popViewController(animated: true)
     }
     
+    func presentCertPhotoCameraView(with goal: Goal) {
+        
+        let viewModel = CertPhotoCameraViewModel(navigation: self, goal: goal)
+        let viewController = CertPhotoCameraViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .overFullScreen
+        navigationController.present(viewController, animated: true)
+    }
+    
+    func presentPhotoEditView(with photoStream: BehaviorRelay<Photo>) {
+        //사진 편집 및 저장 화면으로 이동
+    }
 }

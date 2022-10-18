@@ -52,6 +52,8 @@
 		B52AEB1E28F59C7500923A86 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */; };
 		B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */; };
 		B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2128F5C04200923A86 /* DottedLineView.swift */; };
+		B52AEB2828F5C24E00923A86 /* CertPhotoCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2728F5C24E00923A86 /* CertPhotoCameraViewController.swift */; };
+		B52AEB2C28F7341600923A86 /* DimmedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2B28F7341600923A86 /* DimmedView.swift */; };
 		B536FA0628A929D800178786 /* GoalListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536FA0528A929D800178786 /* GoalListRepository.swift */; };
 		B563D9BE28BA5A3C00A755EB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563D9BD28BA5A3C00A755EB /* Period.swift */; };
 		B563D9C028BA5A8F00A755EB /* PeriodSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */; };
@@ -97,6 +99,7 @@
 		B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */; };
 		B5E3052328E73E450044B592 /* GoalAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E3052228E73E450044B592 /* GoalAddRepository.swift */; };
 		B5E3052528E7F4A40044B592 /* InsertField + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E3052428E7F4A40044B592 /* InsertField + Reactive.swift */; };
+		B5E64D6128FD0B33009B2191 /* CertPhotoCameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E64D6028FD0B33009B2191 /* CertPhotoCameraViewModel.swift */; };
 		B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */; };
 /* End PBXBuildFile section */
 
@@ -158,6 +161,8 @@
 		B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
 		B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		B52AEB2128F5C04200923A86 /* DottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
+		B52AEB2728F5C24E00923A86 /* CertPhotoCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertPhotoCameraViewController.swift; sourceTree = "<group>"; };
+		B52AEB2B28F7341600923A86 /* DimmedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedView.swift; sourceTree = "<group>"; };
 		B536FA0528A929D800178786 /* GoalListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListRepository.swift; sourceTree = "<group>"; };
 		B563D9BD28BA5A3C00A755EB /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		B563D9BF28BA5A8F00A755EB /* PeriodSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +211,7 @@
 		B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListCollectionViewHeader.swift; sourceTree = "<group>"; };
 		B5E3052228E73E450044B592 /* GoalAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddRepository.swift; sourceTree = "<group>"; };
 		B5E3052428E7F4A40044B592 /* InsertField + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InsertField + Reactive.swift"; sourceTree = "<group>"; };
+		B5E64D6028FD0B33009B2191 /* CertPhotoCameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertPhotoCameraViewModel.swift; sourceTree = "<group>"; };
 		B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomSheet + Reactive.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -402,6 +408,24 @@
 			path = GoalDetail;
 			sourceTree = "<group>";
 		};
+		B52AEB2628F5C24300923A86 /* CertPhotoCamera */ = {
+			isa = PBXGroup;
+			children = (
+				B52AEB2A28F7340100923A86 /* Views */,
+				B52AEB2728F5C24E00923A86 /* CertPhotoCameraViewController.swift */,
+				B5E64D6028FD0B33009B2191 /* CertPhotoCameraViewModel.swift */,
+			);
+			path = CertPhotoCamera;
+			sourceTree = "<group>";
+		};
+		B52AEB2A28F7340100923A86 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B52AEB2B28F7341600923A86 /* DimmedView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B563D9BC28BA5A2A00A755EB /* PeriodSelect */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +564,7 @@
 		B5D131D4289A0CF100EE1833 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				B52AEB2628F5C24300923A86 /* CertPhotoCamera */,
 				B52AEB1C28F5814400923A86 /* GoalDetail */,
 				B582574028BDF829001AE268 /* TimeSelect */,
 				B563D9BC28BA5A2A00A755EB /* PeriodSelect */,
@@ -752,6 +777,7 @@
 				0244F3D128E87B33007D3E8F /* CalendarHeaderView.swift in Sources */,
 				B5D131D2289A087000EE1833 /* MainCoordinator.swift in Sources */,
 				B5D7603128A37D630046B09C /* GoalListCollectionViewHeader.swift in Sources */,
+				B52AEB2C28F7341600923A86 /* DimmedView.swift in Sources */,
 				02D30E7928C87EDE00B5C4B2 /* DateConverter.swift in Sources */,
 				B5E3052328E73E450044B592 /* GoalAddRepository.swift in Sources */,
 				B5B9413C28AF6DE60098022F /* GoalAddViewController.swift in Sources */,
@@ -770,6 +796,7 @@
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,
 				B57D75F428B3E76300C11405 /* UIView + shadow.swift in Sources */,
 				B5CC800A28ED79B2009665F8 /* Date + Strideable.swift in Sources */,
+				B52AEB2828F5C24E00923A86 /* CertPhotoCameraViewController.swift in Sources */,
 				B59BB3C928A8354B007C5013 /* CategoryAddViewModel.swift in Sources */,
 				02D30E7728C87EBF00B5C4B2 /* CalendarDate.swift in Sources */,
 				02DABAA928EC44F2001416DC /* StyleSelectViewController.swift in Sources */,
@@ -808,6 +835,8 @@
 				02972D5D28B61E76008C097D /* Persistable.swift in Sources */,
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
+				0232BD9528AE11DD009057F8 /* ColorSelectViewModel.swift in Sources */,
+				B5E64D6128FD0B33009B2191 /* CertPhotoCameraViewModel.swift in Sources */,
 				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */,
