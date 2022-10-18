@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-typealias DataSource = CollectionViewSectionedDataSource<Album>
+typealias AlbumDataSource = RxCollectionViewSectionedReloadDataSource<Album>
 
 final class AlbumViewController: UIViewController {
     private let albumCollectionView: UICollectionView = {
@@ -15,10 +15,9 @@ final class AlbumViewController: UIViewController {
         return collectionView
     }()
 
+    private lazy var dataSource: AlbumDataSource = initializeDataSource()
+
     private var disposeBag = DisposeBag()
-    private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<Album> = {
-        return initializeDataSource()
-    }()
 
     private var viewModel: AlbumViewModelProtocol?
 
@@ -84,41 +83,33 @@ private extension AlbumViewController {
         )
     }
 
-    func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Album> {
-        let configureCell: (DataSource, UICollectionView, IndexPath, Album.Item) -> UICollectionViewCell = { dataSource, collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: AlbumCell.identifier,
-                for: indexPath) as? AlbumCell else { return UICollectionViewCell(
-            ) }
+    func initializeDataSource() -> AlbumDataSource {
+        return AlbumDataSource(
+            configureCell: { dataSource, collectionView, indexPath, item in
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: AlbumCell.identifier,
+                    for: indexPath) as? AlbumCell else { return UICollectionViewCell(
+                ) }
 
-            let itemData = dataSource.sectionModels[indexPath.section].items[indexPath.item]
+                let itemData = dataSource.sectionModels[indexPath.section].items[indexPath.item]
 
-            cell.configure(with: itemData)
-            return cell
-        }
+                cell.configure(with: itemData)
+                return cell
+            },
+            configureSupplementaryView: { (dataSource, collectionView, kind, indexPath) in
+                guard kind == UICollectionView.elementKindSectionHeader,
+                      let header = collectionView.dequeueReusableSupplementaryView(
+                          ofKind: kind,
+                          withReuseIdentifier: AlbumHeaderView.identifier,
+                          for: indexPath
+                      ) as? AlbumHeaderView else {
+                    return UICollectionReusableView()
+                }
+                let headerTitle = dataSource.sectionModels[indexPath.section].categoryTitle
+                header.configure(with: headerTitle)
 
-        let configureHeaderView: (DataSource, UICollectionView, String, IndexPath) -> UICollectionReusableView = { (dataSource, collectionView, kind, indexPath) in
-            guard kind == UICollectionView.elementKindSectionHeader,
-                  let header = collectionView.dequeueReusableSupplementaryView(
-                      ofKind: kind,
-                      withReuseIdentifier: AlbumHeaderView.identifier,
-                      for: indexPath
-                  ) as? AlbumHeaderView else {
-                return UICollectionReusableView()
-            }
-
-            let headerTitle = dataSource.sectionModels[indexPath.section].categoryTitle
-            header.configure(with: headerTitle)
-
-            return header
-        }
-
-        let dataSource = RxCollectionViewSectionedReloadDataSource<Album>(
-            configureCell: configureCell,
-            configureSupplementaryView: configureHeaderView
-        )
-
-        return dataSource
+                return header
+            })
     }
 
     func bind() {
@@ -130,6 +121,11 @@ private extension AlbumViewController {
 
         albumCollectionView.rx.itemSelected
             .bind(to: viewModel.indexSelected)
+            .disposed(by: disposeBag)
+
+        albumCollectionView.rx.itemSelected
+            .map { ($0, UICollectionView.ScrollPosition.centeredHorizontally, true) }
+            .bind(onNext: albumCollectionView.scrollToItem(at:at:animated:))
             .disposed(by: disposeBag)
 
         albumCollectionView.rx.modelSelected(Album.Item.self)

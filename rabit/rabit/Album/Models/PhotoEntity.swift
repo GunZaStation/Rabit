@@ -8,6 +8,7 @@ final class PhotoEntity: Object {
     @Persisted var imageData: Data = Data()
     @Persisted var date: Date = Date()
     @Persisted var color: String = ""
+    @Persisted var style: String = ""
 
     convenience init(
         uuid: UUID,
@@ -15,7 +16,8 @@ final class PhotoEntity: Object {
         goalTitle: String,
         imageData: Data,
         date: Date,
-        color: String
+        color: String,
+        style: String
     ) {
         self.init()
         self.uuid = uuid
@@ -24,6 +26,7 @@ final class PhotoEntity: Object {
         self.imageData = imageData
         self.date = date
         self.color = color
+        self.style = style
     }
 
     override static func primaryKey() -> String? {

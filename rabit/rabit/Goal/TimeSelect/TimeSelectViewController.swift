@@ -20,8 +20,9 @@ final class TimeSelectViewController: UIViewController {
         return view
     }()
     
+    private lazy var timeSelectSheetHeight = view.bounds.height*0.36
     private lazy var timeSelectSheet: BottomSheet = {
-        let sheet = BottomSheet(view.bounds.height, view.bounds.height*0.65)
+        let sheet = BottomSheet(view.bounds.height, timeSelectSheetHeight)
         sheet.backgroundColor = .white
         sheet.roundCorners(20)
         return sheet
@@ -88,7 +89,10 @@ final class TimeSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         timeSelectSheet.rx.isClosed
-            .bind(onNext: hideTimeSelectSheet)
+            .withUnretained(self)
+            .bind { viewController, _ in
+                viewController.hideTimeSelectSheet()
+            }
             .disposed(by: disposeBag)
 
         timeRangeSlider.rx.leftValue
@@ -181,8 +185,10 @@ final class TimeSelectViewController: UIViewController {
         
         view.addSubview(timeSelectSheet)
         timeSelectSheet.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(view.bounds.height)
+            $0.top.equalToSuperview().offset(view.frame.height)
+            $0.height.equalTo(timeSelectSheetHeight)
+            $0.leading.trailing.equalToSuperview()
+            
         }
         
         timeSelectSheet.contentView.addSubview(titleLabel)
@@ -194,12 +200,12 @@ final class TimeSelectViewController: UIViewController {
         daySelectCollectionView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalToSuperview().multipliedBy(0.2)
+            $0.height.equalToSuperview().multipliedBy(0.17)
         }
 
         timeSelectSheet.contentView.addSubview(timePreviewLabel)
         timePreviewLabel.snp.makeConstraints {
-            $0.top.equalTo(daySelectCollectionView.snp.bottom).offset(5)
+            $0.top.equalTo(daySelectCollectionView.snp.bottom).offset(10)
             $0.leading.equalToSuperview().offset(20)
         }
         
@@ -207,12 +213,12 @@ final class TimeSelectViewController: UIViewController {
         timeRangeSlider.snp.makeConstraints {
             $0.top.equalTo(timePreviewLabel.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalToSuperview().multipliedBy(0.1)
+            $0.height.equalToSuperview().multipliedBy(0.08)
         }
         
         timeSelectSheet.contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints {
-            $0.top.equalTo(timeRangeSlider.snp.bottom).offset(10)
+            $0.top.equalTo(timeRangeSlider.snp.bottom).offset(15)
             $0.centerX.equalToSuperview()
         }
     }
@@ -247,7 +253,7 @@ private extension TimeSelectViewController {
         dimmedView.isHidden = false
         
         timeSelectSheet.move(
-            upTo: view.bounds.height*0.65,
+            upTo: view.bounds.height - timeSelectSheetHeight,
             duration: 0.2,
             animation: self.view.layoutIfNeeded
         )

@@ -7,6 +7,7 @@ struct Photo: Equatable {
     let imageData: Data
     let date: Date
     var color: String
+    var style: Style
 
     init(
         uuid: UUID = UUID(),
@@ -14,7 +15,8 @@ struct Photo: Equatable {
         goalTitle: String,
         imageData: Data,
         date: Date,
-        color: String
+        color: String,
+        style: Style
     ) {
         self.uuid = uuid
         self.categoryTitle = categoryTitle
@@ -22,6 +24,7 @@ struct Photo: Equatable {
         self.imageData = imageData
         self.date = date
         self.color = color
+        self.style = style
     }
 
     init() {
@@ -30,7 +33,8 @@ struct Photo: Equatable {
             goalTitle: "",
             imageData: Data(),
             date: Date(),
-            color: ""
+            color: "",
+            style: .none
         )
     }
 }
@@ -43,7 +47,8 @@ extension Photo: Persistable {
             goalTitle: entity.goalTitle,
             imageData: entity.imageData,
             date: entity.date,
-            color: entity.color
+            color: entity.color,
+            style: Style(entity.style)
         )
     }
     
@@ -54,7 +59,8 @@ extension Photo: Persistable {
             goalTitle: self.goalTitle,
             imageData: self.imageData,
             date: self.date,
-            color: self.color
+            color: self.color,
+            style: self.style.rawValue
         )
     }
 }

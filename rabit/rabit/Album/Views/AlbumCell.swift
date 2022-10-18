@@ -24,11 +24,13 @@ final class AlbumCell: UICollectionViewCell {
     }
 
     func configure(with photo: Album.Item) {
-        DispatchQueue.global().sync {
+        let serialQueue = DispatchQueue(label: "Serial_Queue")
+
+        serialQueue.async {
             let image = UIImage(data: photo.imageData)
 
             DispatchQueue.main.async {
-                self.thumbnailPictureView.image = image
+                self.thumbnailPictureView.image = image?.overlayText(of: photo)
             }
         }
     }
