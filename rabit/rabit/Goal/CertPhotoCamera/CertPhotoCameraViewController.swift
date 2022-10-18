@@ -94,8 +94,7 @@ final class CertPhotoCameraViewController: UIViewController {
     private func bind() {
         guard let viewModel = viewModel else { return }
         
-        shutterButton.rx.tapGesture()
-            .when(.recognized)
+        shutterButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.capturedOutput.capturePhoto(
@@ -208,13 +207,12 @@ extension CertPhotoCameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let capturedData = photo.fileDataRepresentation(),
               let capturedImage = UIImage(data: capturedData) else { return }
-        
+ 
         let length = view.bounds.width
         let squaredSize = CGSize(width: length, height: length)
         let squaredImage = capturedImage.cropImageToSquare()
                                         .resized(to: squaredSize)
-        
-        
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.capturedImageData = squaredImage.pngData()
