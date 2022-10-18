@@ -18,7 +18,7 @@ protocol GoalNavigation {
     var showPhotoEditView: PublishRelay<BehaviorRelay<Photo>> { get }
 }
 
-final class GoalCoordinator: Coordinator, GoalNavigation {
+final class GoalCoordinator: Coordinator, GoalNavigation, PhotoEditNavigation, ColorSelectNavigation, StyleSelectNavigation {
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []
@@ -36,6 +36,15 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let closeGoalDetailView = PublishRelay<Void>()
     let showCertPhotoCameraView = PublishRelay<Goal>()
     let showPhotoEditView = PublishRelay<BehaviorRelay<Photo>>()
+
+    var closePhotoEditView = PublishRelay<Void>()
+    var didChangePhoto = PublishRelay<Void>()
+    var showColorSelectView = PublishRelay<BehaviorRelay<String>>()
+    var showStyleSelectView =  PublishRelay<BehaviorRelay<Album.Item>>()
+
+    var closeColorSelectView = PublishRelay<Void>()
+    var closeStyleSelectView = PublishRelay<Void>()
+    
     
     private let disposeBag = DisposeBag()
 
@@ -99,11 +108,35 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
             .disposed(by: disposeBag)
         
         showCertPhotoCameraView
-            .bind(onNext: presentCertPhotoCameraView)
+            .bind(onNext: pushCertPhotoCameraView)
             .disposed(by: disposeBag)
         
         showPhotoEditView
             .bind(onNext: presentPhotoEditView(with:))
+            .disposed(by: disposeBag)
+        
+        closePhotoEditView
+            .bind(onNext: popPhotoEditView)
+            .disposed(by: disposeBag)
+        
+        didChangePhoto
+            .bind(onNext: popPhotoEditView)
+            .disposed(by: disposeBag)
+        
+        showColorSelectView
+            .bind(onNext: presentColorSelectView(colorStream:))
+            .disposed(by: disposeBag)
+        
+        closeColorSelectView
+            .bind(onNext: dismissColorSelectView)
+            .disposed(by: disposeBag)
+        
+        showStyleSelectView
+            .bind(onNext: presentStyleSelectView(photoStream:))
+            .disposed(by: disposeBag)
+        
+        closeStyleSelectView
+            .bind(onNext: dismissStyleSelectView)
             .disposed(by: disposeBag)
     }
 
@@ -173,15 +206,63 @@ private extension GoalCoordinator {
         navigationController.popViewController(animated: true)
     }
     
-    func presentCertPhotoCameraView(with goal: Goal) {
+    func pushCertPhotoCameraView(with goal: Goal) {
         
         let viewModel = CertPhotoCameraViewModel(navigation: self, goal: goal)
         let viewController = CertPhotoCameraViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen
-        navigationController.present(viewController, animated: true)
+        
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func popCertPhotoCameraView() {
+        navigationController.popViewController(animated: true)
     }
     
     func presentPhotoEditView(with photoStream: BehaviorRelay<Photo>) {
-        //사진 편집 및 저장 화면으로 이동
+        let repository = AlbumRepository()
+        let viewModel = PhotoEditViewModel(
+            photoStream: photoStream,
+            repository: repository,
+            navigation: self
+        )
+        let viewController = PhotoEditViewController(viewModel: viewModel)
+
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func popPhotoEditView() {
+        navigationController.popViewController(animated: true)
+        popCertPhotoCameraView()
+    }
+    
+    func presentColorSelectView(colorStream: BehaviorRelay<String>) {
+        let viewModel = ColorSelectViewModel(
+            colorStream: colorStream,
+            navigation: self
+        )
+
+        let viewController = ColorSelectViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .overFullScreen
+        navigationController.present(viewController, animated: false)
+    }
+    
+    func dismissColorSelectView() {
+        navigationController.dismiss(animated: false)
+    }
+
+    func presentStyleSelectView(photoStream: BehaviorRelay<Album.Item>) {
+        let viewModel = StyleSelectViewModel(
+            photoStream: photoStream,
+            navigation: self
+        )
+
+        let viewController = StyleSelectViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .overFullScreen
+        navigationController.present(viewController, animated: true)
+    }
+
+    func dismissStyleSelectView() {
+        navigationController.dismiss(animated: false)
     }
 }

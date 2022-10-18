@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-final class PhotoEdtiViewController: UIViewController {
+final class PhotoEditViewController: UIViewController {
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -67,7 +67,7 @@ final class PhotoEdtiViewController: UIViewController {
     }
 }
 
-private extension PhotoEdtiViewController {
+private extension PhotoEditViewController {
     func setupViews() {
         setAttributes()
         view.addSubview(photoImageView)

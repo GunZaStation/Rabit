@@ -65,9 +65,15 @@ final class CertPhotoCameraViewController: UIViewController {
         self.viewModel = viewModel
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         captureSession?.stopRunning()
+        tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidLoad() {

@@ -64,7 +64,7 @@ private extension AlbumCoordinator {
             repository: repository,
             navigation: self
         )
-        let viewController = PhotoEdtiViewController(viewModel: viewModel)
+        let viewController = PhotoEditViewController(viewModel: viewModel)
 
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
