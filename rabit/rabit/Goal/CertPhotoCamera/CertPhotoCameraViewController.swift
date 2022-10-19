@@ -30,13 +30,6 @@ final class CertPhotoCameraViewController: UIViewController {
         return imageView
     }()
     
-    private var capturedImageData: Data? {
-        didSet {
-            guard let imageData = capturedImageData else { return }
-            viewModel?.certPhotoDataInput.accept(imageData)
-        }
-    }
-    
     private let disposeBag = DisposeBag()
     private let cameraManager = CameraManager()
     private var viewModel: CertPhotoCameraViewModel?
@@ -78,7 +71,8 @@ final class CertPhotoCameraViewController: UIViewController {
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.cameraManager.capture { originalImage in
-                    viewController.adjustImageData(with: originalImage)
+                    let resizedImageData = viewController.getResizedImageData(with: originalImage)
+                    viewModel.certPhotoDataInput.accept(resizedImageData)
                 }
             })
             .disposed(by: disposeBag)
@@ -135,10 +129,10 @@ final class CertPhotoCameraViewController: UIViewController {
 
 extension CertPhotoCameraViewController {
     
-    func adjustImageData(with originalImageData: Data) {
+    func getResizedImageData(with originalImageData: Data) -> Data {
         
         guard let capturedImage = UIImage(data: originalImageData) else {
-            return
+            return originalImageData
         }
         
         let length = view.bounds.width
@@ -148,7 +142,6 @@ extension CertPhotoCameraViewController {
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.capturedImageData = squaredImage.pngData()
             self.previewImageView.isHidden = false
             self.nextButton.isHidden = false
             self.shutterButton.isHidden = true
@@ -156,5 +149,7 @@ extension CertPhotoCameraViewController {
             
             self.cameraManager.endCapturing()
         }
+        
+        return squaredImage.pngData() ?? originalImageData
     }
 }
