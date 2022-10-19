@@ -1,14 +1,8 @@
-import AVFoundation
 import UIKit
 import RxSwift
 import RxCocoa
 
 final class CertPhotoCameraViewController: UIViewController {
-    
-    private var captureSession: AVCaptureSession?
-    
-    private let capturedOutput = AVCapturePhotoOutput()
-    private let previewLayer = AVCaptureVideoPreviewLayer()
     
     private let shutterButton: UIButton = {
         let button = UIButton()
@@ -44,6 +38,7 @@ final class CertPhotoCameraViewController: UIViewController {
     }
     
     private let disposeBag = DisposeBag()
+    private let cameraManager = CameraManager()
     private var viewModel: CertPhotoCameraViewModel?
     
     convenience init(viewModel: CertPhotoCameraViewModel) {
@@ -62,25 +57,18 @@ final class CertPhotoCameraViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
         setAttributes()
         bind()
-        checkCameraPermissionSettings()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        setupPreviewLayerView()
-    }
-    
-    private func setupPreviewLayerView() {
-        
-        previewLayerView.layer.addSublayer(previewLayer)
-        previewLayer.frame = previewLayerView.bounds
+        cameraManager.prepareCapturing(with: previewLayerView)
     }
     
     private func bind() {
@@ -89,10 +77,9 @@ final class CertPhotoCameraViewController: UIViewController {
         shutterButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
-                viewController.capturedOutput.capturePhoto(
-                    with: AVCapturePhotoSettings(),
-                    delegate: viewController
-                )
+                viewController.cameraManager.capture { originalImage in
+                    viewController.adjustImageData(with: originalImage)
+                }
             })
             .disposed(by: disposeBag)
         
@@ -144,59 +131,16 @@ final class CertPhotoCameraViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
     }
-    
-    private func checkCameraPermissionSettings() {
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
-                guard isAllowed else { return }
-                DispatchQueue.main.async {
-                    self?.setupCamera()
-                }
-            }
-        case .authorized:
-            setupCamera()
-        default:
-            break
-        }
-    }
-    
-    private func setupCamera() {
-        guard let device = AVCaptureDevice .default(for:.video) else { return }
-        let session = AVCaptureSession()
-        session.sessionPreset = .photo
-        do {
-            let input = try AVCaptureDeviceInput(device: device)
-            if session.canAddInput(input) {
-                session.addInput(input)
-            }
-            
-            if session.canAddOutput(capturedOutput) {
-                session.addOutput(capturedOutput)
-            }
-            
-            previewLayer.connection?.videoOrientation = .portrait
-            previewLayer.videoGravity = .resizeAspectFill
-            previewLayer.session = session
-            
-            DispatchQueue.global(qos: .userInitiated).async {
-                session.startRunning()
-            }
-            
-            captureSession = session
-        }
-        catch {
-            fatalError("unknown error while setting up camera")
-        }
-    }
 }
 
-extension CertPhotoCameraViewController: AVCapturePhotoCaptureDelegate {
+extension CertPhotoCameraViewController {
     
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        guard let capturedData = photo.fileDataRepresentation(),
-              let capturedImage = UIImage(data: capturedData) else { return }
- 
+    func adjustImageData(with originalImageData: Data) {
+        
+        guard let capturedImage = UIImage(data: originalImageData) else {
+            return
+        }
+        
         let length = view.bounds.width
         let squaredSize = CGSize(width: length, height: length)
         let squaredImage = capturedImage.cropImageToSquare()
@@ -209,6 +153,8 @@ extension CertPhotoCameraViewController: AVCapturePhotoCaptureDelegate {
             self.nextButton.isHidden = false
             self.shutterButton.isHidden = true
             self.previewLayerView.isHidden = true
+            
+            self.cameraManager.endCapturing()
         }
     }
 }
