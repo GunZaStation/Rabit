@@ -26,7 +26,7 @@ final class CertPhotoCameraViewController: UIViewController {
     
     private let shutterButton: UIButton = {
         let button = UIButton()
-        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderColor = UIColor.systemGray.cgColor
         button.layer.cornerRadius = 50
         button.layer.borderWidth = 10
         return button
@@ -34,7 +34,7 @@ final class CertPhotoCameraViewController: UIViewController {
     
     private let nextButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .white
+        button.backgroundColor = .systemGray
         button.layer.cornerRadius = 50
         button.setTitle("✅", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -158,7 +158,7 @@ final class CertPhotoCameraViewController: UIViewController {
     
     private func setAttributes() {
         
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
     }
     
