@@ -10,20 +10,6 @@ final class CertPhotoCameraViewController: UIViewController {
     private let capturedOutput = AVCapturePhotoOutput()
     private let previewLayer = AVCaptureVideoPreviewLayer()
     
-    private lazy var dimmedView: DimmedView = {
-        let totalWidth = view.bounds.width
-        let totalHeight = view.bounds.height
-        let length = min(totalWidth, totalHeight)
-        
-        let centerOrigin = CGPoint(x: .zero, y: (totalHeight-length)/2)
-        let centerSize = CGSize(width: length, height: length)
-        let centerRect = CGRect(origin: centerOrigin, size: centerSize)
-        
-        let backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        let view = DimmedView(backgroundColor: backgroundColor, transparentRect: centerRect)
-        return view
-    }()
-    
     private let shutterButton: UIButton = {
         let button = UIButton()
         button.layer.borderColor = UIColor.systemGray.cgColor
@@ -124,18 +110,15 @@ final class CertPhotoCameraViewController: UIViewController {
         
         view.addSubview(previewLayerView)
         previewLayerView.snp.makeConstraints {
-            $0.centerY.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().offset(120)
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(view.snp.width)
-        }
-        
-        view.addSubview(dimmedView)
-        dimmedView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
         }
         
         view.addSubview(previewImageView)
         previewImageView.snp.makeConstraints {
-            $0.centerY.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().offset(100)
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(previewLayerView.snp.width)
         }
         
@@ -144,7 +127,7 @@ final class CertPhotoCameraViewController: UIViewController {
             $0.width.equalTo(100)
             $0.height.equalTo(100)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(100)
         }
         
         view.addSubview(nextButton)
@@ -152,7 +135,7 @@ final class CertPhotoCameraViewController: UIViewController {
             $0.width.equalTo(100)
             $0.height.equalTo(100)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(100)
         }
     }
     
