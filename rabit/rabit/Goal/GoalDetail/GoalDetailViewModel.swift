@@ -19,7 +19,9 @@ protocol GoalDetailViewModelOutput {
     var selectedTime: BehaviorRelay<CertifiableTime> { get }
 }
 
-final class GoalDetailViewModel: GoalDetailViewModelInput, GoalDetailViewModelOutput {
+protocol GoalDetailViewModelProtocol: GoalDetailViewModelInput, GoalDetailViewModelOutput {}
+
+final class GoalDetailViewModel: GoalDetailViewModelProtocol {
     
     let saveButtonTouched = PublishRelay<Void>()
     let closeButtonTouched = PublishRelay<Void>()

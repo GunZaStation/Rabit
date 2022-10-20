@@ -63,9 +63,9 @@ final class GoalAddViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private var viewModel: GoalAddViewModel?
+    private var viewModel: GoalAddViewModelProtocol?
     
-    convenience init(viewModel: GoalAddViewModel) {
+    convenience init(viewModel: GoalAddViewModelProtocol) {
         self.init()
         self.viewModel = viewModel
     }

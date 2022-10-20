@@ -37,7 +37,7 @@ final class GoalListCollectionViewHeader: UICollectionReusableView {
         titleLabel.text = title
     }
     
-    func bind(viewModel: GoalListViewModel?, category: Category) {
+    func bind(viewModel: GoalListViewModelProtocol?, category: Category) {
         guard let viewModel = viewModel else { return }
         disposeBag = DisposeBag()
         

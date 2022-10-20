@@ -19,7 +19,9 @@ protocol GoalAddViewModelOutput {
     var selectedTime: BehaviorRelay<CertifiableTime> { get }
 }
 
-final class GoalAddViewModel: GoalAddViewModelInput, GoalAddViewModelOutput {
+protocol GoalAddViewModelProtocol: GoalAddViewModelInput, GoalAddViewModelOutput {}
+
+final class GoalAddViewModel: GoalAddViewModelProtocol {
     
     let saveButtonTouched = PublishRelay<Void>()
     let closeButtonTouched = PublishRelay<Void>()
@@ -32,22 +34,20 @@ final class GoalAddViewModel: GoalAddViewModelInput, GoalAddViewModelOutput {
     let selectedPeriod = BehaviorRelay<Period>(value: Period())
     let selectedTime = BehaviorRelay<CertifiableTime>(value: CertifiableTime())
     
-    private let category: Category
     private let repository: GoalAddRepository
     private let disposeBag = DisposeBag()
     
     init(navigation: GoalNavigation,
          category: Category,
          repository: GoalAddRepository = GoalAddRepository()) {
-        self.category = category
         self.repository = repository
-        bind(to: navigation)
+        bind(to: navigation, with: category)
     }
 }
 
 private extension GoalAddViewModel {
     
-    func bind(to navigation: GoalNavigation) {
+    func bind(to navigation: GoalNavigation, with category: Category) {
                 
         closeButtonTouched
             .bind(to: navigation.closeGoalAddView)
@@ -79,7 +79,7 @@ private extension GoalAddViewModel {
                             subtitle: $1.1,
                             period: $1.2,
                             certTime: $1.3,
-                            category: $0.category.title
+                            category: category.title
                         )
                     }
                     .share()
@@ -88,7 +88,7 @@ private extension GoalAddViewModel {
             .withLatestFrom(goal)
             .withUnretained(self)
             .flatMapLatest{
-                return $0.repository.addGoal($1)
+                $0.repository.addGoal($1)
             }
             .bind(to: goalAddResult)
             .disposed(by: disposeBag)

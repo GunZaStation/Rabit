@@ -17,7 +17,9 @@ protocol CategoryAddViewModelOutput {
     var titleInputEmpty: PublishRelay<Bool> { get }
 }
 
-final class CategoryAddViewModel: CategoryAddViewModelInput, CategoryAddViewModelOutput {
+protocol CategoryAddViewModelProtocol: CategoryAddViewModelInput, CategoryAddViewModelOutput {}
+
+final class CategoryAddViewModel: CategoryAddViewModelProtocol {
     
     let saveButtonTouched = PublishRelay<Void>()
     let closeButtonTouched = PublishRelay<Void>()

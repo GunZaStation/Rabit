@@ -15,7 +15,9 @@ protocol GoalListViewModelOutput {
     var goalList: PublishRelay<[Category]> { get }
 }
 
-final class GoalListViewModel: GoalListViewModelInput, GoalListViewModelOutput {
+protocol GoalListViewModelProtocol: GoalListViewModelInput, GoalListViewModelOutput {}
+
+final class GoalListViewModel: GoalListViewModelProtocol {
     
     let requestGoalList = PublishRelay<Void>()
     let categoryAddButtonTouched = PublishRelay<Void>()
