@@ -17,7 +17,9 @@ protocol TimeSelectViewModelOutput {
     var presetDays: Observable<[Day]> { get }
 }
 
-final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOutput {
+protocol TimeSelectViewModelProtocol: TimeSelectViewModelInput, TimeSelectViewModelOutput {}
+
+final class TimeSelectViewModel: TimeSelectViewModelProtocol {
     
     let viewDidLoad = PublishRelay<Void>()
     let closingViewRequested = PublishRelay<Void>()
@@ -37,13 +39,26 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
         with timeStream: BehaviorRelay<CertifiableTime>
     ) {
         self.selectedTime = .init(value: timeStream.value)
-        bind(to: navigation, with: timeStream)
+        bind(to: navigation)
+        bind(to: timeStream)
+    }
+}
+
+private extension TimeSelectViewModel {
+    
+    func bind(to navigation: GoalNavigation) {
+        
+        selectedDays
+            .map { !$0.isEmpty }
+            .bind(to: saveButtonEnabled)
+            .disposed(by: disposeBag)
+        
+        closingViewRequested
+            .bind(to: navigation.closePeriodSelectView)
+            .disposed(by: disposeBag)
     }
     
-    func bind(
-        to navigation: GoalNavigation,
-        with timeStream: BehaviorRelay<CertifiableTime>
-    ) {
+    func bind(to timeStream: BehaviorRelay<CertifiableTime>) {
         
         viewDidLoad
             .withLatestFrom(timeStream) {
@@ -62,15 +77,6 @@ final class TimeSelectViewModel: TimeSelectViewModelInput, TimeSelectViewModelOu
         timeStream
             .map { $0.days.selectedValues }
             .bind(to: selectedDays)
-            .disposed(by: disposeBag)
-        
-        selectedDays
-            .map { !$0.isEmpty }
-            .bind(to: saveButtonEnabled)
-            .disposed(by: disposeBag)
-        
-        closingViewRequested
-            .bind(to: navigation.closePeriodSelectView)
             .disposed(by: disposeBag)
         
         Observable

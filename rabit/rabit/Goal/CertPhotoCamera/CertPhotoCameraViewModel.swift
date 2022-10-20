@@ -12,7 +12,9 @@ protocol CertPhotoCameraViewModelOutput {
     var previewPhotoData: PublishRelay<Data> { get }
 }
 
-final class CertPhotoCameraViewModel: CertPhotoCameraViewModelInput, CertPhotoCameraViewModelOutput {
+protocol CertPhotoCameraViewModelProtocol: CertPhotoCameraViewModelInput, CertPhotoCameraViewModelOutput {}
+
+final class CertPhotoCameraViewModel: CertPhotoCameraViewModelProtocol {
     
     let certPhotoDataInput = PublishRelay<Data>()
     let nextButtonTouched = PublishRelay<Void>()
@@ -23,6 +25,9 @@ final class CertPhotoCameraViewModel: CertPhotoCameraViewModelInput, CertPhotoCa
     init(navigation: GoalNavigation, goal: Goal) {
         bind(to: navigation, with: goal)
     }
+}
+
+private extension CertPhotoCameraViewModel {
     
     func bind(to navigation: GoalNavigation, with goal: Goal) {
 

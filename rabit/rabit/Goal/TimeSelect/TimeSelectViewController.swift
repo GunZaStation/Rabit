@@ -56,9 +56,9 @@ final class TimeSelectViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private var viewModel: TimeSelectViewModel?
+    private var viewModel: TimeSelectViewModelProtocol?
     
-    convenience init(viewModel: TimeSelectViewModel) {
+    convenience init(viewModel: TimeSelectViewModelProtocol) {
         self.init()
         self.viewModel = viewModel
     }

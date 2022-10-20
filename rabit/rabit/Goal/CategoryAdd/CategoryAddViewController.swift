@@ -63,10 +63,10 @@ final class CategoryAddViewController: UIViewController {
         return label
     }()
     
-    private var viewModel: CategoryAddViewModel?
+    private var viewModel: CategoryAddViewModelProtocol?
     private let disposeBag = DisposeBag()
     
-    convenience init(viewModel: CategoryAddViewModel) {
+    convenience init(viewModel: CategoryAddViewModelProtocol) {
 
         self.init()
         self.viewModel = viewModel

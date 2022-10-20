@@ -14,10 +14,10 @@ final class GoalListViewController: UIViewController {
         initializeCollectionView()
     }()
     
-    private var viewModel: GoalListViewModel?
+    private var viewModel: GoalListViewModelProtocol?
     private let disposeBag = DisposeBag()
     
-    convenience init(viewModel: GoalListViewModel) {
+    convenience init(viewModel: GoalListViewModelProtocol) {
         
         self.init()
         self.viewModel = viewModel
