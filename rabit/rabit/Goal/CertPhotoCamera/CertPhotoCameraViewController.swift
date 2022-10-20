@@ -31,7 +31,7 @@ final class CertPhotoCameraViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let cameraManager = CameraManager()
+    private let cameraManager: CameraManagable = CameraManager()
     private var viewModel: CertPhotoCameraViewModel?
     
     convenience init(viewModel: CertPhotoCameraViewModel) {

@@ -1,7 +1,14 @@
 import AVFoundation
 import UIKit
 
-final class CameraManager {
+protocol CameraManagable {
+    
+    func prepareCapturing(with previewLayerView: UIView)
+    func capture(completionHandler: @escaping (Data) -> Void)
+    func endCapturing()
+}
+
+final class CameraManager: CameraManagable {
     
     private let capturingSessinoQueue = DispatchQueue(label: "CapturingSessionQueue", qos: .background)
     private let capturingSession: AVCaptureSession = AVCaptureSession()
