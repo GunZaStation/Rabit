@@ -30,8 +30,8 @@ final class AlbumCell: UICollectionViewCell {
             height: bounds.width - 20
         )
 
-            let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
         DispatchQueue.global().async {
+            let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
 
             DispatchQueue.main.async {
                 self.thumbnailPictureView.image = image?.overlayText(of: photo)

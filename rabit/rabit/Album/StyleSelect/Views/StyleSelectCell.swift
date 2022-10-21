@@ -62,8 +62,8 @@ final class StyleSelectCell: UICollectionViewCell {
             height: bounds.width
         )
 
-            let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
         DispatchQueue.global().async {
+            let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
 
             DispatchQueue.main.async {
                 self.previewImageView.image = image?.overlayText(of: photo)
