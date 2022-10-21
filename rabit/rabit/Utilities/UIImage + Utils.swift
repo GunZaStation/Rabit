@@ -37,11 +37,11 @@ extension UIImage {
         return UIImage(cgImage: croppedImage, scale: 1.0, orientation: self.imageOrientation)
     }
     
-    func overlayText(of photo: Photo, scale: CGFloat = UIScreen.main.scale) -> UIImage? {
+    func overlayText(of photo: Photo) -> UIImage? {
         let text = DateConverter.convertToDateString(date: photo.date)
         let textColor = UIColor(hexRGB: photo.color) ?? .clear
         let fontSize: CGFloat = 0.1 * size.height
-        let imageSize = CGSize(width: size.width/scale, height: size.height/scale)
+        let imageSize = CGSize(width: size.width, height: size.height)
         let textFont = UIFont(name: photo.style.name, size: fontSize) ?? .systemFont(ofSize: 0.1 * size.height)
 
         let attributedString = NSMutableAttributedString(string: text)

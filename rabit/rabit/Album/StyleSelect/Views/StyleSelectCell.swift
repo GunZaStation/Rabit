@@ -65,10 +65,9 @@ final class StyleSelectCell: UICollectionViewCell {
 
         serialQueue.async {
             let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
-            let scale = (image?.size.width ?? 0) / imageSize.width
 
             DispatchQueue.main.async {
-                self.previewImageView.image = image?.overlayText(of: photo, scale: scale)
+                self.previewImageView.image = image?.overlayText(of: photo)
                 self.nameLabel.text = photo.style.rawValue
             }
         }

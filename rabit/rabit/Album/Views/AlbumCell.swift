@@ -33,10 +33,9 @@ final class AlbumCell: UICollectionViewCell {
 
         serialQueue.async {
             let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
-            let scale = (image?.size.width ?? 0) / imageSize.width
 
             DispatchQueue.main.async {
-                self.thumbnailPictureView.image = image?.overlayText(of: photo, scale: scale)
+                self.thumbnailPictureView.image = image?.overlayText(of: photo)
             }
         }
     }
