@@ -26,11 +26,17 @@ final class AlbumCell: UICollectionViewCell {
     func configure(with photo: Album.Item) {
         let serialQueue = DispatchQueue(label: "Serial_Queue")
 
+        let imageSize = CGSize(
+            width: bounds.width - 20,
+            height: bounds.width - 20
+        )
+
         serialQueue.async {
-            let image = UIImage(data: photo.imageData)
+            let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
+            let scale = (image?.size.width ?? 0) / imageSize.width
 
             DispatchQueue.main.async {
-                self.thumbnailPictureView.image = image?.overlayText(of: photo)
+                self.thumbnailPictureView.image = image?.overlayText(of: photo, scale: scale)
             }
         }
     }

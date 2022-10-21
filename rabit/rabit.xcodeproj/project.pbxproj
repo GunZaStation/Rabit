@@ -24,6 +24,7 @@
 		025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025CA12528A631C0007AAADE /* AlbumRepository.swift */; };
 		027EA68128EC82380097E802 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EA68028EC82380097E802 /* Style.swift */; };
 		027EA68328EC8D720097E802 /* StyleSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EA68228EC8D720097E802 /* StyleSelectCell.swift */; };
+		028A409329023B8300349F48 /* Data + Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A409229023B8300349F48 /* Data + Utils.swift */; };
 		02972D5D28B61E76008C097D /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5C28B61E76008C097D /* Persistable.swift */; };
 		02972D5F28B74343008C097D /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02972D5E28B74342008C097D /* PhotoEntity.swift */; };
 		02A093C828B8A52B00BDF69B /* CategoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A093C728B8A52B00BDF69B /* CategoryEntity.swift */; };
@@ -138,6 +139,7 @@
 		025CA12528A631C0007AAADE /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
 		027EA68028EC82380097E802 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		027EA68228EC8D720097E802 /* StyleSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectCell.swift; sourceTree = "<group>"; };
+		028A409229023B8300349F48 /* Data + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data + Utils.swift"; sourceTree = "<group>"; };
 		02972D5C28B61E76008C097D /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		02972D5E28B74342008C097D /* PhotoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
 		02A093C728B8A52B00BDF69B /* CategoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEntity.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				B5F37E6B28E5DA92007FF5E5 /* BottomSheet + Reactive.swift */,
 				B5E3052428E7F4A40044B592 /* InsertField + Reactive.swift */,
 				B5CC800928ED79B2009665F8 /* Date + Strideable.swift */,
+				028A409229023B8300349F48 /* Data + Utils.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				B582574828BF3330001AE268 /* TimeComponent.swift in Sources */,
 				02D30E6B28C8689000B5C4B2 /* CalendarCell.swift in Sources */,
 				0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */,
+				028A409329023B8300349F48 /* Data + Utils.swift in Sources */,
 				02DABAAC28EC4516001416DC /* StyleSelectViewModel.swift in Sources */,
 				02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */,
 				02F37251289CE21400F361C7 /* Album.swift in Sources */,

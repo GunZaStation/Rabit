@@ -58,11 +58,17 @@ final class StyleSelectCell: UICollectionViewCell {
     func configure(with photo: Album.Item) {
         let serialQueue = DispatchQueue(label: "Serial_Queue")
 
+        let imageSize = CGSize(
+            width: bounds.width,
+            height: bounds.width
+        )
+
         serialQueue.async {
-            let image = UIImage(data: photo.imageData)
+            let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
+            let scale = (image?.size.width ?? 0) / imageSize.width
 
             DispatchQueue.main.async {
-                self.previewImageView.image = image?.overlayText(of: photo)
+                self.previewImageView.image = image?.overlayText(of: photo, scale: scale)
                 self.nameLabel.text = photo.style.rawValue
             }
         }
