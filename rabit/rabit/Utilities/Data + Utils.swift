@@ -1,7 +1,8 @@
-import UIKit
+import Foundation
+import ImageIO
 
 extension Data {
-    func toDownsampledImage(pointSize: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage? {
+    func toDownsampledCGImage(pointSize: CGSize, scale: CGFloat) -> CGImage? {
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let imageSource = CGImageSourceCreateWithData(
             self as CFData,
@@ -16,14 +17,6 @@ extension Data {
             kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
         ] as CFDictionary
 
-        if let downsampledImage = CGImageSourceCreateThumbnailAtIndex(
-            imageSource,
-            0,
-            downsampleOptions
-        ) {
-            return UIImage(cgImage: downsampledImage)
-        }
-
-        return nil
+        return CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions)
     }
 }

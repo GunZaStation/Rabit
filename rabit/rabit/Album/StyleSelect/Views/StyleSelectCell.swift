@@ -62,11 +62,13 @@ final class StyleSelectCell: UICollectionViewCell {
             height: bounds.width
         )
 
-        DispatchQueue.global().async {
-            let image = photo.imageData.toDownsampledImage(pointSize: imageSize, scale: 2.0)
+        DispatchQueue.global(qos: .userInteractive).async {
+            guard let downsampledCGImage = photo.imageData
+                .toDownsampledCGImage(pointSize: imageSize, scale: 2.0) else { return }
+            let image = UIImage(cgImage: downsampledCGImage)
 
             DispatchQueue.main.async {
-                self.previewImageView.image = image?.overlayText(of: photo)
+                self.previewImageView.image = image.overlayText(of: photo)
                 self.nameLabel.text = photo.style.rawValue
             }
         }

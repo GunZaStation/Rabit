@@ -111,8 +111,12 @@ private extension PhotoEditViewController {
         let updatedPhotoImage = viewModel.selectedPhotoData
             .map(\.imageData)
             .compactMap {
-                $0.toDownsampledImage(pointSize: imageSize)
+                $0.toDownsampledCGImage(
+                    pointSize: imageSize,
+                    scale: UIScreen.main.scale
+                )
             }
+            .compactMap(UIImage.init)
             .withLatestFrom(viewModel.selectedPhotoData) {
                 $0.overlayText(of: $1)
             }
