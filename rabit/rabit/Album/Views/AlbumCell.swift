@@ -24,6 +24,12 @@ final class AlbumCell: UICollectionViewCell {
     }
 
     func configure(with photo: Album.Item) {
+        let cacheKey = "\(photo.uuid)\(photo.style)\(photo.color)\(Self.identifier)" as NSString
+
+        if let chachedImage = ImageCacheManager.shared.object(forKey: cacheKey) {
+            self.thumbnailPictureView.image = chachedImage
+            return
+        }
 
         let imageSize = CGSize(
             width: bounds.width - 20,
@@ -36,7 +42,10 @@ final class AlbumCell: UICollectionViewCell {
             let image = UIImage(cgImage: downsampledCGImage)
 
             DispatchQueue.main.async {
-                self.thumbnailPictureView.image = image.overlayText(of: photo)
+                if let image = image.overlayText(of: photo) {
+                    ImageCacheManager.shared.setObject(image, forKey: cacheKey)
+                    self.thumbnailPictureView.image = image
+                }
             }
         }
     }

@@ -136,6 +136,15 @@ private extension AlbumViewController {
             .map { _ in }
             .bind(to: viewModel.showNextViewRequested)
             .disposed(by: disposeBag)
+
+        albumCollectionView.rx.prefetchItems
+            .withUnretained(self)
+            .bind { viewController, indexPaths in
+                indexPaths.forEach {
+                    viewController.prefetchItemImage(of: $0)
+                }
+            }
+            .disposed(by: disposeBag)
     }
 
     func getFocusedCellIndex(
@@ -155,4 +164,29 @@ private extension AlbumViewController {
             item.transform = CGAffineTransform(scaleX: scale, y: scale)
         }
     }
+
+    func prefetchItemImage(of indexPath: IndexPath) {
+        guard let viewModel = viewModel else { return }
+
+        let prefetchTarget = viewModel.albumData.value[indexPath.section].items[indexPath.item]
+        let cacheKey = "\(prefetchTarget.uuid)\(prefetchTarget.style)\(prefetchTarget.color)\(AlbumCell.identifier)" as NSString
+        let imageSize = CGSize(
+            width: view.bounds.width - 20,
+            height: view.bounds.width - 20
+        )
+
+        guard ImageCacheManager.shared.object(forKey: cacheKey) == nil else { return }
+
+        DispatchQueue.global().async {
+            guard let downsampledCGImage = prefetchTarget.imageData
+                .toDownsampledCGImage(pointSize: imageSize, scale: 0.5) else { return }
+            let image = UIImage(cgImage: downsampledCGImage)
+
+            DispatchQueue.main.async {
+                let textOverlayedImage = image.overlayText(of: prefetchTarget) ?? UIImage()
+                ImageCacheManager.shared.setObject(textOverlayedImage, forKey: cacheKey)
+            }
+        }
+    }
+}
 }
