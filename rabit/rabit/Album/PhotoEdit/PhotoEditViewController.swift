@@ -102,9 +102,10 @@ private extension PhotoEditViewController {
     func bind() {
         guard let viewModel = viewModel else { return }
 
+        let imageLength = view.bounds.width
         let imageSize = CGSize(
-            width: view.bounds.width,
-            height: view.bounds.width
+            width: imageLength,
+            height: imageLength
         )
 
         let updatedPhotoImage = viewModel.selectedPhotoData
