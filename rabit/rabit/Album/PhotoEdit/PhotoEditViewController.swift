@@ -102,9 +102,21 @@ private extension PhotoEditViewController {
     func bind() {
         guard let viewModel = viewModel else { return }
 
+        let imageLength = view.bounds.width
+        let imageSize = CGSize(
+            width: imageLength,
+            height: imageLength
+        )
+
         let updatedPhotoImage = viewModel.selectedPhotoData
             .map(\.imageData)
-            .compactMap(UIImage.init(data:))
+            .compactMap {
+                $0.toDownsampledCGImage(
+                    pointSize: imageSize,
+                    scale: UIScreen.main.scale
+                )
+            }
+            .compactMap(UIImage.init)
             .withLatestFrom(viewModel.selectedPhotoData) {
                 $0.overlayText(of: $1)
             }
