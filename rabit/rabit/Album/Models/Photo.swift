@@ -1,4 +1,5 @@
 import Foundation
+import Differentiator
 
 struct Photo: Equatable {
     let uuid: UUID
@@ -36,6 +37,14 @@ struct Photo: Equatable {
             color: "",
             style: .none
         )
+    }
+}
+
+extension Photo: IdentifiableType {
+    typealias identifier = UUID
+
+    var identity: UUID {
+        return self.uuid
     }
 }
 

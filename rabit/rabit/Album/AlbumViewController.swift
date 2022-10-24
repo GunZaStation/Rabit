@@ -4,7 +4,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-typealias AlbumDataSource = RxCollectionViewSectionedReloadDataSource<Album>
+typealias AlbumSectionType = AnimatableSectionModel<Album, Photo>
+typealias AlbumDataSource = RxCollectionViewSectionedAnimatedDataSource<AlbumSectionType>
 
 final class AlbumViewController: UIViewController {
     private let albumCollectionView: UICollectionView = {
@@ -85,37 +86,26 @@ private extension AlbumViewController {
 
     func initializeDataSource() -> AlbumDataSource {
         return AlbumDataSource(
-            configureCell: { dataSource, collectionView, indexPath, item in
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: AlbumCell.identifier,
-                    for: indexPath) as? AlbumCell else { return UICollectionViewCell(
-                ) }
-
-                let itemData = dataSource.sectionModels[indexPath.section].items[indexPath.item]
-
-                cell.configure(with: itemData)
-                return cell
-            },
-            configureSupplementaryView: { (dataSource, collectionView, kind, indexPath) in
-                guard kind == UICollectionView.elementKindSectionHeader,
-                      let header = collectionView.dequeueReusableSupplementaryView(
-                          ofKind: kind,
-                          withReuseIdentifier: AlbumHeaderView.identifier,
-                          for: indexPath
-                      ) as? AlbumHeaderView else {
-                    return UICollectionReusableView()
-                }
-                let headerTitle = dataSource.sectionModels[indexPath.section].categoryTitle
-                header.configure(with: headerTitle)
-
-                return header
-            })
+            animationConfiguration: AnimationConfiguration(
+                insertAnimation: .right,
+                reloadAnimation: .fade,
+                deleteAnimation: .left
+            ),
+            configureCell: configureCell,
+            configureSupplementaryView: configureSupplementaryView,
+            canMoveItemAtIndexPath: canMoveItemAtIndexPath
+        )
     }
 
     func bind() {
         guard let viewModel = viewModel else { return }
 
         viewModel.albumData
+            .map { albumArray in
+                albumArray
+                    .map { ($0, $0.items) }
+                    .map(AlbumSectionType.init(model:items:))
+            }
             .bind(to: albumCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
 
@@ -189,4 +179,40 @@ private extension AlbumViewController {
         }
     }
 }
+
+// MARK: - Data Source Configuration
+private extension AlbumViewController {
+    var configureCell: AlbumDataSource.ConfigureCell {
+        return { (dataSource, collectionView, indexPath, item) in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: AlbumCell.identifier,
+                for: indexPath) as? AlbumCell else { return UICollectionViewCell() }
+
+            let itemData = dataSource.sectionModels[indexPath.section].items[indexPath.item]
+
+            cell.configure(with: itemData)
+            return cell
+        }
+    }
+
+    var configureSupplementaryView: AlbumDataSource.ConfigureSupplementaryView {
+        return { (dataSource, collectionView, kind, indexPath) in
+            guard kind == UICollectionView.elementKindSectionHeader,
+                  let header = collectionView.dequeueReusableSupplementaryView(
+                      ofKind: kind,
+                      withReuseIdentifier: AlbumHeaderView.identifier,
+                      for: indexPath
+                  ) as? AlbumHeaderView else {
+                return UICollectionReusableView()
+            }
+            let headerTitle = dataSource.sectionModels[indexPath.section].model.categoryTitle
+            header.configure(with: headerTitle)
+
+            return header
+        }
+    }
+
+    var canMoveItemAtIndexPath: AlbumDataSource.CanMoveItemAtIndexPath {
+        return { _, _ in return false }
+    }
 }
