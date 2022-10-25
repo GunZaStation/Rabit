@@ -3,6 +3,7 @@ import RealmSwift
 
 final class GoalEntity: Object {
     
+    @Persisted var uuid: UUID = UUID()
     @Persisted var title: String = ""
     @Persisted var subtitle: String = ""
     @Persisted var progress: Int = 0
@@ -34,6 +35,10 @@ final class GoalEntity: Object {
         self.startCertTime = certTime.start.toSeconds()
         self.endCertTime = certTime.end.toSeconds()
         self.certDays.append(objectsIn: certTime.days.toIntArray())
+    }
+    
+    override static func primaryKey() -> String? {
+        return "uuid"
     }
 }
 
