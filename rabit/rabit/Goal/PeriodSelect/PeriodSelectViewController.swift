@@ -96,9 +96,7 @@ final class PeriodSelectViewController: UIViewController {
         
         viewModel.calendarData
             .map { dataArray in
-                dataArray
-                    .map { ($0, $0.items) }
-                    .map(CalendarSectionType.init(model:items:))
+                dataArray.map { CalendarSectionType(model: $0, items: $0.items) }
             }
             .bind(to: calendarCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)

@@ -103,8 +103,7 @@ private extension AlbumViewController {
         viewModel.albumData
             .map { albumArray in
                 albumArray
-                    .map { ($0, $0.items) }
-                    .map(AlbumSectionType.init(model:items:))
+                    .map { AlbumSectionType(model: $0, items: $0.items) }
             }
             .bind(to: albumCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
