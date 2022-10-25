@@ -88,10 +88,12 @@ final class GoalAddViewController: UIViewController {
         guard let viewModel = viewModel else { return }
         
         saveButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
                 
         navigationItem.leftBarButtonItem?.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
                 
@@ -109,7 +111,8 @@ final class GoalAddViewController: UIViewController {
             .disposed(by: disposeBag)
                 
         periodField.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind { _ in viewModel.periodFieldTouched.accept(()) }
             .disposed(by: disposeBag)
         
@@ -119,7 +122,8 @@ final class GoalAddViewController: UIViewController {
             .disposed(by: disposeBag)
         
         timeField.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind { _ in viewModel.timeFieldTouched.accept(()) }
             .disposed(by: disposeBag)
         

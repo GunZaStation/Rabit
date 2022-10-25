@@ -135,18 +135,22 @@ private extension PhotoEditViewController {
             .disposed(by: disposeBag)
 
         selectColorButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.selectColorButtonTouched)
             .disposed(by: disposeBag)
 
         selectStyleButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.selectStyleButtonTouched)
             .disposed(by: disposeBag)
 
         cancelButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.backButtonTouched)
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
 

@@ -141,6 +141,7 @@ private extension StyleSelectViewController {
 
         dimmedView.rx.tapGesture()
             .when(.ended)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .bind { viewController, _ in
                 viewController.hideStyleSheet()
@@ -155,6 +156,7 @@ private extension StyleSelectViewController {
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .withUnretained(self) { viewController, _ in
                 viewController.hideStyleSheet()
             }

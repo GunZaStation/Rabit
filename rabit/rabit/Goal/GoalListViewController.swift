@@ -41,6 +41,7 @@ final class GoalListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         navigationItem.rightBarButtonItem?.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.categoryAddButtonTouched)
             .disposed(by: disposeBag)
         

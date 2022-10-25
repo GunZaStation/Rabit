@@ -81,7 +81,8 @@ final class TimeSelectViewController: UIViewController {
         guard let viewModel = viewModel else { return }
         
         dimmedView.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .bind { viewController, _ in
                 viewController.hideTimeSelectSheet()
@@ -169,6 +170,7 @@ final class TimeSelectViewController: UIViewController {
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .withUnretained(self) { viewController, _ in
                 viewController.hideTimeSelectSheet()
             }
