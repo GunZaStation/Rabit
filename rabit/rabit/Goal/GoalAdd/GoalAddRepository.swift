@@ -4,6 +4,16 @@ import RxSwift
 struct GoalAddRepository {
     
     private let realmManager = RealmManager.shared
+    
+    func checkTitleDuplicated(title: String, category: String) -> Bool {
+        
+        guard !title.isEmpty else { return false }
+        
+        return realmManager.read(
+            entity: GoalEntity.self,
+            filter: "title=='\(title)' && category=='\(category)'"
+        ).count >= 1        
+    }
 
     func addGoal(_ goal: Goal) -> Single<Bool> {
         

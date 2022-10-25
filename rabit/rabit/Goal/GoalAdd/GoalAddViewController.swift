@@ -45,10 +45,11 @@ final class GoalAddViewController: UIViewController {
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .systemGreen
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("저장하기", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        button.isEnabled = false
+        button.setBackgroundColor(.systemGreen, for: .normal)
         return button
     }()
     
@@ -96,6 +97,11 @@ final class GoalAddViewController: UIViewController {
                 
         titleField.rx.text
             .bind(to: viewModel.goalTitleInput)
+            .disposed(by: disposeBag)
+        
+        viewModel.saveButtonDisabled
+            .map { !$0 }
+            .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
         descriptionField.rx.text
