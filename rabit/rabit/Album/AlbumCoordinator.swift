@@ -58,15 +58,7 @@ final class AlbumCoordinator: Coordinator, PhotoEditNavigation, AlbumNavigation,
 // MARK: - Navigation methods
 private extension AlbumCoordinator {
     func presentPhotoEditView(_ selectedPhoto: BehaviorRelay<Album.Item>) {
-        let repository = AlbumRepository()
-        let viewModel = PhotoEditViewModel(
-            photoStream: selectedPhoto,
-            repository: repository,
-            navigation: self
-        )
-        let viewController = PhotoEditViewController(viewModel: viewModel)
-
-        navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
+        show(PhotoEditViewController.self, with: selectedPhoto)
     }
 
     func dismissPhotoEditView() {
@@ -74,14 +66,7 @@ private extension AlbumCoordinator {
     }
 
     func presentColorSelectView(colorStream: BehaviorRelay<String>) {
-        let viewModel = ColorSelectViewModel(
-            colorStream: colorStream,
-            navigation: self
-        )
-
-        let viewController = ColorSelectViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overFullScreen
-        navigationController.presentedViewController?.present(viewController, animated: false)
+        show(ColorSelectViewController.self, with: colorStream)
     }
 
     func dismissColorSelectView() {
@@ -89,14 +74,7 @@ private extension AlbumCoordinator {
     }
 
     func presentStyleSelectView(photoStream: BehaviorRelay<Album.Item>) {
-        let viewModel = StyleSelectViewModel(
-            photoStream: photoStream,
-            navigation: self
-        )
-
-        let viewController = StyleSelectViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overFullScreen
-        navigationController.presentedViewController?.present(viewController, animated: true)
+        show(StyleSelectViewController.self, with: photoStream)
     }
 
     func dismissStyleSelectView() {
@@ -134,5 +112,33 @@ private extension AlbumCoordinator {
         closeStyleSelectView
             .bind(onNext: dismissStyleSelectView)
             .disposed(by: disposeBag)
+    }
+
+    func show<T: ViewControllable>(_ viewController: T.Type, with data: Any) {
+        let dic: [ObjectIdentifier: Any] = [
+            ObjectIdentifier(PhotoEditViewController.self): PhotoEditViewModel(
+                photoStream: (data as? BehaviorRelay<Photo>) ?? BehaviorRelay<Photo>(value: Photo()),
+                repository: AlbumRepository(),
+                navigation: self
+            ),
+            ObjectIdentifier(ColorSelectViewController.self): ColorSelectViewModel(
+                colorStream: (data as? BehaviorRelay<String>) ?? BehaviorRelay<String>(value: ""),
+                navigation: self
+            ),
+            ObjectIdentifier(StyleSelectViewController.self): StyleSelectViewModel(
+                photoStream: (data as? BehaviorRelay<Photo>) ?? BehaviorRelay<Photo>(value: Photo()),
+                navigation: self
+            )
+        ]
+
+        let viewModel = dic[ObjectIdentifier(viewController)] as! ViewModel
+        let viewController = T.init(viewModel: viewModel)
+
+        if let presentedViewController = navigationController.presentedViewController {
+            viewController.modalPresentationStyle = .overFullScreen
+            presentedViewController.present(viewController, animated: true)
+        } else {
+            navigationController.present(viewController, animated: true)
+        }
     }
 }

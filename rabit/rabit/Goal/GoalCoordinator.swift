@@ -19,6 +19,10 @@ protocol GoalNavigation {
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation, PhotoEditNavigation, ColorSelectNavigation, StyleSelectNavigation {
+    func show<T>(_ viewContrller: T.Type, with data: Any) where T : ViewControllable {
+        return
+    }
+    
 
     weak var parentCoordiantor: Coordinator?
     var children: [Coordinator] = []

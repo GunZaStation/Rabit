@@ -2,6 +2,8 @@ import Foundation
 import RxSwift
 import RxRelay
 
+protocol ViewModel { }
+
 protocol AlbumViewModelInput {
     var requestAlbumData: PublishRelay<Void> { get }
     var photoSelected: BehaviorRelay<Album.Item> { get }
@@ -13,7 +15,7 @@ protocol AlbumViewModelOutput {
     var albumData: BehaviorRelay<[Album]> { get }
 }
 
-protocol AlbumViewModelProtocol: AlbumViewModelInput, AlbumViewModelOutput { }
+protocol AlbumViewModelProtocol: AlbumViewModelInput, AlbumViewModelOutput, ViewModel { }
 
 final class AlbumViewModel: AlbumViewModelProtocol {
     private let albumRepository: AlbumRepositoryProtocol

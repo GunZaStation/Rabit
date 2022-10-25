@@ -13,7 +13,7 @@ protocol ColorSelectViewModelOutput {
     var saveButtonState: BehaviorRelay<Bool> { get }
 }
 
-protocol ColorSelectViewModelProtocol: ColorSelectViewModelInput, ColorSelectViewModelOutput { }
+protocol ColorSelectViewModelProtocol: ColorSelectViewModelInput, ColorSelectViewModelOutput, ViewModel { }
 
 final class ColorSelectViewModel: ColorSelectViewModelProtocol {
     let selectedColor: BehaviorRelay<String>
