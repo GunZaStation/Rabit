@@ -4,6 +4,7 @@ import RxRelay
 
 protocol GoalAddViewModelInput {
     
+    var saveButtonDisabled: PublishRelay<Bool> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
     var closeButtonTouched: PublishRelay<Void> { get }
     var periodFieldTouched: PublishRelay<Void> { get }
@@ -23,6 +24,7 @@ protocol GoalAddViewModelProtocol: GoalAddViewModelInput, GoalAddViewModelOutput
 
 final class GoalAddViewModel: GoalAddViewModelProtocol {
     
+    let saveButtonDisabled = PublishRelay<Bool>()
     let saveButtonTouched = PublishRelay<Void>()
     let closeButtonTouched = PublishRelay<Void>()
     let periodFieldTouched = PublishRelay<Void>()
@@ -48,6 +50,22 @@ final class GoalAddViewModel: GoalAddViewModelProtocol {
 private extension GoalAddViewModel {
     
     func bind(to navigation: GoalNavigation, with category: Category) {
+        
+        goalTitleInput
+            .map { $0.isEmpty || $0.count <= 0}
+            .bind(to: saveButtonDisabled)
+            .disposed(by: disposeBag)
+        
+        goalTitleInput
+            .ifEmpty(default: "")
+            .withUnretained(self) { viewModel, goalTitle in
+                viewModel.repository.checkTitleDuplicated(
+                    title: goalTitle,
+                    category: category.title
+                )
+            }
+            .bind(to: saveButtonDisabled)
+            .disposed(by: disposeBag)
                 
         closeButtonTouched
             .bind(to: navigation.closeGoalAddView)
