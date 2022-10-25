@@ -39,10 +39,10 @@ final class AlbumCell: UICollectionViewCell {
         DispatchQueue.global(qos: .userInteractive).async {
             guard let downsampledCGImage = photo.imageData
                 .toDownsampledCGImage(pointSize: imageSize, scale: 2.0) else { return }
-            let image = UIImage(cgImage: downsampledCGImage)
+            let downsampledUIImage = UIImage(cgImage: downsampledCGImage)
 
             DispatchQueue.main.async {
-                if let image = image.overlayText(of: photo) {
+                if let image = downsampledUIImage.overlayText(of: photo) {
                     ImageCacheManager.shared.setObject(image, forKey: cacheKey)
                     self.thumbnailPictureView.image = image
                 }

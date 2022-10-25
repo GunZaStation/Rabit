@@ -160,20 +160,21 @@ private extension AlbumViewController {
 
         let prefetchTarget = viewModel.albumData.value[indexPath.section].items[indexPath.item]
         let cacheKey = "\(prefetchTarget.uuid)\(prefetchTarget.style)\(prefetchTarget.color)\(AlbumCell.identifier)" as NSString
+
+        guard ImageCacheManager.shared.object(forKey: cacheKey) == nil else { return }
+
         let imageSize = CGSize(
             width: view.bounds.width - 20,
             height: view.bounds.width - 20
         )
 
-        guard ImageCacheManager.shared.object(forKey: cacheKey) == nil else { return }
-
         DispatchQueue.global().async {
             guard let downsampledCGImage = prefetchTarget.imageData
                 .toDownsampledCGImage(pointSize: imageSize, scale: 0.5) else { return }
-            let image = UIImage(cgImage: downsampledCGImage)
+            let downsampledUIImage = UIImage(cgImage: downsampledCGImage)
 
             DispatchQueue.main.async {
-                let textOverlayedImage = image.overlayText(of: prefetchTarget) ?? UIImage()
+                let textOverlayedImage = downsampledUIImage.overlayText(of: prefetchTarget) ?? UIImage()
                 ImageCacheManager.shared.setObject(textOverlayedImage, forKey: cacheKey)
             }
         }
