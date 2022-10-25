@@ -56,7 +56,7 @@ final class StyleSelectCell: UICollectionViewCell {
     }
 
     func configure(with photo: Album.Item) {
-        let cacheKey = "\(photo.uuid)\(photo.style)\(photo.color)\(self)" as NSString
+        let cacheKey = "\(photo.uuid)\(photo.style)\(photo.color)\(Self.identifier)" as NSString
 
         if let cachedImage = ImageCacheManager.shared.object(forKey: cacheKey) {
             self.previewImageView.image = cachedImage
