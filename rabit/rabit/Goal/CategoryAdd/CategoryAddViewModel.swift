@@ -59,7 +59,7 @@ private extension CategoryAddViewModel {
             .disposed(by: disposeBag)
         
         Observable
-            .combineLatest(titleInputEmpty.asObservable(), titleInputDuplicated.asObservable())
+            .combineLatest(titleInputEmpty, titleInputDuplicated)
             .map { $0 || $1 }
             .bind(to: saveButtonDisabled)
             .disposed(by: disposeBag)
