@@ -122,13 +122,6 @@ final class CategoryAddViewController: UIViewController {
             .bind { _ in viewModel.closeButtonTouched.accept(()) }
             .disposed(by: disposeBag)
 
-        viewModel.closeButtonTouched
-            .withUnretained(self)
-            .bind(onNext: { viewController, _ in
-                viewController.dismiss(animated: false)
-            })
-            .disposed(by: disposeBag)
-        
         viewModel.saveButtonDisabled
             .withUnretained(self)
             .bind(onNext: { viewController, isDisabled in
