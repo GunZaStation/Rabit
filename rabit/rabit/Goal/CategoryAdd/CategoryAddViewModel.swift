@@ -79,7 +79,8 @@ private extension CategoryAddViewModel {
         
         categoryAddResult
             .bind(onNext: { isSuccess in
-                if isSuccess { navigation.closeCategoryAddView.accept(()) }
+                guard isSuccess else { return }
+                navigation.closeCategoryAddView.accept(())
             })
             .disposed(by: disposeBag)
     }
