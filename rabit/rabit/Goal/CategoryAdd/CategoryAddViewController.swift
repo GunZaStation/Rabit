@@ -49,6 +49,7 @@ final class CategoryAddViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setBackgroundColor(.systemGreen, for: .normal)
+        button.setBackgroundColor(.lightGray, for: .disabled)
         button.roundCorners(10)
         button.isEnabled = false
         return button
@@ -114,7 +115,7 @@ final class CategoryAddViewController: UIViewController {
         closeButton.rx.tap
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
-        
+
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
@@ -125,15 +126,11 @@ final class CategoryAddViewController: UIViewController {
             .disposed(by: disposeBag)
 
         viewModel.saveButtonDisabled
-            .withUnretained(self)
-            .bind(onNext: { viewController, isDisabled in
-                viewController.saveButton.backgroundColor = isDisabled ? .lightGray : .systemGreen
-                viewController.saveButton.isEnabled = !isDisabled
-            })
+            .map { !$0 }
+            .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        viewModel.titleInputDuplicated
-            .map { !$0 }
+        viewModel.warningLabelHidden
             .bind(to: warningLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
