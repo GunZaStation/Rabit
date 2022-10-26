@@ -48,7 +48,7 @@ final class CategoryAddViewController: UIViewController {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemGreen
+        button.setBackgroundColor(.systemGreen, for: .normal)
         button.roundCorners(10)
         button.isEnabled = false
         return button
@@ -161,6 +161,7 @@ final class CategoryAddViewController: UIViewController {
         saveButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(35)
+            $0.width.height.equalTo(closeButton)
         }
         
         formView.addSubview(textField)
