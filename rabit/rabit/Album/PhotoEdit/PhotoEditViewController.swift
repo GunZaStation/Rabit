@@ -4,11 +4,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-protocol PhotoEditViewControllerProtocol: ViewControllable {
-    init(viewModel: PhotoEditViewModelProtocol)
-}
-
-final class PhotoEditViewController: UIViewController, PhotoEditViewControllerProtocol {
+final class PhotoEditViewController: UIViewController, ViewControllable {
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -51,14 +47,10 @@ final class PhotoEditViewController: UIViewController, PhotoEditViewControllerPr
 
     private var disposeBag = DisposeBag()
 
-    convenience init(viewModel: PhotoEditViewModelProtocol) {
+    convenience init(viewModel: PhotoEditViewModel) {
         self.init(nibName: nil, bundle: nil)
 
         self.viewModel = viewModel
-    }
-
-    convenience init(viewModel: ViewModel) {
-        self.init(viewModel: viewModel as! PhotoEditViewModelProtocol)
     }
 
     override func viewDidLoad() {

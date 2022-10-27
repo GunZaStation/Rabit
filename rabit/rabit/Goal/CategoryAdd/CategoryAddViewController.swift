@@ -104,7 +104,8 @@ final class CategoryAddViewController: UIViewController {
     private func bind() {
         guard let viewModel = viewModel else { return }
         
-        textField.rx.text
+        textField.rx.controlEvent([.editingChanged])
+            .withLatestFrom(textField.rx.text)
             .compactMap { $0 }
             .bind(to: viewModel.categoryTitleInput)
             .disposed(by: disposeBag)

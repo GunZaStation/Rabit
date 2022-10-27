@@ -131,8 +131,10 @@ private extension AlbumCoordinator {
             )
         ]
 
-        let viewModel = dic[ObjectIdentifier(viewController)] as! ViewModel
-        let viewController = T.init(viewModel: viewModel)
+        guard let viewModel = dic[ObjectIdentifier(viewController)] as? T.ViewModel else {
+            return
+        }
+        let viewController = viewController.init(viewModel: viewModel)
 
         if let presentedViewController = navigationController.presentedViewController {
             viewController.modalPresentationStyle = .overFullScreen

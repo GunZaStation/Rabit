@@ -4,11 +4,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-protocol StyleSelectViewControllerProtocol: ViewControllable {
-    init(viewModel: StyleSelectViewModelProtocol)
-}
-
-final class StyleSelectViewController: UIViewController, StyleSelectViewControllerProtocol {
+final class StyleSelectViewController: UIViewController, ViewControllable {
     private let dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.6)
@@ -58,13 +54,9 @@ final class StyleSelectViewController: UIViewController, StyleSelectViewControll
 
     private var disposeBag = DisposeBag()
 
-    convenience init(viewModel: StyleSelectViewModelProtocol) {
+    convenience init(viewModel: StyleSelectViewModel) {
         self.init()
         self.viewModel = viewModel
-    }
-    
-    convenience init(viewModel: ViewModel) {
-        self.init(viewModel: viewModel as! StyleSelectViewModelProtocol)
     }
 
     override func viewDidLoad() {

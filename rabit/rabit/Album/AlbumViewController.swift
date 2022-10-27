@@ -5,15 +5,15 @@ import RxCocoa
 import RxDataSources
 
 protocol ViewControllable: UIViewController {
+    associatedtype ViewModel: ViewModelProtocol
+
     init(viewModel: ViewModel)
-}
-protocol AlbumViewControllerProtocol: ViewControllable {
-    init(viewModel: AlbumViewModelProtocol)
 }
 
 typealias AlbumDataSource = RxCollectionViewSectionedReloadDataSource<Album>
 
-final class AlbumViewController: UIViewController, AlbumViewControllerProtocol {
+final class AlbumViewController: UIViewController, ViewControllable {
+
     private let albumCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .clear
@@ -28,11 +28,7 @@ final class AlbumViewController: UIViewController, AlbumViewControllerProtocol {
 
     private var viewModel: AlbumViewModelProtocol?
 
-    convenience init(viewModel: ViewModel) {
-        self.init(viewModel: viewModel as! AlbumViewModelProtocol)
-    }
-
-    convenience init(viewModel: AlbumViewModelProtocol) {
+    convenience init(viewModel: AlbumViewModel) {
         self.init()
         self.viewModel = viewModel
     }

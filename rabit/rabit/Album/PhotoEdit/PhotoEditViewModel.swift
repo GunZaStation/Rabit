@@ -16,7 +16,7 @@ protocol PhotoEditViewModelOutput {
     var saveButtonState: BehaviorRelay<Bool> { get }
 }
 
-protocol PhotoEditViewModelProtocol: PhotoEditViewModelInput, PhotoEditViewModelOutput, ViewModel { }
+protocol PhotoEditViewModelProtocol: PhotoEditViewModelInput, PhotoEditViewModelOutput, ViewModelProtocol { }
 
 final class PhotoEditViewModel: PhotoEditViewModelProtocol {
     let selectColorButtonTouched = PublishRelay<Void>()

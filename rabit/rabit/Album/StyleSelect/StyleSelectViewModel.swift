@@ -13,7 +13,7 @@ protocol StyleSelectViewModelOutput {
     var saveButtonState: BehaviorRelay<Bool> { get }
 }
 
-protocol StyleSelectViewModelProtocol: StyleSelectViewModelInput, StyleSelectViewModelOutput, ViewModel { }
+protocol StyleSelectViewModelProtocol: StyleSelectViewModelInput, StyleSelectViewModelOutput, ViewModelProtocol { }
 
 final class StyleSelectViewModel: StyleSelectViewModelProtocol {
     var appliedPhotoWithSelectedStyle: BehaviorRelay<Photo>
