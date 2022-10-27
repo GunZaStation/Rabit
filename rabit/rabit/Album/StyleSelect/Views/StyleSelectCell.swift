@@ -56,6 +56,12 @@ final class StyleSelectCell: UICollectionViewCell {
     }
 
     func configure(with photo: Album.Item) {
+        let cacheKey = "\(photo.uuid)\(photo.style)\(photo.color)\(Self.identifier)" as NSString
+
+        if let cachedImage = ImageCacheManager.shared.object(forKey: cacheKey) {
+            self.previewImageView.image = cachedImage
+            return
+        }
 
         let imageSize = CGSize(
             width: bounds.width,
@@ -65,10 +71,13 @@ final class StyleSelectCell: UICollectionViewCell {
         DispatchQueue.global(qos: .userInteractive).async {
             guard let downsampledCGImage = photo.imageData
                 .toDownsampledCGImage(pointSize: imageSize, scale: 2.0) else { return }
-            let image = UIImage(cgImage: downsampledCGImage)
+            let downsampledUIImage = UIImage(cgImage: downsampledCGImage)
 
             DispatchQueue.main.async {
-                self.previewImageView.image = image.overlayText(of: photo)
+                if let image = downsampledUIImage.overlayText(of: photo) {
+                    ImageCacheManager.shared.setObject(image, forKey: cacheKey)
+                    self.previewImageView.image = image
+                }
                 self.nameLabel.text = photo.style.rawValue
             }
         }

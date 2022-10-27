@@ -12,9 +12,15 @@ struct Album {
     }
 }
 
-extension Album: SectionModelType {
+extension Album: AnimatableSectionModelType {
+    typealias Identity = String
+
     init(original: Album, items: [Item]) {
         self = original
         self.items = items
+    }
+
+    var identity: String {
+        return self.categoryTitle
     }
 }
