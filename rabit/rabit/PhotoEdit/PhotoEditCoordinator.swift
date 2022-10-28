@@ -2,6 +2,11 @@ import UIKit
 import RxSwift
 import RxRelay
 
+enum PhotoEditMode {
+    case editProperty
+    case addNewPhoto
+}
+
 protocol PhotoEditNavigation {
     var showColorSelectView: PublishRelay<BehaviorRelay<String>> { get }
     var showStyleSelectView: PublishRelay<BehaviorRelay<Album.Item>> { get }
@@ -34,14 +39,17 @@ final class PhotoEditCoordinator: Coordinator, PhotoEditNavigation, ColorSelectN
 
     let closeStyleSelectView = PublishRelay<Void>()
 
+    private let photoEditMode: PhotoEditMode
+
     private var disposeBag = DisposeBag()
 
     init(
         navigationController: UINavigationController,
-        photoStream: BehaviorRelay<Album.Item>
+        photoStream: BehaviorRelay<Album.Item>,
+        photoEditMode: PhotoEditMode = .editProperty
     ) {
         self.navigationController = navigationController
-
+        self.photoEditMode = photoEditMode
         self.photoStream = .init(value: photoStream.value)
         bind(to: photoStream)
         bind()
@@ -52,11 +60,18 @@ final class PhotoEditCoordinator: Coordinator, PhotoEditNavigation, ColorSelectN
         let viewModel = PhotoEditViewModel(
             photoStream: photoStream,
             repository: repository,
+            photoEditMode: photoEditMode,
             navigation: self
         )
         let viewController = PhotoEditViewController(viewModel: viewModel)
 
-        navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
+        switch photoEditMode {
+        case .editProperty:
+            navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
+        case .addNewPhoto:
+            navigationController.pushViewController(viewController, animated: true)
+        }
+        
     }
 }
 
@@ -121,7 +136,13 @@ private extension PhotoEditCoordinator {
         )
         let viewController = ColorSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen
-        navigationController.presentedViewController?.present(viewController, animated: false)
+
+        if let presentedViewController = navigationController.presentedViewController {
+            presentedViewController.present(viewController, animated: false)
+            return
+        }
+
+        navigationController.present(viewController, animated: false)
     }
 
     func presentStyleSelectView(photoStream: BehaviorRelay<Album.Item>) {
@@ -132,7 +153,13 @@ private extension PhotoEditCoordinator {
 
         let viewController = StyleSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen
-        navigationController.presentedViewController?.present(viewController, animated: true)
+
+        if let presentedViewController = navigationController.presentedViewController {
+            presentedViewController.present(viewController, animated: false)
+            return
+        }
+
+        navigationController.present(viewController, animated: false)
     }
 
     func dismissCurrentView() {
@@ -140,7 +167,14 @@ private extension PhotoEditCoordinator {
     }
 
     func detachPhotoEditCoordinator() {
-        navigationController.presentedViewController?.dismiss(animated: true)
+        if let presentedViewController = navigationController.presentedViewController {
+            presentedViewController.dismiss(animated: true)
+        } else {
+            let destinationViewController = navigationController.viewControllers
+                .filter { type(of: $0) == GoalDetailViewController.self }[0]
+            navigationController.popToViewController(destinationViewController, animated: true)
+        }
+
         parentCoordiantor?.childDidFinish(self)
     }
 }

@@ -37,7 +37,7 @@ private extension CertPhotoCameraViewModel {
         
         nextButtonTouched
             .withLatestFrom(previewPhotoData)
-            .map { Photo(categoryTitle: goal.category, goalTitle: goal.title, imageData: $0, date: Date(), color: "", style: .none) }
+            .map { Photo(categoryTitle: goal.category, goalTitle: goal.title, imageData: $0, date: Date(), color: "#FFFFFF", style: .none) }
             .map { BehaviorRelay(value: $0) }
             .bind(to: navigation.showPhotoEditView)
             .disposed(by: disposeBag)
