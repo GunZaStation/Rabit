@@ -44,18 +44,24 @@ final class CategoryAddViewModel: CategoryAddViewModelProtocol {
 private extension CategoryAddViewModel {
     
     func bind(to navigation: GoalNavigation) {
-
-        categoryTitleInput
-            .withUnretained(self)
-            .map { viewModel, titleInput in
-                let isDuplicated = viewModel.repository.checkTitleDuplicated(input: titleInput)
-                let isEmpty = titleInput.isEmpty
-                return (viewModel, isDuplicated, isEmpty)
-            }
-            .bind(onNext: { viewModel, isDuplicated, isEmpty in
-                viewModel.saveButtonDisabled.accept((isEmpty || isDuplicated))
-                viewModel.warningLabelHidden.accept(!isDuplicated)
-            })
+        
+        let categoryTitleVertification = categoryTitleInput
+                                            .withUnretained(self)
+                                            .map { viewModel, titleInput in
+                                                let isDuplicated = viewModel.repository.checkTitleDuplicated(input: titleInput)
+                                                let isEmpty = titleInput.isEmpty
+                                                return (isDuplicated, isEmpty)
+                                            }
+                                            .share()
+        
+        categoryTitleVertification
+            .map { $0 || $1 }
+            .bind(to: saveButtonDisabled)
+            .disposed(by: disposeBag)
+        
+        categoryTitleVertification
+            .map { !$0.0 }
+            .bind(to: warningLabelHidden)
             .disposed(by: disposeBag)
         
         closeButtonTouched
