@@ -41,8 +41,9 @@ final class GoalAddViewModel: GoalAddViewModelProtocol {
     
     init(navigation: GoalNavigation,
          category: Category,
-         repository: GoalAddRepository = GoalAddRepository()) {
+         repository: GoalAddRepository) {
         self.repository = repository
+        
         bind(to: navigation, with: category)
     }
 }
@@ -51,22 +52,20 @@ private extension GoalAddViewModel {
     
     func bind(to navigation: GoalNavigation, with category: Category) {
         
-        goalTitleInput
-            .map { $0.isEmpty || $0.count <= 0}
-            .bind(to: saveButtonDisabled)
-            .disposed(by: disposeBag)
+        let goalTitleVertification = goalTitleInput
+                                        .withUnretained(self)
+                                        .map { viewModel, goalTitle in
+                                            let isEmpty = goalTitle.isEmpty || goalTitle.count <= 0
+                                            let isDuplicated = viewModel.repository.checkTitleDuplicated(title: goalTitle)
+                                            return (isEmpty, isDuplicated)
+                                        }
+                                        .share()
         
-        goalTitleInput
-            .ifEmpty(default: "")
-            .withUnretained(self) { viewModel, goalTitle in
-                viewModel.repository.checkTitleDuplicated(
-                    title: goalTitle,
-                    category: category.title
-                )
-            }
+        goalTitleVertification
+            .map { $0 || $1 }
             .bind(to: saveButtonDisabled)
             .disposed(by: disposeBag)
-                
+                        
         closeButtonTouched
             .bind(to: navigation.closeGoalAddView)
             .disposed(by: disposeBag)
