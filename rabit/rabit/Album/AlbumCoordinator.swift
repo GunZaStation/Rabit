@@ -4,7 +4,6 @@ import RxRelay
 
 protocol AlbumNavigation {
     var showPhotoEditView: PublishRelay<BehaviorRelay<Album.Item>> { get }
-    var closeColorSelectView: PublishRelay<Void> { get }
     var didChangePhoto: PublishRelay<Void> { get }
 }
 
@@ -69,10 +68,6 @@ private extension AlbumCoordinator {
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
 
-    func dismissPhotoEditView() {
-        navigationController.presentedViewController?.dismiss(animated: true)
-    }
-
     func presentColorSelectView(colorStream: BehaviorRelay<String>) {
         let viewModel = ColorSelectViewModel(
             colorStream: colorStream,
@@ -82,10 +77,6 @@ private extension AlbumCoordinator {
         let viewController = ColorSelectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen
         navigationController.presentedViewController?.present(viewController, animated: false)
-    }
-
-    func dismissColorSelectView() {
-        navigationController.presentedViewController?.dismiss(animated: false)
     }
 
     func presentStyleSelectView(photoStream: BehaviorRelay<Album.Item>) {
@@ -99,7 +90,7 @@ private extension AlbumCoordinator {
         navigationController.presentedViewController?.present(viewController, animated: true)
     }
 
-    func dismissStyleSelectView() {
+    func dismissCurrentView() {
         navigationController.presentedViewController?.dismiss(animated: false)
     }
 }
@@ -112,11 +103,11 @@ private extension AlbumCoordinator {
             .disposed(by: disposeBag)
 
         closePhotoEditView
-            .bind(onNext: dismissPhotoEditView)
+            .bind(onNext: dismissCurrentView)
             .disposed(by: disposeBag)
 
         didChangePhoto
-            .bind(onNext: dismissPhotoEditView)
+            .bind(onNext: dismissCurrentView)
             .disposed(by: disposeBag)
 
         showColorSelectView
@@ -128,11 +119,11 @@ private extension AlbumCoordinator {
             .disposed(by: disposeBag)
 
         closeColorSelectView
-            .bind(onNext: dismissColorSelectView)
+            .bind(onNext: dismissCurrentView)
             .disposed(by: disposeBag)
 
         closeStyleSelectView
-            .bind(onNext: dismissStyleSelectView)
+            .bind(onNext: dismissCurrentView)
             .disposed(by: disposeBag)
     }
 }

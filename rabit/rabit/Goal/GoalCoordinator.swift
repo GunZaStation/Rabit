@@ -112,7 +112,7 @@ final class GoalCoordinator: Coordinator, GoalNavigation, PhotoEditNavigation, C
             .disposed(by: disposeBag)
         
         showPhotoEditView
-            .bind(onNext: presentPhotoEditView(with:))
+            .bind(onNext: pushPhotoEditView(with:))
             .disposed(by: disposeBag)
         
         closePhotoEditView
@@ -219,7 +219,7 @@ private extension GoalCoordinator {
         navigationController.popViewController(animated: true)
     }
     
-    func presentPhotoEditView(with photoStream: BehaviorRelay<Photo>) {
+    func pushPhotoEditView(with photoStream: BehaviorRelay<Photo>) {
         let repository = AlbumRepository()
         let viewModel = PhotoEditViewModel(
             photoStream: photoStream,
@@ -232,8 +232,9 @@ private extension GoalCoordinator {
     }
     
     func popPhotoEditView() {
-        navigationController.popViewController(animated: true)
-        popCertPhotoCameraView()
+        let destinationViewController = navigationController.viewControllers
+            .filter { type(of: $0) == GoalDetailViewController.self }[0]
+        navigationController.popToViewController(destinationViewController, animated: true)
     }
     
     func presentColorSelectView(colorStream: BehaviorRelay<String>) {
