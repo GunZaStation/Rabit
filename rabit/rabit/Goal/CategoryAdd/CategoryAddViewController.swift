@@ -48,7 +48,8 @@ final class CategoryAddViewController: UIViewController {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemGreen
+        button.setBackgroundColor(.systemGreen, for: .normal)
+        button.setBackgroundColor(.lightGray, for: .disabled)
         button.roundCorners(10)
         button.isEnabled = false
         return button
@@ -103,8 +104,10 @@ final class CategoryAddViewController: UIViewController {
     
     private func bind() {
         guard let viewModel = viewModel else { return }
-        
-        textField.rx.text
+      
+        textField.rx
+            .controlEvent([.editingChanged])
+            .withLatestFrom(textField.rx.text)
             .compactMap { $0 }
             .bind(to: viewModel.categoryTitleInput)
             .disposed(by: disposeBag)
@@ -112,7 +115,7 @@ final class CategoryAddViewController: UIViewController {
         closeButton.rx.tap
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
-        
+
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
@@ -122,23 +125,12 @@ final class CategoryAddViewController: UIViewController {
             .bind { _ in viewModel.closeButtonTouched.accept(()) }
             .disposed(by: disposeBag)
 
-        viewModel.closeButtonTouched
-            .withUnretained(self)
-            .bind(onNext: { viewController, _ in
-                viewController.dismiss(animated: false)
-            })
-            .disposed(by: disposeBag)
-        
         viewModel.saveButtonDisabled
-            .withUnretained(self)
-            .bind(onNext: { viewController, isDisabled in
-                viewController.saveButton.backgroundColor = isDisabled ? .lightGray : .systemGreen
-                viewController.saveButton.isEnabled = !isDisabled
-            })
+            .map { !$0 }
+            .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        viewModel.titleInputDuplicated
-            .map { !$0 }
+        viewModel.warningLabelHidden
             .bind(to: warningLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
@@ -168,6 +160,7 @@ final class CategoryAddViewController: UIViewController {
         saveButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(35)
+            $0.width.height.equalTo(closeButton)
         }
         
         formView.addSubview(textField)

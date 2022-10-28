@@ -170,7 +170,8 @@ private extension GoalCoordinator {
     
     func presentGoalAddViewController(category: Category) {
 
-        let viewModel = GoalAddViewModel(navigation: self, category: category)
+        let repository = GoalAddRepository(category: category)
+        let viewModel = GoalAddViewModel(navigation: self, category: category, repository: repository)
         let viewController = GoalAddViewController(viewModel: viewModel)
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
