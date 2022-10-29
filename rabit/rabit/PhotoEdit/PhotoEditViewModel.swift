@@ -81,7 +81,7 @@ private extension PhotoEditViewModel {
     func bind(to photoStream: BehaviorRelay<Album.Item>) {
         selectedPhotoData
             .withUnretained(self)
-            .map { ($0.photoEditMode == .addNewPhoto) || ($1 != photoStream.value) }
+            .map { ($0.photoEditMode == .add) || ($1 != photoStream.value) }
             .bind(to: saveButtonState)
             .disposed(by: disposeBag)
 

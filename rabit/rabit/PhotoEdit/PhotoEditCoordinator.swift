@@ -3,8 +3,8 @@ import RxSwift
 import RxRelay
 
 enum PhotoEditMode {
-    case editProperty
-    case addNewPhoto
+    case edit
+    case add
 }
 
 protocol PhotoEditNavigation {
@@ -46,7 +46,7 @@ final class PhotoEditCoordinator: Coordinator, PhotoEditNavigation, ColorSelectN
     init(
         navigationController: UINavigationController,
         photoStream: BehaviorRelay<Album.Item>,
-        photoEditMode: PhotoEditMode = .editProperty
+        photoEditMode: PhotoEditMode = .edit
     ) {
         self.navigationController = navigationController
         self.photoEditMode = photoEditMode
@@ -66,9 +66,9 @@ final class PhotoEditCoordinator: Coordinator, PhotoEditNavigation, ColorSelectN
         let viewController = PhotoEditViewController(viewModel: viewModel)
 
         switch photoEditMode {
-        case .editProperty:
+        case .edit:
             navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
-        case .addNewPhoto:
+        case .add:
             navigationController.pushViewController(viewController, animated: true)
         }
         

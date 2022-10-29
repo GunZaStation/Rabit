@@ -190,11 +190,10 @@ private extension GoalCoordinator {
         let photoEditCoordinator = PhotoEditCoordinator(
             navigationController: navigationController,
             photoStream: photoStream,
-            photoEditMode: .addNewPhoto
+            photoEditMode: .add
         )
-        photoEditCoordinator.parentCoordiantor = self
-        children.append(photoEditCoordinator)
 
+        addChild(photoEditCoordinator)
         photoEditCoordinator.start()
     }
 }

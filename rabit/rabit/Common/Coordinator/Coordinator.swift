@@ -10,6 +10,11 @@ protocol Coordinator: AnyObject {
 }
 
 extension Coordinator {
+    func addChild(_ child: Coordinator) {
+        child.parentCoordiantor = self
+        children.append(child)
+    }
+
     func childDidFinish(_ child: Coordinator) {
         if let childIndex = children.enumerated()
             .first(where: {$1 === child} )?.offset {

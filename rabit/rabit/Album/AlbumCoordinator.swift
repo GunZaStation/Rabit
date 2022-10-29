@@ -41,13 +41,11 @@ private extension AlbumCoordinator {
             navigationController: navigationController,
             photoStream: photoStream
         )
-        photoEditCoordinator.parentCoordiantor = self
         photoEditCoordinator.didChangePhoto
             .bind(to: didChangePhoto)
             .disposed(by: disposeBag)
 
-        children.append(photoEditCoordinator)
-
+        addChild(photoEditCoordinator)
         photoEditCoordinator.start()
     }
 }
