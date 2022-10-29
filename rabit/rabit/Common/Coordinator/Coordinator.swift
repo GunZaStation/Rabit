@@ -11,11 +11,10 @@ protocol Coordinator: AnyObject {
 
 extension Coordinator {
     func childDidFinish(_ child: Coordinator) {
-        for (index, coordinator) in children.enumerated() {
-            if child === coordinator {
-                children.remove(at: index)
-                break
-            }
+        if let childIndex = children.enumerated()
+            .first(where: {$1 === child} )?.offset {
+
+            children.remove(at: childIndex)
         }
     }
 }
