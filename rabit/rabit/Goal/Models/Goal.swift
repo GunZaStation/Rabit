@@ -33,14 +33,16 @@ struct Goal {
     let certTime: CertifiableTime
     let category: String
     var target: Int
+    let creationDate: Date
     
-    init(title: String, subtitle: String, progress: Int = .zero, period: Period, certTime: CertifiableTime, category: String) {
+    init(title: String, subtitle: String, progress: Int = .zero, period: Period, certTime: CertifiableTime, category: String, creationDate: Date = Date()) {
         self.title = title
         self.subtitle = subtitle
         self.progress = progress
         self.period = period
         self.certTime = certTime
         self.category = category
+        self.creationDate = creationDate
         
         @DayCountable(period: period, days: certTime.days.selectedValues)
         var target
@@ -63,6 +65,7 @@ extension Goal: Persistable {
                             end: entity.endCertTime,
                             days: Days(entity.certDays)
                         )
+        self.creationDate = entity.creationDate
     }
     
     func toEntity<T: GoalEntity>() -> T {
@@ -73,7 +76,8 @@ extension Goal: Persistable {
             target: target,
             category: category,
             period: period,
-            certTime: certTime
+            certTime: certTime,
+            creationDate: creationDate
         )
     }
 }
