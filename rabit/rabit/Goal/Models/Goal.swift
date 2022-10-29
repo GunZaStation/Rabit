@@ -1,4 +1,5 @@
 import Foundation
+import Differentiator
 
 @propertyWrapper
 struct DayCountable {
@@ -24,8 +25,9 @@ struct DayCountable {
     }
 }
 
-struct Goal {
+struct Goal: Equatable {
     
+    let uuid: UUID
     let title: String
     let subtitle: String
     var progress: Int
@@ -35,7 +37,17 @@ struct Goal {
     var target: Int
     let creationDate: Date
     
-    init(title: String, subtitle: String, progress: Int = .zero, period: Period, certTime: CertifiableTime, category: String, creationDate: Date = Date()) {
+    init(
+        uuid: UUID = UUID(),
+        title: String,
+        subtitle: String,
+        progress: Int = .zero,
+        period: Period,
+        certTime: CertifiableTime,
+        category: String,
+        creationDate: Date = Date()
+    ) {
+        self.uuid = uuid
         self.title = title
         self.subtitle = subtitle
         self.progress = progress
@@ -51,9 +63,18 @@ struct Goal {
     }
 }
 
+extension Goal: IdentifiableType {
+    typealias identifier = UUID
+    
+    var identity: UUID {
+        return uuid
+    }
+}
+
 extension Goal: Persistable {
     
     init(entity: GoalEntity) {
+        self.uuid = entity.uuid
         self.title = entity.title
         self.subtitle = entity.subtitle
         self.progress = entity.progress
@@ -70,6 +91,7 @@ extension Goal: Persistable {
     
     func toEntity<T: GoalEntity>() -> T {
         .init(
+            uuid: uuid,
             title: title,
             subtitle: subtitle,
             progress: progress,

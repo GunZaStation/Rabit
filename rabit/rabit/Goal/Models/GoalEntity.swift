@@ -3,7 +3,7 @@ import RealmSwift
 
 final class GoalEntity: Object {
     
-    @Persisted var uuid: UUID = UUID()
+    @Persisted var uuid: UUID
     @Persisted var title: String = ""
     @Persisted var subtitle: String = ""
     @Persisted var progress: Int = 0
@@ -17,6 +17,7 @@ final class GoalEntity: Object {
     @Persisted var creationDate: Date
     
     convenience init(
+        uuid: UUID,
         title: String,
         subtitle: String,
         progress: Int,
@@ -27,6 +28,7 @@ final class GoalEntity: Object {
         creationDate: Date) {
             self.init()
             
+            self.uuid = uuid
             self.title = title
             self.subtitle = subtitle
             self.progress = progress

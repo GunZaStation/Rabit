@@ -1,6 +1,6 @@
 import Foundation
 
-struct Period {
+struct Period: Equatable {
     
     let start: Date
     let end: Date

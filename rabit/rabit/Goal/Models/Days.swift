@@ -37,7 +37,7 @@ extension Day: Comparable {
     }
 }
 
-struct Days: CustomStringConvertible {
+struct Days: CustomStringConvertible, Equatable {
     
     let selectedValues: Set<Day>
     
