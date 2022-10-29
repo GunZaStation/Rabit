@@ -24,7 +24,7 @@ private extension GoalListRepository {
         let categoryEntities = realmManager.read(entity: CategoryEntity.self)
         
         categoryEntities.forEach {
-            cateogryMap[$0.title] = Category(title: $0.title)
+            cateogryMap[$0.title] = Category(entity: $0)
         }
         
         goalEntities.forEach {
@@ -34,9 +34,14 @@ private extension GoalListRepository {
             goal.progress = photoCount
             cateogryMap[$0.category]?.items.append(goal)
         }
-
-        return cateogryMap.values.map { $0 }
+        
+        return cateogryMap.values
+                          .map { category in
+                              var category = category
+                              category.items.sort { $0.creationDate < $1.creationDate }
+                              return category
+                          }
+                          .sorted { $0.creationDate < $1.creationDate }
     }
-    
 }
 
