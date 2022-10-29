@@ -14,11 +14,16 @@ struct Category {
     }
 }
 
-extension Category: SectionModelType {
+extension Category: AnimatableSectionModelType {
+    typealias Identity = String
     
     init(original: Category, items: [Goal]) {
         self = original
         self.items = items
+    }
+    
+    var identity: String {
+        return title
     }
 }
 
