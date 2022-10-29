@@ -54,9 +54,9 @@ private extension GoalAddViewModel {
         
         let goalTitleVertification = goalTitleInput
                                         .withUnretained(self)
-                                        .map { viewModel, goalTitle in
-                                            let isEmpty = goalTitle.isEmpty || goalTitle.count <= 0
-                                            let isDuplicated = viewModel.repository.checkTitleDuplicated(title: goalTitle)
+                                        .map { viewModel, titleInput -> (Bool, Bool) in
+                                            let isEmpty = titleInput.isEmpty || titleInput.count <= 0
+                                            let isDuplicated = viewModel.repository.checkTitleDuplicated(title: titleInput)
                                             return (isEmpty, isDuplicated)
                                         }
                                         .share()
