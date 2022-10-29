@@ -5,12 +5,12 @@ struct Category {
     
     let title: String
     var items: [Goal]
-    let creationDate: Date
+    let createdDate: Date
     
-    init(title: String, details: [Goal] = [], creationDate: Date = Date()) {
+    init(title: String, details: [Goal] = [], createdDate: Date = Date()) {
         self.title = title
         self.items = details
-        self.creationDate = creationDate
+        self.createdDate = createdDate
     }
 }
 
@@ -31,11 +31,11 @@ extension Category: Persistable {
     
     init(entity: CategoryEntity) {
         self.title = entity.title
-        self.creationDate = entity.creationDate
+        self.createdDate = entity.createdDate
         self.items = []
     }
     
     func toEntity() -> CategoryEntity {
-        .init(title: title, creationDate: creationDate)
+        .init(title: title, createdDate: createdDate)
     }
 }

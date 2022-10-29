@@ -21,7 +21,7 @@ private extension GoalListRepository {
         var categoryMap: [String:Category] = [:]
 
         let goalEntities = realmManager.read(entity: GoalEntity.self)
-                                       .sorted { $0.creationDate < $1.creationDate }
+                                       .sorted { $0.createdDate < $1.createdDate }
         let categoryEntities = realmManager.read(entity: CategoryEntity.self)
         
         categoryEntities.forEach {
@@ -36,7 +36,7 @@ private extension GoalListRepository {
             categoryMap[$0.category]?.items.append(goal)
         }
         
-        return Array(categoryMap.values).sorted { $0.creationDate < $1.creationDate }
+        return Array(categoryMap.values).sorted { $0.createdDate < $1.createdDate }
     }
 }
 

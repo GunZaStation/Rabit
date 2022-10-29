@@ -35,7 +35,7 @@ struct Goal: Equatable {
     let certTime: CertifiableTime
     let category: String
     var target: Int
-    let creationDate: Date
+    let createdDate: Date
     
     init(
         uuid: UUID = UUID(),
@@ -45,7 +45,7 @@ struct Goal: Equatable {
         period: Period,
         certTime: CertifiableTime,
         category: String,
-        creationDate: Date = Date()
+        createdDate: Date = Date()
     ) {
         self.uuid = uuid
         self.title = title
@@ -54,7 +54,7 @@ struct Goal: Equatable {
         self.period = period
         self.certTime = certTime
         self.category = category
-        self.creationDate = creationDate
+        self.createdDate = createdDate
         
         @DayCountable(period: period, days: certTime.days.selectedValues)
         var target
@@ -86,7 +86,7 @@ extension Goal: Persistable {
                             end: entity.endCertTime,
                             days: Days(entity.certDays)
                         )
-        self.creationDate = entity.creationDate
+        self.createdDate = entity.createdDate
     }
     
     func toEntity<T: GoalEntity>() -> T {
@@ -99,7 +99,7 @@ extension Goal: Persistable {
             category: category,
             period: period,
             certTime: certTime,
-            creationDate: creationDate
+            createdDate: createdDate
         )
     }
 }

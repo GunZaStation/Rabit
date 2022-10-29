@@ -14,7 +14,7 @@ final class GoalEntity: Object {
     @Persisted var startCertTime: Int = 0
     @Persisted var endCertTime: Int = 0
     @Persisted var certDays: List<Int> = List()
-    @Persisted var creationDate: Date
+    @Persisted var createdDate: Date
     
     convenience init(
         uuid: UUID,
@@ -25,7 +25,7 @@ final class GoalEntity: Object {
         category: String,
         period: Period,
         certTime: CertifiableTime,
-        creationDate: Date) {
+        createdDate: Date) {
             self.init()
             
             self.uuid = uuid
@@ -39,7 +39,7 @@ final class GoalEntity: Object {
             self.startCertTime = certTime.start.toSeconds()
             self.endCertTime = certTime.end.toSeconds()
             self.certDays.append(objectsIn: certTime.days.toIntArray())
-            self.creationDate = creationDate
+            self.createdDate = createdDate
         }
     
     override static func primaryKey() -> String? {
