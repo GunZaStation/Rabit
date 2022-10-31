@@ -52,7 +52,7 @@
 
 ## 🏛 아키텍처
 
-위키로 이동하는 링크? or 사진 추가?
+[[Wiki - Project Architecture Design]](https://github.com/GunZaStation/Rabit/wiki/프로젝트-구조-설계)
 
 ### Why MVVM + C?
 
