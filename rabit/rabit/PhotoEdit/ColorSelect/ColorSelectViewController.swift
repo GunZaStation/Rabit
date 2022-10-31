@@ -128,6 +128,7 @@ private extension ColorSelectViewController {
 
         dimmedView.rx.tapGesture()
             .when(.ended)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.hideColorSheet()

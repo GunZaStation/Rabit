@@ -68,6 +68,7 @@ final class GoalDetailViewController: UIViewController {
         guard let viewModel = viewModel else { return }
         
         navigationItem.leftBarButtonItem?.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
                 
@@ -98,11 +99,13 @@ final class GoalDetailViewController: UIViewController {
             .disposed(by: disposeBag)
         
         navigationItem.leftBarButtonItem?.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
         
         certView.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(onNext: { _ in
                 viewModel.showCertPhotoCameraView.accept(())
             })

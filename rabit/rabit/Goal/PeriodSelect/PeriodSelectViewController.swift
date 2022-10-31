@@ -81,6 +81,7 @@ final class PeriodSelectViewController: UIViewController {
         
         dimmedView.rx.tapGesture()
             .when(.ended)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .bind { viewController, _ in
                 viewController.hidePeriodSheet()
@@ -102,6 +103,7 @@ final class PeriodSelectViewController: UIViewController {
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .bind { viewController, _ in
                 viewModel.saveButtonTouched.accept(())

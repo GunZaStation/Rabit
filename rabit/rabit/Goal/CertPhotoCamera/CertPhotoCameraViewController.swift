@@ -67,6 +67,7 @@ final class CertPhotoCameraViewController: UIViewController {
         guard let viewModel = viewModel else { return }
         
         shutterButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { viewController, _ in
                 viewController.cameraManager.capture { originalImage in
@@ -82,6 +83,7 @@ final class CertPhotoCameraViewController: UIViewController {
             .disposed(by: disposeBag)
         
         nextButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.nextButtonTouched)
             .disposed(by: disposeBag)
     }

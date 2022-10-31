@@ -28,6 +28,22 @@ struct Photo: Equatable {
         self.style = style
     }
 
+    // Initializer for newly taken photo
+    init(
+        categoryTitle: String,
+        goalTitle: String,
+        imageData: Data
+    ) {
+        self.init(
+            categoryTitle: categoryTitle,
+            goalTitle: goalTitle,
+            imageData: imageData,
+            date: Date(),
+            color: "#FFFFFF",
+            style: .none
+        )
+    }
+
     init() {
         self.init(
             categoryTitle: "",

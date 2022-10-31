@@ -42,6 +42,7 @@ final class GoalListCollectionViewHeader: UICollectionReusableView {
         disposeBag = DisposeBag()
         
         addButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .map { category }
             .bind(to: viewModel.goalAddButtonTouched)
             .disposed(by: disposeBag)

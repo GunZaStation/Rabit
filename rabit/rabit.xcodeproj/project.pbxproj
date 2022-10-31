@@ -51,6 +51,7 @@
 		02F37251289CE21400F361C7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37250289CE21400F361C7 /* Album.swift */; };
 		02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37253289E1EA200F361C7 /* PaddingLabel.swift */; };
 		02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */; };
+		02FCC3EF290BC242005F4D4A /* PhotoEditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCC3EE290BC242005F4D4A /* PhotoEditCoordinator.swift */; };
 		B52AEB1E28F59C7500923A86 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */; };
 		B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */; };
 		B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2128F5C04200923A86 /* DottedLineView.swift */; };
@@ -163,6 +164,7 @@
 		02F37250289CE21400F361C7 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		02F37253289E1EA200F361C7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		02FCC3EE290BC242005F4D4A /* PhotoEditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditCoordinator.swift; sourceTree = "<group>"; };
 		B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
 		B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		B52AEB2128F5C04200923A86 /* DottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
@@ -338,8 +340,6 @@
 		02DB2F8528AC8D82005938CB /* PhotoEdit */ = {
 			isa = PBXGroup;
 			children = (
-				02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */,
-				02DB2F8628AC9115005938CB /* PhotoEditViewModel.swift */,
 			);
 			path = PhotoEdit;
 			sourceTree = "<group>";
@@ -405,6 +405,18 @@
 				028A409229023B8300349F48 /* Data + Utils.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		02FCC3F0290BC249005F4D4A /* PhotoEdit */ = {
+			isa = PBXGroup;
+			children = (
+				02DB2F8528AC8D82005938CB /* PhotoEdit */,
+				0232BD9328AE113D009057F8 /* ColorSelect */,
+				02FCC3EE290BC242005F4D4A /* PhotoEditCoordinator.swift */,
+				02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */,
+				02DB2F8628AC9115005938CB /* PhotoEditViewModel.swift */,
+			);
+			path = PhotoEdit;
 			sourceTree = "<group>";
 		};
 		B52AEB1C28F5814400923A86 /* GoalDetail */ = {
@@ -474,6 +486,7 @@
 				02972D5A28B5F83D008C097D /* Common */,
 				B5D131D4289A0CF100EE1833 /* Goal */,
 				B5D131D3289A0CE900EE1833 /* Album */,
+				02FCC3F0290BC249005F4D4A /* PhotoEdit */,
 				02F3724F289CB28B00F361C7 /* Resource */,
 				02F3724E289CB28300F361C7 /* Configuration */,
 				02F37255289E1EA700F361C7 /* Utilities */,
@@ -557,15 +570,13 @@
 		B5D131D3289A0CE900EE1833 /* Album */ = {
 			isa = PBXGroup;
 			children = (
-				02DB2F8528AC8D82005938CB /* PhotoEdit */,
-				0232BD9328AE113D009057F8 /* ColorSelect */,
 				02DABAAA28EC44FF001416DC /* StyleSelect */,
-				02520986289A5A2400E7E604 /* AlbumViewController.swift */,
-				02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */,
-				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
 				02F37252289CE21800F361C7 /* Models */,
 				022B7835289B7A0D009003EA /* Views */,
 				0229C50128A7AF020093990E /* Repository */,
+				B5D131D7289A0D7300EE1833 /* AlbumCoordinator.swift */,
+				02520986289A5A2400E7E604 /* AlbumViewController.swift */,
+				02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -833,6 +844,7 @@
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
 				02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */,
 				0232BD9228AE1134009057F8 /* ColorSelectViewController.swift in Sources */,
+				02FCC3EF290BC242005F4D4A /* PhotoEditCoordinator.swift in Sources */,
 				B5E3052528E7F4A40044B592 /* InsertField + Reactive.swift in Sources */,
 				0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */,
 				B582574228BDFCBC001AE268 /* TimeSelectViewController.swift in Sources */,

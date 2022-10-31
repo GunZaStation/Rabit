@@ -21,11 +21,10 @@ final class MainCoordinator: Coordinator {
     private func createChildrenCoordinators() {
         ChildType.allCases.forEach {
             let coordinator = $0.coordinator
-            coordinator.parentCoordiantor = self
             coordinator.navigationController.tabBarItem = $0.tabBarItem
             coordinator.navigationController.tabBarItem.title = ""
 
-            children.append(coordinator)
+            addChild(coordinator)
             coordinator.start()
         }
     }

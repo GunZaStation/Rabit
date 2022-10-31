@@ -31,15 +31,19 @@ final class PhotoEditViewModel: PhotoEditViewModelProtocol {
 
     private let albumRepository: AlbumRepositoryProtocol
 
+    private let photoEditMode: PhotoEditMode
+
     private var disposeBag = DisposeBag()
 
     init(
         photoStream: BehaviorRelay<Album.Item>,
         repository: AlbumRepositoryProtocol,
+        photoEditMode: PhotoEditMode,
         navigation: PhotoEditNavigation
     ) {
         selectedPhotoData = .init(value: photoStream.value)
         hexPhotoColor = .init(value: photoStream.value.color)
+        self.photoEditMode = photoEditMode
         self.albumRepository = repository
 
         bind(to: photoStream)
@@ -76,7 +80,8 @@ private extension PhotoEditViewModel {
 
     func bind(to photoStream: BehaviorRelay<Album.Item>) {
         selectedPhotoData
-            .map { $0 != photoStream.value }
+            .withUnretained(self)
+            .map { ($0.photoEditMode == .add) || ($1 != photoStream.value) }
             .bind(to: saveButtonState)
             .disposed(by: disposeBag)
 

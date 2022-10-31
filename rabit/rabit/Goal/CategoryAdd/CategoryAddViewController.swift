@@ -113,15 +113,18 @@ final class CategoryAddViewController: UIViewController {
             .disposed(by: disposeBag)
         
         closeButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.saveButtonTouched)
             .disposed(by: disposeBag)
         
         dimmedView.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind { _ in viewModel.closeButtonTouched.accept(()) }
             .disposed(by: disposeBag)
 
