@@ -1215,16 +1215,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
-				branch = develop;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
 			};
 		};
 		02B7FD27289A1EC300EBA86D /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.20.0;
 			};
 		};
 		02B7FD2A289A1EEC00EBA86D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
