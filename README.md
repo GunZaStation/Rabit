@@ -33,7 +33,7 @@
 
 [![swift](https://img.shields.io/badge/Swift-5.0-critical?style=plastic&logo=Swift)]() [![xcode](https://img.shields.io/badge/Xcode-13.4-blue?style=plastic&logo=Xcode)]() [![rxswift](https://img.shields.io/badge/RxSwift-6.5-purple?style=plastic&logo=ReactiveX)]()
 
-[![snapkit](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040531.6-469DB8)]()  [![Realm](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040970.20-39477F)]()
+[![snapkit](https://img.shields.io/badge/SnapKit-5.6-469DB8?style=plastic)]()  [![Realm](https://img.shields.io/badge/Realm-10.20-39477F?style=plastic&logo=Realm)]()
 
 <img src="https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040974.jpg" alt="SS2022-10-01PM04.57.16" width="40%;" />
 
