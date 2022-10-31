@@ -1,4 +1,5 @@
 import Foundation
+import Differentiator
 
 @propertyWrapper
 struct DayCountable {
@@ -24,8 +25,9 @@ struct DayCountable {
     }
 }
 
-struct Goal {
+struct Goal: Equatable {
     
+    let uuid: UUID
     let title: String
     let subtitle: String
     var progress: Int
@@ -33,14 +35,26 @@ struct Goal {
     let certTime: CertifiableTime
     let category: String
     var target: Int
+    let createdDate: Date
     
-    init(title: String, subtitle: String, progress: Int = .zero, period: Period, certTime: CertifiableTime, category: String) {
+    init(
+        uuid: UUID = UUID(),
+        title: String,
+        subtitle: String,
+        progress: Int = .zero,
+        period: Period,
+        certTime: CertifiableTime,
+        category: String,
+        createdDate: Date = Date()
+    ) {
+        self.uuid = uuid
         self.title = title
         self.subtitle = subtitle
         self.progress = progress
         self.period = period
         self.certTime = certTime
         self.category = category
+        self.createdDate = createdDate
         
         @DayCountable(period: period, days: certTime.days.selectedValues)
         var target
@@ -49,9 +63,18 @@ struct Goal {
     }
 }
 
+extension Goal: IdentifiableType {
+    typealias identifier = UUID
+    
+    var identity: UUID {
+        return uuid
+    }
+}
+
 extension Goal: Persistable {
     
     init(entity: GoalEntity) {
+        self.uuid = entity.uuid
         self.title = entity.title
         self.subtitle = entity.subtitle
         self.progress = entity.progress
@@ -63,17 +86,20 @@ extension Goal: Persistable {
                             end: entity.endCertTime,
                             days: Days(entity.certDays)
                         )
+        self.createdDate = entity.createdDate
     }
     
     func toEntity<T: GoalEntity>() -> T {
         .init(
+            uuid: uuid,
             title: title,
             subtitle: subtitle,
             progress: progress,
             target: target,
             category: category,
             period: period,
-            certTime: certTime
+            certTime: certTime,
+            createdDate: createdDate
         )
     }
 }

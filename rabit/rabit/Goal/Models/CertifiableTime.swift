@@ -1,6 +1,6 @@
 import Foundation
 
-struct CertifiableTime: CustomStringConvertible {
+struct CertifiableTime: CustomStringConvertible, Equatable {
     
     // 지정한 요일에, 시작~끝 시간 동안만 인증이 가능
     let start: TimeComponent
@@ -12,10 +12,6 @@ struct CertifiableTime: CustomStringConvertible {
     }
     
     init() {
-        let currDate = Date()
-        let start = currDate.toTimeComponent()
-        let end = Calendar.current.date(byAdding: .hour, value: 5, to: currDate)?.toTimeComponent() ?? start
-       
         self.start = TimeComponent(hour: 9)
         self.end =  TimeComponent(hour: 21)
         self.days = Days()
