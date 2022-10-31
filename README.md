@@ -41,14 +41,13 @@
 
 ## 👀 미리보기
 
-| ![카테고리추가화면](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040960.gif) | ![목표추가화면](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040801.gif) | ![날짜선택](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040311.gif) | ![알림시간설정](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040902.gif) |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                     `목표 카테고리 생성`                     |                         `목표 생성`                          |                   `목표의 진행 날짜 지정`                    |                   `목표의 알림 시간 지정`                    |
+| ![카테고리추가화면](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312110079.gif) | ![목표추가화면](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312113038.gif) | ![날짜선택](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312114604.gif) | ![알림시간설정](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312120038.gif) |
+| :---: | :---: | :---: | :---: |
+| `목표 카테고리 생성` | `목표 생성` | `목표의 진행 날짜 지정` | `목표의 알림 시간 지정` |
 
-| ![촬영화면](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040865.gif) | ![앨범](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312040843.gif) | ![앨범사진수정](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210252304135.gif) |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                    `목표 인증 사진 촬영`                     |                    `목표 인증 사진 앨범`                     |                  `목표 인증 사진 속성 변경`                  |
-
+| ![촬영화면](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312123029.gif) | ![앨범](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312129357.gif) | ![앨범사진수정](https://raw.githubusercontent.com/Hansolkkim/Image-Upload/forUpload/img/202210312142685.gif) |
+| :---: | :---: | :---: |
+| `목표 인증 사진 촬영` | `목표 인증 사진 앨범` | `목표 인증 사진 속성 변경` |
 
 
 ## 🏛 아키텍처
