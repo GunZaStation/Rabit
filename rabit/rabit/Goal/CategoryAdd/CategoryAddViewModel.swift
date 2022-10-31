@@ -47,7 +47,7 @@ private extension CategoryAddViewModel {
         
         let categoryTitleVertification = categoryTitleInput
                                             .withUnretained(self)
-                                            .map { viewModel, titleInput in
+                                            .map { viewModel, titleInput -> (Bool, Bool) in
                                                 let isDuplicated = viewModel.repository.checkTitleDuplicated(input: titleInput)
                                                 let isEmpty = titleInput.isEmpty
                                                 return (isDuplicated, isEmpty)
