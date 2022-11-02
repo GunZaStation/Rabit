@@ -78,9 +78,9 @@ final class StyleSelectCell: UICollectionViewCell {
                     ImageCacheManager.shared.setObject(image, forKey: cacheKey)
                     self.previewImageView.image = image
                 }
-                self.nameLabel.text = photo.style.rawValue
             }
         }
+        self.nameLabel.text = photo.style.rawValue
     }
 }
 

@@ -274,9 +274,9 @@
 		0232BD9328AE113D009057F8 /* ColorSelect */ = {
 			isa = PBXGroup;
 			children = (
+				02C9713828B356290087B8D2 /* Views */,
 				0232BD9128AE1134009057F8 /* ColorSelectViewController.swift */,
 				0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */,
-				02C9713828B356290087B8D2 /* Views */,
 			);
 			path = ColorSelect;
 			sourceTree = "<group>";
@@ -335,13 +335,6 @@
 				027EA68428EC8D790097E802 /* Views */,
 			);
 			path = StyleSelect;
-			sourceTree = "<group>";
-		};
-		02DB2F8528AC8D82005938CB /* PhotoEdit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PhotoEdit;
 			sourceTree = "<group>";
 		};
 		02F3724D289CB23F00F361C7 /* Supportings */ = {
@@ -410,8 +403,8 @@
 		02FCC3F0290BC249005F4D4A /* PhotoEdit */ = {
 			isa = PBXGroup;
 			children = (
-				02DB2F8528AC8D82005938CB /* PhotoEdit */,
 				0232BD9328AE113D009057F8 /* ColorSelect */,
+				02DABAAA28EC44FF001416DC /* StyleSelect */,
 				02FCC3EE290BC242005F4D4A /* PhotoEditCoordinator.swift */,
 				02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */,
 				02DB2F8628AC9115005938CB /* PhotoEditViewModel.swift */,
@@ -570,7 +563,6 @@
 		B5D131D3289A0CE900EE1833 /* Album */ = {
 			isa = PBXGroup;
 			children = (
-				02DABAAA28EC44FF001416DC /* StyleSelect */,
 				02F37252289CE21800F361C7 /* Models */,
 				022B7835289B7A0D009003EA /* Views */,
 				0229C50128A7AF020093990E /* Repository */,
