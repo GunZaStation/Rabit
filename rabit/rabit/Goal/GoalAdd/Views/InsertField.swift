@@ -12,8 +12,12 @@ final class InsertField: UIControl {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
-        textField.font = .systemFont(ofSize: 18)
-//        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textField.autocapitalizationType = .none
+        textField.spellCheckingType = .no
+        textField.smartDashesType = .no
+        textField.autocorrectionType = .no
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textField.delegate = self
         return textField
     }()
     
@@ -33,7 +37,7 @@ final class InsertField: UIControl {
         didSet {
             textField.text = text
             textField.textColor = .label
-//            sendActions(for: .valueChanged)
+            sendActions(for: .valueChanged)
         }
     }
     
@@ -88,5 +92,12 @@ final class InsertField: UIControl {
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
         text = textField.text
+    }
+}
+
+extension InsertField: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

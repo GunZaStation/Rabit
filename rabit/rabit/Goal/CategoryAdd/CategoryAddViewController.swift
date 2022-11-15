@@ -28,8 +28,11 @@ final class CategoryAddViewController: UIViewController {
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "카테고리를 입력하세요."
-        textField.leftView = UIView()
+        textField.placeholder = " 카테고리 입력"
+        textField.autocapitalizationType = .none
+        textField.spellCheckingType = .no
+        textField.smartDashesType = .no
+        textField.autocorrectionType = .no
         textField.layer.borderColor = UIColor.systemGray4.cgColor
         textField.layer.borderWidth = 1.0
         textField.roundCorners(10)
@@ -145,6 +148,13 @@ final class CategoryAddViewController: UIViewController {
         
         viewModel.warningLabelHidden
             .bind(to: warningLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        textField.rx.controlEvent(.editingDidEndOnExit)
+            .withUnretained(self)
+            .bind { viewController, _ in
+                viewController.textField.resignFirstResponder()
+            }
             .disposed(by: disposeBag)
     }
     
