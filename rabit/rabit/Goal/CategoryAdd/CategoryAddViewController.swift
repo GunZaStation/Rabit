@@ -99,22 +99,6 @@ final class CategoryAddViewController: UIViewController {
         showFormView()
     }
     
-    private func showFormView() {
-        
-        formView.snp.remakeConstraints {
-            $0.center.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.7)
-            $0.height.equalToSuperview().multipliedBy(0.28)
-        }
-        
-        UIView.animate(
-            withDuration: 0.2,
-            delay: 0,
-            animations: self.view.layoutIfNeeded,
-            completion: nil
-        )        
-    }
-    
     private func bind() {
         guard let viewModel = viewModel else { return }
       
@@ -127,7 +111,8 @@ final class CategoryAddViewController: UIViewController {
         
         closeButton.rx.tap
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind(to: viewModel.closeButtonTouched)
+            .withUnretained(self)
+            .bind { $0.0.hideFormView() }
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
@@ -138,7 +123,8 @@ final class CategoryAddViewController: UIViewController {
         dimmedView.rx.tapGesture()
             .when(.ended)
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind { _ in viewModel.closeButtonTouched.accept(()) }
+            .withUnretained(self)
+            .bind { $0.0.hideFormView() }
             .disposed(by: disposeBag)
 
         viewModel.saveButtonDisabled
@@ -206,6 +192,23 @@ final class CategoryAddViewController: UIViewController {
         warningLabel.snp.makeConstraints {
             $0.top.equalTo(textField.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(35)
+        }
+    }
+}
+
+private extension CategoryAddViewController {
+    func showFormView() {
+        UIView.animate(withDuration: 0.2) {
+            let y = -(self.view.frame.height + self.formView.frame.height)/2
+            self.formView.transform = CGAffineTransform(translationX: 0, y: y)
+        }
+    }
+    
+    func hideFormView() {
+        UIView.animate(withDuration: 0.2) {
+            self.formView.transform = .identity
+        } completion: { [weak self] _ in
+            self?.viewModel?.closeButtonTouched.accept(())
         }
     }
 }
