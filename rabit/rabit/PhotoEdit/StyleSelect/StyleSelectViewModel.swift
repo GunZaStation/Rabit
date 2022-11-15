@@ -50,7 +50,7 @@ private extension StyleSelectViewModel {
 
     func bind(to navigation: StyleSelectNavigation) {
         closeStyleSelectRequested
-            .bind(to: navigation.closeStyleSelectView)
+            .bind(to: navigation.didTapCloseStyleSelectButton)
             .disposed(by: disposeBag)
     }
 }

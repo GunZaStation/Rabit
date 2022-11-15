@@ -41,11 +41,11 @@ private extension GoalListViewModel {
     func bind(to navigation: GoalNavigation) {
         
         categoryAddButtonTouched
-            .bind(to: navigation.showCategoryAddView)
+            .bind(to: navigation.didTapCategoryAddButton)
             .disposed(by: disposeBag)
         
         goalAddButtonTouched
-            .bind(to: navigation.showGoalAddView)
+            .bind(to: navigation.didTapGoalAddButton)
             .disposed(by: disposeBag)
         
         requestGoalList
@@ -56,16 +56,16 @@ private extension GoalListViewModel {
             .bind(to: goalList)
             .disposed(by: disposeBag)
         
-        navigation.closeCategoryAddView
+        navigation.didTapCloseCategoryAddButton
             .bind(to: requestGoalList)
             .disposed(by: disposeBag)
         
-        navigation.closeGoalAddView
+        navigation.didTapCloseGoalAddViewButton
             .bind(to: requestGoalList)
             .disposed(by: disposeBag)
         
         showGoalDetailView
-            .bind(to: navigation.showGoalDetailView)
+            .bind(to: navigation.didTapGoal)
             .disposed(by: disposeBag)
     }
 }

@@ -20,25 +20,23 @@ final class GoalAddViewController: UIViewController {
         return insertField
     }()
     
-    private let descriptionField:InsertField = {
+    private let descriptionField: InsertField = {
         let insertField = InsertField()
         insertField.title = "설명"
         insertField.placeholder = "문자열 입력"
         return insertField
     }()
     
-    private let periodField:InsertField = {
+    private let periodField: InsertField = {
         let insertField = InsertField()
         insertField.title = "목표 기간"
-        insertField.placeholder = "시작일과 종료일을 선택하세요"
         insertField.isTextFieldEnabled = false
         return insertField
     }()
     
-    private let timeField:InsertField = {
+    private let timeField: InsertField = {
         let insertField = InsertField()
         insertField.title = "인증 시간"
-        insertField.placeholder = "문자열 입력"
         insertField.isTextFieldEnabled = false
         return insertField
     }()

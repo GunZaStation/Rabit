@@ -57,7 +57,7 @@ private extension ColorSelectViewModel {
 
     func bind(to navigation: ColorSelectNavigation) {
         closeColorSelectRequested
-            .bind(to: navigation.closeColorSelectView)
+            .bind(to: navigation.didTapCloseColorSelectButton)
             .disposed(by: disposeBag)
     }
 }

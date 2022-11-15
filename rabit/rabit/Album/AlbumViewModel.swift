@@ -52,7 +52,7 @@ private extension AlbumViewModel {
             .withUnretained(self) { viewModel, _ in
                 viewModel.photoSelected
             }
-            .bind(to: navigation.showPhotoEditView)
+            .bind(to: navigation.didSelectPhoto)
             .disposed(by: disposeBag)
 
         navigation.didChangePhoto

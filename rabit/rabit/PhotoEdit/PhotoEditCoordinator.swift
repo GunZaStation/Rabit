@@ -8,18 +8,18 @@ enum PhotoEditMode {
 }
 
 protocol PhotoEditNavigation {
-    var showColorSelectView: PublishRelay<BehaviorRelay<String>> { get }
-    var showStyleSelectView: PublishRelay<BehaviorRelay<Album.Item>> { get }
-    var closePhotoEditView: PublishRelay<Void> { get }
+    var didTapSelectColorButton: PublishRelay<BehaviorRelay<String>> { get }
+    var didTapSelectStyleButton: PublishRelay<BehaviorRelay<Album.Item>> { get }
+    var didTapBackButton: PublishRelay<Void> { get }
     var didChangePhoto: PublishRelay<Void> { get }
 }
 
 protocol ColorSelectNavigation {
-    var closeColorSelectView: PublishRelay<Void> { get }
+    var didTapCloseColorSelectButton: PublishRelay<Void> { get }
 }
 
 protocol StyleSelectNavigation {
-    var closeStyleSelectView: PublishRelay<Void> { get }
+    var didTapCloseStyleSelectButton: PublishRelay<Void> { get }
 }
 
 final class PhotoEditCoordinator: Coordinator, PhotoEditNavigation, ColorSelectNavigation, StyleSelectNavigation {
@@ -30,14 +30,14 @@ final class PhotoEditCoordinator: Coordinator, PhotoEditNavigation, ColorSelectN
 
     private let photoStream: BehaviorRelay<Album.Item>
 
-    let showColorSelectView = PublishRelay<BehaviorRelay<String>>()
-    let showStyleSelectView = PublishRelay<BehaviorRelay<Album.Item>>()
-    let closePhotoEditView = PublishRelay<Void>()
+    let didTapSelectColorButton = PublishRelay<BehaviorRelay<String>>()
+    let didTapSelectStyleButton = PublishRelay<BehaviorRelay<Album.Item>>()
+    let didTapBackButton = PublishRelay<Void>()
     let didChangePhoto = PublishRelay<Void>()
 
-    let closeColorSelectView = PublishRelay<Void>()
+    let didTapCloseColorSelectButton = PublishRelay<Void>()
 
-    let closeStyleSelectView = PublishRelay<Void>()
+    let didTapCloseStyleSelectButton = PublishRelay<Void>()
 
     private let photoEditMode: PhotoEditMode
 
@@ -77,21 +77,21 @@ final class PhotoEditCoordinator: Coordinator, PhotoEditNavigation, ColorSelectN
 
 private extension PhotoEditCoordinator {
     func bind() {
-        showColorSelectView
+        didTapSelectColorButton
             .withUnretained(self)
             .bind { coordinator, colorStream in
                 coordinator.presentColorSelectView(colorStream: colorStream)
             }
             .disposed(by: disposeBag)
 
-        showStyleSelectView
+        didTapSelectStyleButton
             .withUnretained(self)
             .bind { coordinator, photoStream in
                 coordinator.presentStyleSelectView(photoStream: photoStream)
             }
             .disposed(by: disposeBag)
 
-        closePhotoEditView
+        didTapBackButton
             .withUnretained(self)
             .bind { coordinator, _ in
                 coordinator.detachPhotoEditCoordinator()
@@ -105,14 +105,14 @@ private extension PhotoEditCoordinator {
             }
             .disposed(by: disposeBag)
         
-        closeColorSelectView
+        didTapCloseColorSelectButton
             .withUnretained(self)
             .bind { coordinator, _ in
                 coordinator.dismissCurrentView()
             }
             .disposed(by: disposeBag)
 
-        closeStyleSelectView
+        didTapCloseStyleSelectButton
             .withUnretained(self)
             .bind { coordinator, _ in
                 coordinator.dismissCurrentView()

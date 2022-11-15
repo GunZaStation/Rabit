@@ -53,12 +53,12 @@ private extension GoalDetailViewModel {
                 
         closeButtonTouched
             .map { goal }
-            .bind(to: navigation.showCertPhotoCameraView)
+            .bind(to: navigation.didTapCertPhotoCameraButton)
             .disposed(by: disposeBag)
         
         showCertPhotoCameraView
             .map { goal }
-            .bind(to: navigation.showCertPhotoCameraView)
+            .bind(to: navigation.didTapCertPhotoCameraButton)
             .disposed(by: disposeBag)
      }
 }

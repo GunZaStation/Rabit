@@ -39,7 +39,7 @@ private extension CertPhotoCameraViewModel {
             .withLatestFrom(previewPhotoData) { (goal.category, goal.title, $1) }
             .map(Photo.init)
             .map(BehaviorRelay.init)
-            .bind(to: navigation.showPhotoEditView)
+            .bind(to: navigation.didTakeCertPhoto)
             .disposed(by: disposeBag)
     }
 }

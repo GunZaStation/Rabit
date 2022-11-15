@@ -65,7 +65,7 @@ private extension CategoryAddViewModel {
             .disposed(by: disposeBag)
         
         closeButtonTouched
-            .bind(to: navigation.closeCategoryAddView)
+            .bind(to: navigation.didTapCloseCategoryAddButton)
             .disposed(by: disposeBag)
         
         saveButtonTouched
@@ -80,7 +80,7 @@ private extension CategoryAddViewModel {
         categoryAddResult
             .bind(onNext: { isSuccess in
                 guard isSuccess else { return }
-                navigation.closeCategoryAddView.accept(())
+                navigation.didTapCloseCategoryAddButton.accept(())
             })
             .disposed(by: disposeBag)
     }
