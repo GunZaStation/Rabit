@@ -15,30 +15,28 @@ final class GoalDetailViewController: UIViewController {
     
     private let titleField: InsertField = {
         let insertField = InsertField()
-        insertField.title = "제목"
+        insertField.icon = "line.3.horizontal"
         insertField.placeholder = "문자열 입력"
         return insertField
     }()
     
     private let descriptionField:InsertField = {
         let insertField = InsertField()
-        insertField.title = "설명"
+        insertField.icon = "doc.text.magnifyingglass"
         insertField.placeholder = "문자열 입력"
         return insertField
     }()
     
     private let periodField:InsertField = {
         let insertField = InsertField()
-        insertField.title = "목표 기간"
-        insertField.placeholder = "시작일과 종료일을 선택하세요"
+        insertField.icon = "calendar.circle"
         insertField.isUserInteractionEnabled = false
         return insertField
     }()
     
     private let timeField:InsertField = {
         let insertField = InsertField()
-        insertField.title = "인증 시간"
-        insertField.placeholder = "문자열 입력"
+        insertField.icon = "alarm"
         insertField.isUserInteractionEnabled = false
         return insertField
     }()

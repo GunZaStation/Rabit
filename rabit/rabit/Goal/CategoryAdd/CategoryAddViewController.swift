@@ -15,42 +15,52 @@ final class CategoryAddViewController: UIViewController {
     private let formView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.roundCorners(20)
+        view.roundCorners(15)
         return view
+    }()
+
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "카테고리 생성"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .init(rawValue: 700))
+        return label
     }()
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = " 카테고리 입력"
+        textField.placeholder = "카테고리를 입력하세요."
         textField.leftView = UIView()
         textField.layer.borderColor = UIColor.systemGray4.cgColor
         textField.layer.borderWidth = 1.0
         textField.roundCorners(10)
+        textField.addLeftPadding(width: 20)
         return textField
     }()
     
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("\t닫기\t", for: .normal)
+        button.setTitle("취소", for: .normal)
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemOrange
-        button.roundCorners(10)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.setTitleColor(UIColor(hexRGB: "#676767"), for: .normal)
+        button.backgroundColor = UIColor(hexRGB: "#F2F2F2")
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor(hexRGB: "#DFDFDF")?.cgColor
+        button.roundCorners(20)
         return button
     }()
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("\t저장\t", for: .normal)
+        button.setTitle("저장", for: .normal)
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.setBackgroundColor(.systemGreen, for: .normal)
+        button.setBackgroundColor(UIColor(hexRGB: "#F16B22"), for: .normal)
         button.setBackgroundColor(.lightGray, for: .disabled)
-        button.roundCorners(10)
+        button.roundCorners(20)
         button.isEnabled = false
         return button
     }()
@@ -91,7 +101,7 @@ final class CategoryAddViewController: UIViewController {
         formView.snp.remakeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.7)
-            $0.height.equalToSuperview().multipliedBy(0.18)
+            $0.height.equalToSuperview().multipliedBy(0.28)
         }
         
         UIView.animate(
@@ -150,27 +160,36 @@ final class CategoryAddViewController: UIViewController {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             $0.width.equalToSuperview().multipliedBy(0.7)
-            $0.height.equalToSuperview().multipliedBy(0.18)
+            $0.height.equalToSuperview().multipliedBy(0.28)
+        }
+        
+        formView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(43)
+            $0.centerX.equalToSuperview()
+        }
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        
+        formView.addSubview(saveButton)
+        saveButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(35)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(122)
+            $0.height.equalTo(44)
         }
         
         formView.addSubview(closeButton)
         closeButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(20)
-            $0.trailing.equalToSuperview().inset(35)
-        }
-        
-        formView.addSubview(saveButton)
-        saveButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(20)
-            $0.leading.equalToSuperview().inset(35)
-            $0.width.height.equalTo(closeButton)
+            $0.bottom.equalToSuperview().inset(35)
+            $0.leading.equalToSuperview().inset(20)
+            $0.width.height.equalTo(saveButton)
         }
         
         formView.addSubview(textField)
         textField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(35)
-            $0.height.equalToSuperview().multipliedBy(0.25)
-            $0.bottom.equalTo(saveButton.snp.top).offset(-28)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(25)
+            $0.height.equalToSuperview().multipliedBy(0.20)
         }
         
         formView.addSubview(warningLabel)

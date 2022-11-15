@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxDataSources
+import RxGesture
 
 typealias CalendarSectionType = AnimatableSectionModel<CalendarDates, CalendarDate>
 typealias CalendarDataSource = RxCollectionViewSectionedAnimatedDataSource<CalendarSectionType>

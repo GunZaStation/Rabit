@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
-import RxGesture
 
 final class PhotoEditViewController: UIViewController {
     private let photoImageView: UIImageView = {

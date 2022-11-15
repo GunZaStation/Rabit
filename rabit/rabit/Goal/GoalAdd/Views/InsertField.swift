@@ -3,46 +3,55 @@ import SnapKit
 
 final class InsertField: UIControl {
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
-        label.textAlignment = .left
-        return label
+    private let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = UIColor(hexRGB: "#1D1D1D")
+        return imageView
     }()
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.layer.borderColor = UIColor.systemGray4.cgColor
-        textField.layer.borderWidth = 1.0
         textField.backgroundColor = .white
-        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        textField.roundCorners(10)
-        textField.shadowApplied(opacity: 0.2)
+        textField.font = .systemFont(ofSize: 18)
+//        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     }()
     
-    var title: String = "" {
+    private let underLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hexRGB: "#DFDFDF")
+        return view
+    }()
+    
+    var icon: String = "" {
         didSet {
-            titleLabel.text = title
+            iconImageView.image = UIImage(systemName: icon)
         }
     }
     
     var text: String? {
         didSet {
-            textField.text = text ?? ""
-            sendActions(for: .valueChanged)
+            textField.text = text
+            textField.textColor = .label
+//            sendActions(for: .valueChanged)
         }
     }
     
     var placeholder: String = "" {
         didSet {
-            textField.placeholder = " \(placeholder)"
+            textField.placeholder = placeholder
         }
     }
     
     var isTextFieldEnabled: Bool = true {
         didSet {
             textField.isEnabled = isTextFieldEnabled
+        }
+    }
+    
+    var textColor: UIColor? {
+        didSet {
+            textField.textColor = textColor
         }
     }
     
@@ -56,15 +65,24 @@ final class InsertField: UIControl {
     }
     
     private func setupViews() {
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+        addSubview(iconImageView)
+        iconImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
         }
         
         addSubview(textField)
         textField.snp.makeConstraints {
-            $0.bottom.leading.trailing.equalToSuperview()
+            $0.top.trailing.equalToSuperview()
+            $0.leading.equalTo(iconImageView.snp.trailing).offset(14)
             $0.height.equalToSuperview().multipliedBy(0.5)
+            $0.centerY.equalTo(iconImageView)
+        }
+        
+        addSubview(underLineView)
+        underLineView.snp.makeConstraints { make in
+            make.top.equalTo(textField.snp.bottom).offset(13)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)
         }
     }
     
