@@ -6,9 +6,11 @@ struct Period: Equatable {
     let end: Date
     
     init() {
-        let currDate = Date()
-        self.start = currDate
-        self.end = currDate
+        let calendar = Calendar(identifier: .gregorian)
+        let currDate = calendar.dateComponents([.year, .month, .day], from: Date())
+        let today = calendar.date(from: currDate) ?? Date()
+        self.start = today
+        self.end = today
     }
         
     init(start: Date, end: Date) {
