@@ -3,30 +3,59 @@ import RealmSwift
 
 final class RealmManager {
     
-    private let realm: Realm
+    private let realmSerialQueue = DispatchQueue(label: "realm-serial-queue")
+    private let configuration = Realm.Configuration.defaultConfiguration
+    private let semaphore = DispatchSemaphore(value: 0)
     static var shared = RealmManager()
     
-    private init() {
-        self.realm = try! Realm()
-    }
-    
+    private init() { }
+        
     func read<T: Object>(entity: T.Type, filter query: String? = nil) -> [T] {
-        if let query = query {
-            return realm.objects(entity).filter(query).toArray(ofType: entity)
-        } else {
-            return realm.objects(entity).toArray(ofType: entity)
+        var result: [T] = []
+        
+        realmSerialQueue.async { [weak self] in
+            guard let self = self else {
+                self?.semaphore.signal()
+                return
+            }
+            
+            let realm = try! Realm(configuration: self.configuration, queue: self.realmSerialQueue)
+            
+            if let query = query {
+                result = realm.objects(entity).filter(query).toArray(ofType: entity)
+            } else {
+                result = realm.objects(entity).toArray(ofType: entity)
+            }
+            
+            self.semaphore.signal()
         }
+        
+        semaphore.wait()
+        
+        return result
     }
  
     func write(entity: Object) throws {
-        try? realm.write {
-            realm.add(entity)
+        let configuration = configuration
+        
+        realmSerialQueue.async {
+            let realm = try! Realm(configuration: configuration)
+
+            try? realm.write {
+                realm.add(entity)
+            }
         }
     }
 
     func update<T: Object>(entity: T) throws {
-        try? realm.write {
-            realm.add(entity, update: .modified)
+        let configuration = configuration
+
+        realmSerialQueue.async {
+            let realm = try! Realm(configuration: configuration)
+
+            try? realm.write {
+                realm.add(entity, update: .modified)
+            }
         }
     }
 }
