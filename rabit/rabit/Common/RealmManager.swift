@@ -19,7 +19,7 @@ final class RealmManager {
                 return
             }
             
-            let realm = try! Realm(configuration: self.configuration, queue: self.realmSerialQueue)
+            let realm = try! Realm(configuration: self.configuration, queue: self.realmSerialQueue).freeze()
             
             if let query = query {
                 result = realm.objects(entity).filter(query).toArray(ofType: entity)
