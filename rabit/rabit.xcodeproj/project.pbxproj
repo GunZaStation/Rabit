@@ -16,6 +16,7 @@
 		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
 		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */; };
+		023FDBCA29260D3B0063D923 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023FDBC929260D3B0063D923 /* CircularProgressBar.swift */; };
 		0244F3D128E87B33007D3E8F /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */; };
 		024FBEFA28CCEFE700521926 /* Date + isSameDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024FBEF928CCEFE700521926 /* Date + isSameDate.swift */; };
 		02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520986289A5A2400E7E604 /* AlbumViewController.swift */; };
@@ -134,6 +135,7 @@
 		0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Initializer.swift"; sourceTree = "<group>"; };
 		0232BD9828AF6B25009057F8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + setBackgroundColor.swift"; sourceTree = "<group>"; };
+		023FDBC929260D3B0063D923 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
 		024FBEF928CCEFE700521926 /* Date + isSameDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + isSameDate.swift"; sourceTree = "<group>"; };
 		02520986289A5A2400E7E604 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				B5D131DE289C178A00EE1833 /* GoalListCollectionViewCell.swift */,
 				B5D131E1289C2A1B00EE1833 /* GoalProgressView.swift */,
 				B5D7603028A37D630046B09C /* GoalListCollectionViewHeader.swift */,
+				023FDBC929260D3B0063D923 /* CircularProgressBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -837,6 +840,7 @@
 				0232BD9928AF6B25009057F8 /* Photo.swift in Sources */,
 				B5D131D0289A065200EE1833 /* AppCoordinator.swift in Sources */,
 				02A093CA28B8A67800BDF69B /* GoalEntity.swift in Sources */,
+				023FDBCA29260D3B0063D923 /* CircularProgressBar.swift in Sources */,
 				B59BB3C728A82E2D007C5013 /* CategoryAddViewController.swift in Sources */,
 				02520989289A5C1D00E7E604 /* AlbumCell.swift in Sources */,
 				0232BD9228AE1134009057F8 /* ColorSelectViewController.swift in Sources */,
