@@ -37,8 +37,8 @@ final class MainCoordinator: Coordinator {
         tabBarController.tabBar.tintColor = UIColor(named: "second")
 
         tabBarController.tabBar.selectionIndicatorImage = UIImage.imageWithColor(
-            color: UIColor(named: "fourth"),
-            size: CGSize(width: 48, height: 48)
+            color: UIColor(hexRGBA: "#EE5B0BB7"),
+            size: CGSize(width: 35, height: 35)
         )
 
         return tabBarController
