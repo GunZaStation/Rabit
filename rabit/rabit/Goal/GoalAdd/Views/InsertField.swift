@@ -59,6 +59,12 @@ final class InsertField: UIControl {
         }
     }
     
+    var textSize: CGFloat? {
+        didSet {
+            textField.font = UIFont.systemFont(ofSize: (textSize ?? 10)/750 * UIScreen.main.bounds.height)
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -84,7 +90,7 @@ final class InsertField: UIControl {
         
         addSubview(underLineView)
         underLineView.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom).offset(13)
+            make.top.equalTo(textField.snp.bottom).offset(13/376 * UIScreen.main.bounds.width)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(1)
         }

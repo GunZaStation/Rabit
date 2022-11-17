@@ -16,12 +16,13 @@ final class GoalAddViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 14
+        stackView.spacing = 14/750 * UIScreen.main.bounds.height
         return stackView
     }()
     
     private let titleField: InsertField = {
         let insertField = InsertField()
+        insertField.textSize = 15
         insertField.icon = "line.3.horizontal"
         insertField.placeholder = "제목을 입력하세요."
         return insertField
@@ -29,6 +30,7 @@ final class GoalAddViewController: UIViewController {
     
     private let descriptionField: InsertField = {
         let insertField = InsertField()
+        insertField.textSize = 15
         insertField.icon = "doc.text.magnifyingglass"
         insertField.placeholder = "설명을 입력하세요."
         return insertField
@@ -36,6 +38,7 @@ final class GoalAddViewController: UIViewController {
     
     private let periodField: InsertField = {
         let insertField = InsertField()
+        insertField.textSize = 15
         insertField.icon = "calendar.circle"
         insertField.isTextFieldEnabled = false
         return insertField
@@ -43,6 +46,7 @@ final class GoalAddViewController: UIViewController {
     
     private let timeField: InsertField = {
         let insertField = InsertField()
+        insertField.textSize = 15
         insertField.icon = "alarm"
         insertField.isTextFieldEnabled = false
         return insertField
@@ -160,13 +164,13 @@ final class GoalAddViewController: UIViewController {
         
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(48)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(48/750 * UIScreen.main.bounds.height)
             make.centerX.equalToSuperview()
         }
         
         view.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(40)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(40/750 * UIScreen.main.bounds.height)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.85)
             $0.height.equalToSuperview().multipliedBy(0.5)
@@ -179,9 +183,9 @@ final class GoalAddViewController: UIViewController {
         
         view.addSubview(saveButton)
         saveButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(30)
-            make.trailing.equalToSuperview().inset(30)
-            make.bottom.equalToSuperview().inset(40)
+            make.leading.equalToSuperview().offset(30/376 * UIScreen.main.bounds.width)
+            make.trailing.equalToSuperview().inset(30/376 * UIScreen.main.bounds.width)
+            make.bottom.equalToSuperview().inset(40/750 * UIScreen.main.bounds.height)
             make.height.equalToSuperview().multipliedBy(0.07)
         }
     }

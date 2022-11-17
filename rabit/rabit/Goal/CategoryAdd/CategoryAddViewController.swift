@@ -22,22 +22,34 @@ final class CategoryAddViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "카테고리 생성"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .init(rawValue: 700))
+        label.font = UIFont.systemFont(
+            ofSize: 20/750 * UIScreen.main.bounds.height,
+            weight: .init(rawValue: 700)
+        )
         return label
     }()
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = " 카테고리 입력"
+        textField.placeholder = "카테고리를 입력하세요."
         textField.autocapitalizationType = .none
         textField.spellCheckingType = .no
         textField.smartDashesType = .no
         textField.autocorrectionType = .no
         textField.layer.borderColor = UIColor.systemGray4.cgColor
         textField.layer.borderWidth = 1.0
+        textField.font = UIFont.systemFont(ofSize: 15/750 * UIScreen.main.bounds.height)
         textField.roundCorners(10)
         textField.addLeftPadding(width: 20)
         return textField
+    }()
+    
+    private var buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10/376 * UIScreen.main.bounds.width
+        return stackView
     }()
     
     private lazy var closeButton: UIButton = {
@@ -45,12 +57,14 @@ final class CategoryAddViewController: UIViewController {
         
         button.setTitle("취소", for: .normal)
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.titleLabel?.font = .systemFont(
+            ofSize: 14,
+            weight: .regular
+        )
         button.setTitleColor(UIColor(hexRGB: "#676767"), for: .normal)
         button.backgroundColor = UIColor(hexRGB: "#F2F2F2")
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(hexRGB: "#DFDFDF")?.cgColor
-        button.roundCorners(20)
         return button
     }()
     
@@ -59,11 +73,13 @@ final class CategoryAddViewController: UIViewController {
         
         button.setTitle("저장", for: .normal)
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.titleLabel?.font = .systemFont(
+            ofSize: 14,
+            weight: .regular
+        )
         button.setTitleColor(UIColor.white, for: .normal)
         button.setBackgroundColor(UIColor(hexRGB: "#F16B22"), for: .normal)
         button.setBackgroundColor(.lightGray, for: .disabled)
-        button.roundCorners(20)
         button.isEnabled = false
         return button
     }()
@@ -97,6 +113,13 @@ final class CategoryAddViewController: UIViewController {
         super.viewDidAppear(animated)
         
         showFormView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        saveButton.roundCorners(saveButton.frame.height / 2)
+        closeButton.roundCorners(closeButton.frame.height / 2)
     }
     
     private func bind() {
@@ -155,44 +178,42 @@ final class CategoryAddViewController: UIViewController {
         formView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            $0.width.equalToSuperview().multipliedBy(0.7)
-            $0.height.equalToSuperview().multipliedBy(0.28)
+            $0.width.equalTo(296/376 * UIScreen.main.bounds.width)
         }
         
         formView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(43)
+            $0.top.equalToSuperview().offset(41/750 * UIScreen.main.bounds.height)
             $0.centerX.equalToSuperview()
         }
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
-        formView.addSubview(saveButton)
-        saveButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(35)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(122)
-            $0.height.equalTo(44)
-        }
-        
-        formView.addSubview(closeButton)
-        closeButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(35)
-            $0.leading.equalToSuperview().inset(20)
-            $0.width.height.equalTo(saveButton)
-        }
-        
         formView.addSubview(textField)
         textField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(25)
+            $0.leading.equalToSuperview().offset(20/376 * UIScreen.main.bounds.width)
+            $0.trailing.equalToSuperview().inset(20/376 * UIScreen.main.bounds.width)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(25/750 * UIScreen.main.bounds.height)
             $0.height.equalToSuperview().multipliedBy(0.20)
         }
         
         formView.addSubview(warningLabel)
         warningLabel.snp.makeConstraints {
             $0.top.equalTo(textField.snp.bottom)
-            $0.leading.trailing.equalToSuperview().inset(35)
+            $0.leading.equalToSuperview().offset(35/376 * UIScreen.main.bounds.width)
+            $0.trailing.equalToSuperview().inset(35/376 * UIScreen.main.bounds.width)
         }
+        
+        formView.addSubview(buttonStackView)
+        buttonStackView.snp.makeConstraints {
+            $0.top.equalTo(textField.snp.bottom).offset(22/750 * UIScreen.main.bounds.height)
+            $0.bottom.equalToSuperview().inset(41/750 * UIScreen.main.bounds.height)
+            $0.leading.equalToSuperview().offset(20/376 * UIScreen.main.bounds.width)
+            $0.trailing.equalToSuperview().inset(20/376 * UIScreen.main.bounds.width)
+            $0.height.equalTo(44/750 * UIScreen.main.bounds.height)
+        }
+        
+        buttonStackView.addArrangedSubview(closeButton)
+        buttonStackView.addArrangedSubview(saveButton)
     }
 }
 
