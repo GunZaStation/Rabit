@@ -29,6 +29,10 @@ final class GoalListViewController: UIViewController {
         setupViews()
         setAttributes()
         bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         viewModel?.requestGoalList.accept(())
     }
