@@ -4,18 +4,18 @@ import RxRelay
 
 protocol GoalNavigation {
     
-    var showCategoryAddView: PublishRelay<Void> { get }
-    var closeCategoryAddView: PublishRelay<Void> { get }
-    var showGoalAddView: PublishRelay<Category> { get }
-    var closeGoalAddView: PublishRelay<Void> { get }
-    var showPeriodSelectView: PublishRelay<BehaviorRelay<Period>> { get }
-    var closePeriodSelectView: PublishRelay<Void> { get }
-    var showTimeSelectView: PublishRelay<BehaviorRelay<CertifiableTime>> { get }
-    var closeTimeSelectView: PublishRelay<Void> { get }
-    var showGoalDetailView: PublishRelay<Goal> { get }
-    var closeGoalDetailView: PublishRelay<Void> { get }
-    var showCertPhotoCameraView: PublishRelay<Goal> { get }
-    var showPhotoEditView: PublishRelay<BehaviorRelay<Photo>> { get }
+    var didTapCategoryAddButton: PublishRelay<Void> { get }
+    var didTapCloseCategoryAddButton: PublishRelay<Void> { get }
+    var didTapGoalAddButton: PublishRelay<Category> { get }
+    var didTapCloseGoalAddViewButton: PublishRelay<Void> { get }
+    var didTapPeriodSelectTextField: PublishRelay<BehaviorRelay<Period>> { get }
+    var didTapClosePeriodSelectButton: PublishRelay<Void> { get }
+    var didTapTimeSelectTextField: PublishRelay<BehaviorRelay<CertifiableTime>> { get }
+    var didTapCloseTimeSelectButton: PublishRelay<Void> { get }
+    var didTapGoal: PublishRelay<Goal> { get }
+    var didTapCloseGoalDetailButton: PublishRelay<Void> { get }
+    var didTapCertPhotoCameraButton: PublishRelay<Goal> { get }
+    var didTakeCertPhoto: PublishRelay<BehaviorRelay<Photo>> { get }
 }
 
 final class GoalCoordinator: Coordinator, GoalNavigation {
@@ -24,18 +24,18 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     var children: [Coordinator] = []
     var navigationController: UINavigationController
     
-    let showCategoryAddView = PublishRelay<Void>()
-    let closeCategoryAddView = PublishRelay<Void>()
-    let showGoalAddView = PublishRelay<Category>()
-    let closeGoalAddView = PublishRelay<Void>()
-    let showPeriodSelectView = PublishRelay<BehaviorRelay<Period>>()
-    let closePeriodSelectView = PublishRelay<Void>()
-    let showTimeSelectView = PublishRelay<BehaviorRelay<CertifiableTime>>()
-    let closeTimeSelectView = PublishRelay<Void>()
-    let showGoalDetailView = PublishRelay<Goal>()
-    let closeGoalDetailView = PublishRelay<Void>()
-    let showCertPhotoCameraView = PublishRelay<Goal>()
-    let showPhotoEditView = PublishRelay<BehaviorRelay<Photo>>()
+    let didTapCategoryAddButton = PublishRelay<Void>()
+    let didTapCloseCategoryAddButton = PublishRelay<Void>()
+    let didTapGoalAddButton = PublishRelay<Category>()
+    let didTapCloseGoalAddViewButton = PublishRelay<Void>()
+    let didTapPeriodSelectTextField = PublishRelay<BehaviorRelay<Period>>()
+    let didTapClosePeriodSelectButton = PublishRelay<Void>()
+    let didTapTimeSelectTextField = PublishRelay<BehaviorRelay<CertifiableTime>>()
+    let didTapCloseTimeSelectButton = PublishRelay<Void>()
+    let didTapGoal = PublishRelay<Goal>()
+    let didTapCloseGoalDetailButton = PublishRelay<Void>()
+    let didTapCertPhotoCameraButton = PublishRelay<Goal>()
+    let didTakeCertPhoto = PublishRelay<BehaviorRelay<Photo>>()
 
     private let disposeBag = DisposeBag()
 
@@ -46,63 +46,63 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     
     private func bind() {
         
-        showCategoryAddView
+        didTapCategoryAddButton
             .bind(onNext: presentCategoryAddViewController)
             .disposed(by: disposeBag)
         
-        closeCategoryAddView
+        didTapCloseCategoryAddButton
             .withUnretained(self)
             .bind(onNext: { coordinator, _ in
                 coordinator.dismissCurrentView(animated: false)
             })
             .disposed(by: disposeBag)
         
-        showGoalAddView
+        didTapGoalAddButton
             .bind(onNext: presentGoalAddViewController)
             .disposed(by: disposeBag)
         
-        closeGoalAddView
+        didTapCloseGoalAddViewButton
             .withUnretained(self)
             .bind(onNext: { coordinator, _ in
                 coordinator.dismissCurrentView(animated: true)
             })
             .disposed(by: disposeBag)
         
-        showPeriodSelectView
+        didTapPeriodSelectTextField
             .bind(onNext: presentPeriodSelectViewController)
             .disposed(by: disposeBag)
         
-        closePeriodSelectView
+        didTapClosePeriodSelectButton
             .withUnretained(self)
             .bind(onNext: { coordinator, _ in
                 coordinator.dismissCurrentView(animated: false)
             })
             .disposed(by: disposeBag)
         
-        showTimeSelectView
+        didTapTimeSelectTextField
             .bind(onNext: presentTimeSelectViewController)
             .disposed(by: disposeBag)
         
-        closeTimeSelectView
+        didTapCloseTimeSelectButton
             .withUnretained(self)
             .bind(onNext: { coordinator, _ in
                 coordinator.dismissCurrentView(animated: false)
             })
             .disposed(by: disposeBag)
         
-        showGoalDetailView
+        didTapGoal
             .bind(onNext: pushGoalDetailViewController)
             .disposed(by: disposeBag)
         
-        closeGoalDetailView
+        didTapCloseGoalDetailButton
             .bind(onNext: popGoalDetailViewController)
             .disposed(by: disposeBag)
         
-        showCertPhotoCameraView
+        didTapCertPhotoCameraButton
             .bind(onNext: pushCertPhotoCameraView)
             .disposed(by: disposeBag)
         
-        showPhotoEditView
+        didTakeCertPhoto
             .bind(onNext: attachPhotoEditCoordinator(_:))
             .disposed(by: disposeBag)
     }

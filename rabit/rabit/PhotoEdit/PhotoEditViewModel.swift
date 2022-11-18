@@ -57,18 +57,18 @@ private extension PhotoEditViewModel {
             .withUnretained(self) { viewModel, _ in
                 viewModel.hexPhotoColor
             }
-            .bind(to: navigation.showColorSelectView)
+            .bind(to: navigation.didTapSelectColorButton)
             .disposed(by: disposeBag)
 
         selectStyleButtonTouched
             .withUnretained(self) { viewModel, _ in
                 viewModel.selectedPhotoData
             }
-            .bind(to: navigation.showStyleSelectView)
+            .bind(to: navigation.didTapSelectStyleButton)
             .disposed(by: disposeBag)
 
         backButtonTouched
-            .bind(to: navigation.closePhotoEditView)
+            .bind(to: navigation.didTapBackButton)
             .disposed(by: disposeBag)
 
         albumUpdateResult

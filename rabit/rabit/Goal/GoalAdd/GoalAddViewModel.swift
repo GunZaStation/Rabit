@@ -67,19 +67,19 @@ private extension GoalAddViewModel {
             .disposed(by: disposeBag)
                         
         closeButtonTouched
-            .bind(to: navigation.closeGoalAddView)
+            .bind(to: navigation.didTapCloseGoalAddViewButton)
             .disposed(by: disposeBag)
         
         periodFieldTouched
             .withUnretained(self)
             .map { $0.0.selectedPeriod }
-            .bind(to: navigation.showPeriodSelectView)
+            .bind(to: navigation.didTapPeriodSelectTextField)
             .disposed(by: disposeBag)
         
         timeFieldTouched
             .withUnretained(self)
             .map { $0.0.selectedTime }
-            .bind(to: navigation.showTimeSelectView)
+            .bind(to: navigation.didTapTimeSelectTextField)
             .disposed(by: disposeBag)
         
         let goal = Observable
@@ -113,7 +113,7 @@ private extension GoalAddViewModel {
         goalAddResult
             .bind(onNext: { isSuccess in
                 if isSuccess {
-                    navigation.closeGoalAddView.accept(())
+                    navigation.didTapCloseGoalAddViewButton.accept(())
                 }
             })
             .disposed(by: disposeBag)

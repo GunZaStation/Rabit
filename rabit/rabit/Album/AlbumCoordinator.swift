@@ -3,7 +3,7 @@ import RxSwift
 import RxRelay
 
 protocol AlbumNavigation {
-    var showPhotoEditView: PublishRelay<BehaviorRelay<Album.Item>> { get }
+    var didSelectPhoto: PublishRelay<BehaviorRelay<Album.Item>> { get }
     var didChangePhoto: PublishRelay<Void> { get }
 }
 
@@ -13,7 +13,7 @@ final class AlbumCoordinator: Coordinator, AlbumNavigation {
     var children: [Coordinator] = []
     var navigationController: UINavigationController
 
-    let showPhotoEditView = PublishRelay<BehaviorRelay<Album.Item>>()
+    let didSelectPhoto = PublishRelay<BehaviorRelay<Album.Item>>()
     let didChangePhoto = PublishRelay<Void>()
 
     private var disposeBag = DisposeBag()
@@ -53,7 +53,7 @@ private extension AlbumCoordinator {
 // MARK: - Private methods
 private extension AlbumCoordinator {
     func bind() {
-        showPhotoEditView
+        didSelectPhoto
             .bind(onNext: attachPhotoEditCoordinator(_:))
             .disposed(by: disposeBag)
     }

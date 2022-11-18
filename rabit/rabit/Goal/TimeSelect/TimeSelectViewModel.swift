@@ -54,7 +54,7 @@ private extension TimeSelectViewModel {
             .disposed(by: disposeBag)
         
         closingViewRequested
-            .bind(to: navigation.closePeriodSelectView)
+            .bind(to: navigation.didTapClosePeriodSelectButton)
             .disposed(by: disposeBag)
     }
     

@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
 final class TimeSelectViewController: UIViewController {
     
@@ -50,7 +51,7 @@ final class TimeSelectViewController: UIViewController {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = UIColor(named: "third")
+        button.setBackgroundColor(UIColor(named: "third"), for: .normal)
         button.roundCorners(10)
         return button
     }()

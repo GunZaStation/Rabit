@@ -29,6 +29,10 @@ final class GoalListViewController: UIViewController {
         setupViews()
         setAttributes()
         bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         viewModel?.requestGoalList.accept(())
     }
@@ -61,7 +65,8 @@ final class GoalListViewController: UIViewController {
     }
     
     private func setAttributes() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "카테고리 생성", style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "카테고리 추가", style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(hexRGB: "#EE5B0B")
     }
 }
 

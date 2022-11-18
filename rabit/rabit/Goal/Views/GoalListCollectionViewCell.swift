@@ -14,16 +14,23 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
     private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.textColor = .systemGray
+        label.textColor = .black
         label.text = "subtitle"
         return label
     }()
     
-    private let goalProgressView: GoalProgressView = {
-        let view = GoalProgressView()
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 5
-        return view
+    private let titleStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 5/750 * UIScreen.main.bounds.height
+        return stackView
+    }()
+    
+    private let goalProgressView: CircularProgressBar = {
+        let progressView = CircularProgressBar()
+        progressView.backgroundColor = .clear
+        return progressView
     }()
     
     override init(frame: CGRect) {
@@ -50,29 +57,29 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
     private func setAttributes() {
         
         contentView.layer.borderWidth = 1.0
-        contentView.layer.borderColor = UIColor.systemGray5.cgColor
+        contentView.layer.borderColor = UIColor(hexRGB: "#D9D9D9")?.cgColor
         contentView.roundCorners(10)
     }
     
     private func setupViews() {
         
-        contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(15)
-            $0.leading.equalToSuperview().offset(20)
-        }
-
-        contentView.addSubview(subTitleLabel)
-        subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(5)
-            $0.leading.equalToSuperview().offset(20)
-        }
-
         contentView.addSubview(goalProgressView)
-        goalProgressView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(30)
+        goalProgressView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20/376 * UIScreen.main.bounds.width)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(45/336 * UIScreen.main.bounds.width)
+            make.height.equalTo(goalProgressView.snp.width)
         }
+        
+        contentView.addSubview(titleStackView)
+        titleStackView.snp.makeConstraints { make in
+            make.leading.equalTo(goalProgressView.snp.trailing).offset(20/376 * UIScreen.main.bounds.width)
+            make.trailing.equalToSuperview().inset(20/376 * UIScreen.main.bounds.width)
+            make.top.equalToSuperview().offset(24/750 * UIScreen.main.bounds.height)
+            make.centerY.equalToSuperview()
+        }
+        
+        titleStackView.addArrangedSubview(titleLabel)
+        titleStackView.addArrangedSubview(subTitleLabel)
     }
 }

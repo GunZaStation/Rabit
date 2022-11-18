@@ -9,36 +9,38 @@ final class GoalDetailViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 14
+        stackView.spacing = 14 / 750 * UIScreen.main.bounds.height
         return stackView
     }()
     
     private let titleField: InsertField = {
         let insertField = InsertField()
-        insertField.title = "제목"
+        insertField.textSize = 15
+        insertField.icon = "titleIcon"
         insertField.placeholder = "문자열 입력"
         return insertField
     }()
     
     private let descriptionField:InsertField = {
         let insertField = InsertField()
-        insertField.title = "설명"
+        insertField.textSize = 15
+        insertField.icon = "subtitleIcon"
         insertField.placeholder = "문자열 입력"
         return insertField
     }()
     
     private let periodField:InsertField = {
         let insertField = InsertField()
-        insertField.title = "목표 기간"
-        insertField.placeholder = "시작일과 종료일을 선택하세요"
+        insertField.textSize = 15
+        insertField.icon = "periodIcon"
         insertField.isUserInteractionEnabled = false
         return insertField
     }()
     
     private let timeField:InsertField = {
         let insertField = InsertField()
-        insertField.title = "인증 시간"
-        insertField.placeholder = "문자열 입력"
+        insertField.textSize = 15
+        insertField.icon = "timeIcon"
         insertField.isUserInteractionEnabled = false
         return insertField
     }()
@@ -121,7 +123,7 @@ final class GoalDetailViewController: UIViewController {
         
         view.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10/750 * UIScreen.main.bounds.height)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.85)
             $0.height.equalToSuperview().multipliedBy(0.5)
@@ -134,10 +136,10 @@ final class GoalDetailViewController: UIViewController {
         
         view.addSubview(certView)
         certView.snp.makeConstraints {
-            $0.top.equalTo(stackView.snp.bottom).offset(10)
+            $0.top.equalTo(stackView.snp.bottom).offset(10/750 * UIScreen.main.bounds.height)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.85)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10/750 * UIScreen.main.bounds.height)
         }
     }
 }

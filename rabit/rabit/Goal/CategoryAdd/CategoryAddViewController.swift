@@ -15,42 +15,71 @@ final class CategoryAddViewController: UIViewController {
     private let formView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.roundCorners(20)
+        view.roundCorners(15)
         return view
+    }()
+
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "카테고리 생성"
+        label.font = UIFont.systemFont(
+            ofSize: 20/750 * UIScreen.main.bounds.height,
+            weight: .init(rawValue: 700)
+        )
+        return label
     }()
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = " 카테고리 입력"
-        textField.leftView = UIView()
+        textField.placeholder = "카테고리를 입력하세요."
+        textField.autocapitalizationType = .none
+        textField.spellCheckingType = .no
+        textField.smartDashesType = .no
+        textField.autocorrectionType = .no
         textField.layer.borderColor = UIColor.systemGray4.cgColor
         textField.layer.borderWidth = 1.0
+        textField.font = UIFont.systemFont(ofSize: 15/750 * UIScreen.main.bounds.height)
         textField.roundCorners(10)
+        textField.addLeftPadding(width: 20)
         return textField
+    }()
+    
+    private var buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10/376 * UIScreen.main.bounds.width
+        return stackView
     }()
     
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("\t닫기\t", for: .normal)
+        button.setTitle("취소", for: .normal)
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemOrange
-        button.roundCorners(10)
+        button.titleLabel?.font = .systemFont(
+            ofSize: 14,
+            weight: .regular
+        )
+        button.setTitleColor(UIColor(hexRGB: "#676767"), for: .normal)
+        button.backgroundColor = UIColor(hexRGB: "#F2F2F2")
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor(hexRGB: "#DFDFDF")?.cgColor
         return button
     }()
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("\t저장\t", for: .normal)
+        button.setTitle("저장", for: .normal)
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        button.titleLabel?.font = .systemFont(
+            ofSize: 14,
+            weight: .regular
+        )
         button.setTitleColor(UIColor.white, for: .normal)
-        button.setBackgroundColor(.systemGreen, for: .normal)
+        button.setBackgroundColor(UIColor(hexRGB: "#F16B22"), for: .normal)
         button.setBackgroundColor(.lightGray, for: .disabled)
-        button.roundCorners(10)
         button.isEnabled = false
         return button
     }()
@@ -86,20 +115,11 @@ final class CategoryAddViewController: UIViewController {
         showFormView()
     }
     
-    private func showFormView() {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        formView.snp.remakeConstraints {
-            $0.center.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.7)
-            $0.height.equalToSuperview().multipliedBy(0.18)
-        }
-        
-        UIView.animate(
-            withDuration: 0.2,
-            delay: 0,
-            animations: self.view.layoutIfNeeded,
-            completion: nil
-        )        
+        saveButton.roundCorners(saveButton.frame.height / 2)
+        closeButton.roundCorners(closeButton.frame.height / 2)
     }
     
     private func bind() {
@@ -114,7 +134,8 @@ final class CategoryAddViewController: UIViewController {
         
         closeButton.rx.tap
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind(to: viewModel.closeButtonTouched)
+            .withUnretained(self)
+            .bind { $0.0.hideFormView() }
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
@@ -125,7 +146,8 @@ final class CategoryAddViewController: UIViewController {
         dimmedView.rx.tapGesture()
             .when(.ended)
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind { _ in viewModel.closeButtonTouched.accept(()) }
+            .withUnretained(self)
+            .bind { $0.0.hideFormView() }
             .disposed(by: disposeBag)
 
         viewModel.saveButtonDisabled
@@ -135,6 +157,13 @@ final class CategoryAddViewController: UIViewController {
         
         viewModel.warningLabelHidden
             .bind(to: warningLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        textField.rx.controlEvent(.editingDidEndOnExit)
+            .withUnretained(self)
+            .bind { viewController, _ in
+                viewController.textField.resignFirstResponder()
+            }
             .disposed(by: disposeBag)
     }
     
@@ -149,34 +178,58 @@ final class CategoryAddViewController: UIViewController {
         formView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            $0.width.equalToSuperview().multipliedBy(0.7)
-            $0.height.equalToSuperview().multipliedBy(0.18)
+            $0.width.equalTo(296/376 * UIScreen.main.bounds.width)
         }
         
-        formView.addSubview(closeButton)
-        closeButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(20)
-            $0.trailing.equalToSuperview().inset(35)
+        formView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(41/750 * UIScreen.main.bounds.height)
+            $0.centerX.equalToSuperview()
         }
-        
-        formView.addSubview(saveButton)
-        saveButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(20)
-            $0.leading.equalToSuperview().inset(35)
-            $0.width.height.equalTo(closeButton)
-        }
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         formView.addSubview(textField)
         textField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(35)
-            $0.height.equalToSuperview().multipliedBy(0.25)
-            $0.bottom.equalTo(saveButton.snp.top).offset(-28)
+            $0.leading.equalToSuperview().offset(20/376 * UIScreen.main.bounds.width)
+            $0.trailing.equalToSuperview().inset(20/376 * UIScreen.main.bounds.width)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(25/750 * UIScreen.main.bounds.height)
+            $0.height.equalToSuperview().multipliedBy(0.20)
         }
         
         formView.addSubview(warningLabel)
         warningLabel.snp.makeConstraints {
             $0.top.equalTo(textField.snp.bottom)
-            $0.leading.trailing.equalToSuperview().inset(35)
+            $0.leading.equalToSuperview().offset(35/376 * UIScreen.main.bounds.width)
+            $0.trailing.equalToSuperview().inset(35/376 * UIScreen.main.bounds.width)
+        }
+        
+        formView.addSubview(buttonStackView)
+        buttonStackView.snp.makeConstraints {
+            $0.top.equalTo(textField.snp.bottom).offset(22/750 * UIScreen.main.bounds.height)
+            $0.bottom.equalToSuperview().inset(41/750 * UIScreen.main.bounds.height)
+            $0.leading.equalToSuperview().offset(20/376 * UIScreen.main.bounds.width)
+            $0.trailing.equalToSuperview().inset(20/376 * UIScreen.main.bounds.width)
+            $0.height.equalTo(44/750 * UIScreen.main.bounds.height)
+        }
+        
+        buttonStackView.addArrangedSubview(closeButton)
+        buttonStackView.addArrangedSubview(saveButton)
+    }
+}
+
+private extension CategoryAddViewController {
+    func showFormView() {
+        UIView.animate(withDuration: 0.2) {
+            let y = -(self.view.frame.height + self.formView.frame.height)/2
+            self.formView.transform = CGAffineTransform(translationX: 0, y: y)
+        }
+    }
+    
+    func hideFormView() {
+        UIView.animate(withDuration: 0.2) {
+            self.formView.transform = .identity
+        } completion: { [weak self] _ in
+            self?.viewModel?.closeButtonTouched.accept(())
         }
     }
 }

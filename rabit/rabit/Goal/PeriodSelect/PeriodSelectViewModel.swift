@@ -50,7 +50,7 @@ final class PeriodSelectViewModel: PeriodSelectViewModelProtocol {
 private extension PeriodSelectViewModel {
     func bind(to navigation: GoalNavigation) {
         closingViewRequested
-            .bind(to: navigation.closePeriodSelectView)
+            .bind(to: navigation.didTapClosePeriodSelectButton)
             .disposed(by: disposeBag)
 
         selectedDate
