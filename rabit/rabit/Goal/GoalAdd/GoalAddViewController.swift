@@ -23,7 +23,7 @@ final class GoalAddViewController: UIViewController {
     private let titleField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
-        insertField.icon = "line.3.horizontal"
+        insertField.icon = "titleIcon"
         insertField.placeholder = "제목을 입력하세요."
         return insertField
     }()
@@ -31,7 +31,7 @@ final class GoalAddViewController: UIViewController {
     private let descriptionField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
-        insertField.icon = "doc.text.magnifyingglass"
+        insertField.icon = "subtitleIcon"
         insertField.placeholder = "설명을 입력하세요."
         return insertField
     }()
@@ -39,7 +39,7 @@ final class GoalAddViewController: UIViewController {
     private let periodField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
-        insertField.icon = "calendar.circle"
+        insertField.icon = "periodIcon"
         insertField.isTextFieldEnabled = false
         return insertField
     }()
@@ -47,7 +47,7 @@ final class GoalAddViewController: UIViewController {
     private let timeField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
-        insertField.icon = "alarm"
+        insertField.icon = "timeIcon"
         insertField.isTextFieldEnabled = false
         return insertField
     }()

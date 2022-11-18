@@ -15,28 +15,32 @@ final class GoalDetailViewController: UIViewController {
     
     private let titleField: InsertField = {
         let insertField = InsertField()
-        insertField.icon = "line.3.horizontal"
+        insertField.textSize = 15
+        insertField.icon = "titleIcon"
         insertField.placeholder = "문자열 입력"
         return insertField
     }()
     
     private let descriptionField:InsertField = {
         let insertField = InsertField()
-        insertField.icon = "doc.text.magnifyingglass"
+        insertField.textSize = 15
+        insertField.icon = "subtitleIcon"
         insertField.placeholder = "문자열 입력"
         return insertField
     }()
     
     private let periodField:InsertField = {
         let insertField = InsertField()
-        insertField.icon = "calendar.circle"
+        insertField.textSize = 15
+        insertField.icon = "periodIcon"
         insertField.isUserInteractionEnabled = false
         return insertField
     }()
     
     private let timeField:InsertField = {
         let insertField = InsertField()
-        insertField.icon = "alarm"
+        insertField.textSize = 15
+        insertField.icon = "timeIcon"
         insertField.isUserInteractionEnabled = false
         return insertField
     }()

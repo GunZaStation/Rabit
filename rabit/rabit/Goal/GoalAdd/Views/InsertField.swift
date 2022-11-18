@@ -29,7 +29,7 @@ final class InsertField: UIControl {
     
     var icon: String = "" {
         didSet {
-            iconImageView.image = UIImage(systemName: icon)
+            iconImageView.image = UIImage(named: icon)
         }
     }
     
