@@ -16,7 +16,7 @@ final class CircularProgressBar: UIView {
         
         bezierPath.addArc(
             withCenter: CGPoint(x: rect.midX, y: rect.midY),
-            radius: rect.midX - (lineWidth-1)/2,
+            radius: rect.midX - lineWidth/2,
             startAngle: 0,
             endAngle: .pi * 2,
             clockwise: true
@@ -39,7 +39,7 @@ final class CircularProgressBar: UIView {
         
         bezierPath.addArc(
             withCenter: CGPoint(x: rect.midX, y: rect.midY),
-            radius: rect.midX - (lineWidth-1)/2,
+            radius: rect.midX - lineWidth/2,
             startAngle: -.pi/2,
             endAngle: ((.pi * 2) * value) - (.pi / 2),
             clockwise: true
