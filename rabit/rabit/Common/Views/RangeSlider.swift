@@ -148,7 +148,13 @@ final class RangeSlider: UIControl {
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.continueTracking(touch, with: event)
         
-        let touchedPoint = touch.location(in: self)
+        let sliderWidth = self.frame.width
+        let sliderTimeRange: CGFloat = ((24 * 60 - 2) / 10) // (24시간 - 2분) / 10분
+        let step: CGFloat = sliderWidth / sliderTimeRange
+        let touchedPoint = CGPoint(
+            x: round(touch.location(in: self).x / step) * step,
+            y: touch.location(in: self).y
+        )
         let draggedValue = Double(touchedPoint.x - previousTouchedPoint.x)
         let scale = maxValue - minValue
         let scaledValue = scale * draggedValue / widthWithoutThumb
