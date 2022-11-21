@@ -29,8 +29,14 @@ final class TimeSelectViewController: UIViewController {
         return sheet
     }()
     
-    private let timeRangeSlider: RangeSlider = {
-        let slider = RangeSlider(min: 60, max: 60*60*23 + 60*59)
+    private lazy var timeRangeSliderHeight = view.bounds.width - 40
+    private lazy var timeRangeSlider: RangeSlider = {
+        let sliderTimeRange: CGFloat = (24 * 60 - 2) / 10 // (24시간 - 2분) / 10분
+        let slider = RangeSlider(
+            min: 60,
+            max: 60*60*23 + 60*59,
+            step: timeRangeSliderHeight / sliderTimeRange
+        )
         return slider
     }()
     
@@ -215,7 +221,8 @@ final class TimeSelectViewController: UIViewController {
         timeSelectSheet.contentView.addSubview(timeRangeSlider)
         timeRangeSlider.snp.makeConstraints {
             $0.top.equalTo(timePreviewLabel.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(timeRangeSliderHeight)
             $0.height.equalToSuperview().multipliedBy(0.08)
         }
         

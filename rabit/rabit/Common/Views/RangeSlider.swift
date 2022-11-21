@@ -55,6 +55,8 @@ final class RangeSlider: UIControl {
         didSet { self.rightValue = maxValue }
     }
     
+    private var step: CGFloat = 1.0
+    
     lazy var leftValue: Double = minValue {
         didSet { self.updateLayout(to: leftValue, direction: .left) }
     }
@@ -75,11 +77,12 @@ final class RangeSlider: UIControl {
         }
     }
     
-    convenience init(min: Double, max: Double) {
+    convenience init(min: Double, max: Double, step: CGFloat = 1.0) {
         self.init()
         
         self.minValue = min
         self.maxValue = max
+        self.step = step
         
         setupViews()
     }
@@ -157,9 +160,6 @@ final class RangeSlider: UIControl {
         let prevLeftValue = self.leftValue
         let prevRightValue = self.rightValue
         
-        let sliderWidth = self.frame.width
-        let sliderTimeRange: CGFloat = ((24 * 60 - 2) / 10) // (24시간 - 2분) / 10분
-        let step: CGFloat = sliderWidth / sliderTimeRange
         let touchedPoint = CGPoint(
             x: round(touch.location(in: self).x / step) * step,
             y: touch.location(in: self).y
