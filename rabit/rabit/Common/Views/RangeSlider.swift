@@ -178,7 +178,6 @@ final class RangeSlider: UIControl {
         if prevLeftValue != leftValue || prevRightValue != rightValue {
             feedbackGenerator?.selectionChanged()
         }
-        feedbackGenerator?.prepare()
         
         previousTouchedPoint = touchedPoint
         sendActions(for: .valueChanged)
