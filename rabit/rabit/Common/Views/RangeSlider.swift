@@ -45,6 +45,8 @@ final class RangeSlider: UIControl {
         return self.bounds.width - Double(bounds.height)
     }
     
+    private var feedbackGenerator: UISelectionFeedbackGenerator? = nil
+    
     private var minValue: Double = 0.0 {
         didSet { self.leftValue = minValue }
     }
@@ -133,6 +135,9 @@ final class RangeSlider: UIControl {
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.beginTracking(touch, with: event)
         
+        feedbackGenerator = UISelectionFeedbackGenerator()
+        feedbackGenerator?.prepare()
+        
         let touchedPoint = touch.location(in: self)
         isLeftThumbTouched = leftThumbButton.frame.contains(touchedPoint)
         isRightThumbTouched = rightThumbButton.frame.contains(touchedPoint)
@@ -147,6 +152,10 @@ final class RangeSlider: UIControl {
     //beginTracking에서 true리턴 후, 터치 이벤트를 지속하기 위한 메소드(드래그 구현 시 사용)
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.continueTracking(touch, with: event)
+        
+        // Thumb 이동 여부를 확인하기 위해 기존의 left/rightValue 저장
+        let prevLeftValue = self.leftValue
+        let prevRightValue = self.rightValue
         
         let sliderWidth = self.frame.width
         let sliderTimeRange: CGFloat = ((24 * 60 - 2) / 10) // (24시간 - 2분) / 10분
@@ -165,6 +174,12 @@ final class RangeSlider: UIControl {
             rightValue = (rightValue + scaledValue).clamped(to: leftValue...maxValue)
         }
         
+        // Thumb이 이동했을 경우에만 햅틱 피드백
+        if prevLeftValue != leftValue || prevRightValue != rightValue {
+            feedbackGenerator?.selectionChanged()
+        }
+        feedbackGenerator?.prepare()
+        
         previousTouchedPoint = touchedPoint
         sendActions(for: .valueChanged)
 
@@ -174,6 +189,9 @@ final class RangeSlider: UIControl {
     //터치가 끝난 시점(화면에서 손가락을 뗀 시점)에 버튼의 isSelected를 모두 false로 처리
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         super.endTracking(touch, with: event)
+        
+        feedbackGenerator = nil
+        
         sendActions(for: .valueChanged)
         
         leftThumbButton.isSelected = false
