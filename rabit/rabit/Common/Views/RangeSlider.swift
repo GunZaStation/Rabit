@@ -46,6 +46,7 @@ final class RangeSlider: UIControl {
     }
     
     private var feedbackGenerator: UISelectionFeedbackGenerator? = nil
+    private var isFeedbackRequested: Bool = true
     
     private var minValue: Double = 0.0 {
         didSet { self.leftValue = minValue }
@@ -77,12 +78,18 @@ final class RangeSlider: UIControl {
         }
     }
     
-    convenience init(min: Double, max: Double, step: CGFloat = 1.0) {
+    convenience init(
+        min: Double,
+        max: Double,
+        step: CGFloat = 1.0,
+        feedbackRequest: Bool = true
+    ) {
         self.init()
         
         self.minValue = min
         self.maxValue = max
         self.step = step
+        self.isFeedbackRequested = feedbackRequest
         
         setupViews()
     }
@@ -138,8 +145,10 @@ final class RangeSlider: UIControl {
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.beginTracking(touch, with: event)
         
-        feedbackGenerator = UISelectionFeedbackGenerator()
-        feedbackGenerator?.prepare()
+        if isFeedbackRequested {
+            feedbackGenerator = UISelectionFeedbackGenerator()
+            feedbackGenerator?.prepare()
+        }
         
         let touchedPoint = touch.location(in: self)
         isLeftThumbTouched = leftThumbButton.frame.contains(touchedPoint)
