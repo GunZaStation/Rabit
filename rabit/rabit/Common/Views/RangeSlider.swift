@@ -183,8 +183,8 @@ final class RangeSlider: UIControl {
             rightValue = (rightValue + scaledValue).clamped(to: leftValue...maxValue)
         }
         
-        // Thumb이 이동했을 경우에만 햅틱 피드백
-        if prevLeftValue != leftValue || prevRightValue != rightValue {
+        let isThumbMoved = prevLeftValue != leftValue || prevRightValue != rightValue
+        if isThumbMoved {
             feedbackGenerator?.selectionChanged()
         }
         feedbackGenerator?.prepare()
