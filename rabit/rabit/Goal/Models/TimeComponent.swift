@@ -21,7 +21,7 @@ struct TimeComponent: Equatable {
     
     init(rawValue seconds: Int) {
         self.hour = seconds/3600
-        self.minute = (seconds % 3600) / 60
+        self.minute = (seconds % 3600) / 600 * 10
         self.seconds = (seconds % 3600) % 60
     }
     

@@ -45,6 +45,9 @@ final class RangeSlider: UIControl {
         return self.bounds.width - Double(bounds.height)
     }
     
+    private var feedbackGenerator: UISelectionFeedbackGenerator? = nil
+    private var isFeedbackRequested: Bool = true
+    
     private var minValue: Double = 0.0 {
         didSet { self.leftValue = minValue }
     }
@@ -52,6 +55,8 @@ final class RangeSlider: UIControl {
     private var maxValue: Double = 100.0 {
         didSet { self.rightValue = maxValue }
     }
+    
+    private var step: CGFloat = 1.0
     
     lazy var leftValue: Double = minValue {
         didSet { self.updateLayout(to: leftValue, direction: .left) }
@@ -73,11 +78,18 @@ final class RangeSlider: UIControl {
         }
     }
     
-    convenience init(min: Double, max: Double) {
+    convenience init(
+        min: Double,
+        max: Double,
+        step: CGFloat = 1.0,
+        feedbackRequest: Bool = true
+    ) {
         self.init()
         
         self.minValue = min
         self.maxValue = max
+        self.step = step
+        self.isFeedbackRequested = feedbackRequest
         
         setupViews()
     }
@@ -133,6 +145,11 @@ final class RangeSlider: UIControl {
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.beginTracking(touch, with: event)
         
+        if isFeedbackRequested {
+            feedbackGenerator = UISelectionFeedbackGenerator()
+            feedbackGenerator?.prepare()
+        }
+        
         let touchedPoint = touch.location(in: self)
         isLeftThumbTouched = leftThumbButton.frame.contains(touchedPoint)
         isRightThumbTouched = rightThumbButton.frame.contains(touchedPoint)
@@ -148,7 +165,14 @@ final class RangeSlider: UIControl {
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.continueTracking(touch, with: event)
         
-        let touchedPoint = touch.location(in: self)
+        // Thumb 이동 여부를 확인하기 위해 기존의 left/rightValue 저장
+        let prevLeftValue = self.leftValue
+        let prevRightValue = self.rightValue
+        
+        let touchedPoint = CGPoint(
+            x: round(touch.location(in: self).x / step) * step,
+            y: touch.location(in: self).y
+        )
         let draggedValue = Double(touchedPoint.x - previousTouchedPoint.x)
         let scale = maxValue - minValue
         let scaledValue = scale * draggedValue / widthWithoutThumb
@@ -159,6 +183,12 @@ final class RangeSlider: UIControl {
             rightValue = (rightValue + scaledValue).clamped(to: leftValue...maxValue)
         }
         
+        let isThumbMoved = prevLeftValue != leftValue || prevRightValue != rightValue
+        if isThumbMoved {
+            feedbackGenerator?.selectionChanged()
+        }
+        feedbackGenerator?.prepare()
+        
         previousTouchedPoint = touchedPoint
         sendActions(for: .valueChanged)
 
@@ -168,6 +198,9 @@ final class RangeSlider: UIControl {
     //터치가 끝난 시점(화면에서 손가락을 뗀 시점)에 버튼의 isSelected를 모두 false로 처리
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         super.endTracking(touch, with: event)
+        
+        feedbackGenerator = nil
+        
         sendActions(for: .valueChanged)
         
         leftThumbButton.isSelected = false
