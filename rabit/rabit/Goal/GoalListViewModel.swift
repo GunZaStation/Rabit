@@ -8,6 +8,7 @@ protocol GoalListViewModelInput {
     var categoryAddButtonTouched: PublishRelay<Void> { get }
     var goalAddButtonTouched: PublishRelay<Category> { get }
     var showGoalDetailView: PublishRelay<Goal> { get }
+    var cellMenuButtonTapped: PublishRelay<Goal> { get }
 }
 
 protocol GoalListViewModelOutput {
@@ -22,6 +23,7 @@ final class GoalListViewModel: GoalListViewModelProtocol {
     let requestGoalList = PublishRelay<Void>()
     let categoryAddButtonTouched = PublishRelay<Void>()
     let goalAddButtonTouched = PublishRelay<Category>()
+    let cellMenuButtonTapped = PublishRelay<Goal>()
     let goalList = PublishRelay<[Category]>()
     let showGoalDetailView = PublishRelay<Goal>()
     
@@ -31,12 +33,28 @@ final class GoalListViewModel: GoalListViewModelProtocol {
     init(repository: GoalListRepository = GoalListRepository(),
          navigation: GoalNavigation) {
         self.repository = repository
-        
+
+        bind()
         bind(to: navigation)
     }
 }
 
 private extension GoalListViewModel {
+    
+    func bind() {
+        
+        requestGoalList
+            .withUnretained(self)
+            .flatMapLatest { viewModel, _ in
+                viewModel.repository.fetchGoalListData()
+            }
+            .bind(to: goalList)
+            .disposed(by: disposeBag)
+        
+        cellMenuButtonTapped
+            .bind(to: showActionSheetMenu)
+            .disposed(by: disposeBag)
+    }
     
     func bind(to navigation: GoalNavigation) {
         
@@ -46,14 +64,6 @@ private extension GoalListViewModel {
         
         goalAddButtonTouched
             .bind(to: navigation.didTapGoalAddButton)
-            .disposed(by: disposeBag)
-        
-        requestGoalList
-            .withUnretained(self)
-            .flatMapLatest { viewModel, _ in
-                viewModel.repository.fetchGoalListData()
-            }
-            .bind(to: goalList)
             .disposed(by: disposeBag)
         
         navigation.didTapCloseCategoryAddButton

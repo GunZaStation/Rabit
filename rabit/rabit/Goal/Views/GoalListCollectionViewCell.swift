@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import RxSwift
 
 final class GoalListCollectionViewCell: UICollectionViewCell {
     
@@ -39,6 +40,8 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    private var disposeBag = DisposeBag()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -50,6 +53,11 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
     func configure(goal: Goal) {
 
         titleLabel.text = goal.title
@@ -58,8 +66,16 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         guard goal.target != 0 else { return }
         let ratio = CGFloat(goal.progress) /  CGFloat(goal.target)
         goalProgressView.progress = ratio
+    func bind(to viewModel: GoalListViewModelProtocol?, with goal: Goal) {
+        guard let viewModel = viewModel else { return }
+
+        menuButton.rx.tapGesture()
+            .when(.ended)
+            .map { _ in goal }
+            .bind(to: viewModel.cellMenuButtonTapped)
+            .disposed(by: disposeBag)
     }
-            
+    
     private func setAttributes() {
         
         contentView.layer.borderWidth = 1.0
