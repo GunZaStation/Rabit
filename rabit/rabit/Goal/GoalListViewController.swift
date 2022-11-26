@@ -95,10 +95,6 @@ final class GoalListViewController: UIViewController {
 
 private extension GoalListViewController {
     
-    func showActionSheet() {
-        
-    }
-    
     func showAlert(title: String? = nil, message: String, activateCancelAction: Bool = false, actionHandler: (() -> Void)? = nil) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -110,7 +106,7 @@ private extension GoalListViewController {
         alert.addAction(confirmAction)
         
         if activateCancelAction {
-            let cancelAction = UIAlertAction(title: "취소", style: .destructive)
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel)
             alert.addAction(cancelAction)
         }
         
