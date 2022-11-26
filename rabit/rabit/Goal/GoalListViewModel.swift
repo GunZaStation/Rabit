@@ -14,6 +14,7 @@ protocol GoalListViewModelInput {
 protocol GoalListViewModelOutput {
     
     var goalList: PublishRelay<[Category]> { get }
+    var showActionSheetMenu: PublishRelay<Goal> { get }
 }
 
 protocol GoalListViewModelProtocol: GoalListViewModelInput, GoalListViewModelOutput {}
@@ -26,6 +27,7 @@ final class GoalListViewModel: GoalListViewModelProtocol {
     let cellMenuButtonTapped = PublishRelay<Goal>()
     let goalList = PublishRelay<[Category]>()
     let showGoalDetailView = PublishRelay<Goal>()
+    let showActionSheetMenu = PublishRelay<Goal>()
     
     private let repository: GoalListRepository
     private let disposeBag = DisposeBag()
