@@ -55,8 +55,10 @@ final class GoalListViewController: UIViewController {
 
                 let actionSheetMenu = UIAlertController(title: nil, message: "옵션 선택", preferredStyle: .actionSheet)
 
-                let deleteAction = UIAlertAction(title: "목표 삭제하기", style: .default, handler: { _ in
-                    viewModel.deleteGoal.accept(goal)
+                let deleteAction = UIAlertAction(title: "목표 삭제하기", style: .destructive, handler: { _ in
+                    viewController.showAlert(message: "정말 삭제하시겠습니까?", activateCancelAction: true) {
+                        viewModel.deleteGoal.accept(goal)
+                    }
                 })
                 let cancelAction = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
                 
@@ -70,12 +72,7 @@ final class GoalListViewController: UIViewController {
         viewModel.showAlert
             .withUnretained(self)
             .bind(onNext: { viewController, message in
-                
-                let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-                let confirmAction = UIAlertAction(title: "확인", style: .default)
-                alert.addAction(confirmAction)
-                
-                viewController.present(alert, animated: true, completion: nil)
+                viewController.showAlert(message: message)
             })
             .disposed(by: disposeBag)
     }
@@ -97,6 +94,28 @@ final class GoalListViewController: UIViewController {
 }
 
 private extension GoalListViewController {
+    
+    func showActionSheet() {
+        
+    }
+    
+    func showAlert(title: String? = nil, message: String, activateCancelAction: Bool = false, actionHandler: (() -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+            if let actionHandler = actionHandler {
+                actionHandler()
+            }
+        })
+        alert.addAction(confirmAction)
+        
+        if activateCancelAction {
+            let cancelAction = UIAlertAction(title: "취소", style: .destructive)
+            alert.addAction(cancelAction)
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
     func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Category> {
         let viewModel = viewModel
