@@ -29,4 +29,10 @@ final class RealmManager {
             realm.add(entity, update: .modified)
         }
     }
+    
+    func delete<T: Object>(entity: T) throws {
+        try? realm.write {
+            realm.delete(entity)
+        }
+    }
 }
