@@ -56,7 +56,7 @@ final class GoalListViewController: UIViewController {
                 let actionSheetMenu = UIAlertController(title: nil, message: "옵션 선택", preferredStyle: .actionSheet)
 
                 let deleteAction = UIAlertAction(title: "목표 삭제하기", style: .default, handler: { _ in
-                    print("삭제",goal.title,goal.category)
+                    viewModel.deleteGoal.accept(goal)
                 })
                 let cancelAction = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
                 
@@ -64,6 +64,18 @@ final class GoalListViewController: UIViewController {
                 actionSheetMenu.addAction(cancelAction)
                 
                 viewController.present(actionSheetMenu, animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.showAlert
+            .withUnretained(self)
+            .bind(onNext: { viewController, message in
+                
+                let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                let confirmAction = UIAlertAction(title: "확인", style: .default)
+                alert.addAction(confirmAction)
+                
+                viewController.present(alert, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
     }
