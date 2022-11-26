@@ -31,12 +31,6 @@ final class GoalListViewController: UIViewController {
         bind()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        viewModel?.requestGoalList.accept(())
-    }
-    
     private func bind() {
         guard let viewModel = viewModel else { return }
         
@@ -52,6 +46,8 @@ final class GoalListViewController: UIViewController {
         goalListCollectionView.rx.modelSelected(Goal.self)
             .bind(to: viewModel.showGoalDetailView)
             .disposed(by: disposeBag)
+        
+        viewModel.requestGoalList.accept(())
     }
     
     private func setupViews() {
