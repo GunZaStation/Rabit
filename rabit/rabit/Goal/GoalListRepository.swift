@@ -1,6 +1,11 @@
 import Foundation
 import RxSwift
 
+enum RepoError: String, Error {
+    case deleteError = "delete goal error"
+    case realmError = "realm error"
+}
+
 final class GoalListRepository {
     
     private let realmManager = RealmManager.shared
@@ -11,6 +16,27 @@ final class GoalListRepository {
         return .create { single in
             single(.success(goalList))
             return Disposables.create()
+        }
+    }
+    
+    //삭제 대상이 되는 특정 Entity를 우선 읽어들인 후, 삭제 트랜잭션으로 전달
+    func deleteGoal(goal: Goal) -> Single<Result<Goal,Error>> {
+        
+        return .create { [weak self] single in
+            guard let realmManager = self?.realmManager,
+                  let goalEntity = realmManager.read(entity: GoalEntity.self, filter: "title == '\(goal.title)'").first else {
+                single(.success(.failure(RepoError.deleteError)))
+                return Disposables.create { }
+            }
+            
+            do {
+                try realmManager.delete(entity: goalEntity)
+                single(.success(.success(goal)))
+            } catch {
+                single(.success(.failure(RepoError.realmError)))
+            }
+            
+            return Disposables.create { }
         }
     }
 }
