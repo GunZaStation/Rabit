@@ -9,12 +9,14 @@ protocol GoalListViewModelInput {
     var goalAddButtonTouched: PublishRelay<Category> { get }
     var showGoalDetailView: PublishRelay<Goal> { get }
     var cellMenuButtonTapped: PublishRelay<Goal> { get }
+    var deleteGoal: PublishRelay<Goal> { get }
 }
 
 protocol GoalListViewModelOutput {
     
     var goalList: PublishRelay<[Category]> { get }
     var showActionSheetMenu: PublishRelay<Goal> { get }
+    var showAlert: PublishRelay<String> { get }
 }
 
 protocol GoalListViewModelProtocol: GoalListViewModelInput, GoalListViewModelOutput {}
@@ -25,9 +27,12 @@ final class GoalListViewModel: GoalListViewModelProtocol {
     let categoryAddButtonTouched = PublishRelay<Void>()
     let goalAddButtonTouched = PublishRelay<Category>()
     let cellMenuButtonTapped = PublishRelay<Goal>()
+    let deleteGoal = PublishRelay<Goal>()
+    
     let goalList = PublishRelay<[Category]>()
     let showGoalDetailView = PublishRelay<Goal>()
     let showActionSheetMenu = PublishRelay<Goal>()
+    let showAlert = PublishRelay<String>()
     
     private let repository: GoalListRepository
     private let disposeBag = DisposeBag()
@@ -55,6 +60,23 @@ private extension GoalListViewModel {
         
         cellMenuButtonTapped
             .bind(to: showActionSheetMenu)
+            .disposed(by: disposeBag)
+        
+        deleteGoal
+            .withUnretained(self)
+            .flatMapLatest { viewModel, goal in
+                viewModel.repository.deleteGoal(goal: goal)
+            }
+            .withUnretained(self)
+            .bind(onNext: { viewModel, result in
+                switch result {
+                case .success(let goal):
+                    viewModel.showAlert.accept("\(goal.title) 목표 삭제 성공")
+                    viewModel.requestGoalList.accept(())
+                case .failure(let error):
+                    viewModel.showAlert.accept("목표 삭제 실패\n\(error)")
+                }
+            })
             .disposed(by: disposeBag)
     }
     
