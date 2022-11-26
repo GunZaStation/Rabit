@@ -59,13 +59,22 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(goal: Goal) {
-
-        titleLabel.text = goal.title
-        subTitleLabel.text = goal.subtitle
         
-        guard goal.target != 0 else { return }
-        let ratio = CGFloat(goal.progress) /  CGFloat(goal.target)
-        goalProgressView.progress = ratio
+        setTitles(title: goal.title, subTitle: goal.subtitle)
+        setProgress(target: goal.target, progress: goal.progress)
+        
+        func setTitles(title: String, subTitle: String) {
+            titleLabel.text = title
+            subTitleLabel.text = subTitle
+        }
+        
+        func setProgress(target: Int, progress: Int) {
+            guard target != 0 else { return }
+            let ratio = CGFloat(progress) /  CGFloat(target)
+            goalProgressView.progress = ratio
+        }
+    }
+    
     func bind(to viewModel: GoalListViewModelProtocol?, with goal: Goal) {
         guard let viewModel = viewModel else { return }
 
