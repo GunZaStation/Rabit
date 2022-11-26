@@ -33,6 +33,12 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         return progressView
     }()
     
+    private let menuButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -78,8 +84,14 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(24/750 * UIScreen.main.bounds.height)
             make.centerY.equalToSuperview()
         }
-        
         titleStackView.addArrangedSubview(titleLabel)
         titleStackView.addArrangedSubview(subTitleLabel)
+        
+        contentView.addSubview(menuButton)
+        menuButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalTo(titleStackView.snp.top)
+            make.trailing.equalToSuperview().inset(20/376 * UIScreen.main.bounds.width)
+        }
     }
 }
