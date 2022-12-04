@@ -65,7 +65,7 @@ private extension GoalListViewModel {
         deleteGoal
             .withUnretained(self)
             .flatMapLatest { viewModel, goal in
-                viewModel.repository.deleteGoal(goal: goal)
+                viewModel.repository.deleteGoal(goal)
             }
             .withUnretained(self)
             .bind(onNext: { viewModel, result in

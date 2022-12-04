@@ -20,7 +20,7 @@ final class GoalListRepository {
     }
     
     //삭제 대상이 되는 특정 Entity를 우선 읽어들인 후, 삭제 트랜잭션으로 전달
-    func deleteGoal(goal: Goal) -> Single<Result<Goal,Error>> {
+    func deleteGoal(_ goal: Goal) -> Single<Result<Goal,Error>> {
         
         return .create { [weak self] single in
             guard let realmManager = self?.realmManager,
