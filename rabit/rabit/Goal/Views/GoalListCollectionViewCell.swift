@@ -78,8 +78,7 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
     func bind(to viewModel: GoalListViewModelProtocol?, with goal: Goal) {
         guard let viewModel = viewModel else { return }
 
-        menuButton.rx.tapGesture()
-            .when(.ended)
+        menuButton.rx.tap
             .map { _ in goal }
             .bind(to: viewModel.cellMenuButtonTapped)
             .disposed(by: disposeBag)
