@@ -62,17 +62,6 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         
         setTitles(title: goal.title, subTitle: goal.subtitle)
         setProgress(target: goal.target, progress: goal.progress)
-        
-        func setTitles(title: String, subTitle: String) {
-            titleLabel.text = title
-            subTitleLabel.text = subTitle
-        }
-        
-        func setProgress(target: Int, progress: Int) {
-            guard target != 0 else { return }
-            let ratio = CGFloat(progress) /  CGFloat(target)
-            goalProgressView.progress = ratio
-        }
     }
     
     func bind(to viewModel: GoalListViewModelProtocol?, with goal: Goal) {
@@ -117,5 +106,17 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(titleStackView.snp.top)
             make.trailing.equalToSuperview().inset(20/376 * UIScreen.main.bounds.width)
         }
+    }
+    
+    private func setTitles(title: String, subTitle: String) {
+        titleLabel.text = title
+        subTitleLabel.text = subTitle
+    }
+    
+    private func setProgress(target: Int, progress: Int) {
+        guard target != 0 else { return }
+        
+        let ratio = CGFloat(progress) /  CGFloat(target)
+        goalProgressView.progress = ratio
     }
 }
