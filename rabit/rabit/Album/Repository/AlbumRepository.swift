@@ -4,6 +4,7 @@ import RxSwift
 protocol AlbumRepositoryProtocol {
     func fetchAlbumData() -> Single<[Album]>
     func updateAlbumData(_ data: Photo) -> Single<Bool>
+    func savePhotoImageData(_ data: Data, name: String)
 }
 
 final class AlbumRepository: AlbumRepositoryProtocol {
@@ -35,6 +36,22 @@ final class AlbumRepository: AlbumRepositoryProtocol {
 
             return Disposables.create()
         }
+    }
+    
+    func savePhotoImageData(_ data: Data, name: String) {
+        
+        guard let documentDirectory = FileManager.default.urls(
+            for: .documentDirectory,
+            in: .userDomainMask
+        ).first else { return }
+        
+        let imageURL = documentDirectory.appendingPathComponent(name)
+        
+        if FileManager.default.fileExists(atPath: imageURL.path) {
+            try? FileManager.default.removeItem(at: imageURL)
+        }
+        
+        try? data.write(to: imageURL)
     }
 }
 
@@ -80,7 +97,7 @@ private extension AlbumRepository {
         
         if let directoryPath = path.first {
             let imageURL = URL(fileURLWithPath: directoryPath)
-                .appendingPathComponent("\(imageName).png")
+                .appendingPathComponent(imageName)
             
             return try? Data(contentsOf: imageURL)
         } else {
