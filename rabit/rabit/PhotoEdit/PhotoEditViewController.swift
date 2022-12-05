@@ -108,7 +108,7 @@ private extension PhotoEditViewController {
         )
 
         let updatedPhotoImage = viewModel.selectedPhotoData
-            .map(\.imageData)
+            .compactMap(\.imageData)
             .compactMap {
                 $0.toDownsampledCGImage(
                     pointSize: imageSize,

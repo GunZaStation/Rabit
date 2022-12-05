@@ -11,6 +11,7 @@ final class AlbumRepository: AlbumRepositoryProtocol {
     private let realmManager = RealmManager.shared
 
     func fetchAlbumData() -> Single<[Album]> {
+        
         let fetchedAlbumData = getLatestAlbum()
 
         return .create { single in
@@ -37,8 +38,10 @@ final class AlbumRepository: AlbumRepositoryProtocol {
     }
 }
 
+// MARK: - Private Methods
 private extension AlbumRepository {
     func getLatestAlbum() -> [Album] {
+        
         let fetchedCategoryData = realmManager.read(entity: CategoryEntity.self)
 
         var albumData = [Album]()
@@ -51,6 +54,11 @@ private extension AlbumRepository {
                 filter: "categoryTitle == '\(categoryTitle)'"
             )
                 .map(Photo.init)
+                .map { [weak self] (photo) -> Photo in
+                    var photo = photo
+                    photo.imageData = self?.loadImageDataFromDocumentDirectory(imageName: photo.imageName)
+                    return photo
+                }
                 .sorted { $0.date < $1.date }
 
             if !fetchedPhotoData.isEmpty {
@@ -62,5 +70,21 @@ private extension AlbumRepository {
         }
 
         return albumData
+    }
+    
+    func loadImageDataFromDocumentDirectory(imageName: String) -> Data? {
+        
+        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let path = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+        
+        if let directoryPath = path.first {
+            let imageURL = URL(fileURLWithPath: directoryPath)
+                .appendingPathComponent("\(imageName).png")
+            
+            return try? Data(contentsOf: imageURL)
+        } else {
+            return nil
+        }
     }
 }

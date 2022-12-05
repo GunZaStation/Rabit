@@ -37,8 +37,13 @@ final class AlbumCell: UICollectionViewCell {
         )
 
         DispatchQueue.global(qos: .userInteractive).async {
-            guard let downsampledCGImage = photo.imageData
-                .toDownsampledCGImage(pointSize: imageSize, scale: 2.0) else { return }
+            guard let imageData = photo.imageData,
+                  let  downsampledCGImage = imageData
+                        .toDownsampledCGImage(
+                            pointSize: imageSize,
+                            scale: 2.0
+                        ) else { return }
+            
             let downsampledUIImage = UIImage(cgImage: downsampledCGImage)
 
             DispatchQueue.main.async {

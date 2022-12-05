@@ -168,8 +168,13 @@ private extension AlbumViewController {
         )
 
         DispatchQueue.global().async {
-            guard let downsampledCGImage = prefetchTarget.imageData
-                .toDownsampledCGImage(pointSize: imageSize, scale: 0.5) else { return }
+            guard let imageData = prefetchTarget.imageData,
+                  let downsampledCGImage = imageData
+                        .toDownsampledCGImage(
+                            pointSize: imageSize,
+                            scale: 0.5
+                        ) else { return }
+
             let downsampledUIImage = UIImage(cgImage: downsampledCGImage)
 
             DispatchQueue.main.async {
@@ -186,10 +191,10 @@ private extension AlbumViewController {
         return { (dataSource, collectionView, indexPath, item) in
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: AlbumCell.identifier,
-                for: indexPath) as? AlbumCell else { return UICollectionViewCell() }
+                for: indexPath
+            ) as? AlbumCell else { return UICollectionViewCell() }
 
             let itemData = dataSource.sectionModels[indexPath.section].items[indexPath.item]
-
             cell.configure(with: itemData)
             return cell
         }
