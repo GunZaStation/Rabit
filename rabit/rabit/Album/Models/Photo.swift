@@ -18,7 +18,8 @@ struct Photo: Equatable {
         imageName: String,
         date: Date,
         color: String,
-        style: Style
+        style: Style,
+        imageData: Data? = nil
     ) {
         self.uuid = uuid
         self.categoryTitle = categoryTitle
@@ -27,13 +28,15 @@ struct Photo: Equatable {
         self.date = date
         self.color = color
         self.style = style
+        self.imageData = imageData
     }
 
     // Initializer for newly taken photo
     init(
         categoryTitle: String,
         goalTitle: String,
-        imageName: String
+        imageName: String,
+        imageData: Data?
     ) {
         self.init(
             categoryTitle: categoryTitle,
@@ -41,7 +44,8 @@ struct Photo: Equatable {
             imageName: imageName,
             date: Date(),
             color: "#FFFFFF",
-            style: .none
+            style: .none,
+            imageData: imageData
         )
     }
 

@@ -63,9 +63,6 @@ private extension AlbumViewModel {
             .map { viewModel, newData, indexPath in
                 var albumData = viewModel.albumData.value
                 albumData[indexPath.section].items[indexPath.item] = newData
-                if let imageData = newData.imageData {
-                    viewModel.albumRepository.savePhotoImageData(imageData, name: newData.imageName)
-                }
 
                 return albumData
             }

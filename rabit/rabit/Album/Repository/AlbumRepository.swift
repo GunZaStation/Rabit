@@ -4,7 +4,7 @@ import RxSwift
 protocol AlbumRepositoryProtocol {
     func fetchAlbumData() -> Single<[Album]>
     func updateAlbumData(_ data: Photo) -> Single<Bool>
-    func savePhotoImageData(_ data: Data, name: String)
+    func savePhotoImageData(_ data: Data, name: String) -> Single<Bool>
 }
 
 final class AlbumRepository: AlbumRepositoryProtocol {
@@ -38,12 +38,19 @@ final class AlbumRepository: AlbumRepositoryProtocol {
         }
     }
     
-    func savePhotoImageData(_ data: Data, name: String) {
+    func savePhotoImageData(_ data: Data, name: String) -> Single<Bool> {
         
         guard let documentDirectory = FileManager.default.urls(
             for: .documentDirectory,
             in: .userDomainMask
-        ).first else { return }
+        ).first else {
+            return .create { single in
+                single(.success(false))
+                
+                return Disposables.create()
+            }
+        }
+        var result = true
         
         let imageURL = documentDirectory.appendingPathComponent(name)
         
@@ -51,7 +58,17 @@ final class AlbumRepository: AlbumRepositoryProtocol {
             try? FileManager.default.removeItem(at: imageURL)
         }
         
-        try? data.write(to: imageURL)
+        do {
+            try data.write(to: imageURL)
+        } catch {
+            result = false
+        }
+        
+        return .create { single in
+            single(.success(result))
+            
+            return Disposables.create()
+        }
     }
 }
 
