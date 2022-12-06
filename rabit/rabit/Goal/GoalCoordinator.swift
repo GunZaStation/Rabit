@@ -176,7 +176,12 @@ private extension GoalCoordinator {
     
     func pushCertPhotoCameraView(with goal: Goal) {
         
-        let viewModel = CertPhotoCameraViewModel(navigation: self, goal: goal)
+        let repository = AlbumRepository()
+        let viewModel = CertPhotoCameraViewModel(
+            navigation: self,
+            goal: goal,
+            repository: repository
+        )
         let viewController = CertPhotoCameraViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen
         

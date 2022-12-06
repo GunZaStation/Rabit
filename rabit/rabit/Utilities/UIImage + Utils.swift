@@ -51,11 +51,9 @@ extension UIImage {
             range: (text as NSString).range(of: text)
         )
         
-        let image = UIImage(data: photo.imageData) ?? UIImage()
-        
         UIGraphicsBeginImageContextWithOptions(imageSize, false, 1.0)
         
-        image.draw(in: CGRect(origin: .zero, size: imageSize))
+        self.draw(in: CGRect(origin: .zero, size: imageSize))
         
         let label = UILabel()
         label.numberOfLines = 0

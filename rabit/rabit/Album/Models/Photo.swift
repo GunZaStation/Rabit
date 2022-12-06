@@ -5,42 +5,47 @@ struct Photo: Equatable {
     let uuid: UUID
     let categoryTitle: String
     let goalTitle: String
-    let imageData: Data
+    let imageName: String
     let date: Date
     var color: String
     var style: Style
-
+    var imageData: Data?
+    
     init(
         uuid: UUID = UUID(),
         categoryTitle: String,
         goalTitle: String,
-        imageData: Data,
+        imageName: String,
         date: Date,
         color: String,
-        style: Style
+        style: Style,
+        imageData: Data? = nil
     ) {
         self.uuid = uuid
         self.categoryTitle = categoryTitle
         self.goalTitle = goalTitle
-        self.imageData = imageData
+        self.imageName = imageName
         self.date = date
         self.color = color
         self.style = style
+        self.imageData = imageData
     }
 
     // Initializer for newly taken photo
     init(
         categoryTitle: String,
         goalTitle: String,
-        imageData: Data
+        imageName: String,
+        imageData: Data?
     ) {
         self.init(
             categoryTitle: categoryTitle,
             goalTitle: goalTitle,
-            imageData: imageData,
+            imageName: imageName,
             date: Date(),
             color: "#FFFFFF",
-            style: .none
+            style: .none,
+            imageData: imageData
         )
     }
 
@@ -48,7 +53,7 @@ struct Photo: Equatable {
         self.init(
             categoryTitle: "",
             goalTitle: "",
-            imageData: Data(),
+            imageName: "",
             date: Date(),
             color: "",
             style: .none
@@ -70,7 +75,7 @@ extension Photo: Persistable {
             uuid: entity.uuid,
             categoryTitle: entity.categoryTitle,
             goalTitle: entity.goalTitle,
-            imageData: entity.imageData,
+            imageName: entity.imageName,
             date: entity.date,
             color: entity.color,
             style: Style(entity.style)
@@ -82,7 +87,7 @@ extension Photo: Persistable {
             uuid: self.uuid,
             categoryTitle: self.categoryTitle,
             goalTitle: self.goalTitle,
-            imageData: self.imageData,
+            imageName: self.imageName,
             date: self.date,
             color: self.color,
             style: self.style.rawValue

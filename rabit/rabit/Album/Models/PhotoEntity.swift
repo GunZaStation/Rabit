@@ -5,7 +5,7 @@ final class PhotoEntity: Object {
     @Persisted var uuid: UUID = UUID()
     @Persisted var categoryTitle: String = ""
     @Persisted var goalTitle: String = ""
-    @Persisted var imageData: Data = Data()
+    @Persisted var imageName: String = ""
     @Persisted var date: Date = Date()
     @Persisted var color: String = ""
     @Persisted var style: String = ""
@@ -14,7 +14,7 @@ final class PhotoEntity: Object {
         uuid: UUID,
         categoryTitle: String,
         goalTitle: String,
-        imageData: Data,
+        imageName: String,
         date: Date,
         color: String,
         style: String
@@ -23,7 +23,7 @@ final class PhotoEntity: Object {
         self.uuid = uuid
         self.categoryTitle = categoryTitle
         self.goalTitle = goalTitle
-        self.imageData = imageData
+        self.imageName = imageName
         self.date = date
         self.color = color
         self.style = style
