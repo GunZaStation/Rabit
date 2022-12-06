@@ -62,11 +62,14 @@ private extension GoalListViewModel {
             .bind(to: showActionSheetMenu)
             .disposed(by: disposeBag)
         
-        deleteGoal
+        let deleteGoalResult =  deleteGoal
             .withUnretained(self)
             .flatMapLatest { viewModel, goal in
                 viewModel.repository.deleteGoal(goal)
             }
+            .share()
+
+        deleteGoalResult
             .withUnretained(self)
             .bind(onNext: { viewModel, result in
                 switch result {
