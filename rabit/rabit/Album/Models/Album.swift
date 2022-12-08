@@ -1,7 +1,7 @@
 import Foundation
 import Differentiator
 
-struct Album {
+struct Album: Equatable {
     typealias Item = Photo
     var categoryTitle: String
     var items: [Item]

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0205140829407CD200F19AB2 /* AlbumViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205140729407CD200F19AB2 /* AlbumViewModelTests.swift */; };
 		0205140B29407D0E00F19AB2 /* RxNimble in Frameworks */ = {isa = PBXBuildFile; productRef = 0205140A29407D0E00F19AB2 /* RxNimble */; };
 		0205140E29407DE300F19AB2 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 0205140D29407DE300F19AB2 /* RxBlocking */; };
 		0205141429407DE300F19AB2 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0205141329407DE300F19AB2 /* RxCocoa */; };
@@ -23,6 +24,9 @@
 		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */; };
 		023FDBCA29260D3B0063D923 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023FDBC929260D3B0063D923 /* CircularProgressBar.swift */; };
+		024236E12941CD3700AC332E /* AlbumMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236E02941CD3700AC332E /* AlbumMock.swift */; };
+		024236E32941CD9600AC332E /* RepositoryTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236E22941CD9600AC332E /* RepositoryTestSupport.swift */; };
+		024236E52941CDF200AC332E /* RxTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236E42941CDF200AC332E /* RxTestSupport.swift */; };
 		0244F3D128E87B33007D3E8F /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */; };
 		024FBEFA28CCEFE700521926 /* Date + isSameDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024FBEF928CCEFE700521926 /* Date + isSameDate.swift */; };
 		02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520986289A5A2400E7E604 /* AlbumViewController.swift */; };
@@ -73,7 +77,6 @@
 		B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569E9F32898D4A8006FFFB9 /* SceneDelegate.swift */; };
 		B569E9FB2898D4AA006FFFB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B569E9FA2898D4AA006FFFB9 /* Assets.xcassets */; };
 		B569E9FE2898D4AA006FFFB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B569E9FC2898D4AA006FFFB9 /* LaunchScreen.storyboard */; };
-		B569EA092898D4AB006FFFB9 /* rabitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA082898D4AB006FFFB9 /* rabitTests.swift */; };
 		B569EA132898D4AB006FFFB9 /* rabitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA122898D4AB006FFFB9 /* rabitUITests.swift */; };
 		B569EA152898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */; };
 		B56AF75028C59E18001C82C0 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56AF74F28C59E18001C82C0 /* RangeSlider.swift */; };
@@ -146,6 +149,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0205140729407CD200F19AB2 /* AlbumViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModelTests.swift; sourceTree = "<group>"; };
 		0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + identifier.swift"; sourceTree = "<group>"; };
 		0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutFactory.swift; sourceTree = "<group>"; };
 		0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + roundCorners.swift"; sourceTree = "<group>"; };
@@ -155,6 +159,9 @@
 		0232BD9828AF6B25009057F8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + setBackgroundColor.swift"; sourceTree = "<group>"; };
 		023FDBC929260D3B0063D923 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
+		024236E02941CD3700AC332E /* AlbumMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumMock.swift; sourceTree = "<group>"; };
+		024236E22941CD9600AC332E /* RepositoryTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTestSupport.swift; sourceTree = "<group>"; };
+		024236E42941CDF200AC332E /* RxTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTestSupport.swift; sourceTree = "<group>"; };
 		0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
 		024FBEF928CCEFE700521926 /* Date + isSameDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + isSameDate.swift"; sourceTree = "<group>"; };
 		02520986289A5A2400E7E604 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
@@ -204,7 +211,6 @@
 		B569E9FD2898D4AA006FFFB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B569E9FF2898D4AA006FFFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B569EA042898D4AB006FFFB9 /* rabitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rabitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B569EA082898D4AB006FFFB9 /* rabitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitTests.swift; sourceTree = "<group>"; };
 		B569EA0E2898D4AB006FFFB9 /* rabitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rabitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569EA122898D4AB006FFFB9 /* rabitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITests.swift; sourceTree = "<group>"; };
 		B569EA142898D4AB006FFFB9 /* rabitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabitUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -315,6 +321,24 @@
 				0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */,
 			);
 			path = ColorSelect;
+			sourceTree = "<group>";
+		};
+		024236E62941CFFD00AC332E /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				0205140729407CD200F19AB2 /* AlbumViewModelTests.swift */,
+				024236E02941CD3700AC332E /* AlbumMock.swift */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		024236E72941D01700AC332E /* TestSupport */ = {
+			isa = PBXGroup;
+			children = (
+				024236E42941CDF200AC332E /* RxTestSupport.swift */,
+				024236E22941CD9600AC332E /* RepositoryTestSupport.swift */,
+			);
+			path = TestSupport;
 			sourceTree = "<group>";
 		};
 		02459CE328DAE5460003E61E /* Views */ = {
@@ -528,7 +552,8 @@
 		B569EA072898D4AB006FFFB9 /* rabitTests */ = {
 			isa = PBXGroup;
 			children = (
-				B569EA082898D4AB006FFFB9 /* rabitTests.swift */,
+				024236E72941D01700AC332E /* TestSupport */,
+				024236E62941CFFD00AC332E /* Album */,
 			);
 			path = rabitTests;
 			sourceTree = "<group>";
@@ -918,7 +943,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B569EA092898D4AB006FFFB9 /* rabitTests.swift in Sources */,
+				0205140829407CD200F19AB2 /* AlbumViewModelTests.swift in Sources */,
+				024236E52941CDF200AC332E /* RxTestSupport.swift in Sources */,
+				024236E12941CD3700AC332E /* AlbumMock.swift in Sources */,
+				024236E32941CD9600AC332E /* RepositoryTestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
