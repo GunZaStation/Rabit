@@ -15,6 +15,8 @@
 		0205141E29407DE300F19AB2 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0205141D29407DE300F19AB2 /* RxSwift */; };
 		0205142329407DE300F19AB2 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 0205142229407DE300F19AB2 /* RxTest */; };
 		021549B828EFD8EB0088A1DA /* ColorSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */; };
+		0217FD0D2941D824005E21A2 /* StyleSelectViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217FD0C2941D824005E21A2 /* StyleSelectViewModelTests.swift */; };
+		0217FD112941DCAA005E21A2 /* StyleSelectMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217FD102941DCAA005E21A2 /* StyleSelectMock.swift */; };
 		0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */; };
 		0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */; };
 		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
@@ -154,6 +156,8 @@
 
 /* Begin PBXFileReference section */
 		0205140729407CD200F19AB2 /* AlbumViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModelTests.swift; sourceTree = "<group>"; };
+		0217FD0C2941D824005E21A2 /* StyleSelectViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectViewModelTests.swift; sourceTree = "<group>"; };
+		0217FD102941DCAA005E21A2 /* StyleSelectMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectMock.swift; sourceTree = "<group>"; };
 		0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + identifier.swift"; sourceTree = "<group>"; };
 		0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutFactory.swift; sourceTree = "<group>"; };
 		0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + roundCorners.swift"; sourceTree = "<group>"; };
@@ -356,6 +360,8 @@
 				024236E92941D04D00AC332E /* PhotoEditMock.swift */,
 				024236EB2941D12100AC332E /* ColorSelectViewModelTests.swift */,
 				024236ED2941D3D300AC332E /* ColorSelectMock.swift */,
+				0217FD0C2941D824005E21A2 /* StyleSelectViewModelTests.swift */,
+				0217FD102941DCAA005E21A2 /* StyleSelectMock.swift */,
 			);
 			path = PhotoEdit;
 			sourceTree = "<group>";
@@ -970,7 +976,9 @@
 				024236EA2941D04D00AC332E /* PhotoEditMock.swift in Sources */,
 				024236E12941CD3700AC332E /* AlbumMock.swift in Sources */,
 				024236DF2941BA6500AC332E /* PhotoEditViewModelTests.swift in Sources */,
+				0217FD0D2941D824005E21A2 /* StyleSelectViewModelTests.swift in Sources */,
 				024236E32941CD9600AC332E /* RepositoryTestSupport.swift in Sources */,
+				0217FD112941DCAA005E21A2 /* StyleSelectMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
