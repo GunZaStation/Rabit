@@ -29,6 +29,8 @@
 		024236E32941CD9600AC332E /* RepositoryTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236E22941CD9600AC332E /* RepositoryTestSupport.swift */; };
 		024236E52941CDF200AC332E /* RxTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236E42941CDF200AC332E /* RxTestSupport.swift */; };
 		024236EA2941D04D00AC332E /* PhotoEditMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236E92941D04D00AC332E /* PhotoEditMock.swift */; };
+		024236EC2941D12100AC332E /* ColorSelectViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236EB2941D12100AC332E /* ColorSelectViewModelTests.swift */; };
+		024236EE2941D3D300AC332E /* ColorSelectMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236ED2941D3D300AC332E /* ColorSelectMock.swift */; };
 		0244F3D128E87B33007D3E8F /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */; };
 		024FBEFA28CCEFE700521926 /* Date + isSameDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024FBEF928CCEFE700521926 /* Date + isSameDate.swift */; };
 		02520987289A5A2400E7E604 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02520986289A5A2400E7E604 /* AlbumViewController.swift */; };
@@ -166,6 +168,8 @@
 		024236E22941CD9600AC332E /* RepositoryTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTestSupport.swift; sourceTree = "<group>"; };
 		024236E42941CDF200AC332E /* RxTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTestSupport.swift; sourceTree = "<group>"; };
 		024236E92941D04D00AC332E /* PhotoEditMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditMock.swift; sourceTree = "<group>"; };
+		024236EB2941D12100AC332E /* ColorSelectViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectViewModelTests.swift; sourceTree = "<group>"; };
+		024236ED2941D3D300AC332E /* ColorSelectMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectMock.swift; sourceTree = "<group>"; };
 		0244F3D028E87B33007D3E8F /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
 		024FBEF928CCEFE700521926 /* Date + isSameDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + isSameDate.swift"; sourceTree = "<group>"; };
 		02520986289A5A2400E7E604 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 			children = (
 				024236DE2941BA6500AC332E /* PhotoEditViewModelTests.swift */,
 				024236E92941D04D00AC332E /* PhotoEditMock.swift */,
+				024236EB2941D12100AC332E /* ColorSelectViewModelTests.swift */,
+				024236ED2941D3D300AC332E /* ColorSelectMock.swift */,
 			);
 			path = PhotoEdit;
 			sourceTree = "<group>";
@@ -958,6 +964,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0205140829407CD200F19AB2 /* AlbumViewModelTests.swift in Sources */,
+				024236EE2941D3D300AC332E /* ColorSelectMock.swift in Sources */,
+				024236EC2941D12100AC332E /* ColorSelectViewModelTests.swift in Sources */,
 				024236E52941CDF200AC332E /* RxTestSupport.swift in Sources */,
 				024236EA2941D04D00AC332E /* PhotoEditMock.swift in Sources */,
 				024236E12941CD3700AC332E /* AlbumMock.swift in Sources */,
