@@ -5,7 +5,6 @@ import RxSwift
 final class AlbumRepositoryMock: AlbumRepositoryProtocol {
     
     var mockAlbum: [Album]?
-    var mockUpdateResult: Bool?
     
     var fetchAlbumDataCallCount = 0
     func fetchAlbumData() -> Single<[Album]> {
@@ -22,6 +21,8 @@ final class AlbumRepositoryMock: AlbumRepositoryProtocol {
             return Disposables.create()
         }
     }
+    
+    var mockUpdateResult: Bool?
     
     var updateAlbumDataCallCount = 0
     var updateAlbumData: Photo?
@@ -41,6 +42,8 @@ final class AlbumRepositoryMock: AlbumRepositoryProtocol {
         }
     }
     
+    var mockSavePhotoImageResult: Bool?
+    
     var savePhotoImageDataCallCount = 0
     var savePhotoImageData: Data?
     var savePhotoImageDataName: String?
@@ -49,7 +52,15 @@ final class AlbumRepositoryMock: AlbumRepositoryProtocol {
         self.savePhotoImageData = data
         self.savePhotoImageDataName = name
         
-        return .create { _ in
+        return .create { [weak self] single in
+            guard let mockSavePhotoImageResult = self?.mockSavePhotoImageResult else {
+                single(.success(false))
+                
+                return Disposables.create()
+            }
+            
+            single(.success(mockSavePhotoImageResult))
+
             return Disposables.create()
         }
     }
