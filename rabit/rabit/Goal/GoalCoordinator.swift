@@ -128,7 +128,11 @@ private extension GoalCoordinator {
     
     func presentCategoryAddViewController() {
 
-        let viewModel = CategoryAddViewModel(navigation: self)
+        let repository = CategoryAddRepository()
+        let viewModel = CategoryAddViewModel(
+            navigation: self,
+            repository: repository
+        )
         let viewController = CategoryAddViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen
         navigationController.present(viewController, animated: false)

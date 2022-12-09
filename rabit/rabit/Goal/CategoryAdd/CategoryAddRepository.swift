@@ -1,7 +1,12 @@
 import Foundation
 import RxSwift
 
-final class CategoryAddRepository {
+protocol CategoryAddRepositoryProtocol {
+    func checkTitleDuplicated(input: String) -> Bool
+    func addCategory(_ category: Category) -> Single<Bool>
+}
+
+final class CategoryAddRepository: CategoryAddRepositoryProtocol {
     
     private let realmManager = RealmManager.shared
     private var categoryTitleList: [String] = []

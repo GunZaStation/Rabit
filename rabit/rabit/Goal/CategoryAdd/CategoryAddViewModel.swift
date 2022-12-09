@@ -30,10 +30,10 @@ final class CategoryAddViewModel: CategoryAddViewModelProtocol {
     let warningLabelHidden = PublishRelay<Bool>()
 
     private let disposeBag = DisposeBag()
-    private let repository: CategoryAddRepository
+    private let repository: CategoryAddRepositoryProtocol
     
     init(navigation: GoalNavigation,
-         repository: CategoryAddRepository = CategoryAddRepository()) {
+         repository: CategoryAddRepositoryProtocol) {
         self.repository = repository
         
         bind(to: navigation)
@@ -72,7 +72,7 @@ private extension CategoryAddViewModel {
             .withLatestFrom(categoryTitleInput)
             .withUnretained(self)
             .flatMapLatest { viewModel, title in
-                viewModel.repository.addCategory( Category(title: title))
+                viewModel.repository.addCategory(Category(title: title))
             }
             .bind(to: categoryAddResult)
             .disposed(by: disposeBag)

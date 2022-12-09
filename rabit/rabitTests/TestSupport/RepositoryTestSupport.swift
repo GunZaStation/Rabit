@@ -75,3 +75,42 @@ final class GoalListRepositoryMock: GoalListRepositoryProtocol {
         }
     }
 }
+
+final class CategoryAddRepositoryMock: CategoryAddRepositoryProtocol {
+    
+    var mockCheckTitleDuplicatedOutput: Bool?
+    
+    var checkTitleDuplicatedCallCount = 0
+    var checkTitlePuplicatedInput: String?
+    func checkTitleDuplicated(input: String) -> Bool {
+        self.checkTitleDuplicatedCallCount += 1
+        self.checkTitlePuplicatedInput = input
+        
+        if let mockCheckTitleDuplicatedOutput = mockCheckTitleDuplicatedOutput {
+            return mockCheckTitleDuplicatedOutput
+        }
+        
+        return true
+    }
+    
+    var mockAddCategoryResult: Bool?
+    
+    var addCategoryCallCount = 0
+    var addCategoryInputCategory: rabit.Category?
+    func addCategory(_ category: rabit.Category) -> Single<Bool> {
+        self.addCategoryCallCount += 1
+        self.addCategoryInputCategory = category
+        
+        return .create { [weak self] single in
+            guard let mockAddCategoryResult = self?.mockAddCategoryResult else {
+                single(.success(false))
+                
+                return Disposables.create()
+            }
+
+            single(.success(mockAddCategoryResult))
+            
+            return Disposables.create()
+        }
+    }
+}
