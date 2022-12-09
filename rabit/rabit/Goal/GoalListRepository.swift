@@ -1,7 +1,11 @@
 import Foundation
 import RxSwift
 
-final class GoalListRepository {
+protocol GoalListRepositoryProtocol {
+    func fetchGoalListData() -> Single<[Category]>
+}
+
+final class GoalListRepository: GoalListRepositoryProtocol {
     
     private let realmManager = RealmManager.shared
 

@@ -117,7 +117,11 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
 private extension GoalCoordinator {
     
     func pushGoalListViewController() {
-        let viewModel = GoalListViewModel(navigation: self)
+        let repository = GoalListRepository()
+        let viewModel = GoalListViewModel(
+            repository: repository,
+            navigation: self
+        )
         let viewController = GoalListViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }

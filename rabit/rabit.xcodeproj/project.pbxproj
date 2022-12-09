@@ -17,6 +17,8 @@
 		021549B828EFD8EB0088A1DA /* ColorSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */; };
 		0217FD0D2941D824005E21A2 /* StyleSelectViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217FD0C2941D824005E21A2 /* StyleSelectViewModelTests.swift */; };
 		0217FD112941DCAA005E21A2 /* StyleSelectMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217FD102941DCAA005E21A2 /* StyleSelectMock.swift */; };
+		0217FD162942D317005E21A2 /* GoalListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217FD152942D317005E21A2 /* GoalListViewModelTests.swift */; };
+		0217FD182942D7C4005E21A2 /* GoalListMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217FD172942D7C4005E21A2 /* GoalListMock.swift */; };
 		0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */; };
 		0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */; };
 		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
@@ -158,6 +160,8 @@
 		0205140729407CD200F19AB2 /* AlbumViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModelTests.swift; sourceTree = "<group>"; };
 		0217FD0C2941D824005E21A2 /* StyleSelectViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectViewModelTests.swift; sourceTree = "<group>"; };
 		0217FD102941DCAA005E21A2 /* StyleSelectMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectMock.swift; sourceTree = "<group>"; };
+		0217FD152942D317005E21A2 /* GoalListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewModelTests.swift; sourceTree = "<group>"; };
+		0217FD172942D7C4005E21A2 /* GoalListMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListMock.swift; sourceTree = "<group>"; };
 		0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + identifier.swift"; sourceTree = "<group>"; };
 		0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutFactory.swift; sourceTree = "<group>"; };
 		0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + roundCorners.swift"; sourceTree = "<group>"; };
@@ -306,6 +310,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0217FD122942D2F0005E21A2 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				0217FD152942D317005E21A2 /* GoalListViewModelTests.swift */,
+				0217FD172942D7C4005E21A2 /* GoalListMock.swift */,
+			);
+			path = Goal;
 			sourceTree = "<group>";
 		};
 		0229C50128A7AF020093990E /* Repository */ = {
@@ -577,6 +590,7 @@
 		B569EA072898D4AB006FFFB9 /* rabitTests */ = {
 			isa = PBXGroup;
 			children = (
+				0217FD122942D2F0005E21A2 /* Goal */,
 				024236E72941D01700AC332E /* TestSupport */,
 				024236E82941D04300AC332E /* PhotoEdit */,
 				024236E62941CFFD00AC332E /* Album */,
@@ -969,11 +983,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0217FD162942D317005E21A2 /* GoalListViewModelTests.swift in Sources */,
 				0205140829407CD200F19AB2 /* AlbumViewModelTests.swift in Sources */,
 				024236EE2941D3D300AC332E /* ColorSelectMock.swift in Sources */,
 				024236EC2941D12100AC332E /* ColorSelectViewModelTests.swift in Sources */,
 				024236E52941CDF200AC332E /* RxTestSupport.swift in Sources */,
 				024236EA2941D04D00AC332E /* PhotoEditMock.swift in Sources */,
+				0217FD182942D7C4005E21A2 /* GoalListMock.swift in Sources */,
 				024236E12941CD3700AC332E /* AlbumMock.swift in Sources */,
 				024236DF2941BA6500AC332E /* PhotoEditViewModelTests.swift in Sources */,
 				0217FD0D2941D824005E21A2 /* StyleSelectViewModelTests.swift in Sources */,

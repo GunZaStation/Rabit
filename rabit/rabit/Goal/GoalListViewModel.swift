@@ -25,10 +25,10 @@ final class GoalListViewModel: GoalListViewModelProtocol {
     let goalList = PublishRelay<[Category]>()
     let showGoalDetailView = PublishRelay<Goal>()
     
-    private let repository: GoalListRepository
+    private let repository: GoalListRepositoryProtocol
     private let disposeBag = DisposeBag()
     
-    init(repository: GoalListRepository = GoalListRepository(),
+    init(repository: GoalListRepositoryProtocol,
          navigation: GoalNavigation) {
         self.repository = repository
         

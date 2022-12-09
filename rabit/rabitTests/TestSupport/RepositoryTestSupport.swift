@@ -54,3 +54,24 @@ final class AlbumRepositoryMock: AlbumRepositoryProtocol {
         }
     }
 }
+
+final class GoalListRepositoryMock: GoalListRepositoryProtocol {
+    
+    var mockCategory: [rabit.Category]?
+    
+    var fetchGoalListDataCallCount = 0
+    func fetchGoalListData() -> Single<[rabit.Category]> {
+        self.fetchGoalListDataCallCount += 1
+        
+        return .create  { [weak self] single in
+            guard let mockCategory = self?.mockCategory else {
+                single(.success([]))
+                return Disposables.create()
+            }
+
+            single(.success(mockCategory))
+            
+            return Disposables.create()
+        }
+    }
+}

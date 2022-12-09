@@ -1,7 +1,7 @@
 import Foundation
 import Differentiator
 
-struct Category {
+struct Category: Equatable {
     
     let title: String
     var items: [Goal]
