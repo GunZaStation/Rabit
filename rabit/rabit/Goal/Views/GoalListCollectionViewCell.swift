@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import RxSwift
 
 final class GoalListCollectionViewCell: UICollectionViewCell {
     
@@ -33,6 +34,14 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         return progressView
     }()
     
+    private let menuButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        return button
+    }()
+    
+    private var disposeBag = DisposeBag()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -44,16 +53,26 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(goal: Goal) {
-
-        titleLabel.text = goal.title
-        subTitleLabel.text = goal.subtitle
-        
-        guard goal.target != 0 else { return }
-        let ratio = CGFloat(goal.progress) /  CGFloat(goal.target)
-        goalProgressView.progress = ratio
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
-            
+    
+    func configure(goal: Goal) {
+        
+        setTitles(title: goal.title, subTitle: goal.subtitle)
+        setProgress(target: goal.target, progress: goal.progress)
+    }
+    
+    func bind(to viewModel: GoalListViewModelProtocol?, with goal: Goal) {
+        guard let viewModel = viewModel else { return }
+
+        menuButton.rx.tap
+            .map { _ in goal }
+            .bind(to: viewModel.cellMenuButtonTapped)
+            .disposed(by: disposeBag)
+    }
+    
     private func setAttributes() {
         
         contentView.layer.borderWidth = 1.0
@@ -78,8 +97,26 @@ final class GoalListCollectionViewCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(24/750 * UIScreen.main.bounds.height)
             make.centerY.equalToSuperview()
         }
-        
         titleStackView.addArrangedSubview(titleLabel)
         titleStackView.addArrangedSubview(subTitleLabel)
+        
+        contentView.addSubview(menuButton)
+        menuButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalTo(titleStackView.snp.top)
+            make.trailing.equalToSuperview().inset(20/376 * UIScreen.main.bounds.width)
+        }
+    }
+    
+    private func setTitles(title: String, subTitle: String) {
+        titleLabel.text = title
+        subTitleLabel.text = subTitle
+    }
+    
+    private func setProgress(target: Int, progress: Int) {
+        guard target != 0 else { return }
+        
+        let ratio = CGFloat(progress) /  CGFloat(target)
+        goalProgressView.progress = ratio
     }
 }

@@ -31,12 +31,6 @@ final class GoalListViewController: UIViewController {
         bind()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        viewModel?.requestGoalList.accept(())
-    }
-    
     private func bind() {
         guard let viewModel = viewModel else { return }
         
@@ -51,6 +45,35 @@ final class GoalListViewController: UIViewController {
         
         goalListCollectionView.rx.modelSelected(Goal.self)
             .bind(to: viewModel.showGoalDetailView)
+            .disposed(by: disposeBag)
+        
+        viewModel.requestGoalList.accept(())
+        
+        viewModel.showActionSheetMenu
+            .withUnretained(self)
+            .bind(onNext: { viewController, goal in
+
+                let actionSheetMenu = UIAlertController(title: nil, message: "옵션 선택", preferredStyle: .actionSheet)
+
+                let deleteAction = UIAlertAction(title: "목표 삭제하기", style: .destructive, handler: { _ in
+                    viewController.showAlert(message: "정말 삭제하시겠습니까?", activateCancelAction: true) {
+                        viewModel.deleteGoal.accept(goal)
+                    }
+                })
+                let cancelAction = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
+                
+                actionSheetMenu.addAction(deleteAction)
+                actionSheetMenu.addAction(cancelAction)
+                
+                viewController.present(actionSheetMenu, animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.showAlert
+            .withUnretained(self)
+            .bind(onNext: { viewController, message in
+                viewController.showAlert(message: message)
+            })
             .disposed(by: disposeBag)
     }
     
@@ -72,6 +95,24 @@ final class GoalListViewController: UIViewController {
 
 private extension GoalListViewController {
     
+    func showAlert(title: String? = nil, message: String, activateCancelAction: Bool = false, actionHandler: (() -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+            if let actionHandler = actionHandler {
+                actionHandler()
+            }
+        })
+        alert.addAction(confirmAction)
+        
+        if activateCancelAction {
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+            alert.addAction(cancelAction)
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func initializeDataSource() -> RxCollectionViewSectionedReloadDataSource<Category> {
         let viewModel = viewModel
         return .init(
@@ -84,6 +125,7 @@ private extension GoalListViewController {
                 }
                 
                 cell.configure(goal: goal)
+                cell.bind(to: viewModel, with: goal)
                 
                 return cell
             },
