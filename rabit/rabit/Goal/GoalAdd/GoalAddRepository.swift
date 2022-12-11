@@ -1,12 +1,21 @@
 import Foundation
 import RxSwift
 
-struct GoalAddRepository {
+protocol GoalAddRepositoryProtocol {
+    func checkTitleDuplicated(title: String) -> Bool
+    func addGoal(_ goal: Goal) -> Single<Bool>
+}
+
+struct GoalAddRepository: GoalAddRepositoryProtocol {
     
-    private let realmManager = RealmManager.shared
+    private let realmManager: RealmManagable
     private var goalTitleList: [String] = []
     
-    init(category: Category) {
+    init(
+        category: Category,
+        realmManager: RealmManagable = RealmManager.shared
+    ) {
+        self.realmManager = realmManager
         goalTitleList = realmManager.read(
                             entity: GoalEntity.self,
                             filter: "category =='\(category.title)'"
@@ -15,16 +24,6 @@ struct GoalAddRepository {
 
     func checkTitleDuplicated(title: String) -> Bool {
         goalTitleList.contains(title)
-    }
-    
-    func checkTitleDuplicated(title: String, category: String) -> Bool {
-        
-        guard !title.isEmpty else { return false }
-        
-        return realmManager.read(
-            entity: GoalEntity.self,
-            filter: "title=='\(title)' && category=='\(category)'"
-        ).count >= 1        
     }
 
     func addGoal(_ goal: Goal) -> Single<Bool> {

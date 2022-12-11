@@ -36,12 +36,12 @@ final class GoalAddViewModel: GoalAddViewModelProtocol {
     let selectedPeriod = BehaviorRelay<Period>(value: Period())
     let selectedTime = BehaviorRelay<CertifiableTime>(value: CertifiableTime())
     
-    private let repository: GoalAddRepository
+    private let repository: GoalAddRepositoryProtocol
     private let disposeBag = DisposeBag()
     
     init(navigation: GoalNavigation,
          category: Category,
-         repository: GoalAddRepository) {
+         repository: GoalAddRepositoryProtocol) {
         self.repository = repository
         
         bind(to: navigation, with: category)

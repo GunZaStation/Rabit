@@ -32,6 +32,7 @@
 		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
 		0232BD9928AF6B25009057F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9828AF6B25009057F8 /* Photo.swift */; };
 		02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */; };
+		0237B9852946090500921F62 /* GoalAddRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0237B9842946090500921F62 /* GoalAddRepositoryTests.swift */; };
 		023FDBCA29260D3B0063D923 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023FDBC929260D3B0063D923 /* CircularProgressBar.swift */; };
 		024236DF2941BA6500AC332E /* PhotoEditViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236DE2941BA6500AC332E /* PhotoEditViewModelTests.swift */; };
 		024236E12941CD3700AC332E /* AlbumMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024236E02941CD3700AC332E /* AlbumMock.swift */; };
@@ -70,8 +71,8 @@
 		02D30E7528C87EA600B5C4B2 /* MonthMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7428C87EA600B5C4B2 /* MonthMetaData.swift */; };
 		02D30E7728C87EBF00B5C4B2 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7628C87EBF00B5C4B2 /* CalendarDate.swift */; };
 		02D30E7928C87EDE00B5C4B2 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7828C87EDE00B5C4B2 /* DateConverter.swift */; };
-		02D32D3E2945FEB600DBA20A /* AlbumRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D32D3D2945FEB600DBA20A /* AlbumRepositoryTests.swift */; };
 		02D32D3C2945FD1500DBA20A /* GoalListRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D32D3B2945FD1400DBA20A /* GoalListRepositoryTests.swift */; };
+		02D32D3E2945FEB600DBA20A /* AlbumRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D32D3D2945FEB600DBA20A /* AlbumRepositoryTests.swift */; };
 		02DABAA928EC44F2001416DC /* StyleSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DABAA828EC44F1001416DC /* StyleSelectViewController.swift */; };
 		02DABAAC28EC4516001416DC /* StyleSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DABAAB28EC4515001416DC /* StyleSelectViewModel.swift */; };
 		02DB2F8428AC8D7E005938CB /* PhotoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */; };
@@ -184,6 +185,7 @@
 		0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Initializer.swift"; sourceTree = "<group>"; };
 		0232BD9828AF6B25009057F8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		02376F4F28C60ED40091D1B6 /* UIButton + setBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + setBackgroundColor.swift"; sourceTree = "<group>"; };
+		0237B9842946090500921F62 /* GoalAddRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddRepositoryTests.swift; sourceTree = "<group>"; };
 		023FDBC929260D3B0063D923 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		024236DE2941BA6500AC332E /* PhotoEditViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditViewModelTests.swift; sourceTree = "<group>"; };
 		024236E02941CD3700AC332E /* AlbumMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumMock.swift; sourceTree = "<group>"; };
@@ -218,8 +220,8 @@
 		02D30E7428C87EA600B5C4B2 /* MonthMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthMetaData.swift; sourceTree = "<group>"; };
 		02D30E7628C87EBF00B5C4B2 /* CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
 		02D30E7828C87EDE00B5C4B2 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
-		02D32D3D2945FEB600DBA20A /* AlbumRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepositoryTests.swift; sourceTree = "<group>"; };
 		02D32D3B2945FD1400DBA20A /* GoalListRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListRepositoryTests.swift; sourceTree = "<group>"; };
+		02D32D3D2945FEB600DBA20A /* AlbumRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepositoryTests.swift; sourceTree = "<group>"; };
 		02DABAA828EC44F1001416DC /* StyleSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectViewController.swift; sourceTree = "<group>"; };
 		02DABAAB28EC4515001416DC /* StyleSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectViewModel.swift; sourceTree = "<group>"; };
 		02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditViewController.swift; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 			children = (
 				02D32D3D2945FEB600DBA20A /* AlbumRepositoryTests.swift */,
 				02D32D3B2945FD1400DBA20A /* GoalListRepositoryTests.swift */,
+				0237B9842946090500921F62 /* GoalAddRepositoryTests.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1032,6 +1035,7 @@
 				0217FD182942D7C4005E21A2 /* GoalListMock.swift in Sources */,
 				024236E12941CD3700AC332E /* AlbumMock.swift in Sources */,
 				02D32D3C2945FD1500DBA20A /* GoalListRepositoryTests.swift in Sources */,
+				0237B9852946090500921F62 /* GoalAddRepositoryTests.swift in Sources */,
 				02D32D3E2945FEB600DBA20A /* AlbumRepositoryTests.swift in Sources */,
 				024236DF2941BA6500AC332E /* PhotoEditViewModelTests.swift in Sources */,
 				0217FD0D2941D824005E21A2 /* StyleSelectViewModelTests.swift in Sources */,

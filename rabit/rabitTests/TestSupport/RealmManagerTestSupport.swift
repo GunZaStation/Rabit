@@ -38,8 +38,10 @@ final class RealmManagerMock: RealmManagable {
     var writeShouldSuccess: Bool?
     
     var writeCallCount = 0
+    var writeEntity: Object?
     func write<T: Object>(entity: T) throws {
         self.writeCallCount += 1
+        self.writeEntity = entity
         
         guard let writeShouldSuccess = writeShouldSuccess,
            writeShouldSuccess else {
