@@ -8,12 +8,15 @@ protocol CategoryAddRepositoryProtocol {
 
 final class CategoryAddRepository: CategoryAddRepositoryProtocol {
     
-    private let realmManager = RealmManager.shared
+    private let realmManager: RealmManagable
     private var categoryTitleList: [String] = []
     
-    init() {
-        categoryTitleList = realmManager.read(entity: CategoryEntity.self)
-                                        .map { $0.title }
+    init(realmManager: RealmManagable = RealmManager.shared) {
+        self.realmManager = realmManager
+        categoryTitleList = realmManager.read(
+            entity: CategoryEntity.self,
+            filter: nil
+        ).map { $0.title }
     }
     
     func checkTitleDuplicated(input: String) -> Bool {
