@@ -16,15 +16,20 @@ struct CalendarUsecase: CalendarUsecaseProtocol {
 
     var dates: [CalendarDates] {
         return (0..<12).map { offset -> CalendarDates in
-            generateDatesInMonth(for: calendar.date(byAdding: .month, value: offset, to: Date()) ?? Date())
+            generateDatesInMonth(for: calendar.date(byAdding: .month, value: offset, to: baseDate) ?? Date())
         }
     }
     let startDate: BehaviorRelay<Date?>
     let endDate: BehaviorRelay<Date?>
+    let baseDate: Date
 
-    init(periodStream: BehaviorRelay<Period>) {
+    init(
+        periodStream: BehaviorRelay<Period>,
+        baseDate: Date = Date()
+    ) {
         startDate = .init(value: periodStream.value.start)
         endDate = .init(value: periodStream.value.end)
+        self.baseDate = baseDate
     }
 
     func updateSelectedDate(with newDate: CalendarDate) {
