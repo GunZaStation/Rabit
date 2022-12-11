@@ -9,6 +9,7 @@ final class RealmManagerMock: RealmManagable {
     
     var mockCategoryReadReturn: [CategoryEntity]?
     var mockPhotoReadRetrun: [PhotoEntity]?
+    var mockGoalReadReturn: [GoalEntity]?
     
     var readCallCount = 0
     func read<T: Object>(entity: T.Type, filter query: String?) -> [T] {
@@ -22,6 +23,10 @@ final class RealmManagerMock: RealmManagable {
         case ObjectIdentifier(PhotoEntity.self):
             if let mockPhotoReadRetrun = mockPhotoReadRetrun as? [T] {
                 return mockPhotoReadRetrun
+            }
+        case ObjectIdentifier(GoalEntity.self):
+            if let mockGoalReadReturn = mockGoalReadReturn as? [T] {
+                return mockGoalReadReturn
             }
         default:
             return []

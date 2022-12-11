@@ -7,8 +7,12 @@ protocol GoalListRepositoryProtocol {
 
 final class GoalListRepository: GoalListRepositoryProtocol {
     
-    private let realmManager = RealmManager.shared
+    private let realmManager: RealmManagable
 
+    init(realmManager: RealmManagable = RealmManager.shared) {
+        self.realmManager = realmManager
+    }
+    
     func fetchGoalListData() -> Single<[Category]> {
         let goalList = getLatestGoals()
         
@@ -24,9 +28,15 @@ private extension GoalListRepository {
     func getLatestGoals() -> [Category] {
         var categoryMap: [String:Category] = [:]
 
-        let goalEntities = realmManager.read(entity: GoalEntity.self)
+        let goalEntities = realmManager.read(
+            entity: GoalEntity.self,
+            filter: nil
+        )
                                        .sorted { $0.createdDate < $1.createdDate }
-        let categoryEntities = realmManager.read(entity: CategoryEntity.self)
+        let categoryEntities = realmManager.read(
+            entity: CategoryEntity.self,
+            filter: nil
+        )
         
         categoryEntities.forEach {
             categoryMap[$0.title] = Category(entity: $0)
