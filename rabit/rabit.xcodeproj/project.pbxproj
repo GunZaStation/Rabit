@@ -25,6 +25,8 @@
 		0229C50528AB7C920093990E /* UICollectionReusableView + identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */; };
 		0229C50728AB9A100093990E /* CompositionalLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */; };
 		022B7838289C05C2009003EA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 022B7837289C05C2009003EA /* RxDataSources */; };
+		023063592945CDEA005E22E0 /* RealmManagerTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023063582945CDEA005E22E0 /* RealmManagerTestSupport.swift */; };
+		0230635B2945CDF3005E22E0 /* FileManagerTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230635A2945CDF3005E22E0 /* FileManagerTestSupport.swift */; };
 		0232BD8E28ACC5DB009057F8 /* UIView + roundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */; };
 		0232BD9228AE1134009057F8 /* ColorSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9128AE1134009057F8 /* ColorSelectViewController.swift */; };
 		0232BD9728AE5C3D009057F8 /* UIColor + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232BD9628AE5C3D009057F8 /* UIColor + Initializer.swift */; };
@@ -68,6 +70,7 @@
 		02D30E7528C87EA600B5C4B2 /* MonthMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7428C87EA600B5C4B2 /* MonthMetaData.swift */; };
 		02D30E7728C87EBF00B5C4B2 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7628C87EBF00B5C4B2 /* CalendarDate.swift */; };
 		02D30E7928C87EDE00B5C4B2 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D30E7828C87EDE00B5C4B2 /* DateConverter.swift */; };
+		02D32D3E2945FEB600DBA20A /* AlbumRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D32D3D2945FEB600DBA20A /* AlbumRepositoryTests.swift */; };
 		02DABAA928EC44F2001416DC /* StyleSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DABAA828EC44F1001416DC /* StyleSelectViewController.swift */; };
 		02DABAAC28EC4516001416DC /* StyleSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DABAAB28EC4515001416DC /* StyleSelectViewModel.swift */; };
 		02DB2F8428AC8D7E005938CB /* PhotoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */; };
@@ -172,6 +175,8 @@
 		0217FD1D29430D11005E21A2 /* PeriodSelectMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectMock.swift; sourceTree = "<group>"; };
 		0229C50428AB7C920093990E /* UICollectionReusableView + identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + identifier.swift"; sourceTree = "<group>"; };
 		0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutFactory.swift; sourceTree = "<group>"; };
+		023063582945CDEA005E22E0 /* RealmManagerTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManagerTestSupport.swift; sourceTree = "<group>"; };
+		0230635A2945CDF3005E22E0 /* FileManagerTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerTestSupport.swift; sourceTree = "<group>"; };
 		0232BD8D28ACC5DB009057F8 /* UIView + roundCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + roundCorners.swift"; sourceTree = "<group>"; };
 		0232BD9128AE1134009057F8 /* ColorSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectViewController.swift; sourceTree = "<group>"; };
 		0232BD9428AE11DD009057F8 /* ColorSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +217,7 @@
 		02D30E7428C87EA600B5C4B2 /* MonthMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthMetaData.swift; sourceTree = "<group>"; };
 		02D30E7628C87EBF00B5C4B2 /* CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
 		02D30E7828C87EDE00B5C4B2 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
+		02D32D3D2945FEB600DBA20A /* AlbumRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepositoryTests.swift; sourceTree = "<group>"; };
 		02DABAA828EC44F1001416DC /* StyleSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectViewController.swift; sourceTree = "<group>"; };
 		02DABAAB28EC4515001416DC /* StyleSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectViewModel.swift; sourceTree = "<group>"; };
 		02DB2F8328AC8D7E005938CB /* PhotoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditViewController.swift; sourceTree = "<group>"; };
@@ -377,6 +383,8 @@
 			children = (
 				024236E42941CDF200AC332E /* RxTestSupport.swift */,
 				024236E22941CD9600AC332E /* RepositoryTestSupport.swift */,
+				023063582945CDEA005E22E0 /* RealmManagerTestSupport.swift */,
+				0230635A2945CDF3005E22E0 /* FileManagerTestSupport.swift */,
 			);
 			path = TestSupport;
 			sourceTree = "<group>";
@@ -430,6 +438,14 @@
 				0229C50628AB9A100093990E /* CompositionalLayoutFactory.swift */,
 			);
 			path = Factory;
+			sourceTree = "<group>";
+		};
+		02AD1FC22945A4C30098F45C /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				02D32D3D2945FEB600DBA20A /* AlbumRepositoryTests.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		02C9713828B356290087B8D2 /* Views */ = {
@@ -605,6 +621,7 @@
 		B569EA072898D4AB006FFFB9 /* rabitTests */ = {
 			isa = PBXGroup;
 			children = (
+				02AD1FC22945A4C30098F45C /* Repository */,
 				0217FD122942D2F0005E21A2 /* Goal */,
 				024236E72941D01700AC332E /* TestSupport */,
 				024236E82941D04300AC332E /* PhotoEdit */,
@@ -1001,7 +1018,9 @@
 				0217FD162942D317005E21A2 /* GoalListViewModelTests.swift in Sources */,
 				0205140829407CD200F19AB2 /* AlbumViewModelTests.swift in Sources */,
 				024236EE2941D3D300AC332E /* ColorSelectMock.swift in Sources */,
+				0230635B2945CDF3005E22E0 /* FileManagerTestSupport.swift in Sources */,
 				0217FD1A2942E1CC005E21A2 /* CategoryAddViewModelTests.swift in Sources */,
+				023063592945CDEA005E22E0 /* RealmManagerTestSupport.swift in Sources */,
 				0217FD1C29430BBD005E21A2 /* PeriodSelectViewModelTests.swift in Sources */,
 				024236EC2941D12100AC332E /* ColorSelectViewModelTests.swift in Sources */,
 				024236E52941CDF200AC332E /* RxTestSupport.swift in Sources */,
@@ -1009,6 +1028,7 @@
 				024236EA2941D04D00AC332E /* PhotoEditMock.swift in Sources */,
 				0217FD182942D7C4005E21A2 /* GoalListMock.swift in Sources */,
 				024236E12941CD3700AC332E /* AlbumMock.swift in Sources */,
+				02D32D3E2945FEB600DBA20A /* AlbumRepositoryTests.swift in Sources */,
 				024236DF2941BA6500AC332E /* PhotoEditViewModelTests.swift in Sources */,
 				0217FD0D2941D824005E21A2 /* StyleSelectViewModelTests.swift in Sources */,
 				024236E32941CD9600AC332E /* RepositoryTestSupport.swift in Sources */,

@@ -9,8 +9,17 @@ protocol AlbumRepositoryProtocol {
 
 final class AlbumRepository: AlbumRepositoryProtocol {
 
-    private let realmManager = RealmManager.shared
-
+    private let realmManager: RealmManagable
+    private let fileManager: FileManager
+    
+    init(
+        realmManager: RealmManagable = RealmManager.shared,
+        fileManager: FileManager = FileManager.default
+    ) {
+        self.realmManager = realmManager
+        self.fileManager = fileManager
+    }
+    
     func fetchAlbumData() -> Single<[Album]> {
         
         let fetchedAlbumData = getLatestAlbum()
@@ -40,7 +49,7 @@ final class AlbumRepository: AlbumRepositoryProtocol {
     
     func savePhotoImageData(_ data: Data, name: String) -> Single<Bool> {
         
-        guard let documentDirectory = FileManager.default.urls(
+        guard let documentDirectory = fileManager.urls(
             for: .documentDirectory,
             in: .userDomainMask
         ).first else {
@@ -54,8 +63,8 @@ final class AlbumRepository: AlbumRepositoryProtocol {
         
         let imageURL = documentDirectory.appendingPathComponent(name)
         
-        if FileManager.default.fileExists(atPath: imageURL.path) {
-            try? FileManager.default.removeItem(at: imageURL)
+        if fileManager.fileExists(atPath: imageURL.path) {
+            try? fileManager.removeItem(at: imageURL)
         }
         
         do {
@@ -76,7 +85,10 @@ final class AlbumRepository: AlbumRepositoryProtocol {
 private extension AlbumRepository {
     func getLatestAlbum() -> [Album] {
         
-        let fetchedCategoryData = realmManager.read(entity: CategoryEntity.self)
+        let fetchedCategoryData = realmManager.read(
+            entity: CategoryEntity.self,
+            filter: nil
+        )
 
         var albumData = [Album]()
 

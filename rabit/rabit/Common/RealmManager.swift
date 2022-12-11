@@ -1,7 +1,15 @@
 import Foundation
 import RealmSwift
 
-final class RealmManager {
+protocol RealmManagable {
+    static var shared: Self { get }
+    
+    func read<T: Object>(entity: T.Type, filter query: String?) -> [T]
+    func write<T: Object>(entity: T) throws
+    func update<T: Object>(entity: T) throws
+}
+
+final class RealmManager: RealmManagable {
     
     private let realm: Realm
     static var shared = RealmManager()
@@ -18,7 +26,7 @@ final class RealmManager {
         }
     }
  
-    func write(entity: Object) throws {
+    func write<T: Object>(entity: T) throws {
         try? realm.write {
             realm.add(entity)
         }
