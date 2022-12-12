@@ -9,14 +9,16 @@ struct DayCountable {
         return dayCount
     }
     
-    init(period: Period, days: Set<Day>) {
-        self.dayCount = countAllDays(period: period, days: days)
+    init(period: Period, days: Set<Day>, createdDate: Date) {
+        self.dayCount = countAllDays(period: period, days: days, createdDate: createdDate)
     }
     
-    private func countAllDays(period: Period, days: Set<Day>) -> Int {
+    private func countAllDays(period: Period, days: Set<Day>, createdDate: Date) -> Int {
         var count = 0
-        for date in stride(from: period.start, to: period.end, by: 60*60*24) {
-            guard let day = Day(rawValue: Calendar.current.component(.weekday, from: date) - 1) else {
+        for date in stride(from: period.start, through: period.end, by: 60*60*24) {
+            guard let day = Day(
+                rawValue: Calendar.current.component(.weekday, from: date) - 1
+            ), date >= createdDate else {
                 continue
             }
             if days.contains(day) { count += 1 }
@@ -56,7 +58,7 @@ struct Goal: Equatable {
         self.category = category
         self.createdDate = createdDate
         
-        @DayCountable(period: period, days: certTime.days.selectedValues)
+        @DayCountable(period: period, days: certTime.days.selectedValues, createdDate: createdDate)
         var target
         
         self.target = target
