@@ -15,6 +15,7 @@ protocol GoalNavigation {
     var didTapGoal: PublishRelay<Goal> { get }
     var didTapCloseGoalDetailButton: PublishRelay<Void> { get }
     var didTapCertPhotoCameraButton: PublishRelay<Goal> { get }
+    var didTapCloseCertPhotoCameraButton: PublishRelay<Void> { get }
     var didTakeCertPhoto: PublishRelay<BehaviorRelay<Photo>> { get }
 }
 
@@ -35,6 +36,7 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
     let didTapGoal = PublishRelay<Goal>()
     let didTapCloseGoalDetailButton = PublishRelay<Void>()
     let didTapCertPhotoCameraButton = PublishRelay<Goal>()
+    let didTapCloseCertPhotoCameraButton = PublishRelay<Void>()
     let didTakeCertPhoto = PublishRelay<BehaviorRelay<Photo>>()
 
     private let disposeBag = DisposeBag()
@@ -100,6 +102,10 @@ final class GoalCoordinator: Coordinator, GoalNavigation {
         
         didTapCertPhotoCameraButton
             .bind(onNext: pushCertPhotoCameraView)
+            .disposed(by: disposeBag)
+        
+        didTapCloseCertPhotoCameraButton
+            .bind(onNext: popCertPhotoCameraView)
             .disposed(by: disposeBag)
         
         didTakeCertPhoto

@@ -7,6 +7,7 @@ protocol CertPhotoCameraViewModelInput {
     var certPhotoDataInput: PublishRelay<Data> { get }
     var nextButtonTouched: PublishRelay<Void> { get }
     var photoSaveResult: PublishRelay<Bool> { get }
+    var closeButtonTouched: PublishRelay<Void> { get }
 }
 protocol CertPhotoCameraViewModelOutput {
     
@@ -20,6 +21,7 @@ final class CertPhotoCameraViewModel: CertPhotoCameraViewModelProtocol {
     let certPhotoDataInput = PublishRelay<Data>()
     let nextButtonTouched = PublishRelay<Void>()
     let photoSaveResult = PublishRelay<Bool>()
+    let closeButtonTouched = PublishRelay<Void>()
     
     let previewPhotoData = PublishRelay<Data>()
     
@@ -54,6 +56,10 @@ private extension CertPhotoCameraViewModel {
                 return viewModel.repository.savePhotoImageData(imageData, name: name)
             }
             .bind(to: photoSaveResult)
+            .disposed(by: disposeBag)
+        
+        closeButtonTouched
+            .bind(to: navigation.didTapCloseCertPhotoCameraButton)
             .disposed(by: disposeBag)
         
         let imageSavedPhoto = photoSaveResult

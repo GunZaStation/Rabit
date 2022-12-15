@@ -86,9 +86,41 @@ final class CertPhotoCameraViewController: UIViewController {
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.nextButtonTouched)
             .disposed(by: disposeBag)
+        
+        navigationItem.leftBarButtonItem?.rx.tap
+            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
+            .bind(to: viewModel.closeButtonTouched)
+            .disposed(by: disposeBag)
+    }
+}
+
+private extension CertPhotoCameraViewController {
+    
+    func getResizedImageData(with originalImageData: Data) -> Data {
+        
+        guard let capturedImage = UIImage(data: originalImageData) else {
+            return originalImageData
+        }
+        
+        let length = view.bounds.width
+        let squaredSize = CGSize(width: length, height: length)
+        let squaredImage = capturedImage.cropImageToSquare()
+                                        .resized(to: squaredSize)
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.previewImageView.isHidden = false
+            self.nextButton.isHidden = false
+            self.shutterButton.isHidden = true
+            self.previewLayerView.isHidden = true
+            
+            self.cameraManager.endCapturing()
+        }
+        
+        return squaredImage.pngData() ?? originalImageData
     }
     
-    private func setupViews() {
+    func setupViews() {
         
         view.addSubview(previewLayerView)
         previewLayerView.snp.makeConstraints {
@@ -121,36 +153,13 @@ final class CertPhotoCameraViewController: UIViewController {
         }
     }
     
-    private func setAttributes() {
+    func setAttributes() {
         
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
-    }
-}
-
-extension CertPhotoCameraViewController {
-    
-    func getResizedImageData(with originalImageData: Data) -> Data {
-        
-        guard let capturedImage = UIImage(data: originalImageData) else {
-            return originalImageData
-        }
-        
-        let length = view.bounds.width
-        let squaredSize = CGSize(width: length, height: length)
-        let squaredImage = capturedImage.cropImageToSquare()
-                                        .resized(to: squaredSize)
-
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.previewImageView.isHidden = false
-            self.nextButton.isHidden = false
-            self.shutterButton.isHidden = true
-            self.previewLayerView.isHidden = true
-            
-            self.cameraManager.endCapturing()
-        }
-        
-        return squaredImage.pngData() ?? originalImageData
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: nil
+        )
     }
 }

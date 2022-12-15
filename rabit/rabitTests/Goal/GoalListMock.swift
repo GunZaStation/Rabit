@@ -15,6 +15,7 @@ final class GoalNavigationMock: GoalNavigation {
     var didTapGoal: PublishRelay<Goal> = .init()
     var didTapCloseGoalDetailButton: PublishRelay<Void> = .init()
     var didTapCertPhotoCameraButton: PublishRelay<Goal> = .init()
+    var didTapCloseCertPhotoCameraButton: PublishRelay<Void> = .init()
     var didTakeCertPhoto: PublishRelay<BehaviorRelay<Photo>> = .init()
     
     var didTapCategoryAddButtonSetCount = BehaviorRelay<Int>(value: 0)
@@ -26,6 +27,7 @@ final class GoalNavigationMock: GoalNavigation {
     var didTapCloseGoalAddViewButtonSetCount = BehaviorRelay<Int>(value: 0)
     var didTapCloseGoalDetailButtonSetCount = BehaviorRelay<Int>(value: 0)
     var didTapCertPhotoCameraButtonSetCount = BehaviorRelay<Int>(value: 0)
+    var didTapCloseCertPhotoCameraButtonSetCount = BehaviorRelay<Int>(value: 0)
     
     private var disposeBag: DisposeBag
     
@@ -120,6 +122,16 @@ final class GoalNavigationMock: GoalNavigation {
                 return prevValue + 1
             }
             .bind(to: didTapCertPhotoCameraButtonSetCount)
+            .disposed(by: disposeBag)
+        
+        didTapCloseCertPhotoCameraButton
+            .withUnretained(self)
+            .map { navigation, _ in
+                let prevValue = navigation.didTapCloseCertPhotoCameraButtonSetCount.value
+                
+                return prevValue + 1
+            }
+            .bind(to: didTapCloseCertPhotoCameraButtonSetCount)
             .disposed(by: disposeBag)
     }
 }

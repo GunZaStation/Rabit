@@ -145,6 +145,26 @@ class CertPhotoCameraViewModelTests: XCTestCase {
             ]))
     }
     
+    func testCloseButtonTouched() {
+        // when
+        scheduler.createColdObservable([
+            .next(10, ())
+        ])
+        .bind(to: sut.closeButtonTouched)
+        .disposed(by: disposeBag)
+        
+        // then
+        expect(self.navigation.didTapCloseCertPhotoCameraButtonSetCount)
+            .events(
+                scheduler: self.scheduler,
+                disposeBag: self.disposeBag
+            )
+            .to(equal([
+                .next(0, 0),
+                .next(10, 1)
+            ]))
+    }
+    
     func testPhotoSaveResultGotSuccess() throws {
         // given
         let newData = Data()
