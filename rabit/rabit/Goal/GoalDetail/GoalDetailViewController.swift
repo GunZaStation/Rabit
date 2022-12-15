@@ -69,11 +69,6 @@ final class GoalDetailViewController: UIViewController {
     private func bind() {
         guard let viewModel = viewModel else { return }
         
-        navigationItem.leftBarButtonItem?.rx.tap
-            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind(to: viewModel.closeButtonTouched)
-            .disposed(by: disposeBag)
-                
         titleField.rx.text
             .bind(to: viewModel.goalTitleInput)
             .disposed(by: disposeBag)
@@ -113,13 +108,20 @@ final class GoalDetailViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-    
-    private func setAttributes() {
-        
+}
+
+private extension GoalDetailViewController {
+    func setAttributes() {
         view.backgroundColor = .systemBackground
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: nil,
+            action: nil
+        )
     }
     
-    private func setupViews() {
+    func setupViews() {
         
         view.addSubview(stackView)
         stackView.snp.makeConstraints {

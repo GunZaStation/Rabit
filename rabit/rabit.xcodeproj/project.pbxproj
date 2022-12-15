@@ -50,6 +50,7 @@
 		0252098F289A661E00E7E604 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252098E289A661E00E7E604 /* AlbumHeaderView.swift */; };
 		025CA12628A631C0007AAADE /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025CA12528A631C0007AAADE /* AlbumRepository.swift */; };
 		025E83C4294AE19100210F5C /* GoalAddViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025E83C3294AE19100210F5C /* GoalAddViewModelTests.swift */; };
+		025E83C6294AEBB600210F5C /* GoalDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025E83C5294AEBB600210F5C /* GoalDetailViewModelTests.swift */; };
 		027EA68128EC82380097E802 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EA68028EC82380097E802 /* Style.swift */; };
 		027EA68328EC8D720097E802 /* StyleSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EA68228EC8D720097E802 /* StyleSelectCell.swift */; };
 		028A409329023B8300349F48 /* Data + Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A409229023B8300349F48 /* Data + Utils.swift */; };
@@ -207,6 +208,7 @@
 		0252098E289A661E00E7E604 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
 		025CA12528A631C0007AAADE /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
 		025E83C3294AE19100210F5C /* GoalAddViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAddViewModelTests.swift; sourceTree = "<group>"; };
+		025E83C5294AEBB600210F5C /* GoalDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModelTests.swift; sourceTree = "<group>"; };
 		027EA68028EC82380097E802 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		027EA68228EC8D720097E802 /* StyleSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSelectCell.swift; sourceTree = "<group>"; };
 		028A409229023B8300349F48 /* Data + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data + Utils.swift"; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				0237B98E29463CCF00921F62 /* CalendarUsecaseTests.swift */,
 				02902B3F2946C46E009C5859 /* GoalTests.swift */,
 				025E83C3294AE19100210F5C /* GoalAddViewModelTests.swift */,
+				025E83C5294AEBB600210F5C /* GoalDetailViewModelTests.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -1053,6 +1056,7 @@
 				02D32D3C2945FD1500DBA20A /* GoalListRepositoryTests.swift in Sources */,
 				0237B9852946090500921F62 /* GoalAddRepositoryTests.swift in Sources */,
 				02D32D3E2945FEB600DBA20A /* AlbumRepositoryTests.swift in Sources */,
+				025E83C6294AEBB600210F5C /* GoalDetailViewModelTests.swift in Sources */,
 				024236DF2941BA6500AC332E /* PhotoEditViewModelTests.swift in Sources */,
 				0217FD0D2941D824005E21A2 /* StyleSelectViewModelTests.swift in Sources */,
 				024236E32941CD9600AC332E /* RepositoryTestSupport.swift in Sources */,

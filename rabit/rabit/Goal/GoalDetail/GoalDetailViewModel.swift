@@ -50,10 +50,9 @@ final class GoalDetailViewModel: GoalDetailViewModelProtocol {
 private extension GoalDetailViewModel {
     
     func bind(to navigation: GoalNavigation, with goal: Goal) {
-                
+        
         closeButtonTouched
-            .map { goal }
-            .bind(to: navigation.didTapCertPhotoCameraButton)
+            .bind(to: navigation.didTapCloseGoalDetailButton)
             .disposed(by: disposeBag)
         
         showCertPhotoCameraView
