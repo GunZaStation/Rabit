@@ -23,6 +23,7 @@ final class GoalNavigationMock: GoalNavigation {
     var didTapClosePeriodSelectButtonSetCount = BehaviorRelay<Int>(value: 0)
     var didTapCloseTimeSelectButtonSetCount = BehaviorRelay<Int>(value: 0)
     var didTakeCertPhotoSetCount = BehaviorRelay<Int>(value: 0)
+    var didTapCloseGoalAddViewButtonSetCount = BehaviorRelay<Int>(value: 0)
     
     private var disposeBag: DisposeBag
     
@@ -87,6 +88,16 @@ final class GoalNavigationMock: GoalNavigation {
                 return prevValue + 1
             }
             .bind(to: didTakeCertPhotoSetCount)
+            .disposed(by: disposeBag)
+        
+        didTapCloseGoalAddViewButton
+            .withUnretained(self)
+            .map { navigation, _ in
+                let prevValue = navigation.didTapCloseGoalAddViewButtonSetCount.value
+                
+                return prevValue + 1
+            }
+            .bind(to: didTapCloseGoalAddViewButtonSetCount)
             .disposed(by: disposeBag)
     }
 }

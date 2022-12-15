@@ -4,7 +4,6 @@ import RxRelay
 
 protocol GoalAddViewModelInput {
     
-    var saveButtonDisabled: PublishRelay<Bool> { get }
     var saveButtonTouched: PublishRelay<Void> { get }
     var closeButtonTouched: PublishRelay<Void> { get }
     var periodFieldTouched: PublishRelay<Void> { get }
@@ -15,7 +14,8 @@ protocol GoalAddViewModelInput {
 }
 
 protocol GoalAddViewModelOutput {
-    
+
+    var saveButtonDisabled: BehaviorRelay<Bool> { get }
     var selectedPeriod: BehaviorRelay<Period> { get }
     var selectedTime: BehaviorRelay<CertifiableTime> { get }
 }
@@ -24,7 +24,6 @@ protocol GoalAddViewModelProtocol: GoalAddViewModelInput, GoalAddViewModelOutput
 
 final class GoalAddViewModel: GoalAddViewModelProtocol {
     
-    let saveButtonDisabled = PublishRelay<Bool>()
     let saveButtonTouched = PublishRelay<Void>()
     let closeButtonTouched = PublishRelay<Void>()
     let periodFieldTouched = PublishRelay<Void>()
@@ -32,7 +31,8 @@ final class GoalAddViewModel: GoalAddViewModelProtocol {
     let goalTitleInput = PublishRelay<String>()
     let goalSubtitleInput = PublishRelay<String>()
     let goalAddResult = PublishRelay<Bool>()
-    
+
+    let saveButtonDisabled = BehaviorRelay<Bool>(value: true)
     let selectedPeriod = BehaviorRelay<Period>(value: Period())
     let selectedTime = BehaviorRelay<CertifiableTime>(value: CertifiableTime())
     

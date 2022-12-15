@@ -80,7 +80,6 @@ final class CategoryAddViewController: UIViewController {
         button.setTitleColor(UIColor.white, for: .normal)
         button.setBackgroundColor(UIColor(hexRGB: "#F16B22"), for: .normal)
         button.setBackgroundColor(.lightGray, for: .disabled)
-        button.isEnabled = false
         return button
     }()
     

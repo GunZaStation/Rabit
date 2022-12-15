@@ -57,7 +57,6 @@ final class GoalAddViewController: UIViewController {
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("저장", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 23, weight: .bold)
-        button.isEnabled = false
         button.setBackgroundColor(UIColor(hexRGB: "#F16B22"), for: .normal)
         button.setBackgroundColor(.lightGray, for: .disabled)
         return button
