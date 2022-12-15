@@ -62,7 +62,7 @@ final class CategoryAddViewController: UIViewController {
             weight: .regular
         )
         button.setTitleColor(UIColor(hexRGB: "#676767"), for: .normal)
-        button.backgroundColor = UIColor(hexRGB: "#F2F2F2")
+        button.setBackgroundColor(UIColor(hexRGB: "#F2F2F2"), for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(hexRGB: "#DFDFDF")?.cgColor
         return button
