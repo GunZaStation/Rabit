@@ -11,7 +11,7 @@ final class GoalFormView: UIControl {
         return stackView
     }()
     
-    let titleField: InsertField = {
+    private let titleField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "titleIcon"
@@ -20,7 +20,7 @@ final class GoalFormView: UIControl {
         return insertField
     }()
     
-    let descriptionField: InsertField = {
+    private let descriptionField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "subtitleIcon"
@@ -29,29 +29,60 @@ final class GoalFormView: UIControl {
         return insertField
     }()
     
-    let periodField: InsertField = {
+    private let periodField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "periodIcon"
         insertField.isTextFieldEnabled = false
+        insertField.isUserInteractionEnabled = false
         return insertField
     }()
     
-    let timeField: InsertField = {
+    private let timeField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "timeIcon"
         insertField.isTextFieldEnabled = false
+        insertField.isUserInteractionEnabled = false
         return insertField
     }()
     
-    convenience init(activate targets: [ActivationTarget]) {
-        self.init()
-        setupViews()
-        activateFields(targets: targets)
+    var title: String = "" {
+        didSet {
+            titleField.text = title
+            sendActions(for: .valueChanged)
+        }
     }
     
-    private func activateFields(targets: [ActivationTarget]) {
+    var goalDescription: String = "" {
+        didSet {
+            descriptionField.text = title
+            sendActions(for: .valueChanged)
+        }
+    }
+    
+    var period: String = "" {
+        didSet {
+            periodField.text = period
+            sendActions(for: .valueChanged)
+        }
+    }
+    
+    var time: String = "" {
+        didSet {
+            timeField.text = time
+            sendActions(for: .valueChanged)
+        }
+    }
+    
+    required convenience init(activate targets: Set<ActivationTarget>) {
+        self.init()
+        setupViews()
+        activateFields(for: targets)
+    }
+    
+    func activateFields(for targets:  Set<ActivationTarget>) {
+        guard !targets.contains(.nothing) else { return }
         
         for target in targets {
             switch target {
@@ -60,9 +91,10 @@ final class GoalFormView: UIControl {
             case .description:
                 descriptionField.isTextFieldEnabled = true
             case .period:
-                periodField.isTextFieldEnabled = true
+                periodField.isUserInteractionEnabled = true
             case .time:
-                timeField.isTextFieldEnabled = true
+                titleField.isUserInteractionEnabled = true            default:
+                return
             }
         }
     }
@@ -84,6 +116,7 @@ final class GoalFormView: UIControl {
 extension GoalFormView {
     
     enum ActivationTarget {
+        case nothing
         case title
         case description
         case period
