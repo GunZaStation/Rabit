@@ -54,6 +54,7 @@
 		02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */; };
 		02FCC3EF290BC242005F4D4A /* PhotoEditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCC3EE290BC242005F4D4A /* PhotoEditCoordinator.swift */; };
 		02FCC3F2290D6035005F4D4A /* UITextField + Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCC3F1290D6035005F4D4A /* UITextField + Utils.swift */; };
+		2004B89F294C2C64009AF21C /* GoalFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2004B89E294C2C64009AF21C /* GoalFormView.swift */; };
 		B52AEB1E28F59C7500923A86 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */; };
 		B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */; };
 		B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2128F5C04200923A86 /* DottedLineView.swift */; };
@@ -169,6 +170,7 @@
 		02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		02FCC3EE290BC242005F4D4A /* PhotoEditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditCoordinator.swift; sourceTree = "<group>"; };
 		02FCC3F1290D6035005F4D4A /* UITextField + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Utils.swift"; sourceTree = "<group>"; };
+		2004B89E294C2C64009AF21C /* GoalFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalFormView.swift; sourceTree = "<group>"; };
 		B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
 		B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		B52AEB2128F5C04200923A86 /* DottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 			children = (
 				B58EF87628B8BABC0075B295 /* BottomSheet.swift */,
 				B56AF74F28C59E18001C82C0 /* RangeSlider.swift */,
+				2004B89E294C2C64009AF21C /* GoalFormView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */,
 				02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */,
 				027EA68328EC8D720097E802 /* StyleSelectCell.swift in Sources */,
+				2004B89F294C2C64009AF21C /* GoalFormView.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
 				B582574628BF3323001AE268 /* CertifiableTime.swift in Sources */,
 				B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */,
