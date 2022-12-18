@@ -12,6 +12,8 @@ final class GoalDetailViewController: UIViewController {
         return view
     }()
     
+    private lazy var editingBarItem = UIBarButtonItem(title: "수정하기", style: .plain, target: self, action: nil)
+    
     private let disposeBag = DisposeBag()
     private var viewModel: GoalDetailViewModel?
     
@@ -55,7 +57,7 @@ final class GoalDetailViewController: UIViewController {
         viewModel.goalSubtitleOutput
             .bind(to: formView.rx.subtitle)
             .disposed(by: disposeBag)
-    
+        
         viewModel.selectedPeriod
             .map(\.description)
             .bind(to: formView.rx.period)
@@ -70,7 +72,23 @@ final class GoalDetailViewController: UIViewController {
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
-
+        
+        editingBarItem.rx.tap
+            .scan(false) { lastState, newState in !lastState }
+            .map { $0 }
+            .withUnretained(self)
+            .bind(onNext: { (viewController, enableEditing) in
+                if enableEditing {
+                    viewController.editingBarItem.title = "저장하기"
+                    viewController.formView.activateFields(for: [.title, .subtitle])
+                } else {
+                    viewController.editingBarItem.title = "수정하기"
+                    viewController.formView.activateFields(for: [.nothing])
+                    viewModel.saveButtonTouched.accept(())
+                }
+            })
+            .disposed(by: disposeBag)
+                
         certView.rx.tapGesture()
             .when(.ended)
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
@@ -83,7 +101,7 @@ final class GoalDetailViewController: UIViewController {
     private func setAttributes() {
         
         view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "수정하기", style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = editingBarItem
     }
     
     private func setupViews() {
