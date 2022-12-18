@@ -81,6 +81,7 @@ final class GoalDetailViewController: UIViewController {
                 if enableEditing {
                     viewController.editingBarItem.title = "저장하기"
                     viewController.formView.activateFields(for: [.title, .subtitle])
+                    viewController.formView.becomeFirstResponder()
                 } else {
                     viewController.editingBarItem.title = "수정하기"
                     viewController.formView.activateFields(for: [.nothing])

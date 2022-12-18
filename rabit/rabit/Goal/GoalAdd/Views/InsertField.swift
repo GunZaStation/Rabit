@@ -101,6 +101,11 @@ final class InsertField: UIControl {
         text = textField.text
         sendActions(for: .editingChanged)
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        super.becomeFirstResponder()
+        return textField.becomeFirstResponder()
+    }
 }
 
 extension InsertField: UITextFieldDelegate {

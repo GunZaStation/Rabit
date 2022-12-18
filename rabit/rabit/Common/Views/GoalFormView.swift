@@ -166,6 +166,11 @@ extension GoalFormView {
         case time
     }
     
+    @discardableResult
+    override func becomeFirstResponder() -> Bool {
+        super.becomeFirstResponder()
+        return titleField.becomeFirstResponder()
+    }
 }
 
 @objc protocol GoalFormViewDelegate: AnyObject {
