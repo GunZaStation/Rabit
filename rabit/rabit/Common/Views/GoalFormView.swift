@@ -3,6 +3,8 @@ import SnapKit
 
 final class GoalFormView: UIControl {
     
+    weak var delegate: GoalFormViewDelegate?
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -81,6 +83,27 @@ final class GoalFormView: UIControl {
         self.init()
         setupViews()
         activateFields(for: targets)
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(formTapped(_:))))
+    }
+    
+    @objc private func formTapped(_ gesture: UITapGestureRecognizer) {
+        //탭된 부분의 좌표별로 다른 메소드 호출
+        let tappedLocation = gesture.location(in: self)
+        let tappedX = tappedLocation.x
+        let tappedY = tappedLocation.y
+        
+        if (periodField.frame.minX...periodField.frame.maxX) ~= tappedX &&
+            (periodField.frame.minY...periodField.frame.maxY) ~= tappedY {
+            (delegate?.periodFiledTouched ?? {})()
+            return
+        }
+        
+        if (timeField.frame.minX...timeField.frame.maxX) ~= tappedX &&
+            (timeField.frame.minY...timeField.frame.maxY) ~= tappedY {
+            (delegate?.timeFieldTouched ?? {})()
+            return
+        }
     }
     
     func activateFields(for targets:  Set<ActivationTarget>) {
@@ -125,4 +148,10 @@ extension GoalFormView {
         case period
         case time
     }
+}
+
+@objc protocol GoalFormViewDelegate: AnyObject {
+    
+    @objc optional func periodFiledTouched()
+    @objc optional func timeFieldTouched()
 }
