@@ -75,6 +75,7 @@ final class InsertField: UIControl {
     }
     
     private func setupViews() {
+        
         addSubview(iconImageView)
         iconImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
@@ -98,10 +99,12 @@ final class InsertField: UIControl {
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
         text = textField.text
+        sendActions(for: .editingChanged)
     }
 }
 
 extension InsertField: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

@@ -13,21 +13,23 @@ final class GoalFormView: UIControl {
         return stackView
     }()
     
-    private let titleField: InsertField = {
+    private lazy var titleField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "titleIcon"
         insertField.placeholder = "제목을 입력하세요."
         insertField.isTextFieldEnabled = false
+        insertField.addTarget(self, action: #selector(titleFieldDidChange(_:)), for: .editingChanged)
         return insertField
     }()
     
-    private let subtitleField: InsertField = {
+    private lazy var subtitleField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "subtitleIcon"
         insertField.placeholder = "설명을 입력하세요."
         insertField.isTextFieldEnabled = false
+        insertField.addTarget(self, action: #selector(subtitleFieldDidChange(_:)), for: .editingChanged)
         return insertField
     }()
     
@@ -144,6 +146,14 @@ final class GoalFormView: UIControl {
         stackView.addArrangedSubview(periodField)
         stackView.addArrangedSubview(timeField)
     }
+    
+    @objc private func titleFieldDidChange(_ insertField: InsertField) {
+        title = insertField.text
+    }
+    
+    @objc private func subtitleFieldDidChange(_ insertField: InsertField) {
+        subtitle = insertField.text
+    }
 }
 
 extension GoalFormView {
@@ -155,6 +165,7 @@ extension GoalFormView {
         case period
         case time
     }
+    
 }
 
 @objc protocol GoalFormViewDelegate: AnyObject {
