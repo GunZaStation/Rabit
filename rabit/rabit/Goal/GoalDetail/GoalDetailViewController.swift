@@ -27,28 +27,13 @@ final class GoalDetailViewController: UIViewController {
         
         setupViews()
         setAttributes()
-        bind()
+        
+        guard let viewModel = viewModel else { return }
+        bind(from: viewModel)
+        bind(to: viewModel)
     }
     
-    private func bind() {
-        guard let viewModel = viewModel else { return }
-        
-        navigationItem.leftBarButtonItem?.rx.tap
-            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind(to: viewModel.closeButtonTouched)
-            .disposed(by: disposeBag)
-        
-        formView.rx.title
-            .distinctUntilChanged()
-            .compactMap { $0 }
-            .bind(to: viewModel.goalTitleInput)
-            .disposed(by: disposeBag)
-
-        formView.rx.subtitle
-            .distinctUntilChanged()
-            .compactMap { $0 }
-            .bind(to: viewModel.goalSubtitleInput)
-            .disposed(by: disposeBag)
+    private func bind(from viewModel: GoalDetailViewModelOutput) {
         
         viewModel.goalTitleOutput
             .bind(to: formView.rx.title)
@@ -67,10 +52,25 @@ final class GoalDetailViewController: UIViewController {
             .map(\.description)
             .bind(to: formView.rx.time)
             .disposed(by: disposeBag)
+    }
+    
+    private func bind(to viewModel: GoalDetailViewModelInput) {
         
         navigationItem.leftBarButtonItem?.rx.tap
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.closeButtonTouched)
+            .disposed(by: disposeBag)
+        
+        formView.rx.title
+            .distinctUntilChanged()
+            .compactMap { $0 }
+            .bind(to: viewModel.goalTitleInput)
+            .disposed(by: disposeBag)
+
+        formView.rx.subtitle
+            .distinctUntilChanged()
+            .compactMap { $0 }
+            .bind(to: viewModel.goalSubtitleInput)
             .disposed(by: disposeBag)
         
         editingBarItem.rx.tap
@@ -97,7 +97,7 @@ final class GoalDetailViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-    
+        
     private func setAttributes() {
         
         view.backgroundColor = .systemBackground
