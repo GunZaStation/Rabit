@@ -40,7 +40,7 @@ final class GoalDetailViewController: UIViewController {
             .bind(to: viewModel.goalTitleInput)
             .disposed(by: disposeBag)
         
-        formView.rx.goalDescription
+        formView.rx.subtitle
             .bind(to: viewModel.goalSubtitleInput)
             .disposed(by: disposeBag)
         
@@ -49,7 +49,7 @@ final class GoalDetailViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.goalSubtitleOutput
-            .bind(to: formView.rx.goalDescription)
+            .bind(to: formView.rx.subtitle)
             .disposed(by: disposeBag)
     
         viewModel.selectedPeriod

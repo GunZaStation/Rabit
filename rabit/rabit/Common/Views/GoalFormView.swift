@@ -20,7 +20,7 @@ final class GoalFormView: UIControl {
         return insertField
     }()
     
-    private let descriptionField: InsertField = {
+    private let subtitleField: InsertField = {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "subtitleIcon"
@@ -54,9 +54,8 @@ final class GoalFormView: UIControl {
         }
     }
     
-    var goalDescription: String = "" {
         didSet {
-            descriptionField.text = title
+            subtitleField.text = title
             sendActions(for: .valueChanged)
         }
     }
@@ -89,11 +88,12 @@ final class GoalFormView: UIControl {
             case .title:
                 titleField.isTextFieldEnabled = true
             case .description:
-                descriptionField.isTextFieldEnabled = true
+                subtitleField.isTextFieldEnabled = true
             case .period:
                 periodField.isUserInteractionEnabled = true
             case .time:
-                titleField.isUserInteractionEnabled = true            default:
+                titleField.isUserInteractionEnabled = true
+            default:
                 return
             }
         }
@@ -107,7 +107,7 @@ final class GoalFormView: UIControl {
         }
         
         stackView.addArrangedSubview(titleField)
-        stackView.addArrangedSubview(descriptionField)
+        stackView.addArrangedSubview(subtitleField)
         stackView.addArrangedSubview(periodField)
         stackView.addArrangedSubview(timeField)
     }
