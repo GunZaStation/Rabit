@@ -53,19 +53,19 @@ private extension GoalAddViewModel {
     func bind(to navigation: GoalNavigation, with category: Category) {
         
         let goalTitleVertification = goalTitleInput
-                                        .withUnretained(self)
-                                        .map { viewModel, titleInput -> (Bool, Bool) in
-                                            let isEmpty = titleInput.isEmpty || titleInput.count <= 0
-                                            let isDuplicated = viewModel.repository.checkTitleDuplicated(title: titleInput)
-                                            return (isEmpty, isDuplicated)
-                                        }
-                                        .share()
+            .withUnretained(self)
+            .map { viewModel, titleInput -> (Bool, Bool) in
+                let isEmpty = titleInput.isEmpty || titleInput.count <= 0
+                let isDuplicated = viewModel.repository.checkTitleDuplicated(title: titleInput)
+                return (isEmpty, isDuplicated)
+            }
+            .share()
         
         goalTitleVertification
             .map { $0 || $1 }
             .bind(to: saveButtonDisabled)
             .disposed(by: disposeBag)
-                        
+        
         closeButtonTouched
             .bind(to: navigation.didTapCloseGoalAddViewButton)
             .disposed(by: disposeBag)
@@ -83,23 +83,23 @@ private extension GoalAddViewModel {
             .disposed(by: disposeBag)
         
         let goal = Observable
-                    .combineLatest(
-                        goalTitleInput,
-                        goalSubtitleInput,
-                        selectedPeriod,
-                        selectedTime
-                    )
-                    .withUnretained(self)
-                    .map {
-                        Goal(
-                            title: $1.0,
-                            subtitle: $1.1,
-                            period: $1.2,
-                            certTime: $1.3,
-                            category: category.title
-                        )
-                    }
-                    .share()
+            .combineLatest(
+                goalTitleInput,
+                goalSubtitleInput,
+                selectedPeriod,
+                selectedTime
+            )
+            .withUnretained(self)
+            .map {
+                Goal(
+                    title: $1.0,
+                    subtitle: $1.1,
+                    period: $1.2,
+                    certTime: $1.3,
+                    category: category.title
+                )
+            }
+            .share()
         
         saveButtonTouched
             .withLatestFrom(goal)
@@ -109,7 +109,7 @@ private extension GoalAddViewModel {
             }
             .bind(to: goalAddResult)
             .disposed(by: disposeBag)
-                
+        
         goalAddResult
             .bind(onNext: { isSuccess in
                 if isSuccess {
