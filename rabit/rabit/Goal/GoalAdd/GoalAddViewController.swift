@@ -92,16 +92,8 @@ final class GoalAddViewController: UIViewController {
             .bind(to: formView.rx.period)
             .disposed(by: disposeBag)
 
-        Observable.just("목표 기간을 설정하세요.")
-            .bind(to: formView.rx.period)
-            .disposed(by: disposeBag)
-        
         viewModel.selectedTime
             .map(\.description)
-            .bind(to: formView.rx.time)
-            .disposed(by: disposeBag)
-        
-        Observable.just("인증 시간을 입력하세요.")
             .bind(to: formView.rx.time)
             .disposed(by: disposeBag)
     }

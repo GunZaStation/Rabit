@@ -37,6 +37,7 @@ final class GoalFormView: UIControl {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "periodIcon"
+        insertField.placeholder = "목표 기간을 설정하세요"
         insertField.isTextFieldEnabled = false
         insertField.isUserInteractionEnabled = false
         return insertField
@@ -46,6 +47,7 @@ final class GoalFormView: UIControl {
         let insertField = InsertField()
         insertField.textSize = 15
         insertField.icon = "timeIcon"
+        insertField.placeholder = "인증 시간을 입력하세요."
         insertField.isTextFieldEnabled = false
         insertField.isUserInteractionEnabled = false
         return insertField
@@ -68,7 +70,6 @@ final class GoalFormView: UIControl {
     var period: String = "" {
         didSet {
             periodField.text = period
-            periodField.textColor = UIColor(hexRGB: "#A7A7A7")
             sendActions(for: .valueChanged)
         }
     }
@@ -76,7 +77,6 @@ final class GoalFormView: UIControl {
     var time: String = "" {
         didSet {
             timeField.text = time
-            timeField.textColor = UIColor(hexRGB: "#A7A7A7")
             sendActions(for: .valueChanged)
         }
     }
