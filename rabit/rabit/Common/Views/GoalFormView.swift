@@ -51,16 +51,16 @@ final class GoalFormView: UIControl {
         return insertField
     }()
     
-    var title: String = "" {
+    var title: String? {
         didSet {
-            titleField.text = title
+            titleField.text = title ?? ""
             sendActions(for: .valueChanged)
         }
     }
     
-    var subtitle: String = "" {
+    var subtitle: String? {
         didSet {
-            subtitleField.text = title
+            subtitleField.text = subtitle ?? ""
             sendActions(for: .valueChanged)
         }
     }

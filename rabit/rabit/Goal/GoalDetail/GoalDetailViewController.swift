@@ -37,10 +37,14 @@ final class GoalDetailViewController: UIViewController {
             .disposed(by: disposeBag)
         
         formView.rx.title
+            .distinctUntilChanged()
+            .compactMap { $0 }
             .bind(to: viewModel.goalTitleInput)
             .disposed(by: disposeBag)
-        
+
         formView.rx.subtitle
+            .distinctUntilChanged()
+            .compactMap { $0 }
             .bind(to: viewModel.goalSubtitleInput)
             .disposed(by: disposeBag)
         

@@ -65,6 +65,7 @@ final class GoalAddViewController: UIViewController {
             .disposed(by: disposeBag)
                 
         formView.rx.title
+            .compactMap { $0 }
             .bind(to: viewModel.goalTitleInput)
             .disposed(by: disposeBag)
         
@@ -74,6 +75,7 @@ final class GoalAddViewController: UIViewController {
             .disposed(by: disposeBag)
         
         formView.rx.subtitle
+            .compactMap { $0 } 
             .bind(to: viewModel.goalSubtitleInput)
             .disposed(by: disposeBag)
         
