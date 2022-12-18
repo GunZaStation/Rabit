@@ -4,7 +4,7 @@ import RxCocoa
 
 extension Reactive where Base == GoalFormView {
     
-    var title: ControlProperty<String> {
+    var title: ControlProperty<String?> {
         base.rx.controlProperty(
             editingEvents: .valueChanged,
             getter: { $0.title },
@@ -14,7 +14,7 @@ extension Reactive where Base == GoalFormView {
         )
     }
     
-    var subtitle: ControlProperty<String> {
+    var subtitle: ControlProperty<String?> {
         base.rx.controlProperty(
             editingEvents: .valueChanged,
             getter: { $0.subtitle },
