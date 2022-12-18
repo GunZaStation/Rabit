@@ -533,6 +533,7 @@
 				B58EF87628B8BABC0075B295 /* BottomSheet.swift */,
 				B56AF74F28C59E18001C82C0 /* RangeSlider.swift */,
 				2004B89E294C2C64009AF21C /* GoalFormView.swift */,
+				B5B9413E28AF6F280098022F /* InsertField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -550,20 +551,11 @@
 		B5B9413A28AF6D3F0098022F /* GoalAdd */ = {
 			isa = PBXGroup;
 			children = (
-				B5B9413D28AF6F1D0098022F /* Views */,
 				B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */,
 				B5B9414028AF7D5C0098022F /* GoalAddViewModel.swift */,
 				B5E3052228E73E450044B592 /* GoalAddRepository.swift */,
 			);
 			path = GoalAdd;
-			sourceTree = "<group>";
-		};
-		B5B9413D28AF6F1D0098022F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B5B9413E28AF6F280098022F /* InsertField.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		B5D131CC289A04E600EE1833 /* Coordinator */ = {
