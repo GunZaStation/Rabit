@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import RxSwift
 import RxCocoa
 
@@ -14,12 +14,12 @@ extension Reactive where Base == GoalFormView {
         )
     }
     
-    var goalDescription: ControlProperty<String> {
+    var subtitle: ControlProperty<String> {
         base.rx.controlProperty(
             editingEvents: .valueChanged,
-            getter: { $0.goalDescription },
+            getter: { $0.subtitle },
             setter: { formView, description in
-                formView.goalDescription = description
+                formView.subtitle = description
             }
         )
     }
@@ -42,5 +42,34 @@ extension Reactive where Base == GoalFormView {
                 formView.time = time
             }
         )
+    }
+    
+    var delegate: DelegateProxy<GoalFormView, GoalFormViewDelegate> {
+        return RxGoalFormViewDelegateProxy.proxy(for: base)
+    }
+    
+    var periodFieldTouched: Observable<Void> {
+        delegate.methodInvoked(#selector(GoalFormViewDelegate.periodFiledTouched))
+            .map { _ in Void() }
+    }
+    
+    var timeFieldTouched: Observable<Void> {
+        delegate.methodInvoked(#selector(GoalFormViewDelegate.timeFieldTouched))
+            .map { _ in Void() }
+    }
+}
+
+class RxGoalFormViewDelegateProxy: DelegateProxy<GoalFormView, GoalFormViewDelegate>, DelegateProxyType, GoalFormViewDelegate {
+    
+    static func registerKnownImplementations() {
+        self.register { RxGoalFormViewDelegateProxy(parentObject: $0, delegateProxy: self) }
+    }
+   
+    static func currentDelegate(for object: ParentObject) -> Delegate? {
+        object.delegate
+    }
+    
+    static func setCurrentDelegate(_ delegate: Delegate?, to object: ParentObject) {
+        object.delegate = delegate
     }
 }
