@@ -12,45 +12,7 @@ final class GoalAddViewController: UIViewController {
         return label
     }()
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 14/750 * UIScreen.main.bounds.height
-        return stackView
-    }()
-    
-    private let titleField: InsertField = {
-        let insertField = InsertField()
-        insertField.textSize = 15
-        insertField.icon = "titleIcon"
-        insertField.placeholder = "제목을 입력하세요."
-        return insertField
-    }()
-    
-    private let descriptionField: InsertField = {
-        let insertField = InsertField()
-        insertField.textSize = 15
-        insertField.icon = "subtitleIcon"
-        insertField.placeholder = "설명을 입력하세요."
-        return insertField
-    }()
-    
-    private let periodField: InsertField = {
-        let insertField = InsertField()
-        insertField.textSize = 15
-        insertField.icon = "periodIcon"
-        insertField.isTextFieldEnabled = false
-        return insertField
-    }()
-    
-    private let timeField: InsertField = {
-        let insertField = InsertField()
-        insertField.textSize = 15
-        insertField.icon = "timeIcon"
-        insertField.isTextFieldEnabled = false
-        return insertField
-    }()
+    private let formView = GoalFormView(activate: [.title, .description, .period, .time])
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
@@ -102,7 +64,7 @@ final class GoalAddViewController: UIViewController {
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
                 
-        titleField.rx.text
+        formView.rx.title
             .bind(to: viewModel.goalTitleInput)
             .disposed(by: disposeBag)
         
@@ -111,46 +73,34 @@ final class GoalAddViewController: UIViewController {
             .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        descriptionField.rx.text
+        formView.rx.subtitle
             .bind(to: viewModel.goalSubtitleInput)
             .disposed(by: disposeBag)
-                
-        periodField.rx.tapGesture()
-            .when(.ended)
-            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind { _ in viewModel.periodFieldTouched.accept(()) }
+        
+        formView.rx.periodFieldTouched
+            .bind(to: viewModel.periodFieldTouched)
             .disposed(by: disposeBag)
         
+        formView.rx.timeFieldTouched
+            .bind(to: viewModel.timeFieldTouched)
+            .disposed(by: disposeBag)
+                    
         viewModel.selectedPeriod
             .map(\.description)
-            .bind(to: periodField.rx.text)
+            .bind(to: formView.rx.period)
             .disposed(by: disposeBag)
 
         Observable.just("목표 기간을 설정하세요.")
-            .withUnretained(self)
-            .bind { viewController, text in
-                viewController.periodField.text = text
-                viewController.periodField.textColor = UIColor(hexRGB: "#A7A7A7")
-            }
-            .disposed(by: disposeBag)
-        
-        timeField.rx.tapGesture()
-            .when(.ended)
-            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind { _ in viewModel.timeFieldTouched.accept(()) }
+            .bind(to: formView.rx.period)
             .disposed(by: disposeBag)
         
         viewModel.selectedTime
             .map(\.description)
-            .bind(to: timeField.rx.text)
+            .bind(to: formView.rx.time)
             .disposed(by: disposeBag)
         
         Observable.just("인증 시간을 입력하세요.")
-            .withUnretained(self)
-            .bind { viewController, text in
-                viewController.timeField.text = text
-                viewController.timeField.textColor = UIColor(hexRGB: "#A7A7A7")
-            }
+            .bind(to: formView.rx.time)
             .disposed(by: disposeBag)
     }
     
@@ -168,19 +118,14 @@ final class GoalAddViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        view.addSubview(stackView)
-        stackView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(40/750 * UIScreen.main.bounds.height)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.85)
-            $0.height.equalToSuperview().multipliedBy(0.5)
+        view.addSubview(formView)
+        formView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(40/750 * UIScreen.main.bounds.height)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.85)
+            make.height.equalToSuperview().multipliedBy(0.5)
         }
-        
-        stackView.addArrangedSubview(titleField)
-        stackView.addArrangedSubview(descriptionField)
-        stackView.addArrangedSubview(periodField)
-        stackView.addArrangedSubview(timeField)
-        
+
         view.addSubview(saveButton)
         saveButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(30/376 * UIScreen.main.bounds.width)
