@@ -56,6 +56,7 @@
 		02FCC3F2290D6035005F4D4A /* UITextField + Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCC3F1290D6035005F4D4A /* UITextField + Utils.swift */; };
 		2004B89F294C2C64009AF21C /* GoalFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2004B89E294C2C64009AF21C /* GoalFormView.swift */; };
 		2004B8A1294C4623009AF21C /* GoalFormView + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2004B8A0294C4623009AF21C /* GoalFormView + Reactive.swift */; };
+		204A4CBE294F4F2400BBBB63 /* GoalDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204A4CBD294F4F2400BBBB63 /* GoalDetailRepository.swift */; };
 		B52AEB1E28F59C7500923A86 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */; };
 		B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */; };
 		B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2128F5C04200923A86 /* DottedLineView.swift */; };
@@ -173,6 +174,7 @@
 		02FCC3F1290D6035005F4D4A /* UITextField + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Utils.swift"; sourceTree = "<group>"; };
 		2004B89E294C2C64009AF21C /* GoalFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalFormView.swift; sourceTree = "<group>"; };
 		2004B8A0294C4623009AF21C /* GoalFormView + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalFormView + Reactive.swift"; sourceTree = "<group>"; };
+		204A4CBD294F4F2400BBBB63 /* GoalDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailRepository.swift; sourceTree = "<group>"; };
 		B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
 		B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		B52AEB2128F5C04200923A86 /* DottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 			children = (
 				B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */,
 				B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */,
+				204A4CBD294F4F2400BBBB63 /* GoalDetailRepository.swift */,
 			);
 			path = GoalDetail;
 			sourceTree = "<group>";
@@ -868,6 +871,7 @@
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
 				B5E64D6128FD0B33009B2191 /* CertPhotoCameraViewModel.swift in Sources */,
+				204A4CBE294F4F2400BBBB63 /* GoalDetailRepository.swift in Sources */,
 				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */,
