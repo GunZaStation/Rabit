@@ -54,6 +54,7 @@ final class GoalFormView: UIControl {
         }
     }
     
+    var subtitle: String = "" {
         didSet {
             subtitleField.text = title
             sendActions(for: .valueChanged)
@@ -63,6 +64,7 @@ final class GoalFormView: UIControl {
     var period: String = "" {
         didSet {
             periodField.text = period
+            periodField.textColor = UIColor(hexRGB: "#A7A7A7")
             sendActions(for: .valueChanged)
         }
     }
@@ -70,6 +72,7 @@ final class GoalFormView: UIControl {
     var time: String = "" {
         didSet {
             timeField.text = time
+            timeField.textColor = UIColor(hexRGB: "#A7A7A7")
             sendActions(for: .valueChanged)
         }
     }
