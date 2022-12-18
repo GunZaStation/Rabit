@@ -113,12 +113,12 @@ final class GoalFormView: UIControl {
             switch target {
             case .title:
                 titleField.isTextFieldEnabled = true
-            case .description:
+            case .subtitle:
                 subtitleField.isTextFieldEnabled = true
             case .period:
                 periodField.isUserInteractionEnabled = true
             case .time:
-                titleField.isUserInteractionEnabled = true
+                timeField.isUserInteractionEnabled = true
             default:
                 return
             }
@@ -144,7 +144,7 @@ extension GoalFormView {
     enum ActivationTarget {
         case nothing
         case title
-        case description
+        case subtitle
         case period
         case time
     }

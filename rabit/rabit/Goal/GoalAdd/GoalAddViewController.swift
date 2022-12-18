@@ -12,7 +12,7 @@ final class GoalAddViewController: UIViewController {
         return label
     }()
     
-    private let formView = GoalFormView(activate: [.title, .description, .period, .time])
+    private let formView = GoalFormView(activate: [.title, .subtitle, .period, .time])
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
