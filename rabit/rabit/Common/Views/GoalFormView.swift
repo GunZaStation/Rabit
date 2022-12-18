@@ -107,7 +107,14 @@ final class GoalFormView: UIControl {
     }
     
     func activateFields(for targets:  Set<ActivationTarget>) {
-        guard !targets.contains(.nothing) else { return }
+        guard !targets.contains(.nothing) else {
+            
+            titleField.isTextFieldEnabled = false
+            subtitleField.isTextFieldEnabled = false
+            periodField.isUserInteractionEnabled = false
+            timeField.isUserInteractionEnabled = false
+            return
+        }
         
         for target in targets {
             switch target {
