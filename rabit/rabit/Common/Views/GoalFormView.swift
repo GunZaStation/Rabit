@@ -108,32 +108,23 @@ final class GoalFormView: UIControl {
         }
     }
     
-    func activateFields(for targets:  Set<ActivationTarget>) {
+    func activateFields(for targets: Set<ActivationTarget>) {
+        
+        var insertFieldMap: [ActivationTarget: InsertField] = [
+            ActivationTarget.title: titleField,
+            ActivationTarget.subtitle: subtitleField,
+            ActivationTarget.period: periodField,
+            ActivationTarget.time: timeField
+        ]
+        
         guard !targets.contains(.nothing) else {
-            
-            titleField.isTextFieldEnabled = false
-            subtitleField.isTextFieldEnabled = false
-            periodField.isUserInteractionEnabled = false
-            timeField.isUserInteractionEnabled = false
+            insertFieldMap.values.forEach { ActivationTarget.nothing.activate($0) }
             return
         }
         
-        for target in targets {
-            switch target {
-            case .title:
-                titleField.isTextFieldEnabled = true
-            case .subtitle:
-                subtitleField.isTextFieldEnabled = true
-            case .period:
-                periodField.isUserInteractionEnabled = true
-            case .time:
-                timeField.isUserInteractionEnabled = true
-            default:
-                return
-            }
-        }
+        targets.forEach { $0.activate(insertFieldMap[$0]) }
     }
-        
+    
     private func setupViews() {
         
         addSubview(stackView)
@@ -164,6 +155,20 @@ extension GoalFormView {
         case subtitle
         case period
         case time
+        
+        func activate(_ insertField: InsertField?) {
+            guard let insertField = insertField else { return }
+            
+            switch self {
+            case .title, .subtitle:
+                insertField.isTextFieldEnabled = true
+            case .period, .time:
+                insertField.isUserInteractionEnabled = true
+            case .nothing:
+                insertField.isTextFieldEnabled = false
+                insertField.isUserInteractionEnabled = false
+            }
+        }
     }
     
     @discardableResult
