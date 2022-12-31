@@ -1,5 +1,6 @@
 import Foundation
 import RealmSwift
+import RxSwift
 
 final class RealmManager {
     
@@ -24,9 +25,22 @@ final class RealmManager {
         }
     }
 
-    func update<T: Object>(entity: T) throws {
-        try? realm.write {
-            realm.add(entity, update: .modified)
+    func update<T: Persistable>(object: T) -> Single<T>  {
+        let realm = realm
+        let entity = object.toEntity()
+        
+        return Single.create { observer -> Disposable in
+            
+            do {
+                try realm.write {
+                    realm.add(entity, update: .modified)
+                    observer(.success(object))
+                }
+            } catch {
+                observer(.failure(error))
+            }
+            
+            return Disposables.create { }
         }
     }
 }
