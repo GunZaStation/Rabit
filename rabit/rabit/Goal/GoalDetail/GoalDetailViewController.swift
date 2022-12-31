@@ -5,50 +5,14 @@ import RxGesture
 
 final class GoalDetailViewController: UIViewController {
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 14 / 750 * UIScreen.main.bounds.height
-        return stackView
-    }()
-    
-    private let titleField: InsertField = {
-        let insertField = InsertField()
-        insertField.textSize = 15
-        insertField.icon = "titleIcon"
-        insertField.placeholder = "문자열 입력"
-        return insertField
-    }()
-    
-    private let descriptionField:InsertField = {
-        let insertField = InsertField()
-        insertField.textSize = 15
-        insertField.icon = "subtitleIcon"
-        insertField.placeholder = "문자열 입력"
-        return insertField
-    }()
-    
-    private let periodField:InsertField = {
-        let insertField = InsertField()
-        insertField.textSize = 15
-        insertField.icon = "periodIcon"
-        insertField.isUserInteractionEnabled = false
-        return insertField
-    }()
-    
-    private let timeField:InsertField = {
-        let insertField = InsertField()
-        insertField.textSize = 15
-        insertField.icon = "timeIcon"
-        insertField.isUserInteractionEnabled = false
-        return insertField
-    }()
+    private let formView = GoalFormView(activate: [.nothing])
     
     private lazy var certView: DottedLineView = {
         let view = DottedLineView()
         return view
     }()
+    
+    private lazy var editingBarItem = UIBarButtonItem(title: "수정하기", style: .plain, target: self, action: nil)
     
     private let disposeBag = DisposeBag()
     private var viewModel: GoalDetailViewModel?
@@ -63,48 +27,69 @@ final class GoalDetailViewController: UIViewController {
         
         setupViews()
         setAttributes()
-        bind()
+        
+        guard let viewModel = viewModel else { return }
+        bind(from: viewModel)
+        bind(to: viewModel)
     }
     
-    private func bind() {
-        guard let viewModel = viewModel else { return }
-        
-        navigationItem.leftBarButtonItem?.rx.tap
-            .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
-            .bind(to: viewModel.closeButtonTouched)
-            .disposed(by: disposeBag)
-                
-        titleField.rx.text
-            .bind(to: viewModel.goalTitleInput)
-            .disposed(by: disposeBag)
-        
-        descriptionField.rx.text
-            .bind(to: viewModel.goalSubtitleInput)
-            .disposed(by: disposeBag)
+    private func bind(from viewModel: GoalDetailViewModelOutput) {
         
         viewModel.goalTitleOutput
-            .bind(to: titleField.rx.text)
+            .bind(to: formView.rx.title)
             .disposed(by: disposeBag)
         
         viewModel.goalSubtitleOutput
-            .bind(to: descriptionField.rx.text)
+            .bind(to: formView.rx.subtitle)
             .disposed(by: disposeBag)
-    
+        
         viewModel.selectedPeriod
             .map(\.description)
-            .bind(to: periodField.rx.text)
+            .bind(to: formView.rx.period)
             .disposed(by: disposeBag)
         
         viewModel.selectedTime
             .map(\.description)
-            .bind(to: timeField.rx.text)
+            .bind(to: formView.rx.time)
             .disposed(by: disposeBag)
+    }
+    
+    private func bind(to viewModel: GoalDetailViewModelInput) {
         
         navigationItem.leftBarButtonItem?.rx.tap
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
             .bind(to: viewModel.closeButtonTouched)
             .disposed(by: disposeBag)
         
+        formView.rx.title
+            .distinctUntilChanged()
+            .compactMap { $0 }
+            .bind(to: viewModel.goalTitleInput)
+            .disposed(by: disposeBag)
+
+        formView.rx.subtitle
+            .distinctUntilChanged()
+            .compactMap { $0 }
+            .bind(to: viewModel.goalSubtitleInput)
+            .disposed(by: disposeBag)
+        
+        editingBarItem.rx.tap
+            .scan(false) { lastState, newState in !lastState }
+            .map { $0 }
+            .withUnretained(self)
+            .bind(onNext: { (viewController, enableEditing) in
+                if enableEditing {
+                    viewController.editingBarItem.title = "저장하기"
+                    viewController.formView.activateFields(for: [.title, .subtitle])
+                    viewController.formView.becomeFirstResponder()
+                } else {
+                    viewController.editingBarItem.title = "수정하기"
+                    viewController.formView.activateFields(for: [.nothing])
+                    viewModel.saveButtonTouched.accept(())
+                }
+            })
+            .disposed(by: disposeBag)
+                
         certView.rx.tapGesture()
             .when(.ended)
             .throttle(.milliseconds(400), scheduler: MainScheduler.instance)
@@ -113,33 +98,29 @@ final class GoalDetailViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-    
+        
     private func setAttributes() {
         
         view.backgroundColor = .systemBackground
+        navigationItem.rightBarButtonItem = editingBarItem
     }
     
     private func setupViews() {
         
-        view.addSubview(stackView)
-        stackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10/750 * UIScreen.main.bounds.height)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.85)
-            $0.height.equalToSuperview().multipliedBy(0.5)
+        view.addSubview(formView)
+        formView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10/750 * UIScreen.main.bounds.height)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.85)
+            make.height.equalToSuperview().multipliedBy(0.5)
         }
         
-        stackView.addArrangedSubview(titleField)
-        stackView.addArrangedSubview(descriptionField)
-        stackView.addArrangedSubview(periodField)
-        stackView.addArrangedSubview(timeField)
-        
         view.addSubview(certView)
-        certView.snp.makeConstraints {
-            $0.top.equalTo(stackView.snp.bottom).offset(10/750 * UIScreen.main.bounds.height)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.85)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10/750 * UIScreen.main.bounds.height)
+        certView.snp.makeConstraints { make in
+            make.top.equalTo(formView.snp.bottom).offset(10/750 * UIScreen.main.bounds.height)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.85)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10/750 * UIScreen.main.bounds.height)
         }
     }
 }

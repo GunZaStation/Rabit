@@ -54,6 +54,9 @@
 		02F37257289E9C7E00F361C7 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */; };
 		02FCC3EF290BC242005F4D4A /* PhotoEditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCC3EE290BC242005F4D4A /* PhotoEditCoordinator.swift */; };
 		02FCC3F2290D6035005F4D4A /* UITextField + Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCC3F1290D6035005F4D4A /* UITextField + Utils.swift */; };
+		2004B89F294C2C64009AF21C /* GoalFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2004B89E294C2C64009AF21C /* GoalFormView.swift */; };
+		2004B8A1294C4623009AF21C /* GoalFormView + Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2004B8A0294C4623009AF21C /* GoalFormView + Reactive.swift */; };
+		204A4CBE294F4F2400BBBB63 /* GoalDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204A4CBD294F4F2400BBBB63 /* GoalDetailRepository.swift */; };
 		B52AEB1E28F59C7500923A86 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */; };
 		B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */; };
 		B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AEB2128F5C04200923A86 /* DottedLineView.swift */; };
@@ -169,6 +172,9 @@
 		02F37256289E9C7E00F361C7 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		02FCC3EE290BC242005F4D4A /* PhotoEditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditCoordinator.swift; sourceTree = "<group>"; };
 		02FCC3F1290D6035005F4D4A /* UITextField + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Utils.swift"; sourceTree = "<group>"; };
+		2004B89E294C2C64009AF21C /* GoalFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalFormView.swift; sourceTree = "<group>"; };
+		2004B8A0294C4623009AF21C /* GoalFormView + Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalFormView + Reactive.swift"; sourceTree = "<group>"; };
+		204A4CBD294F4F2400BBBB63 /* GoalDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailRepository.swift; sourceTree = "<group>"; };
 		B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
 		B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		B52AEB2128F5C04200923A86 /* DottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
@@ -401,6 +407,7 @@
 				B5CC800928ED79B2009665F8 /* Date + Strideable.swift */,
 				028A409229023B8300349F48 /* Data + Utils.swift */,
 				02FCC3F1290D6035005F4D4A /* UITextField + Utils.swift */,
+				2004B8A0294C4623009AF21C /* GoalFormView + Reactive.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -422,6 +429,7 @@
 			children = (
 				B52AEB1D28F59C7500923A86 /* GoalDetailViewModel.swift */,
 				B52AEB1F28F59CAC00923A86 /* GoalDetailViewController.swift */,
+				204A4CBD294F4F2400BBBB63 /* GoalDetailRepository.swift */,
 			);
 			path = GoalDetail;
 			sourceTree = "<group>";
@@ -524,6 +532,8 @@
 			children = (
 				B58EF87628B8BABC0075B295 /* BottomSheet.swift */,
 				B56AF74F28C59E18001C82C0 /* RangeSlider.swift */,
+				2004B89E294C2C64009AF21C /* GoalFormView.swift */,
+				B5B9413E28AF6F280098022F /* InsertField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -541,20 +551,11 @@
 		B5B9413A28AF6D3F0098022F /* GoalAdd */ = {
 			isa = PBXGroup;
 			children = (
-				B5B9413D28AF6F1D0098022F /* Views */,
 				B5B9413B28AF6DE60098022F /* GoalAddViewController.swift */,
 				B5B9414028AF7D5C0098022F /* GoalAddViewModel.swift */,
 				B5E3052228E73E450044B592 /* GoalAddRepository.swift */,
 			);
 			path = GoalAdd;
-			sourceTree = "<group>";
-		};
-		B5B9413D28AF6F1D0098022F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B5B9413E28AF6F280098022F /* InsertField.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		B5D131CC289A04E600EE1833 /* Coordinator */ = {
@@ -784,6 +785,7 @@
 				B52AEB2228F5C04200923A86 /* DottedLineView.swift in Sources */,
 				02376F5028C60ED40091D1B6 /* UIButton + setBackgroundColor.swift in Sources */,
 				027EA68328EC8D720097E802 /* StyleSelectCell.swift in Sources */,
+				2004B89F294C2C64009AF21C /* GoalFormView.swift in Sources */,
 				B5D131CE289A04F200EE1833 /* Coordinator.swift in Sources */,
 				B582574628BF3323001AE268 /* CertifiableTime.swift in Sources */,
 				B58EF87728B8BABC0075B295 /* BottomSheet.swift in Sources */,
@@ -856,10 +858,12 @@
 				02D30E7528C87EA600B5C4B2 /* MonthMetaData.swift in Sources */,
 				B569E9F42898D4A8006FFFB9 /* SceneDelegate.swift in Sources */,
 				B5D131D8289A0D7300EE1833 /* AlbumCoordinator.swift in Sources */,
+				2004B8A1294C4623009AF21C /* GoalFormView + Reactive.swift in Sources */,
 				02972D5D28B61E76008C097D /* Persistable.swift in Sources */,
 				B5D131E2289C2A1B00EE1833 /* GoalProgressView.swift in Sources */,
 				B5D131D6289A0D6B00EE1833 /* GoalCoordinator.swift in Sources */,
 				B5E64D6128FD0B33009B2191 /* CertPhotoCameraViewModel.swift in Sources */,
+				204A4CBE294F4F2400BBBB63 /* GoalDetailRepository.swift in Sources */,
 				B5F37E6C28E5DA92007FF5E5 /* BottomSheet + Reactive.swift in Sources */,
 				02F37254289E1EA200F361C7 /* PaddingLabel.swift in Sources */,
 				B52AEB2028F59CAC00923A86 /* GoalDetailViewController.swift in Sources */,

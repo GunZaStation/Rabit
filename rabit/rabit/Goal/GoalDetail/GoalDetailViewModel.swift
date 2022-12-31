@@ -34,10 +34,13 @@ final class GoalDetailViewModel: GoalDetailViewModelProtocol {
     let goalTitleOutput: BehaviorRelay<String>
     let goalSubtitleOutput: BehaviorRelay<String>
     
+    private let repository: GoalDetailRepositoryProtocol
     private let disposeBag = DisposeBag()
     
     init(navigation: GoalNavigation,
+         repository: GoalDetailRepositoryProtocol,
          goal: Goal) {
+        self.repository = repository
         
         goalTitleOutput = BehaviorRelay(value: goal.title)
         goalSubtitleOutput = BehaviorRelay(value: goal.subtitle)
@@ -59,6 +62,41 @@ private extension GoalDetailViewModel {
         showCertPhotoCameraView
             .map { goal }
             .bind(to: navigation.didTapCertPhotoCameraButton)
+            .disposed(by: disposeBag)
+        
+        let goalEditInfo = Observable
+            .combineLatest(goalTitleInput, goalSubtitleInput)
+            .map { (title, subtitle) -> Goal in
+                Goal(
+                    uuid: goal.uuid,
+                    title: title,
+                    subtitle: subtitle,
+                    progress: goal.progress,
+                    period: goal.period,
+                    certTime: goal.certTime,
+                    category: goal.category,
+                    createdDate: goal.createdDate
+                )
+            }
+            .share()
+        
+        saveButtonTouched
+            .withLatestFrom(goalEditInfo)
+            .withUnretained(self)
+            .flatMapLatest { viewModel, goal in
+                viewModel.repository.updateGoalDetail(goal)
+            }
+            .withUnretained(self)
+            .bind(onNext: { viewModel, result in
+                switch result {
+                case .success(let goalEditInfo):
+                    viewModel.goalTitleOutput.accept(goalEditInfo.title)
+                    viewModel.goalSubtitleOutput.accept(goalEditInfo.subtitle)
+                case .failure(_):
+                    viewModel.goalTitleOutput.accept(goal.title)
+                    viewModel.goalSubtitleOutput.accept(goal.subtitle)
+                }
+            })
             .disposed(by: disposeBag)
      }
 }

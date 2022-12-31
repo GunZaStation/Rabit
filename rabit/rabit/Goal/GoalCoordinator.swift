@@ -165,7 +165,7 @@ private extension GoalCoordinator {
     
     func pushGoalDetailViewController(with goal: Goal) {
         
-        let viewModel = GoalDetailViewModel(navigation: self, goal: goal)
+        let viewModel = GoalDetailViewModel(navigation: self, repository: GoalDetailRepository(), goal: goal)
         let viewController = GoalDetailViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }

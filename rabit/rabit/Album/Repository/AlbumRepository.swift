@@ -26,7 +26,7 @@ final class AlbumRepository: AlbumRepositoryProtocol {
 
         var result = true
         do {
-            try realmManager.update(entity: data.toEntity())
+            try realmManager.update(object: data)
         } catch {
             result = false
         }
